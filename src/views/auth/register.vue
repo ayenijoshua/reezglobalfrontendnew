@@ -66,7 +66,7 @@
                                         </div>
                                         <select required v-model="form.package_id" :disabled="false" class="form-control r-1 s-12" placeholder="Select Package" style="height:50px;">
                                             <option value="">Select Package</option>
-                                            <option v-for="regPackage,i in packages" :value="regPackage.id" :key="i">{{ regPackage.name }} - {{ regPackage.vip }} ({{regPackage.registration_value}})</option>
+                                            <option v-for="regPackage,i in regPackages" :value="regPackage.id" :key="i">{{ regPackage.name }} - {{ regPackage.vip }} ({{regPackage.registration_value}})</option>
                                         </select>	   
                                     </div>								
                                 </div>
@@ -184,7 +184,7 @@ export default {
             submitting:state=>state.submitting
         }),
 
-        ...mapGetters('packageStore',['packages'])
+        ...mapGetters('packageStore',['regPackages'])
 
     },
 
