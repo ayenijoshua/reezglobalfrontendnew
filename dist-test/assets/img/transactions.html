@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="zxx">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="capital Making Club is a unique multi-level marketing company which was borne out of passion to create a happiness and wealth for all.">
+    <meta name="author" content="">
+    <link rel="icon" href="assets/img/favicon.ico" type="image/x-icon">
+    <title>Dashboard | Transactions</title>
+    <!-- CSS -->
+    <link rel="stylesheet" href="assets/css/app.css">
+    <style>
+        .loader {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #F5F8FA;
+            z-index: 9998;
+            text-align: center;
+        }
+
+        .plane-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+        }
+		
+		.gift {
+		 width: 100%;
+		}
+		
+		.headerlogo {
+		 width: 100%;
+		}
+		
+
+		
+		
+    </style>
+    <!-- Js -->
+    <!--
+    --- Head Part - Use Jquery anywhere at page.
+    --- http://writing.colin-gourlay.com/safely-using-ready-before-including-jquery/
+    -->
+    <script>(function(w,d,u){w.readyQ=[];w.bindReadyQ=[];function p(x,y){if(x=="ready"){w.bindReadyQ.push(y);}else{w.readyQ.push(x);}};var a={ready:p,bind:p};w.$=w.jQuery=function(f){if(f===d||f===u){return a}else{p(f)}}})(window,document)</script>
+</head>
+<body class="light">
+<!-- Pre loader -->
+<div id="loader" class="loader">
+    <div class="plane-container">
+        <div class="preloader-wrapper small active">
+            <div class="spinner-layer spinner-blue">
+                <div class="circle-clipper left">
+                    <div class="circle"></div>
+                </div><div class="gap-patch">
+                <div class="circle"></div>
+            </div><div class="circle-clipper right">
+                <div class="circle"></div>
+            </div>
+            </div>
+
+            <div class="spinner-layer spinner-red">
+                <div class="circle-clipper left">
+                    <div class="circle"></div>
+                </div><div class="gap-patch">
+                <div class="circle"></div>
+            </div><div class="circle-clipper right">
+                <div class="circle"></div>
+            </div>
+            </div>
+
+            <div class="spinner-layer spinner-yellow">
+                <div class="circle-clipper left">
+                    <div class="circle"></div>
+                </div><div class="gap-patch">
+                <div class="circle"></div>
+            </div><div class="circle-clipper right">
+                <div class="circle"></div>
+            </div>
+            </div>
+
+            <div class="spinner-layer spinner-green">
+                <div class="circle-clipper left">
+                    <div class="circle"></div>
+                </div><div class="gap-patch">
+                <div class="circle"></div>
+            </div><div class="circle-clipper right">
+                <div class="circle"></div>
+            </div>
+            </div>
+        </div>
+    </div>
+</div>
+ 
+<div id="app">
+    <aside class="main-sidebar fixed offcanvas shadow" data-toggle='offcanvas'>
+		<section class="sidebar">
+			<div class="w-80px mt-3 mb-3 ml-3 ">
+				<img src="assets/img/deli_logo.png" alt="" style="max-width: 300%;">
+			</div>
+			<div class="relative">
+				<a data-toggle="collapse" href="#userSettingsCollapse" role="button" aria-expanded="false"
+				   aria-controls="userSettingsCollapse" class="btn-fab btn-fab-sm absolute fab-right-bottom fab-top  shadow1 " style="background-color:#2E671A">
+					<i class="icon icon-arrow-down"></i>
+				</a>
+				<div class="user-panel p-3 light mb-2">
+					<div>
+						<div class="float-left image">
+							<img class="user_avatar" src="assets/img/dummy/u2a.png" alt="User Image">
+						</div>
+						<div class="float-left info">
+							<h6 class="font-weight-light mt-2 mb-1" style="color:#2E671A">Innocent Aluu</h6>
+							<a class="text-success" href="#" ><i class="icon-circle text-success blink"></i> Online</a>
+						</div>
+					</div>
+					<div class="clearfix"></div>
+					<div class="collapse multi-collapse" id="userSettingsCollapse">
+						<div class="list-group mt-3 shadow">
+							<a href="index.html" class="list-group-item list-group-item-action"  data-toggle="modal" data-target="#exampleModal">
+								<i class="mr-2 icon icon-sign-out text-green"></i><span class="green-text">Logout</span>
+							</a>
+							<a href="#" class="list-group-item list-group-item-action"><i
+									class="mr-2 icon-lock3 text-green" style="font-size:20px"></i><span class="green-text">Change Password</span></a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<ul class="sidebar-menu">
+				<li class="treeview"><a href="#">
+					<i class="icon icon-barometer2 green-text s-18"></i><span class="green-text">Dashboard</span> 
+				</a>
+				</li>
+				<li class="treeview"><a href="#"><i class="icon icon-people green-text s-18"></i><span class="green-text">Members Details</span></a>
+				</li>
+				<li class="treeview ">
+					<a href="#">
+						<i class="icon icon-account_balance_wallet green-text s-18"></i><span class="green-text">Company Finance</span>
+					</a>
+				</li>
+				<li class="treeview active">
+					 <a class="green-text" href="#">
+						   <i class="icon icon-account_balance green-text s-18"></i>Transactions</i>
+					</a>
+				</li>
+				<li class="treeview">
+					<a href="#">
+						<i class="icon icon-gear green-text s-18"></i> <span class="text-green">System Settings</span><i
+                    class="icon icon-angle-left s-18 pull-right"></i>
+					</a>
+					<ul class="treeview-menu">
+						<li><a class="green-text" href=""><i class="icon icon-arrow-right"></i>PV & Packages Settings</a>
+						</li>
+						<li><a class="green-text" href=""><i class="icon icon-arrow-right "></i>Referral & Eligibles Settings</a>
+						</li>
+						<li><a class="green-text" href=""><i class="icon icon-arrow-right"></i>Ranks,Incentives & Bonus Settings</a>
+						</li>
+						<li><a class="green-text" href=""><i class="icon icon-arrow-right"></i>Investors Settings</a>
+						</li>
+					</ul>	
+				</li>
+				<li class="treeview">
+					<a href="#">
+						<i class="icon icon-chat_bubble green-text s-18"></i> <span class="text-green">Tasks Notification</span><span class="badge r-3 badge-success pull-right">4</span>
+					</a>
+					<ul class="treeview-menu">
+						<li ><a class="green-text" href=""><i class="icon icon-arrow-right"></i>Products Apporoval</a>
+						</li>
+						<li><a class="green-text" href=""><i class="icon icon-arrow-right "></i>Incentives Approval</a>
+						</li>
+					</ul>	
+				</li>
+				<li class="treeview"><a href="#">
+					<i class="icon icon-lock3 green-text s-18"></i>
+					<span class="green-text">Security</span>
+				</a>
+				</li>
+			</ul>
+		</section>
+    </aside>
+<!--Sidebar End-->
+<div class="has-sidebar-left">
+    <div class="pos-f-t">
+    <div class="collapse" id="navbarToggleExternalContent">
+        <div class="bg-dark pt-2 pb-2 pl-4 pr-2">
+            <div class="search-bar">
+                <input class="transparent s-24 text-white b-0 font-weight-lighter w-128 height-50" type="text"
+                       placeholder="start typing...">
+            </div>
+            <a href="#" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-expanded="false"
+               aria-label="Toggle navigation" class="paper-nav-toggle paper-nav-white active "><i></i></a>
+        </div>
+    </div>
+</div>
+    <div class="sticky">
+        <div class="navbar navbar-expand navbar-dark d-flex justify-content-between bd-navbar blue accent-3">
+            <div class="relative">
+                <a href="#" data-toggle="push-menu" class="paper-nav-toggle pp-nav-toggle">
+                    <i></i>
+                </a>
+            </div>
+            <!--Top Menu Start -->
+<div class="navbar-custom-menu">
+    <ul class="nav navbar-nav">
+        <!-- Messages-->
+        <li class="dropdown custom-dropdown messages-menu">
+            <a href="#" class="nav-link" data-toggle="dropdown">
+                   <i class="icon-mail-envelope-open6" style="color:#2E671A;"></i>
+                   <span class="badge badge-warning badge-mini rounded-circle">4</span>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-right">
+                <li>
+                    <!-- inner menu: contains the actual data -->
+                    <ul class="menu pl-2 pr-2">
+                        <!-- start message -->
+                        <li>
+                            <a href="#">
+                                <div class="avatar float-left">
+                                    <img  src="assets/img/dummy/deli.png" alt="">
+                                    <span class="avatar-badge online"></span>
+                                </div>
+                                <h4>
+                                    Support Team
+                                    <small><i class="icon icon-clock-o"></i> 5 mins</small>
+                                </h4>
+                                <p style="color:#2E671A;">Why not buy a new awesome theme?</p>
+                            </a>
+                        </li>
+                        <!-- end message -->
+                        <!-- start message -->
+                        <li>
+                            <a href="#">
+                                <div class="avatar float-left">
+                                    <img  src="assets/img/dummy/deli.png" alt="">
+                                    <span class="avatar-badge online"></span>
+                                </div>
+                                <h4>
+                                    Support Team
+                                    <small><i class="icon icon-clock-o"></i> 5 mins</small>
+                                </h4>
+                                <p class="green-text">Why not buy a new awesome theme?</p>
+                            </a>
+                        </li>
+                        <!-- end message -->
+                        <!-- start message -->
+                        <li>
+                            <a href="#">
+                                <div class="avatar float-left">
+                                    <img  src="assets/img/dummy/deli.png" alt="">
+                                    <span class="avatar-badge online"></span>
+                                </div>
+                                <h4>
+                                    Support Team
+                                    <small><i class="icon icon-clock-o"></i> 5 mins</small>
+                                </h4>
+                               <p class="green-text">Why not buy a new awesome theme?</p>
+                            </a>
+                        </li>
+                        <!-- end message -->
+                        <!-- start message -->
+                        <li>
+                            <a href="#">
+                                <div class="avatar float-left">
+                                    <img  src="assets/img/dummy/deli.png" alt="">
+                                    <span class="avatar-badge online"></span>
+                                </div>
+                                <h4>
+                                    Support Team
+                                    <small><i class="icon icon-clock-o"></i> 5 mins</small>
+                                </h4>
+                                <p class="green-text">Why not buy a new awesome theme?</p>
+                            </a>
+                        </li>
+                        <!-- end message -->
+                    </ul>
+                </li>
+                <li class="footer s-12 p-2 text-center"><a class="green-text" href="#">See All Messages</a></li>
+            </ul>
+        </li>
+        <!-- Notifications -->
+        <li class="dropdown custom-dropdown notifications-menu">
+            <a href="#" class=" nav-link" data-toggle="dropdown" aria-expanded="false">
+                <i class="icon-notifications" style="color:#2E671A;"></i>
+                <span class="badge badge-danger badge-mini rounded-circle">4</span>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-right">
+                <li class="header">You have 10 notifications</li>
+                <li>
+                    <!-- inner menu: contains the actual data -->
+                    <ul class="menu">
+                        <li>
+                            <a class="green-text" href="#">
+                                <i class="icon icon-data_usage text-success "></i> Withdrawal Successful!
+                            </a>
+                        </li>
+						<li>
+                            <a class="green-text" href="#">
+                                <i class="icon icon-data_usage text-success"></i> Withdrawal Successful!
+                            </a>
+                        </li>
+						<li>
+                            <a class="green-text" href="#">
+                                <i class="icon icon-data_usage text-success"></i> Withdrawal Successful!
+                            </a>
+                        </li>
+                        <li>
+                            <a class="text-red" href="#">
+                                <i class="icon icon-data_usage text-danger "></i> Withdrawal request declined!
+                            </a>
+                        </li>
+                        <li>
+                            <a class="green-text" href="#">
+                                <i class="icon icon-data_usage text-success green-text"></i> Registration Successful!
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="footer p-2 text-center"><a class="green-text" href="#">View all</a></li>
+            </ul>
+        </li>
+        <!-- Right Sidebar Toggle Button -->
+		<li>
+			<a href="#" class="nav-link ml-2" data-toggle="modal" data-target="#exampleModal">
+				<i class="icon icon-sign-out" style="color:#2E671A;" ></i>
+			</a>
+		</li>
+    </ul>
+</div>
+        </div>
+    </div>
+</div>
+
+<div class="page  has-sidebar-left height-full">
+    <header class="blue accent-3 relative">
+        <div class="container-fluid text-blue">
+            <div class="row justify-content-between">
+                <ul class="nav nav-material nav-material-white responsive-tab" id="v-pills-tab" role="tablist">
+                    <li>
+                        <a class="nav-link active border-right" id="v-pills-wallet-summary-tab" data-toggle="pill"  href="#v-pills-wallet-summary" role="tab" aria-controls="v-pills-wallet-sumary"><i class="icon icon-investment-3"></i>Withdrawal History</a> 
+                    </li>
+					<li>
+                          <a class="nav-link" id="v-pills-Withdrawal-History-tab" data-toggle="pill" href="#v-pills-Withdrawal-History" role="tab" aria-controls="v-pills-Withdrawal-History" aria-selected="false"><i class="icon icon-credit-card"></i>Registration History</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </header>
+        <div class="container-fluid animatedParent animateOnce my-3">
+            <div class="animated fadeInUpShort">
+                <div class="tab-content" id="v-pills-tabContent">
+                    <div class="tab-pane fade show active" id="v-pills-wallet-summary" role="tabpanel" aria-labelledby="v-pills-wallet-summary-tab">
+						<div class="row">
+							<div class="col-md-12">
+								<div class="row my-3">
+									<div class="col-lg-12">
+										<div class="counter-box p-40 text-white shadow2 r-5 flex-wrap" style="background-color: #ffff">
+											<div class="float-right">
+												<img  src="assets/img/cash-withdrawal.png" width="70px" height="70px">
+											</div>
+											<small class="mt-0 ml-2"><span style="color:#2E671A!important;">Total Withdrawals</span></small>
+											<p class="text-dark-heading font-weight-bold " style="color:#2E671A!important;">₦<span style="color:#2E671A!important;font-size:32px">57,550</span></p>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-12">
+								<div class="row my-3">
+									<!-- bar charts group -->
+									<div class="col-md-12">
+										<div class="card">
+											<div class="card-header bg-white">
+												<h4 class="green-text"><strong class="font-weight-bold">Withdrawal Details</strong></h4>
+											</div>
+											<div class="card-body" style="overflow-x:auto;">
+												<table id="example2" class="table table-bordered table-hover data-tables"
+													data-options='{ "paging": false; "searching":false}'>
+													  <thead>
+														<tr>
+															<th>S/N</th>
+															<th>Username</th>
+															<th>Amount</th>
+															<th>Payout Date</th>
+														</tr>
+													  </thead>
+													  <tbody>
+														 <tr>
+														<td>1</td>
+														<td>ogoikeyin</td>
+														<td>₦12,500</td>
+														<td>3,April 2020 - 10:24:43</td>
+													</tr>
+													<tr>
+														<td>2</td>
+														<td>ogoikeyin1</td>
+														<td>₦4,500</td>
+														<td>6,April 2020 - 10:24:43</td>
+													</tr>
+													<tr>
+														<td>3</td>
+														<td>Davidovie55</td>
+														<td>₦9,000</td>
+														<td>6,April 2020 - 10:24:43</td>
+													</tr>
+													<tr>
+														<td>4</td>
+														<td>ogoikeyin2</td>
+														<td>₦9,000</td>
+														<td>6,April 2020 - 10:24:43</td>
+													</tr>
+													<tr>
+														<td>5</td>
+														<td>Palmtree</td>
+														<td>₦19,000</td>
+														<td>6,April 2020 - 10:24:43</td>
+													</tr>
+													<tr>
+														<td>6</td>
+														<td>Palmtree1</td>
+														<td>₦8,000</td>
+														<td>6,April 2020 - 10:24:43</td>
+													</tr>
+													<tr>
+														<td>7</td>
+														<td>palmtree2</td>
+														<td>₦7,000</td>
+														<td>6,April 2020 - 10:24:43</td>
+													</tr>
+
+													  </tbody>
+												</table>
+
+											</div>
+										</div>
+									</div>
+									<!-- /bar charts group -->
+								</div>
+							</div>
+						</div>
+
+                    </div>
+					<div class="tab-pane fade" id="v-pills-Withdrawal-History" role="tabpanel" aria-labelledby="v-pills-Withdrawal-History-tab">
+						<div class="row">
+							<div class="col-md-12">
+								<div class="row my-3">
+									<div class="col-lg-12">
+										<div class="counter-box p-40 text-white shadow2 r-5 flex-wrap" style="background-color: #ffff">
+											<div class="float-right">
+											 <img src="assets/img/registration.png"  width="70px" height="70px">
+											</div>
+											<small class="mt-0 ml-2"><span style="color:#2E671A!important;">Total Registration</span></small>
+											<p class="text-dark-heading font-weight-bold " style="color:#2E671A!important;">₦<span style="color:#2E671A!important;font-size:32px">367,000</span></p>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-12">
+								<div class="row my-3">
+									<!-- bar charts group -->
+									<div class="col-md-12">
+										<div class="card">
+											<div class="card-header bg-white">
+												<h4 class="green-text"><strong class="font-weight-bold">Registration Details</strong></h4>
+											</div>
+											<div class="card-body" style="overflow-x:auto;">
+												<table id="example2" class="table table-bordered table-hover data-tables"
+													data-options='{ "paging": false; "searching":false}'>
+													  <thead>
+														<tr>
+															<th>S/N</th>
+															<th>Full Name</th>
+															<th>Username</th>
+															<th>Package</th>
+															<th>Amount</th>
+															<th>Registration Date</th>
+														</tr>
+													  </thead>
+													  <tbody>
+														 <tr>
+														<td>1</td>
+														<td>Kunle Oginkoya</td>
+														<td>ogoikeyin</td>
+														<td>VIP 1</td>
+														<td>₦20,200</td>
+														<td>1,April 2020 - 16:53:41</td>
+													</tr>
+													<tr>
+														<td>2</td>
+														<td>Remi Oginkoya</td>
+														<td>ogoikeyin1</td>
+														<td>VIP 1</td>
+														<td>₦20,200</td>
+														<td>1,April 2020 - 16:53:41</td>
+													</tr>
+													  </tbody>
+												</table>
+
+											</div>
+										</div>
+									</div>
+									<!-- /bar charts group -->
+								</div>
+							</div>
+						</div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+        </div>
+        
+        <div class="control-sidebar-bg shadow white fixed"></div>
+
+        <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                     
+                    </div>
+                    <div class="modal-body">
+                      <div class="ibox-content modalContent text-center" id="modalContent">
+                        Are you sure you want to log out?
+                        &nbsp;<a href="/login" class="btn btn-primary">Yes</a>
+                      </div>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                  </div><!-- /.modal-content -->
+                </div>
+            </div>
+    </div>
+    <!--/#app -->
+<script src="assets/js/app.js"></script>
+
+
+<!--
+--- Footer Part - Use Jquery anywhere at page.
+--- http://writing.colin-gourlay.com/safely-using-ready-before-including-jquery/
+-->
+<script>(function($,d){$.each(readyQ,function(i,f){$(f)});$.each(bindReadyQ,function(i,f){$(d).bind("ready",f)})})(jQuery,document)</script>
+
+ <!-- Sign Out Modal beginning -->
+	<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content border-0">   
+				<div class="modal-body p-0">
+					<div class="card border-0 p-sm-3 p-2 justify-content-center">
+						<div class="card-header pb-0 bg-white border-0 mb-2"><div class="row"><div class="col ml-auto"><button type="button" class="close" data-dismiss="modal" aria-label="Close"> <span aria-hidden="true">&times;</span> </button></div> </div>
+						<h6 ><span class="font-weight-bold "> Are you sure you want to signout ?</span><br><small>Confirm this is not a mistake.<small></h6>
+						</div>
+						<div class="card-body px-sm-4 mb-2 pt-1 pb-0"> 
+							<div class="row justify-content-end no-gutters">
+								<div class="col-auto mr-2">
+									<button type="button" class="btn btn-sm btn-success px-4" data-dismiss="modal">Confirm</button>
+								</div>
+								<div class="col-auto">
+									<button type="button" class="btn btn-sm btn-light text-muted" data-dismiss="modal">Cancel</button>
+								</div>
+							</div>
+						</div>
+					</div>  
+				</div>
+			</div>
+		</div>
+	</div>
+ <!-- Sign Out Modal End -->
+
+
+
+
+</body>
+
+
+</html>
