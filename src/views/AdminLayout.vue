@@ -121,24 +121,29 @@
                             <i class="icon icon-angle-left s-18 pull-right"></i>
                         </a>
                         <ul class="treeview-menu menu-open" style="display: block;">
-                            <!-- <li>
-                                <router-link :to="{name:'admin-providers'}" >
-                                    <i class="icon icon-circle-o"></i>Provider
+                            <li>
+                                <router-link :to="{name:'referral-bonus-settings'}">
+                                    <i class="icon icon-circle-o"></i>Referral Bonus Settings
                                 </router-link>
                             </li>
                             <li>
-                                <router-link :to="{name:'admin-product-services'}" >
-                                    <i class="icon icon-circle-o"></i>Product services
+                                <router-link :to="{name:'profit-pool-settings'}" >
+                                    <i class="icon icon-circle-o"></i>Profit Pool Settings
                                 </router-link>
                             </li>
                             <li>
-                                <router-link :to="{name:'admin-charges'}" >
-                                    <i class="icon icon-circle-o"></i>Charges & Fees
+                                <router-link :to="{name:'global-profit-settings'}" >
+                                    <i class="icon icon-circle-o"></i>Global Profit Settings
                                 </router-link>
-                            </li> -->
+                            </li>
                             <li>
                                 <router-link :to="{name:'bonus-settings'}" >
                                     <i class="icon icon-circle-o"></i>Bonus Settings
+                                </router-link>
+                            </li>
+                            <li>
+                                <router-link :to="{name:'withdrawal-settings'}" >
+                                    <i class="icon icon-circle-o"></i>Withdrawal Settings
                                 </router-link>
                             </li>
                         </ul>

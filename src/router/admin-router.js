@@ -11,6 +11,10 @@ import ProductRequests from '@/views/admin/ProductRequests'
 // import serviceProviders from '@/views/admin/serviceProvider'
 // import productServices from '@/views/admin/productServices'
 import BonusSettings from '@/views/admin/BonusSettings'
+import GlobalProfitSettings from '@/views/admin/GlobalProfitSettings'
+import ProfitPoolSettings from '@/views/admin/ProfitPoolSettings'
+import ReferralBonusSettings from '@/views/admin/ReferralBonusSettings'
+import WithdrawalSettings from '@/views/admin/WithdrawalSettings'
 // import conversionRates from '@/views/admin/conversionRates'
 
 export default [
@@ -107,6 +111,43 @@ export default [
             path:'packages',
             name:'admin-packages',
             component:Packages,
+            meta:{
+                isAdmin:true,
+                requiresAuth:true
+            },
+          },
+
+          {
+            path:'profit-pool-settings',
+            name:'profit-pool-settings',
+            component:ProfitPoolSettings,
+            meta:{
+                isAdmin:true,
+                requiresAuth:true
+            },
+          },
+          {
+            path:'global-profit-settings',
+            name:'global-profit-settings',
+            component:GlobalProfitSettings,
+            meta:{
+                isAdmin:true,
+                requiresAuth:true
+            },
+          },
+          {
+            path:'referral-bonus-settings',
+            name:'referral-bonus-settings',
+            component:ReferralBonusSettings,
+            meta:{
+                isAdmin:true,
+                requiresAuth:true
+            },
+          },
+          {
+            path:'withdrawal-settings',
+            name:'withdrawal-settings',
+            component:WithdrawalSettings,
             meta:{
                 isAdmin:true,
                 requiresAuth:true
