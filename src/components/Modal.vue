@@ -10,6 +10,10 @@
   </b-modal>
 </template>
 
+<style>
+    @import url('../../node_modules/bootstrap/dist/css/bootstrap.css');
+</style>
+
 <script>
 export default {
     name:"a-modal",

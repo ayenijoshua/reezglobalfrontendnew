@@ -50,8 +50,8 @@
                                                             <td>₦{{ loyaltyBonus }}</td>
                                                             <td>₦{{ profitPool }}</td>
                                                             <td>₦{{ globalProfit }}</td>
-                                                            <td>₦57,500</td>
-                                                            <td>₦131,800</td>
+                                                            <td>₦{{ userTotalWithdrawals }}</td>
+                                                            <td>₦{{ walletBalance }}</td>
                                                             </tr>
                                                         </tbody>
                                                     </table>
@@ -84,30 +84,28 @@
                                                         </tr>
                                                         </thead>
                                                         <tbody>
-                                                        <tr>
-                                                            <td>1</td>
-                                                            <td>₦4,900</td>
-                                                            <td><span class="badge text-white bg-green"><i class="icon icon-check" ></i>&nbsp;&nbsp;Eligible</span></td>
-                                                            <td>4</td>
-                                                            <td><span class="badge text-white bg-green"><i class="icon icon-check" ></i>&nbsp;&nbsp;Approved</span></td>
-                                                            <td>13 March, 2023</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>2</td>
-                                                            <td>₦0</td>
-                                                            <td><span class="badge text-white bg-red"><i class="icon icon-close" ></i>&nbsp;&nbsp;Not Eligible</span></td>
-                                                            <td>2</td>
-                                                            <td><span class="badge text-white bg-red"><i class="icon icon-close" ></i>&nbsp;&nbsp;Not Approved</span></td>
-                                                            <td>14 April, 2023</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>3</td>
-                                                            <td>₦4,900</td>
-                                                            <td><span class="badge text-white bg-green"><i class="icon icon-check" ></i>&nbsp;&nbsp;Eligible</span></td>
-                                                            <td>4</td>
-                                                            <td><span class="badge text-white bg-green"><i class="icon icon-check" ></i>&nbsp;&nbsp;Approved</span></td>
-                                                            <td>13 May, 2023</td>
-                                                        </tr>
+                                                            <tr v-if="loading">
+                                                                <td colspan="6">
+                                                                    <b-skeleton-table
+                                                                        :rows="3"
+                                                                        :columns="6"
+                                                                        :table-props="{ bordered: true, striped: true }"
+                                                                    ></b-skeleton-table>
+                                                                </td>
+                                                            </tr>
+                                                            <template v-else>
+                                                                <tr v-if="profitPools.length == 0">
+                                                                    <td colspan="4">There are no profit pools</td>
+                                                                </tr>
+                                                                <tr v-else v-for="pool,i in profitPools" :key="i">
+                                                                    <td>{{ ++i }}</td>
+                                                                    <td>₦{{ pool.value }}</td>
+                                                                    <td><span class="badge text-white bg-green"><i class="icon icon-check" ></i>&nbsp;&nbsp;Eligible</span></td>
+                                                                    <td>4</td>
+                                                                    <td><span class="badge text-white bg-green"><i class="icon icon-check" ></i>&nbsp;&nbsp;Approved</span></td>
+                                                                    <td>{{ pool.created_at }}</td>
+                                                                </tr>
+                                                            </template>
                                                         </tbody>
                                                     </table>
                                                 </div>
@@ -133,16 +131,28 @@
                                                             <th scope="col">Recieved Months</th>
                                                             <th scope="col">Global Profit Sharing</th>
                                                             <th scope="col">Date</th>
-                                                            <th scope="col">Time</th>
                                                         </tr>
                                                         </thead>
                                                         <tbody>
-                                                        <tr>
-                                                            <td>1</td>
-                                                            <td>₦259,900</td>
-                                                            <td>13 March, 2023</td>
-                                                            <td>9:37am</td>
-                                                        </tr>
+                                                            <tr v-if="loading">
+                                                                <td colspan="3">
+                                                                    <b-skeleton-table
+                                                                        :rows="3"
+                                                                        :columns="5"
+                                                                        :table-props="{ bordered: true, striped: true }"
+                                                                    ></b-skeleton-table>
+                                                                </td>
+                                                            </tr>
+                                                            <template v-else>
+                                                                <tr v-if="globalProfits.length == 0">
+                                                                    <td colspan="4">There are no global profits</td>
+                                                                </tr>
+                                                                <tr v-else v-for="globProfit,i in globalProfits" :key="i">
+                                                                    <td>{{ ++i }}</td>
+                                                                    <td>₦{{ globProfit.profit }}</td>
+                                                                    <td>{{ globProfit.created_at }}</td>
+                                                                </tr>
+                                                            </template>
                                                         </tbody>
                                                     </table>
                                                 </div>
@@ -167,13 +177,17 @@
                                                 </div>
                                             </div>
                                             <div class="card-body text-center">
-                                                <h1 class="font-weight-bold text-green" style="margin: 0em; padding: 0em;">₦131,800</h1>
+                                                <h1 class="font-weight-bold text-green" style="margin: 0em; padding: 0em;">₦{{ walletBalance }}</h1>
                                                 <small class="s-8" style="margin: 0em; padding: 0em;" >Available Balance</small>
                                             </div>  
                                         </div>
+                                        
                                         <div class="card-footer bg-white">
-                                            <input type="hidden" name="id" value="960">
-                                            <button type="submit" class="btn btn-sm btn-success"><i class="icon-account_balance_wallet mr-2"></i>Withdraw</button>
+                                            <form @submit.prevent="processWithdrawal()">
+                                                <input type="number" min="1" required v-model="form.amount" class="form-control input-lg mb-3" placeholder="withdrawal amount"/>
+                                                <span v-if="submitting" class="btn btn-sm btn-success">...</span>
+                                                <button v-else type="submit" class="btn btn-sm btn-success"><i class="icon-account_balance_wallet mr-2"></i>Withdraw</button>
+                                            </form>
                                         </div>
                                     </div>
                                     <div class="card no-b">
@@ -207,32 +221,34 @@
                                                                 <thead>
                                                                 <tr>
                                                                     <th scope="col">S/N</th>
-                                                                    <th scope="col">Date <i class="icon icon-date_range  s-10"></i></th>
-                                                                    <th scope="col">Time <i class="icon icon-clock-o  s-10"></i></th>
-                                                                    <th scope="col">Withdrawal <i class="icon icon-money-bag  s-10"></i></th>
+                                                                    <th scope="col">Amount <i class="icon icon-money-bag s-10"></i></th>
+                                                                    <th scope="col">Status <i class="icon icon-money-bag s-10"></i></th>
+                                                                    <th scope="col">Date <i class="icon icon-date_range s-10"></i></th>
                                                                 </tr>
                                                                 </thead>
                                                                 <tbody>
-                                                                <tr>
-                                                                    <td>1</td>
-                                                                    <td>October 20, 2022</td>
-                                                                    <td>5:50pm</td>
-                                                                    <td>₦24,900</td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td>2</td>
-                                                                    <td>December 2, 2022</td>
-                                                                    <td>5:50pm</td>
-                                                                    <td>₦14,900</td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td>3</td>
-                                                                    <td>January 22, 2023</td>
-                                                                    <td>2:50pm</td>
-                                                                    <td>₦14,900</td>
-                                                                </tr>																	
-                                                                <tr><th colspan="3">	Total withdrawals (TW)</th><td>₦57,500</td></tr>  
+                                                                    <tr v-if="loading">
+                                                                        <td colspan="4">
+                                                                            <b-skeleton-table
+                                                                                :rows="3"
+                                                                                :columns="3"
+                                                                                :table-props="{ bordered: true, striped: true }"
+                                                                            ></b-skeleton-table>
+                                                                        </td>
+                                                                    </tr>
 
+                                                                    <template v-else>
+                                                                        <tr v-if="userWithdrawals.length == 0">
+                                                                            <td colspan="4">There are no withdrawals</td>
+                                                                        </tr>
+                                                                        <tr v-else v-for="withdraw,i in userWithdrawals" :key="i">
+                                                                            <td>{{ ++i }}</td>
+                                                                            <td>₦{{ withdraw.amount }}</td>
+                                                                            <td>{{ withdraw.status }}</td>
+                                                                            <td>{{ withdraw.created_at }}</td>
+                                                                        </tr>
+                                                                    </template>
+                                                                    <tr><th colspan="3">Total withdrawals (TW)</th><td>₦{{ userTotalWithdrawals }}</td></tr>
                                                                 </tbody>
                                                             </table>
                                                         </div>
@@ -259,7 +275,10 @@
 
         data(){
             return{
-
+                form:{
+                    amount:''
+                }
+                
             }
         },
 
@@ -272,25 +291,36 @@
             ...mapGetters('authUser',['authUser']),
             ...mapGetters('bonusStore',['welcomeBonus',
                 'equilibrumBonus','loyaltyBonus','referralBonus',
-                'profitPool','globalProfit','totalBonus']),
+                'profitPool','profitPools','globalProfit',
+                'globalProfits','totalBonus','walletBalance']),
             ...mapGetters('authStore',['authUser']),
+            ...mapGetters('withdrawalStore',['userWithdrawals','userTotalWithdrawals']),
         },
 
         created(){
             if(Object.entries(this.authUser).length == 0){
                 this.getUser().then(res=>{
                     this.getBonuses(res.data.uuid)
+                    this.getUserTotal(res.data.uuid)
+                    this.getUserHistory(res.data.uuid)
                 })
             }else{
-                this.getBonuses(this.authUser.data.uuid)
+                this.getBonuses(this.authUser.uuid)
+                this.getUserTotal(this.authUser.uuid)
+                this.getUserHistory(this.authUser.uuid)
             }
         },
 
         methods:{
             ...mapActions('bonusStore',['getWelcomeBonus',
                 'getEquilibrumBonus','getLoyaltyBonus','getReferralBonus',
-                'getProfitPool','getGlobalProfit','getPlacementBonus','getTotalBonus']),
+                'getProfitPool','getProfitPools','getGlobalProfit',
+                'getGlobalProfits','getPlacementBonus',
+                'getTotalBonus','getWalletBalance']),
+
                 ...mapActions('authStore',['getUser']),
+
+                ...mapActions('withdrawalStore',['getUserTotal','getUserHistory','initiate']),
 
             getBonuses(uuid){
                 this.getWelcomeBonus(uuid)
@@ -302,6 +332,15 @@
                 //this.getTotalPVs(uuid)
                 this.getProfitPool(uuid)
                 this.getGlobalProfit(uuid)
+                this.getProfitPools(uuid)
+                this.getGlobalProfits(uuid)
+                this.getWalletBalance(uuid)
+            },
+
+            processWithdrawal()
+            {
+                let data = {uuid:this.authUser.uuid,data:this.form}
+                this.initiate(data)
             }
         }
     }

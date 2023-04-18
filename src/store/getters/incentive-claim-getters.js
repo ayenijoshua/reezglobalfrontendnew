@@ -7,5 +7,9 @@ export default {
 
     claims(state){
         return state.claims
+    },
+
+    currentIncentive(state){
+        return state.currentIncentive
     }
 }

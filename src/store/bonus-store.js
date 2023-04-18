@@ -17,7 +17,19 @@ export default{
             globalProfit:null,
             profitPools:[],
             globalProfits:[],
-            //totalBonus:null
+            walletBalance:null,
+            totalEquilibrumBonus:null,
+            totalLoyaltyBonus:null,
+            totalProfitPoolBonus:null,
+            totalGlobalProfitBonus:null,
+
+            countEquilibrumBonus:null,
+            countLoyaltyBonus:null,
+            countProfitPoolBonus:null,
+            countGlobalProfitBonus:null,
+
+            companyWalletBalance:null,
+            totalCompanyWallet:null
         }
     },
     actions:{

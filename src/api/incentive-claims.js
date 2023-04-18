@@ -7,8 +7,8 @@ export default {
         return http().get(`${endPoints.incentiveClaims}/all`)
     },
 
-    create(data){
-        return http().post(`${endPoints.incentiveClaims}/create`,data)
+    create(uuid,data){
+        return http().post(`${endPoints.incentiveClaims}/${uuid}/create`,data)
     },
 
     approve(id){
@@ -21,5 +21,9 @@ export default {
 
     claims(uuid){
         return http().get(`${endPoints.incentiveClaims}/${uuid}/claims`);
+    },
+
+    currentIncentive(uuid){
+        return http().get(`${endPoints.incentiveClaims}/${uuid}/current-incentive`);
     }
 }

@@ -8,7 +8,8 @@ export default{
     state(){
         return{
             incentiveClaims:[],
-            claims:[]
+            claims:[],
+            currentIncentive:null
         }
     },
     actions:{

@@ -10,11 +10,12 @@ export default {
             commit('loading',null,{root:true})
             const res = await api.all()
             if(res && res.status==200){
-                commit('incentives',res.data)
+                commit('incentives',res.data.data.data)
             }else{
                 toastr.warning(res.data.message)
             }
             commit('loaded',null,{root:true})
+            return res
         } catch (error) {
             LogError(commit,error,'loaded')
         }
@@ -46,6 +47,7 @@ export default {
                 toastr.warning(res.data.message)
             }
             commit('submitted',null,{root:true})
+            return res
         } catch (err) {
             LogError(commit,err,'submitted')
         }

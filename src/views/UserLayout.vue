@@ -1,9 +1,9 @@
 <template>
     <div id="app">
         <aside class="main-sidebar fixed offcanvas shadow" data-toggle='offcanvas' >
-            <section class="sidebar" >
+            <section class="sidebar" style="height: 821px; overflow: hidden; width: auto;">
                 <div class="w-80px mt-3 mb-3 ml-3">
-                    <img src="/assets/img/deli_logo.png" width="200" height="90" alt="logo">
+                    <img src="/assets/img/deli_logo.png" alt="" style="max-width: 300%;">
                 </div>
                 <div class="relative">
                     <a data-toggle="collapse" href="#userSettingsCollapse" role="button" aria-expanded="false"
@@ -28,7 +28,7 @@
                                     <span class="green-text" v-b-modal.logOut>Logout</span>
                                 </a>
                                 <router-link :to="{name:'user-security'}" class="list-group-item list-group-item-action">
-                                    <i class="mr-2 icon-key5 text-blue"></i><span class="green-text">Change Password</span>
+                                    <i class="mr-2 icon-lock3 text-green"></i><span class="green-text">Change Password</span>
                                 </router-link>
                             </div>
                         </div>
@@ -42,22 +42,22 @@
                     </li>
                     <li :class="['treeview', activeMenu()=='user-profile' ? 'active' : '']" @click="setMenu('user-profile')">
                         <router-link :to="{name:'user-profile'}" >
-                            <i class="icon icon-profile green-text s-18"></i><span class="green-text">Profile</span> 
-                        </router-link>
-                    </li>
-                    <li :class="['treeview', activeMenu()=='user-genealogy' ? 'active' : '']" @click="setMenu('user-genealogy')">
-                        <router-link :to="{name:'user-genealogy'}" >
-                            <i class="icon icon-verified_user green-text s-18"></i><span class="green-text">Genealogy</span> 
-                        </router-link>
-                    </li>
-                    <li :class="['treeview', activeMenu()=='user-wallet' ? 'active' : '']" @click="setMenu('user-wallet')">
-                        <router-link :to="{name:'user-wallet'}">
-                            <i class="icon icon-wallet green-text s-18"></i><span class="green-text">Wallet</span> 
+                            <i class="icon icon-vcard green-text s-18"></i><span class="green-text">Profile</span> 
                         </router-link>
                     </li>
                     <li :class="['treeview', activeMenu()=='user-downlines' ? 'active' : '']" @click="setMenu('user-downlines')">
                         <router-link :to="{name:'user-downlines'}" >
-                            <i class="icon icon-bank green-text s-18"></i><span class="green-text">Notification</span> 
+                            <i class="icon icon-people green-text s-18"></i><span class="green-text">Downlines</span> 
+                        </router-link>
+                    </li>
+                    <li :class="['treeview', activeMenu()=='user-genealogy' ? 'active' : '']" @click="setMenu('user-genealogy')">
+                        <router-link :to="{name:'user-genealogy'}" >
+                            <i class="icon icon-sitemap green-text s-18"></i><span class="green-text">Genealogy</span> 
+                        </router-link>
+                    </li>
+                    <li :class="['treeview', activeMenu()=='user-wallet' ? 'active' : '']" @click="setMenu('user-wallet')">
+                        <router-link :to="{name:'user-wallet'}">
+                            <i class="icon icon-account_balance green-text s-18"></i><span class="green-text">Transactions</span> 
                         </router-link>
                     </li>
                     
@@ -131,11 +131,23 @@
 
         <div class="control-sidebar-bg shadow white fixed"></div>
 
-         <modal :modalId="'logOut'" :modalSize="'sm'" :modalTitle="'Log out'">
-             <div class="alert alert-danger">
-                 Are you sure you want to log out?
-                 <button class="btn btn-danger" @click="logOut()">Yes</button>
-             </div>
+         <modal :modalId="'logOut'" :modalSize="'md'" :modalTitle="''">
+            <div class="card border-0 p-sm-3 p-2 justify-content-center">
+                <div class="card-header pb-0 bg-white border-0 mb-2">
+                <h6 ><span class="font-weight-bold"> Are you sure you want to signout ?</span>
+                    <br><small>Confirm this is not a mistake.</small></h6>
+                </div>
+                <div class="card-body px-sm-4 mb-2 pt-1 pb-0"> 
+                    <div class="row justify-content-end no-gutters">
+                        <div class="col-auto mr-2">
+                            <button type="button" class="btn btn-sm btn-success px-4" @click="logOut()" data-dismiss="modal">Confirm</button>
+                        </div>
+                        <div class="col-auto">
+                            <button type="button" class="btn btn-sm btn-light text-muted" data-dismiss="modal">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            </div>  
          </modal>
     </div>
 </template>
@@ -169,11 +181,11 @@ export default {
     methods:{
         ...mapActions('authStore',['logOut','getUser']),
 
-        setMenu(){
-            //this.$store.state.activeMenu = 'dashboard'
+        setMenu(menu='dashboard'){
+            this.$store.state.activeMenu = menu
         },
         activeMenu(){
-            return 'dashboard' //this.$store.state.activeMenu
+            return this.$store.state.activeMenu
         }
     }
     

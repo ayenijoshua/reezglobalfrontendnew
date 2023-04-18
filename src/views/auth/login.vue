@@ -1,7 +1,7 @@
 <template>
     <div id="">
         <main>
-            <div class="p-t-b-100 height-full bg-green" style="background-image: url('assets/img/bg-wall2.png');">
+            <div class="p-t-b-100 height-full bg-green" style="background-image: url('assets/img/bg-wall2.png')">
                 <div class="container">
                     <div class="row">
                         <div class="col-lg-7 mx-md-auto">
@@ -26,7 +26,7 @@
                                     </div>
 
                                     <div class="col-lg-12">
-                                        <span v-if="submitting" class="btn btn-success btn-lg btn-block">...</span>
+                                        <span v-if="submitting && logSubmitting" class="btn btn-success btn-lg btn-block">...</span>
                                         <input v-else type="submit" class="btn btn-success btn-lg btn-block" value="Login"/>
                                     </div>
                                     
@@ -53,12 +53,12 @@
                                     <form @submit.prevent="submitReset()">
                                         <div class="col-lg-12">
                                             <div class="form-group has-icon"><i class="icon-envelope-o"></i>
-                                                <input type="text" class="form-control form-control-lg no-b"
+                                                <input v-model="reset_form.email" required type="text" class="form-control form-control-lg no-b"
                                                     placeholder="Enter Your Email">
                                             </div>
                                         </div>
                                         <div class="col-lg-12 text-center">
-                                            <span v-if="submitting" class="btn btn-success btn-lg btn-block">...</span>
+                                            <span v-if="submitting && resetSubmitting" class="btn btn-success btn-lg btn-block">...</span>
                                             <input v-else type="submit" class="btn btn-success btn-lg btn-block" value="Reset Password">
                                         </div>
                                     </form>
@@ -85,7 +85,10 @@ export default {
             reset_form:{
                 email:null,
                 user_type:'user'
-            }
+            },
+
+            resetSubmitting:false,
+            logSubmitting:false
         }
     },
 
@@ -99,12 +102,13 @@ export default {
         ...mapActions('authStore',['login','resetPasswordLink']),
 
         loginUser(){
-            //this.$router.push({name:'dashboard'})
-            this.login(this.form)
+            this.logSubmitting = true
+            this.login(this.form).then(()=>this.logSubmitting = false)
         },
 
         submitReset(){
-            this.resetPasswordLink(this.reset_form)
+            this.resetSubmitting = true
+            this.resetPasswordLink(this.reset_form).then(()=>this.resetSubmitting = false)
         }
     }
 }

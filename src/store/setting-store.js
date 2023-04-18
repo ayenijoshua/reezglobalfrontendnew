@@ -9,6 +9,7 @@ export default{
         return{
             settings:{},
             setting:{},
+            referralBonusSetting:[]
         }
     },
     actions:{

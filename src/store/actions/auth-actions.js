@@ -16,6 +16,13 @@ export default {
                     commit('submitted',null,{root:true})
                     return
                 }
+
+                if(res.data.data.enable_2fa == true){
+                    vm.$router.push({name:'user-two-factor-auth',query:{email:data.username}})
+                    commit('submitted',null,{root:true})
+                    return
+                }
+
                 if(res.data.data.payment.status == 'approved'){
                     vm.$router.push({name:'user-dashboard'})
                 }else{
@@ -41,8 +48,54 @@ export default {
             if(res && res.status==200){
                 res.data.token = res.data.data.access_token
                 res.data.isAdmin = true
-                commit('authUser',res.data)
+
+                if(res.data.data.enable_2fa == true){
+                    vm.$router.push({name:'admin-two-factor-auth',query:{email:data.email}})
+                    commit('submitted',null,{root:true})
+                    return
+                }
+
+                commit('authUser',res.data.data)
                 vm.$router.push({name:'admin-dashboard'})
+            }else{
+                toastr.warning(res.data.message)
+            }
+        commit('submitted',null,{root:true})
+        } catch (error) {
+            LogError(commit,error,'submitted')
+        }
+    },
+
+    async sendTwoFactorAuthMail({commit},data){
+        try {
+            commit('submitting',null,{root:true})
+            const res = await api.send2faVerificatioEmail(data)
+            if(res && res.status==200){
+                toastr.success(res.data.message)
+            }else{
+                toastr.warning(res.data.message)
+            }
+        commit('submitted',null,{root:true})
+        } catch (error) {
+            LogError(commit,error,'submitted')
+        }
+    },
+
+    async twoFactorAuth({commit},data){
+        try {
+            commit('submitting',null,{root:true})
+            const res = await api.twoFactorAuth(data)
+            if(res && res.status==200){
+                res.data.token = res.data.data.access_token
+                //res.data.isAdmin = true
+                commit('authUser',res.data.data)
+                if(res.data.data.is_admin){
+                    //res.data.isAdmin = true
+                    vm.$router.push({name:'admin-dashboard'})
+                }else{
+                    vm.$router.push({name:'user-dashboard'})
+                }
+                
             }else{
                 toastr.warning(res.data.message)
             }
@@ -96,15 +149,16 @@ export default {
         }
     },
 
-    async logOut({commit},id){
+    async logOut({commit}){
         try {
             commit('submitting',null,{root:true})
-            console.log(id)
+            //console.log(id)
             //const res = await api.logOut(id)
             //if(res.status==200){
                 //toastr.success('Logged out successfully')
-                let authrUser = store.getters['authStore/authUser']
-                if(authrUser.isAdmin != undefined){
+                let authUser = store.getters['authStore/authUser']
+                console.log(authUser)
+                if(authUser.is_admin != undefined){
                     vm.$router.push({name:'admin-login'})
                 }else{
                     vm.$router.push({name:'user-login'})
@@ -202,6 +256,51 @@ export default {
             const res = await api.changePassword(data)
             if(res && res.status==200){
                 toastr.success('password has been changed successfully')
+            }else{
+                toastr.error(res.data.message)
+            }
+        commit('submitted',null,{root:true})
+        } catch (error) {
+            LogError(commit,error,'submitted')
+        }
+    },
+
+    async changeUserPassword({commit},{uuid,data}){
+        try {
+            commit('submitting',null,{root:true})
+            const res = await api.changeUserPassword(uuid,data)
+            if(res && res.status==200){
+                toastr.success('user password has been changed successfully')
+            }else{
+                toastr.error(res.data.message)
+            }
+        commit('submitted',null,{root:true})
+        } catch (error) {
+            LogError(commit,error,'submitted')
+        }
+    },
+
+    async toggleAdmin2fa({commit},data){
+        try {
+            commit('submitting',null,{root:true})
+            const res = await api.toggleAdmin2fa(data)
+            if(res && res.status==200){
+                toastr.success('2fa toggled successfully')
+            }else{
+                toastr.error(res.data.message)
+            }
+        commit('submitted',null,{root:true})
+        } catch (error) {
+            LogError(commit,error,'submitted')
+        }
+    },
+
+    async send2faVerificationCode({commit},data){
+        try {
+            commit('submitting',null,{root:true})
+            const res = await api.send2faVerificatioEmail(data)
+            if(res && res.status==200){
+                toastr.success('2fa toggled successfully')
             }else{
                 toastr.error(res.data.message)
             }

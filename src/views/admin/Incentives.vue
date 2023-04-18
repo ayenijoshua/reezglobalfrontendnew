@@ -13,103 +13,59 @@
                                     <th>S/N</th>
                                     <th>Ranks/Levels</th>
                                     <th>Cumulated Point Value (CPV)</th>
-                                    <th>Bonus(%)</th>
+                                    <!-- <th>Bonus(%)</th> -->
                                     <th>Incentive</th>
                                     <th>Cash Equivalent</th>
                                     <th>Display</th>
                                     <th>Edit Details</th>
                                 </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>PAND</td>
-                                    <td>600</td>
-                                    <td>5%</td>
-                                    <td>Smart Phone</td>
-                                    <td>₦126,000</td>
-                                    <td><img class="gift" src="/assets/img/phone.png" style="width:100px" ></td>
-                                    <td>
-                                        <a class="btn btn-sm btn-success text-white caret" href="#" data-toggle="modal" data-target="#ranksModal"><i class="icon-edit"></i></a>
+                                <tr v-if="loading && incentiveLoading">
+                                    <td colspan="8">
+                                        <b-skeleton-table
+                                            :rows="3"
+                                            :columns="6"
+                                            :table-props="{ bordered: true, striped: true }"
+                                        ></b-skeleton-table>
                                     </td>
                                 </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td>ROOKIE</td>
-                                    <td>1,200</td>
-                                    <td>5%</td>
-                                    <td></td>
-                                    <td>₦252,000</td>
-                                    <td></td>
-                                    <td>
-                                        <a class="btn btn-sm btn-success text-white caret" href="#" data-toggle="modal" data-target="#ranksModal"><i class="icon-edit"></i></a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>3</td>
-                                    <td>BISHOP</td>
-                                    <td>3600</td>
-                                    <td>5%</td>
-                                    <td></td>
-                                    <td>₦756,000</td>
-                                    <td></td>
-                                    <td>
-                                        <a class="btn btn-sm btn-success text-white caret" href="#" data-toggle="modal" data-target="#ranksModal"><i class="icon-edit"></i></a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>4</td>
-                                    <td>LEADER</td>
-                                    <td>14,400</td>
-                                    <td>5%</td>
-                                    <td>Dubai Trip</td>
-                                    <td>₦3,024,000</td>
-                                    <td><img class="gift rounded" src="/assets/img/dubai.png" style="width:100px" ></td>
-                                    <td>
-                                        <a class="btn btn-sm btn-success text-white caret" href="#" data-toggle="modal" data-target="#ranksModal"><i class="icon-edit"></i></a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>5</td>
-                                    <td>MASTER</td>
-                                    <td>32,400</td>
-                                    <td>5%</td>
-                                    <td>Car</td>
-                                    <td>₦6,804,000</td>
-                                    <td><img class="gift" src="/assets/img/car.png" style="width:100px" ></td>
-                                    <td>
-                                        <a class="btn btn-sm btn-success text-white caret" href="#" data-toggle="modal" data-target="#ranksModal"><i class="icon-edit"></i></a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>6</td>
-                                    <td>GRAND MASTER</td>
-                                    <td>97,200</td>
-                                    <td>5%</td>
-                                    <td>SUV</td>
-                                    <td>₦20,412,000</td>
-                                    <td><img class="gift" src="/assets/img/suv.png" style="width:100px" ></td>
-                                    <td>
-                                        <a class="btn btn-sm btn-success text-white caret" href="#" data-toggle="modal" data-target="#ranksModal"><i class="icon-edit"></i></a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>7</td>
-                                    <td>ALPHA</td>
-                                    <td>388,800</td>
-                                    <td>5%</td>
-                                    <td>Detached Duplex</td>
-                                    <td>₦81,648,000</td>
-                                    <td><img class="gift rounded" src="/assets/img/duplex.png" style="width:100px" ></td>
-                                    <td>
-                                        <a class="btn btn-sm btn-success text-white caret" href="#" data-toggle="modal" data-target="#ranksModal"><i class="icon-edit"></i></a>
-                                    </td>
-                                </tr>
+                                <template v-else>
+                                    <tr v-if="incentives.length == 0">
+                                        <td colspan="8">
+                                            <div class="alert alert-info">There are no incentives</div>
+                                        </td>
+                                    </tr>
+                                    <tr v-else v-for="ince,i in incentives" :key="i">
+                                        <td>{{ ++i }}</td>
+                                        <td>{{ ince.name }}</td>
+                                        <td>{{ ince.points }}</td>
+                                        <td>{{ ince.incentive }}</td>
+                                        <td>₦{{ ince.worth }}</td>
+                                        <td>
+                                            <img v-if="ince.file_path" class="gift" :src="imageURL+'/'+ince.file_path" style="width:100px" >
+                                        </td>
+                                        <td>
+                                            <a @click="setIncentive(ince)" class="btn btn-sm btn-success text-white caret" v-b-modal.edit-incentive href="#"><i class="icon-edit"></i></a>
+                                        </td>
+                                    </tr>
+                                </template>
                             </table>
                         </div>
                     </div>
                 </div>
             </div>
+
+            <Modal modal-id="edit-incentive" modal-title="Incentive details" modal-size="md">
+                <template v-if="incentive==null">
+                    <b-skeleton-table
+                        :rows="3"
+                        :columns="8"
+                        :table-props="{ bordered: true, striped: true }"
+                    ></b-skeleton-table>
+                </template>
+                <EditIncentive v-else :incentive="incentive" @updated="edited()"/>
+            </Modal>
             
-            <div class="row my-3">
+            <!-- <div class="row my-3">
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-header bg-white">
@@ -137,9 +93,9 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> -->
         
-            <div class="row my-3">
+            <!-- <div class="row my-3">
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-header bg-white">
@@ -165,13 +121,66 @@
                         </div>
                     </div>
                 </div>
-            </div>	
+            </div>	 -->
         </div>
     </div>
 </template>
 
 <script>
+import { mapActions, mapGetters, mapState } from 'vuex';
+import Modal from '@/components/Modal.vue';
+import EditIncentive from '@/components/admin/EditIncentive.vue';
+
     export default{
-        name:"admin-incentives"
+        name:"admin-incentives",
+
+        components:{
+            Modal,
+            EditIncentive
+        },
+
+        data(){
+            return {
+                incentive:null,
+                incentiveLoading:false
+            }
+        },
+
+        computed:{
+            ...mapState({
+                loading:state=>state.loading,
+                submitting:state=>state.submitting
+            }),
+
+            ...mapGetters('incentiveStore',['incentives']),
+
+            imageURL(){
+                return process.env.VUE_APP_IMAGE_PATH
+            }
+        },
+
+        created(){
+            if(this.incentives.length == 0){
+                this.incentiveLoading = true
+                this.all().then(()=>this.incentiveLoading = false)
+            }
+        },
+
+        methods:{
+            ...mapActions('incentiveStore',['all','update']),
+
+            setIncentive(incentive){
+                this.incentive = incentive
+            },
+
+            edited(){
+                this.incentiveLoading = true
+                this.all().then(()=>this.incentiveLoading = false)
+            }
+
+            
+        }
+
+
     }
 </script>

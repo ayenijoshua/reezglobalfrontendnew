@@ -12,7 +12,7 @@
                                 </div>
                                 <div class="ml-auto">
                                     <h6 class="mt-0 mb-1 font-weight-bold text-white">Registration Package</h6>
-                                    <div class="mt-1 text-dark-heading text-white float-right" >{{ regPackage.name }} - {{ regPackage.vip }} </div>
+                                    <div class="mt-1 text-dark-heading text-white float-right" >{{ regPackage.name }} </div>
                                 </div>
                             </div>
                         </div>
@@ -105,7 +105,7 @@
                             <img  src="/assets/img/companywallet.png">
                         </div>
                         <h6 class="mt-0text-white" >Total Wallet Earned</h6>
-                        <div class="text-dark-heading font-weight-bold text-white" >₦<span class="s-36">{{ totalBonus }}</span></div>
+                        <div class="text-dark-heading font-weight-bold text-white" >₦<span class="s-36">{{ walletBalance }}</span></div>
                     </div>
                 </div>
             </div>
@@ -128,7 +128,7 @@
                                 </div><br><br>
                                 <div class="text-center">
                                     <small class="font-weight-normal s-10"><strong>OFFICIAL POINT VALUE RATE</strong></small>
-                                    <p class="font-weight-bold text-success" style="font-size:25px">1 PV = {{ setting.unit_point_value }} NGN(&#8358;)</p>
+                                    <p class="font-weight-bold text-success" style="font-size:25px">1 PV = {{ settings.unit_point_value }} NGN(&#8358;)</p>
                                 </div><br><br><br>
                             </div>
                         </div>
@@ -151,29 +151,49 @@
                             <div class="tab-content">
                                 <div class="tab-pane show active" id="v-pills-w1-tab1" role="tabpanel" aria-labelledby="v-pills-w1-tab1">
                                     <div class="row p-3">
-                                        <div class="col-md-6">
-                                            <img class="gift" src="/assets/img/phone.png">
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="card-body pt-0 mt-5">
-                                                <h6 class="mt-0 green-text" >Cash Equivalent</h6>
-                                                <div class="text-dark-heading font-weight-bold green-text" >₦<span class="s-36">126,000</span></div>
-                                                <hr>
-                                                <h6 class="mt-0 green-text" >Cumulated Point Value (CPV)</h6>
-                                                <div class="text-dark-heading font-weight-bold green-text" ><span class="s-36">600PV</span></div>
-                                                <hr>
-                                                <h6 class="mt-0 green-text" >Incentive</h6>
-                                                <div class="text-dark-heading font-weight-bold green-text" ><span class="s-36">Smart Phone</span></div>									
+                                        <template v-if="loading">
+                                            <b-skeleton-table
+                                                :rows="5"
+                                                :columns="5"
+                                                :table-props="{ bordered: true, striped: true }"
+                                            ></b-skeleton-table>
+                                        </template>
+                                        <template v-else>
+                                            <div v-if="currentIncentive == null" class="col-md-12">
+                                                <p class="alert alert-info">You are yet to qualify for an incentive</p>
                                             </div>
-                                        </div>
+                                            <template v-else>
+                                                <div class="col-md-6">
+                                                    <img class="gift" :src="imageURL+'/'+currentIncentive.file_path">
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="card-body pt-0 mt-5">
+                                                        <h6 class="mt-0 green-text" >Cash Equivalent</h6>
+                                                        <div class="text-dark-heading font-weight-bold green-text" >₦<span class="s-36">{{ currentIncentive.worth }}</span></div>
+                                                        <hr>
+                                                        <h6 class="mt-0 green-text" >Cumulated Point Value (CPV)</h6>
+                                                        <div class="text-dark-heading font-weight-bold green-text"><span class="s-36">{{ currentIncentive.points }}PV</span></div>
+                                                        <hr>
+                                                        <h6 class="mt-0 green-text" >Incentive</h6>
+                                                        <div class="text-dark-heading font-weight-bold green-text" ><span class="s-36">{{ currentIncentive.incentive }}</span></div>									
+                                                    </div>
+                                                </div>
+                                            </template>
+                                        </template>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-12" >
+                        <div class="col-md-12" v-if="currentIncentive !== null">
                             <div class="form-row">
                                 <div class="col-md-12 mb-3 ml-2">
-                                    <button class="btn btn-success" type="submit" >Claim Incentive</button>
+                                    <template v-if="currentIncentive.claim_status">
+                                        <button :class="['btn', currentIncentive.claim_status=='approved'?'btn-success':currentIncentive.claim_status=='processing'?'btn-primary':'btn-danger' ]" ><i class="icon-check-square-o mr-2"></i>{{ currentIncentive.claim_status }}</button>
+                                    </template>
+                                    <template v-else>
+                                        <span v-if="submitting" class="btn btn-success">...</span>
+                                        <button @click="claimIncentive()" v-else class="btn btn-success">Claim Incentive</button>
+                                    </template>
                                 </div>
                             </div>
                         </div>
@@ -202,15 +222,15 @@
                             <div class="tab-content">
                                 <div class="tab-pane show active" id="v-pills-w1-tab1" role="tabpanel" aria-labelledby="v-pills-w1-tab1">
                                     <div class="row p-3">
-                                    
-                                            <div class="col-md-12">
-                                                <form>
+                                        <div class="col-md-12">
+                                            <form @submit.prevent="inviteFriend()">
                                                 <div class="form-row">
                                                     <div class="col-md-12 mb-3">
-                                                        <input type="email" class="form-control" id="validationDefault03" placeholder="Recipients Email Address" required>
+                                                        <input type="email" required v-model="inviteForm.email" class="form-control" id="validationDefault03" placeholder="Recipients Email Address">
                                                     </div>
                                                 </div>
-                                                <button class="btn btn-success" type="submit">Invite a Friend</button>
+                                                <span v-if="submitting" class="btn btn-success">...</span>
+                                                <button v-else class="btn btn-success" type="submit">Invite a Friend</button>
                                             </form>
                                             <hr>
 
@@ -222,7 +242,7 @@
                                                     <input type="text" class="form-control" value="https://delishcare.com/goke154" id="referrallink" readonly >
                                                 </div>
                                                 <div class="col-md-4 mb-3">
-                                                        <input type="button" class="btn btn-success" onclick="myFunction()" value="Copy Referral Link" id="button">
+                                                        <input type="button" class="btn btn-success" @click="myFunction()" value="Copy Referral Link" id="button">
                                                 </div>	
                                             </div>	 
                                         </div>
@@ -251,8 +271,8 @@
                                 <div class="tab-pane show active" id="v-pills-w1-tab1" role="tabpanel" aria-labelledby="v-pills-w1-tab1">
                                     <div class="row p-3">
                                         <div class="col-md-12 text-center">
-                                            <h3 class="font-weight-bold s-14 text-center">Welcome to Capital Making Club</h3>
-                                            <span class="font-weight-lighter ">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis malesuada nisl magna, eu finibus orci scelerisque placerat. Quisque eu posuere mi. Nulla finibus tortor odio, nec accumsan neque vehicula ac. Aenean eget purus a neque volutpat euismod sed in nunc. Donec in ligula sed ante gravida eleifend. Etiam in tortor semper, blandit ante ac, finibus urna. Nunc eu orci fringilla enim aliquam euismod commodo at sem. Aliquam ultricies eros vitae eros viverra, id commodo nibh sodales. Cras vel mi in odio porttitor pharetra. Praesent vel odio lacus. Cras suscipit, sapien ut imperdiet ornare, libero elit dictum leo, ac vehicula dui turpis at elit. Cras blandit diam ac lacus gravida, id ultricies ante tristique. Integer facilisis diam vitae metus scelerisque, a luctus ante interdum.</span>
+                                            <h3 class="font-weight-bold s-14 text-center">{{ settings.general_message_subject }}</h3>
+                                            <span class="font-weight-lighter ">{{ settings.general_message }}</span>
 
                                         </div>
                                     </div>
@@ -293,10 +313,10 @@
                                                 <td colspan="4">There are no claimed incentives</td>
                                             </tr>
                                             <tr v-else v-for="claim,i in claims" :key="i">
-                                                <th scope="row">{{ i++ }}</th>
+                                                <th scope="row">{{ ++i }}</th>
                                                 <td>{{ claim.incentive }}</td>
                                                 <td>{{ claim.points }} PV</td>
-                                                <td>{{ claim.date }} </td>
+                                                <td>{{ claim.created_at }} </td>
                                             </tr>
                                         </template>
                                     </tbody>
@@ -314,54 +334,64 @@
                                 <div class="col">
                                     <ul class="nav nav-tabs card-header-tabs nav-material">
                                         <li class="nav-item">
-                                            <a class="nav-link text-green" id="w1-tab1" data-toggle="tab" >REGISTRATION PRODUCT SELECTION</a>
+                                            <a class="nav-link text-green" id="w1-tab1" data-toggle="tab">REGISTRATION PRODUCT SELECTION</a>
                                         </li>	
                                     </ul>
                                 </div>
                             </div>
                         </div>
-                        <div class="collapse show" id="invoiceCard">
+                        <div class="collapse show">
                             <div class="card-body p-0"> 
                                 <div class="card no-b  no-r">
                                     <div class="card-body">
-                                        <div class="form-row" style="overflow-x:auto;">
-                                            <table class="table table-bordered">
-                                                <thead>
-                                                    <tr>
-                                                        <th scope="col">S/N</th>
-                                                        <th scope="col">Products</th>
-                                                        <th scope="col">PV</th>
-                                                        <th scope="col">Worth</th>
-                                                        <th scope="col">Select</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr v-if="loading">
-                                                        <td colspan="5">
-                                                            <b-skeleton-table
-                                                                :rows="3"
-                                                                :columns="5"
-                                                                :table-props="{ bordered: true, striped: true }"
-                                                            ></b-skeleton-table>
-                                                        </td>
-                                                    </tr>
-                                                    <template v-else>
-                                                        <tr v-if="products.length == 0">
-                                                            <td colspan="4">There are no products</td>
+                                        <form id="product-claim-form" @submit.prevent="productClaim()">
+                                            <div class="form-row" style="overflow-x:auto;">
+                                                <table class="table table-bordered">
+                                                    <thead>
+                                                        <tr>
+                                                            <th scope="col">S/N</th>
+                                                            <th scope="col">Products</th>
+                                                            <th scope="col">PV</th>
+                                                            <th scope="col">Worth</th>
+                                                            <th scope="col">Select</th>
                                                         </tr>
-                                                        <tr v-else v-for="product,i in products" :key="i">
-                                                            <td>{{ ++i }}</td>
-                                                            <td>{{ product.name }}</td>
-                                                            <td>{{ product.points }}</td>
-                                                            <td>₦{{ product.worth }}</td>
-                                                            <td>
-                                                                <div class="form-check"><input class="form-check-input" type="checkbox" value="" id="cb1"></div>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr v-if="loading">
+                                                            <td colspan="5">
+                                                                <b-skeleton-table
+                                                                    :rows="3"
+                                                                    :columns="5"
+                                                                    :table-props="{ bordered: true, striped: true }"
+                                                                ></b-skeleton-table>
                                                             </td>
                                                         </tr>
-                                                    </template>															  
-                                                </tbody>
-                                            </table>
-                                        </div>
+                                                        <template v-else>
+                                                            <tr v-if="products.length == 0">
+                                                                <td colspan="4">There are no products</td>
+                                                            </tr>
+                                                            <template v-else>
+                                                                <tr v-for="product,i in products" :key="i">
+                                                                    <td>{{ ++i }}</td>
+                                                                    <td>{{ product.name }}</td>
+                                                                    <td>{{ product.points }}</td>
+                                                                    <td>₦{{ product.worth }}</td>
+                                                                    <td>
+                                                                        <div class="form-check">
+                                                                            <input name="product_ids[]" :key="i" class="form-check-input" type="checkbox" :value="product.id" id="cb1">
+                                                                        </div>
+                                                                    </td>
+                                                                </tr>
+                                                                <div class="m-3">	
+                                                                    <span v-if="submitting" class="btn btn-sm btn-success">...</span>								
+                                                                    <button v-else type="submit" class="btn btn-sm btn-success"><i class="icon-check-square-o mr-2"></i>Submit Selected Products</button>
+                                                                </div>
+                                                            </template>
+                                                        </template>															  
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </form>
                                     </div>
                                     <br>
                                 </div>
@@ -382,45 +412,52 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="float-left" >
-                            <div class="card-body ">
-                                <div class="row column-row border-bottom">
-                                    <div class="mt-2 ml-3" style="padding-right:15px">
-                                        <img src="assets/img/shop1.png" width="30px" height="30px">
-                                    </div>  
-                                    <div class="mb-2 mt-2">
-                                        <h6 class="font-weight-bold text-green s-12" style="margin: 0em; padding: 0em;">Delish Healthy Chocolate Bar <br><small> ₦4,375 | 1.25PV</small></h6>	
-                                    </div>	
-                                </div>
-                                <div class="row column-row border-bottom">
-                                    <div class="mt-2 ml-3" style="padding-right:15px">
-                                        <img src="assets/img/shop1.png" width="30px" height="30px">
-                                    </div>  
-                                    <div class="mb-2 mt-2 ">
-                                        <h6 class="font-weight-bold text-green s-12" style="margin: 0em; padding: 0em;">Oma Healthy Liquid Pepper <br><small> ₦5,200 | 1.50PV</small></h6>	
-                                    </div>	
-                                </div>
-                                <div class="row column-row border-bottom">
-                                    <div class="mb-2 mt-2 ml-3">
-                                        <h6 class="font-weight-bold text-green s-12" style="margin: 0em; padding: 0em;">Total Point Value </h6>											
-                                    </div>	
-                                    <div class="mb-2 mt-2 ml-auto mr-3">
-                                        <h6 class="font-weight-bold text-green s-12" style="margin: 0em; padding: 0em;">2.75 PV</h6>											
+                        <div class="float-left">
+                            <div class="card-body">
+                                <template v-if="loading">
+                                    <b-skeleton-table
+                                        :rows="3"
+                                        :columns="3"
+                                        :table-props="{ bordered: true, striped: true }"
+                                    ></b-skeleton-table>
+                                </template>
+                                <template v-else>
+                                    <div v-if="userProductClaims.length == 0">
+                                        <p class="alert alert-info">
+                                            There are no claimed products
+                                        </p>
                                     </div>
-                                </div> 	
-                                <div class="row column-row border-bottom">
-                                    <div class="mb-2 mt-5 ml-3">
-                                        <h6 class="font-weight-bold text-green s-12" style="margin: 0em; padding: 0em;">Total Product Cost </h6>											
-                                    </div>	
-                                    <div class="mb-2 mt-5 ml-auto mr-3">
-                                        <h6 class="font-weight-bold text-green s-12" style="margin: 0em; padding: 0em;">₦10,480 </h6>											
+                                    <div v-else v-for="userClaim,i in userProductClaims" :key="i" class="row column-row border-bottom">
+                                        <div class="mt-2 ml-3" style="padding-right:15px">
+                                            <img src="/assets/img/shop1.png" width="30px" height="30px">
+                                        </div>  
+                                        <div class="mb-2 mt-2">
+                                            <h6 class="font-weight-bold text-green s-12" style="margin: 0em; padding: 0em;">{{ userClaim.name }} <br><small> ₦{{ userClaim.worth }} | {{userClaim.points}}PV</small></h6>	
+                                        </div>	
                                     </div>
-                                </div> 
-                                <div class="mt-3">									
-                                    <input type="hidden" name="id" value="960">
-                                    <button type="submit" class="btn btn-sm btn-success"><i class="icon-check-square-o mr-2"></i>Confirm</button>
-                                </div>
 
+                                    <div class="row column-row border-bottom">
+                                        <div class="mb-2 mt-2 ml-3">
+                                            <h6 class="font-weight-bold text-green s-12" style="margin: 0em; padding: 0em;">Total Point Value </h6>											
+                                        </div>	
+                                        <div class="mb-2 mt-2 ml-auto mr-3">
+                                            <h6 class="font-weight-bold text-green s-12" style="margin: 0em; padding: 0em;">{{ totalPv }} PV</h6>											
+                                        </div>
+                                    </div> 	
+                                    <div class="row column-row border-bottom">
+                                        <div class="mb-2 mt-5 ml-3">
+                                            <h6 class="font-weight-bold text-green s-12" style="margin: 0em; padding: 0em;">Total Product Cost </h6>											
+                                        </div>	
+                                        <div class="mb-2 mt-5 ml-auto mr-3">
+                                            <h6 class="font-weight-bold text-green s-12" style="margin: 0em; padding: 0em;">₦{{ totalWorth }} </h6>											
+                                        </div>
+                                    </div>
+
+                                    <div class="mt-3">									
+                                        <button type="button" disabled :class="['btn btn-small', productClaimStatus=='processing'?'btn-warning':productClaimStatus=='approved'?'btn-success':'btn-danger']">
+                                            <i class="icon-check-square-o mr-2"></i>{{ productClaimStatus }}</button>
+                                    </div>
+                                </template>
                             </div>  
                         </div>
                     </div>
@@ -438,61 +475,80 @@ export default{
     data(){
         return {
             profitPoolEligible:false,
-            globalProfitEligible:false
+            globalProfitEligible:false,
+            product_ids:[],
+            totalWorth:0,
+            totalPv:0,
+            productClaimStatus:'processing',
+            guestEmail:null,
+
+            form:{
+                rank_id:null,
+                incentive_id:null
+            }, 
+            
+            inviteForm:{
+                email:null
+            }
         }
     },
 
     computed:{
         ...mapState({
             loading:state=>state.loading,
+            submitting:state=>state.submitting,
         }),
+
+        imageURL(){
+            return process.env.VUE_APP_IMAGE_PATH
+        },
         
         ...mapGetters('bonusStore',['welcomeBonus',
         'equilibrumBonus','loyaltyBonus','referralBonus',
-        'profitPool','globalProfit','totalBonus']),
+        'profitPool','globalProfit','totalBonus','walletBalance']),
 
         ...mapGetters('packageStore',['regPackage']),
         ...mapGetters('authStore',['authUser']),
         ...mapGetters('userStore',['totalPV']),
-        ...mapGetters('settingStore',['setting']),
-        ...mapGetters('incentiveClaimStore',['claims']),
+        ...mapGetters('settingStore',['settings']),
+        ...mapGetters('incentiveClaimStore',['claims','currentIncentive']),
         ...mapGetters('productStore',['products']),
+        ...mapGetters('productClaimStore',['userProductClaims']),
     },
 
     created(){
-        if(Object.entries(this.authUser).length == 0){
+        if(this.authUser.uuid == undefined){
             this.getUser().then(res=>{
-                this.getPackage(res.data.package_id)
-                this.getBonuses(res.data.uuid)
-                if(res.data.package_id == 6){
-                    this.profitPoolEligible = true
-                }
-                if(res.data.rank_id >= 5){
-                    this.globalProfitEligible = true
-                }
-                this.getClaims(res.data.uuid)
+
+                this.getDashboardData(res.data)
             })
         }else{
-            this.getPackage(this.authUser.package_id)
-            this.getBonuses(this.authUser.data.uuid)
-            this.getClaims(this.authUser.uuid)
+            this.getDashboardData(this.authUser)
         }
 
-        this.getSetting('unit_point_value');
-        this.getProducts()
+        if(this.settings.id == undefined){
+            this.all();
+            //this.getSetting('unit_point_value');
+        }
+        
+        if(this.products.length == 0){
+            this.getProducts()
+        }
+        
         
     },
 
     methods:{
         ...mapActions('bonusStore',['getWelcomeBonus',
         'getEquilibrumBonus','getLoyaltyBonus','getReferralBonus',
-        'getProfitPool','getGlobalProfit','getPlacementBonus','getTotalBonus']),
+        'getProfitPool','getGlobalProfit','getPlacementBonus','getTotalBonus','getWalletBalance']),
         ...mapActions('packageStore',['getPackage']),
         ...mapActions('authStore',['getUser']),
-        ...mapActions('userStore',['getTotalPVs']),
-        ...mapActions('settingStore',['getSetting']),
-        ...mapActions('incentiveClaimStore',['getClaims']),
+        ...mapActions('userStore',['getTotalPVs','inviteGuest']),
+        ...mapActions('settingStore',['getSetting','all']),
+        ...mapActions('incentiveClaimStore',['getClaims','getCurrentIncentive','create']),
         ...mapActions('productStore',['getProducts']),
+        ...mapActions('productClaimStore',['claimProduct','getProductClaims']),
         
         getBonuses(uuid){
             this.getWelcomeBonus(uuid)
@@ -502,6 +558,77 @@ export default{
             this.getPlacementBonus(uuid)
             this.getTotalBonus(uuid)
             this.getTotalPVs(uuid)
+            this.getProfitPool(uuid)
+            this.getGlobalProfit(uuid)
+            this.getWalletBalance(uuid)
+        },
+
+        getDashboardData(authUser){
+            this.getPackage(authUser.package_id)
+            this.getBonuses(authUser.uuid)
+            if(authUser.package_id == 6){
+                this.profitPoolEligible = true
+            }
+            if(authUser.rank_id >= 5){
+                this.globalProfitEligible = true
+            }
+            this.getCurrentIncentive(authUser.uuid)
+            this.getClaims(authUser.uuid)
+            this.getProductClaims(authUser.uuid).then(res=>{
+                if( res.status == 200){
+                    this.userProductClaims.forEach(ele=>{
+                        console.log(ele.worth)
+                        this.totalWorth = this.totalWorth + ele.worth
+                        this.totalPv = this.totalPv + ele.points
+                        this.productClaimStatus = ele.status
+                    })
+                }
+            })
+        },
+
+        claimIncentive(){
+            this.form.rank_id = this.authUser.rank_id
+            this.form.incentive_id = this.currentIncentive.id
+            this.create({uuid:this.authUser.uuid, data:this.form}).then(res=>{
+                if(res.status == 200){
+                    this.currentIncentive.claim_status = 'processing';
+                    //this.getCurrentIncentive(this.authUser.uuid)
+                }
+            })
+        },
+
+        productClaim()
+        {
+            let form = document.getElementById('product-claim-form')
+            let formData = new FormData(form)
+            this.claimProduct({uuid:this.authUser.uuid,data:formData}).then(res=>{
+                if(res && res.status == 200){
+                    this.userProductClaims.forEach(ele=>{
+                        this.totalWorth = this.totalWorth + ele.worth
+                        this.totalPv = this.totalPv + ele.points
+                    })
+                }
+            })
+        },
+
+        myFunction() {
+            /* Get the text field */
+            var copyText = document.getElementById("referrallink");
+
+            /* Select the text field */
+            copyText.select();
+            copyText.setSelectionRange(0, 99999); /*For mobile devices*/
+
+            /* Copy the text inside the text field */
+            document.execCommand("copy");
+
+            /* Alert the copied text */
+            //alert("Copied: " + copyText.value);
+            document.getElementById('button').value='Referral Link Copied';
+        },
+
+        inviteFriend(){
+            this.inviteGuest({uuid:this.authUser.uuid, data:this.inviteForm})
         }
     }
 

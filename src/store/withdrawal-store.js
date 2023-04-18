@@ -6,8 +6,11 @@ export default{
     namespaced:true,
     state(){
         return{
-            settings:{},
-            setting:{},
+            withdrawals:[],
+            userWithdrawals:[],
+            totalWithdrawals:null,
+            userTotalWithdrawals:null,
+            withdrawal:{}
         }
     },
     actions:{

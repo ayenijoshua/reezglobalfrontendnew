@@ -13,11 +13,11 @@
                                     <div class="d-flex flex-row mt-4 mb-4 ml-4">
                                         <div class="border-right" style="padding-right:20px">
                                             <h6 class="mt-0 mb-1 font-weight-bold text-white" >Total Registrations</h6>
-                                            <div class="mt-1 text-dark-heading text-white float-right" >345,688</div>
+                                            <div class="mt-1 text-dark-heading text-white float-right" >{{ totalRegistrations }}</div>
                                         </div>
                                         <div style="padding-left:20px">
-                                            <h6 class="mt-0 mb-1 font-weight-bold text-white" >Total Registrations PV</h6>
-                                            <div class="mt-1 text-dark-heading text-white float-left"  >1,302,334 PV</div>
+                                            <h6 class="mt-0 mb-1 font-weight-bold text-white">Total Registrations PV</h6>
+                                            <div class="mt-1 text-dark-heading text-white float-left"  >{{ totalRegistrationPV }} PV</div>
                                         </div>
                                     </div>
                                 </div>
@@ -36,11 +36,11 @@
                                     <div class="d-flex flex-row mt-4 mb-4 ml-4">
                                         <div class="border-right" style="padding-right:20px">
                                             <h6 class="mt-0 mb-1 font-weight-bold text-white" >Products Sold</h6>
-                                            <div class="mt-1 text-dark-heading text-white float-right" >231,334</div>
+                                            <div class="mt-1 text-dark-heading text-white float-right" >{{ totalProductSold }}</div>
                                         </div>
                                         <div  style="padding-left:20px">
                                             <h6 class="mt-0 mb-1 font-weight-bold text-white" >Total Products PV</h6>
-                                            <div class="mt-1 text-dark-heading text-white float-left"  >1,302,334 PV</div>
+                                            <div class="mt-1 text-dark-heading text-white float-left"  >{{ totalProductPV }} PV</div>
                                         </div>
                                     </div>
                                 </div>
@@ -62,11 +62,11 @@
                                     <div class="d-flex flex-row mt-4 mb-4 ml-4">
                                         <div class="border-right" style="padding-right:20px">
                                             <p><span class="badge text-white bg-green mr-1"><i class="icon icon-check" ></i>&nbsp;&nbsp;Eligible</span></p>
-                                            <div class="mt-1 text-dark-heading text-green float-right" >345,688</div>
+                                            <div class="mt-1 text-dark-heading text-green float-right" >{{ countEquilibrumBonus }}</div>
                                         </div>
                                         <div  style="padding-left:20px">
                                             <p class="font-weight-bold text-green">Total Earned</p>
-                                            <div class="mt-1 text-dark-heading text-green float-left"  >₦10,456,789</div>
+                                            <div class="mt-1 text-dark-heading text-green float-left"  >₦{{ totalEquilibrumBonus }}</div>
                                         </div>
                                     </div>
                                 </div>
@@ -86,11 +86,11 @@
                                     <div class="d-flex flex-row mt-4 mb-4 ml-4">
                                         <div class="border-right" style="padding-right:20px">
                                             <p><span class="badge text-white bg-green mr-1"><i class="icon icon-check" ></i>&nbsp;&nbsp;Eligible</span></p>
-                                            <div class="mt-1 text-dark-heading text-green float-right" >345,688</div>
+                                            <div class="mt-1 text-dark-heading text-green float-right" >{{ countLoyaltyBonus }}</div>
                                         </div>
                                         <div  style="padding-left:20px">
                                             <p class="font-weight-bold text-green">Total Earned</p>
-                                            <div class="mt-1 text-dark-heading text-green float-left"  >₦456,789</div>
+                                            <div class="mt-1 text-dark-heading text-green float-left"  >₦{{ totalLoyaltyBonus }}</div>
                                         </div>
                                     </div>
                                 </div>
@@ -113,11 +113,11 @@
                                     <div class="d-flex flex-row mt-4 mb-4 ml-4">
                                         <div class="border-right" style="padding-right:20px">
                                             <p><span class="badge text-white bg-green mr-1"><i class="icon icon-check" ></i>&nbsp;&nbsp;Eligible</span></p>
-                                            <div class="mt-1 text-dark-heading text-green float-right" >400</div>
+                                            <div class="mt-1 text-dark-heading text-green float-right" >{{ countProfitPoolBonus }}</div>
                                         </div>
                                         <div style="padding-left:20px">
                                             <p class="font-weight-bold text-green">Total Earned</p>
-                                            <div class="mt-1 text-dark-heading text-green float-left"  >₦10,456,789</div>
+                                            <div class="mt-1 text-dark-heading text-green float-left"  >₦{{ totalProfitPoolBonus }}</div>
                                         </div>
                                     </div>
                                 </div>
@@ -137,11 +137,11 @@
                                     <div class="d-flex flex-row mt-4 mb-4 ml-4">
                                         <div class="border-right" style="padding-right:20px">
                                             <p><span class="badge text-white bg-green mr-1"><i class="icon icon-check" ></i>&nbsp;&nbsp;Eligible</span></p>
-                                            <div class="mt-1 text-dark-heading text-green float-right" >20</div>
+                                            <div class="mt-1 text-dark-heading text-green float-right" >{{ countGlobalProfitBonus }}</div>
                                         </div>
                                         <div  style="padding-left:20px">
                                             <p class="font-weight-bold text-green">Total Earned</p>
-                                            <div class="mt-1 text-dark-heading text-green float-left"  >₦21,456,789</div>
+                                            <div class="mt-1 text-dark-heading text-green float-left"  >₦{{ totalGlobalProfitBonus }}</div>
                                         </div>
                                     </div>
                                 </div>
@@ -159,7 +159,7 @@
                             <img src="/assets/img/accounts.png">
                         </div>
                         <small class="mt-0 ml-2"><span style="color:#2E671A!important;">Total Registration Products Amount</span></small>
-                        <p class="text-dark-heading font-weight-bold " style="color:#2E671A!important;">₦<span style="color:#2E671A!important;font-size:32px">556,550,000</span></p>
+                        <p class="text-dark-heading font-weight-bold " style="color:#2E671A!important;">₦<span style="color:#2E671A!important;font-size:32px">{{ sumClaimedProducts }}</span></p>
                     </div>
                 </div>
             </div>
@@ -171,7 +171,7 @@
                             <img src="/assets/img/wallet1.png">
                         </div>
                         <small class="mt-0text-white" >Total Company Wallet</small>
-                        <p class="text-dark-heading font-weight-bold text-white">₦<span style="font-size:32px">156,550,000</span></p>
+                        <p class="text-dark-heading font-weight-bold text-white">₦<span style="font-size:32px">{{ companyWalletBalance }}</span></p>
                     </div>
                 </div>
             </div>
@@ -194,24 +194,29 @@
                                 <div class="tab-pane show active" id="v-pills-w1-tab1" role="tabpanel" aria-labelledby="v-pills-w1-tab1">
                                     <div class="row p-3">
                                         <div class="col-md-12">
-                                                <form>
+                                                <form @submit.prevent="updateFrontPage()">
                                                 <div class="form-row">
                                                     <div class="col-md-12 mb-3">
-                                                        <input type="text" class="form-control" id="validationDefault03" placeholder="Subject" required>
+                                                        <input v-model="frontPageForm.home_page_message_subject" type="text" class="form-control" placeholder="Subject" required>
                                                     </div>
                                                 </div>
                                                 <div class="form-row">
                                                     <div class="col-md-12 mb-3">
-                                                        <textarea type="text" class="form-control" id="validationDefault03" placeholder="Message" required></textarea>
+                                                        <textarea v-model="frontPageForm.home_page_message" type="text" class="form-control" placeholder="Message" required></textarea>
                                                     </div>
                                                 </div>
                                                 <div class="form-row">
                                                     <div class="col-md-12">
                                                         <div class="row column-row">
                                                             <div class="form-row">
-                                                                <div class="ml-4"><input type="checkbox"  data-toggle="switchbutton"  checked data-width="100"  data-onstyle="success" /></div>
+                                                                <div class="ml-4">
+                                                                    <input @click="showFrontPage()" v-model="frontPageForm.show_front_page_message" type="checkbox"  :checked="settings.show_front_page_message" data-width="100"  data-onstyle="success" />
+                                                                </div>
                                                             </div>
-                                                            <div class="ml-auto mr-3"><button class="btn btn-success" type="submit"><i class="icon-arrow_forward mr-2"></i>Send</button></div>
+                                                            <div class="ml-auto mr-3">
+                                                                <span v-if="submitting && homeMsgSubmitting" class="btn btn-success">...</span>
+                                                                <button v-else class="btn btn-success" type="submit"><i class="icon-arrow_forward mr-2"></i>Send</button>
+                                                            </div>
                                                         </div>	
                                                     </div>
                                                 </div>
@@ -242,18 +247,19 @@
                                 <div class="tab-pane show active" id="v-pills-w1-tab1" role="tabpanel" aria-labelledby="v-pills-w1-tab1">
                                     <div class="row p-3">
                                         <div class="col-md-12">
-                                                <form>
+                                                <form @submit.prevent="updateGeneralMessage()">
                                                 <div class="form-row">
                                                     <div class="col-md-12 mb-3">
-                                                        <input type="text" class="form-control" id="validationDefault03" placeholder="Subject" required>
+                                                        <input v-model="generalMessageForm.general_message_subject" type="text" class="form-control" placeholder="Subject" required>
                                                     </div>
                                                 </div>
                                                 <div class="form-row">
                                                     <div class="col-md-12 mb-3">
-                                                        <textarea type="text" class="form-control" id="validationDefault03" placeholder="Message" required></textarea>
+                                                        <textarea v-model="generalMessageForm.general_message" type="text" class="form-control" placeholder="Message" required></textarea>
                                                     </div>
                                                 </div>
-                                                <button class="btn btn-success" type="submit"><i class="icon-arrow_forward mr-2"></i>Send</button>
+                                                <span v-if="submitting && genMsgSubmitting" class="btn btn-success">...</span>
+                                                <button v-else class="btn btn-success" type="submit"><i class="icon-arrow_forward mr-2"></i>Send</button>
                                             </form>
                                         </div>
                                     </div>
@@ -268,7 +274,125 @@
 </template>
 
 <script>
+//import settings from '@/api/settings';
+import { mapActions, mapGetters, mapState } from 'vuex';
+
     export default{
-        name:"admin-dashboard"
+        name:"admin-dashboard",
+        data(){
+            return{
+                frontPageForm:{
+                    home_page_message_subject:null,
+                    home_page_message:null,
+                    show_front_page_message:false
+                },
+                generalMessageForm:{
+                    general_message_subject:null,
+                    general_message:null
+                },
+                showFrontPageModal:{
+                    show_front_page_message:false
+                },
+
+                genMsgSubmitting:false,
+                homeMsgSubmitting:false
+
+            }
+        },
+
+        computed:{
+            ...mapState({
+                loading:state=>state.loading,
+                submitting:state=>state.submitting
+            }),
+
+            ...mapGetters('productClaimStore',['totalProductSold','totalProductPV','sumClaimedProducts']),
+            ...mapGetters('userStore',['totalRegistrations','totalRegistrationPV']),
+            ...mapGetters('bonusStore',['totalEquilibrumBonus','totalLoyaltyBonus',
+                    'totalProfitPoolBonus','totalGlobalProfitBonus','countEquilibrumBonus',
+                    'countLoyaltyBonus','countProfitPoolBonus','countGlobalProfitBonus','companyWalletBalance']),
+            ...mapGetters('settingStore',['settings'])        
+        },
+
+        created(){
+            if(!this.totalRegistrations){
+                this.getTotalRegistrations()
+            }
+            if(!this.totalRegistrationPV){
+                this.getTotalRegistrationPV()
+            }
+            if(!this.totalProductSold){
+                this.getTotalProductSold()
+            }
+            if(!this.totalProductPV){
+                this.getTotalProductPV()
+            }
+            if(!this.totalEquilibrumBonus){
+                this.getTotalEquilibrumBonus()
+                this.getTotalEquilibrumBonus('count')
+            }
+            if(!this.totalLoyaltyBonus){
+                this.getTotalLoyaltyBonus()
+                this.getTotalLoyaltyBonus('count')
+            }
+            if(!this.totalProfitPoolBonus){
+                this.getTotalProfitPoolBonus()
+                this.getTotalProfitPoolBonus('count')
+            }
+            if(!this.totalGlobalProfitBonus){
+                this.getTotalGlobalProfitBonus()
+                this.getTotalGlobalProfitBonus('count')
+            }
+            if(!this.companyWalletBalance){
+                this.getCompanyWalletBalance()
+            }
+
+            if(!this.sumClaimedProducts){
+                this.getSumClaimedProducts()
+            }
+            if(this.settings.id == undefined){
+                this.all().then((res)=>{
+                    if(res.status == 200){
+                        this.frontPageForm.home_page_message_subject = this.settings.home_page_message_subject
+                        this.frontPageForm.home_page_message = this.settings.home_page_message
+                        this.frontPageForm.show_front_page_message = this.settings.show_front_page_message 
+                        this.generalMessageForm.general_message_subject = this.settings.general_message_subject
+                        this.generalMessageForm.general_message = this.settings.general_message
+                        this.showFrontPageModal.show_front_page_message = this.settings.show_front_page_message 
+                    }
+                })
+            }else{
+                this.frontPageForm.home_page_message_subject = this.settings.home_page_message_subject
+                this.frontPageForm.home_page_message = this.settings.home_page_message
+                this.frontPageForm.show_front_page_message = this.settings.show_front_page_message 
+                this.generalMessageForm.general_message_subject = this.settings.general_message_subject
+                this.generalMessageForm.general_message = this.settings.general_message
+                this.showFrontPageModal.show_front_page_message = this.settings.show_front_page_message 
+            }
+        },
+
+        methods:{
+            ...mapActions('userStore',['getTotalRegistrations','getTotalRegistrationPV']),
+            ...mapActions('productClaimStore',['getTotalProductSold','getTotalProductPV','getSumClaimedProducts']),
+            ...mapActions('bonusStore',['getTotalEquilibrumBonus','getTotalLoyaltyBonus',
+                        'getTotalProfitPoolBonus','getTotalGlobalProfitBonus','getCompanyWalletBalance']),
+            ...mapActions('settingStore',['update','all']), 
+            //...mapActions('')
+            
+            updateFrontPage(){
+                this.homeMsgSubmitting = true
+                this.update(this.frontPageForm).the(()=>this.homeMsgSubmitting=false)
+            },
+
+            updateGeneralMessage(){
+                this.genMsgSubmitting = true
+                this.update(this.generalMessageForm).the(()=>this.genMsgSubmitting=false)
+            },
+
+            showFrontPage(){
+                this.showFrontPageModal.show_front_page_message = !this.settings.show_front_page_message
+                this.update(this.showFrontPageModal)
+            }
+        }
     }
 </script>

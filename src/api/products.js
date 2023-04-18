@@ -12,10 +12,10 @@ export default {
     },
 
     update(id,data){
-        return http().post(`${endPoints.products}/${id}/update`,data)
+        return http().put(`${endPoints.products}/${id}/update`,data)
     },
 
     single(id){
-        return http().get(`${endPoints.ranks}/${id}`)
+        return http().get(`${endPoints.products}/${id}`)
     }
 }

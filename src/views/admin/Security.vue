@@ -1,95 +1,113 @@
 <template>
     <div>
+        <header class="blue accent-3 relative">
+            <div class="container-fluid text-blue">
+                <div class="row justify-content-between">
+                    <ul class="nav nav-material nav-material-white responsive-tab" id="v-pills-tab" role="tablist">
+                        <li>
+                            <a class="nav-link active" id="v-pills-Wallet-Detailed-Calculation-tab" data-toggle="pill" href="#v-pills-Wallet-Detailed-Calculation" role="tab" aria-controls="v-pills-Wallet-Detailed-Calculation" aria-selected="false"><i class="icon  icon-key6 "></i>Enable/Disable 2FA</a>
+                        </li>
+                        <li>
+                            <a class="nav-link" id="v-pills-Withdrawal-History-tab" data-toggle="pill" href="#v-pills-Withdrawal-History" role="tab" aria-controls="v-pills-Withdrawal-History" aria-selected="false"><i class="icon icon-lock3 "></i>Change Password</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </header>
+
         <div class="animated">
-            <div class="row my-3">
-                <div class="col-md-6">
-                    <div class="card">
-                        <div class="card border justify-content-center">
-                            <div class="card-body"> 
-                                <div class="text-center mt-2 mb-4"><img  src="/assets/img/private-account.png" width="80px" height="80px" alt=""></div>
-                                <div class="text-center mb-4">
-                                    <h6 class="font-weight-bold text-green"><i class="icon-lock mr-2"></i>Login 2Factor Authentication</h6>
-                                    <small>Disable or Enable Login 2FA Authentication</small>
-                                    <div class="form-row mt-2">
-                                    <div style="padding-left:200px"><input type="checkbox"  data-toggle="switchbutton"  checked data-width="100"  data-onstyle="success" /></div>
+            <div class="tab-content" id="v-pills-tabContent">
+                <div class="tab-pane fade show active" id="v-pills-Wallet-Detailed-Calculation" role="tabpanel" aria-labelledby="v-pills-Wallet-Detailed-Calculation-tab">
+                    <div class="row my-3">
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card border justify-content-center">
+                                    <div class="card-body"> 
+                                        <div class="text-center mt-2 mb-4"><img  src="/assets/img/private-account.png" width="80px" height="80px" alt=""></div>
+                                        <div class="text-center mb-4">
+                                            <h6 class="font-weight-bold text-green"><i class="icon-lock mr-2"></i>Login 2Factor Authentication</h6>
+                                            <small>Disable or Enable Login 2FA Authentication</small>
+                                            <div class="form-row mt-2">
+                                            <div style="padding-left:200px">
+                                                <input type="checkbox" @click="toggle2fa()"  data-toggle="switchbutton"  :checked="authUser.enable_2fa" data-width="100"  data-onstyle="success" /></div>
+                                            </div>
+                                        </div>	
                                     </div>
-                                </div>	
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6">
-                    <div class="card">
-                        
-                        <div class="card-body b-b bg-white">
-                            <div class="stepper sw-main sw-theme-circles"
-                                data-options='{
-                                        "useURLhash":true,
-                                        "theme":"sw-theme-circles",
-                                        "transitionEffect":"fade",
-                                        "toolbarSettings":{
-                                            "showNextButton":false,
-                                            "showPreviousButton":false
-                                            }
-                                        }' >
-                                <ul class="nav step-anchor" style="margin-bottom:10px; padding-left:100px;">
-                                    <li><a  class="circle" href="#step-1x">1</a></li>
-                                    <li><a  class="circle"  href="#step-2x">2</a></li>
-                                    <li><a  class="circle" href="#step-3x">3</a></li>
-                                </ul>
-                                <div >
-                                    <div id="step-1x" class="text-center">
-                                        <div class="text-center mb-3"><img  src="/assets/img/password.png" width="60px"  height="60px">
-                                        <h6 class="mt-1 s-8 font-weight-bold text-green"><i class="icon-lock3 mr-2"></i>Change Password</h6></div>
+
+                <div class="tab-pane fade" id="v-pills-Withdrawal-History" role="tabpanel" aria-labelledby="v-pills-Withdrawal-History-tab">
+                    <div class="row my-3">
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-header bg-white">
+                                    <h6 class="green-text"><strong class="font-weight-bold">Send Confirmation Code</strong></h6>
+                                </div>
+                                <div class="card-body">
+                                    <form @submit.prevent="sendCode()">
                                         <div class="form-row mb-3">
                                             <div class="col-md-10">
-                                                <div class="input-group mb-2" style="padding-left: 100px">
+                                                <div class="input-group mb-2" >
                                                     <div class="input-group-prepend">
-                                                        <div class="input-group-text"><i class="icon icon-unlock float-left s-20 green-text " ></i></div>
+                                                        <div class="input-group-text"><i class="icon icon-email float-left s-20 green-text " ></i></div>
                                                     </div>
-                                                    <input type="text" class="form-control r-1 light s-12" id="inlineFormInputGroupUsername2"
-                                                        placeholder="Old Password"> 
+                                                    <input type="email" required v-model="form.email" readonly class="form-control r-1 light s-12" placeholder="Email"> 
                                                 </div>
-                                                <div class="input-group  mb-2" style="padding-left: 100px">
+                                                <div class="input-group mb-2" >
                                                     <div class="input-group-prepend">
                                                         <div class="input-group-text"><i class="icon icon-lock3 float-left s-20 green-text " ></i></div>
                                                     </div>
-                                                    <input type="text" class="form-control r-1 light s-12" id="inlineFormInputGroupUsername2"
-                                                        placeholder="New Password">
+                                                    <input type="password" required v-model="form.old_password" class="form-control r-1 light s-12" placeholder="Old Password"> 
                                                 </div>
-                                                <div class="input-group" style="padding-left: 100px">
+                                            
+                                                <span class="btn btn-success btn-sm" v-if="submitting && codeSubmitting">...</span>
+                                                <button v-else type="submit" class="btn btn-success btn-sm btn-block">
+                                                    <i class="icon-check-square-o mr-2"></i>Send Confirmation code
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-header bg-white">
+                                    <h6 class="green-text"><strong class="font-weight-bold">Change Password</strong></h6>
+                                </div>
+                                <div class="card-body">
+                                    <div class="text-center">
+                                        <small class="mt-2">To proceed with the change of your password, enter confirmation code sent to your email.</small>
+                                    </div>
+                                    
+                                    <form @submit.prevent="change()">
+                                        <div class="form-row mb-3">
+                                            <div class="col-md-10">
+                                                <div class="input-group mb-2" >
                                                     <div class="input-group-prepend">
                                                         <div class="input-group-text"><i class="icon icon-lock3 float-left s-20 green-text " ></i></div>
                                                     </div>
-                                                    <input type="text" class="form-control r-1 light s-12" id="inlineFormInputGroupUsername2"
-                                                        placeholder="Confirm Password">
+                                                    <input type="password" required v-model="changeForm.code" class="form-control r-1 light s-12" placeholder="Confirmation code"> 
                                                 </div>
-                                            </div>
-                                        </div>
-                                        <a href="#step-2x" class="btn btn-sm btn-success mb-3 btn-lg"><i class="icon icon-arrow-right"></i>Proceed</a>
-                                    </div>
-                                    <div id="step-2x" class="card-body text-center">
-                                        <div class="text-center mb-3"><img  src="/assets/img/password2.png" width="60px"  height="60px">
-                                        <h6 class="mt-1 s-8 font-weight-bold text-green"><i class="icon-contact_mail mr-2"></i>Confirm OTP</h6></div>
-                                        <div class="form-row mb-3">
-                                            <div class="col-md-10">
-                                                <div class="input-group mb-2" style="padding-left: 100px">
+                                                
+                                                <div class="input-group mb-2" >
                                                     <div class="input-group-prepend">
-                                                        <div class="input-group-text"><i class="icon icon-lock float-left s-20 green-text " ></i></div>
+                                                        <div class="input-group-text"><i class="icon icon-lock3 float-left s-20 green-text " ></i></div>
                                                     </div>
-                                                    <input type="text" class="form-control r-1 light s-12" id="inlineFormInputGroupUsername2"
-                                                        placeholder="Confirm Code"> 
+                                                    <input type="password" required v-model="changeForm.password" class="form-control r-1 light s-12" placeholder="New Password"> 
                                                 </div>
+
+                                                <span class="btn btn-success btn-sm" v-if="submitting && changePassSumitting">...</span>
+                                                <button v-else type="submit" class="btn btn-success btn-sm btn-block" value="Change">
+                                                    <i class="icon-check-square-o mr-2"></i>Change Password
+                                                </button>
                                             </div>
                                         </div>
-                                        <a href="#step-1x" class="btn btn-sm btn-success mb-3 btn-lg"><i class="icon icon-arrow-left"></i>Previous</a>
-                                        <a href="#step-3x" class="btn btn-sm btn-success mb-3 btn-lg"><i class="icon icon-check-square-o"></i>Confirm</a>
-                                    </div>
-                                    <div id="step-3x" class="card-body text-center ">
-                                        <div class="text-center mb-3"><img  src="/assets/img/checked.png" width="100px"  height="100px">
-                                        <h6 class="mt-1 s-8 font-weight-bold text-green">Successful!<br><small>Your Password has been changed successfully.</small></h6></div>
-                                        <a href="#step-1x" class="btn btn-sm btn-success mb-3 btn-lg"><i class="icon icon-arrow-left"></i>Return</a>
-                                    </div>
+                                    </form>
                                 </div>
                             </div>
                         </div>
@@ -101,7 +119,74 @@
     
 </template>
 <script>
+import { mapActions, mapGetters, mapState } from 'vuex';
+
     export default{
-        name:"admin-security"
+        name:"admin-security",
+
+        data(){
+            return{
+                form2Fa:{
+                    enable_2fa:null
+                },
+                form:{
+                    code:null,
+                    email: null,
+                    old_password:null,
+                    user_type:'admin'
+                },
+                changeForm:{
+                    code:null,
+                    password:null,
+                    email: null,
+                    user_type:'admin'
+                },
+
+                codeSubmitting:false,
+                changePassSumitting:false
+            }
+        },
+
+        computed:{
+            ...mapState({
+                submitting:state=>state.submitting,
+                loading:state=>state.loading
+            }),
+
+            ...mapGetters('authStore',['authUser'])
+        },
+
+        created(){
+            if(this.authUser.id == undefined){
+                this.getAdmin().then(res=>{
+                    if(res.status == 200){
+                        this.form.email = res.data.email
+                        this.changeForm.email = res.data.email
+                    }
+                })
+            }else{
+                this.form.email = this.authUser.email
+                this.changeForm.email = this.authUser.email
+            }
+            
+        },
+
+        methods:{
+            ...mapActions('authStore',['getAdmin','toggleAdmin2fa','changePasswordLink','changePassword']),
+
+            toggle2fa(){
+                this.form2Fa.enable_2fa = ! this.authUser.enable_2fa
+                this.toggleAdmin2fa(this.form2Fa)
+            },
+            sendCode(){
+                this.codeSubmitting = true
+                this.changePasswordLink(this.form).then(()=>this.codeSubmitting = false)
+            },
+
+            change(){
+                this.changePassSumitting = true
+                this.changePassword(this.changeForm).then(()=>this.changePassSumitting=false)
+            }
+        }
     }
 </script>

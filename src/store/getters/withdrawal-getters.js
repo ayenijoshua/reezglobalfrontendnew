@@ -5,6 +5,10 @@ export default {
         return state.withdrawals
     },
 
+    withdrawal(state){
+        return state.withdrawal
+    },
+
     userWithdrawals(state){
         return state.userWithdrawals
     },

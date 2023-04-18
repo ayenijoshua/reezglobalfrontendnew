@@ -13,7 +13,15 @@ export default{
             totalActiveUsers:null,
             profile:{},
             totalPV:null,
-            uplineDetails:{}
+            uplineDetails:{},
+            downlines:[],
+            directDownlines:[],
+            genealogy:{},
+            totalRegistrations:null,
+            totalRegistrationPV:null,
+            paidUsers:[],
+            totalPaidUsers:null,
+            sumPaidUsers:null
         }
     },
     actions:{

@@ -6,7 +6,8 @@ import adminResetPassword from '@/views/auth/admin-reset-password'
 import emailConfirmation from '@/views/auth/email-confirmation'
 import notFound from '@/views/NotFound'
 import Welcome from '@/views/Welcome'
-
+import twoFactorAuth from '@/views/auth/two-factor-auth'
+import adminTwoFactorAuth from '@/views/auth/admin-two-factor-auth'
 
 export default [
     {
@@ -41,6 +42,20 @@ export default [
         name:'user-password-reset',
         path:'/reset-password',
         component:resetPassword,
+        isAdmin:false,
+        requiresAuth:false,
+    },
+    {
+        name:'user-two-factor-auth',
+        path:'/two-factor-auth',
+        component:twoFactorAuth,
+        isAdmin:false,
+        requiresAuth:false,
+    },
+    {
+        name:'admin-two-factor-auth',
+        path:'/admin-two-factor-auth',
+        component:adminTwoFactorAuth,
         isAdmin:false,
         requiresAuth:false,
     },

@@ -5,11 +5,11 @@
                 <div class="col-md-6">
                     <div class="card">
                         <div class="card-body" style="overflow-x:auto;">
-                        <form action="" method="POST">
+                        <form @submit.prevent="updateFirstPercentage()">
                             <div class="card no-b  no-r">
                                 <div class="card-body no-gutters">
                                     <div class="text-center mb-3"><img  src="/assets/img/equil.png" width="80px"  height="80px">
-                                    <h5 class="s-36 font-weight-bold mt-2 text-green">₦ 5,000</h5>
+                                    <h5 class="s-36 font-weight-bold mt-2 text-green">{{ settings.global_profit_first_percentage }}%</h5>
                                     <h6 class="mt-1 s-8 font-weight-bold">Global Profit first Percentage<br><small> Edit first percentage</small></h6></div>
                                     <div class="form-row mb-3">
                                         <div class="col-md-12">
@@ -17,14 +17,13 @@
                                                 <div class="input-group-prepend">
                                                     <div class="input-group-text"><i class="icon icon-money-3 float-left s-20 green-text " ></i></div>
                                                 </div>
-                                                <input type="number" class="form-control r-0 light s-12" id="inlineFormInputGroupUsername2"
-                                                        placeholder="Equilibrium Bonus">
+                                                <input v-model="globalFirstPerc.global_profit_first_percentage" type="number" class="form-control r-0 light s-12" placeholder="First percentage" required>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-row ml-1">
-                                        <input type="hidden" name="id" value="960">
-                                        <button type="submit" class="btn btn-sm btn-success btn-lg"><i class="icon-save mr-2"></i>Update Data</button>
+                                        <span class="btn btn-sm btn-success btn-lg" v-if="submitting">...</span>
+                                        <button v-else type="submit" class="btn btn-sm btn-success btn-lg"><i class="icon-save mr-2"></i>Update Data</button>
                                     </div>
                                 </div>	
                             </div>
@@ -35,11 +34,11 @@
                 <div class="col-md-6">
                     <div class="card">
                         <div class="card-body" style="overflow-x:auto;">
-                        <form action="" method="POST">
+                        <form @submit.prevent="updateSecondPercentage()">
                             <div class="card no-b  no-r">
                                 <div class="card-body no-gutters">
                                     <div class="text-center mb-3"><img  src="/assets/img/bonus.png" width="80px"  height="80px">
-                                    <h5 class="s-36 font-weight-bold mt-2 text-green">10%</h5>
+                                    <h5 class="s-36 font-weight-bold mt-2 text-green">{{ settings.global_profit_second_percentage }}%</h5>
                                     <h6 class="mt-1 s-8 font-weight-bold">Global Profit Second Percentage<br><small> Edit profit second percentage</small></h6></div>
                                     <div class="form-row mb-3">
                                         <div class="col-md-12">
@@ -47,14 +46,13 @@
                                                 <div class="input-group-prepend">
                                                     <div class="input-group-text"><i class="icon icon-money-3 float-left s-20 green-text " ></i></div>
                                                 </div>
-                                                <input type="number" class="form-control r-0 light s-12" id="inlineFormInputGroupUsername2"
-                                                        placeholder="Loyalty Bonus">
+                                                <input required v-model="globalSecondPerc.global_profit_second_percentage" type="number" class="form-control r-0 light s-12" placeholder="First Profit PRecentage">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-row ml-1">
-                                        <input type="hidden" name="id" value="960">
-                                        <button type="submit" class="btn btn-sm btn-success btn-lg"><i class="icon-save mr-2"></i>Update Data</button>
+                                        <span class="btn btn-sm btn-success btn-lg" v-if="submitting">...</span>
+                                        <button v-else type="submit" class="btn btn-sm btn-success btn-lg"><i class="icon-save mr-2"></i>Update Data</button>
                                     </div>
                                 </div>	
                             </div>
@@ -68,12 +66,12 @@
                 <div class="col-md-6">
                     <div class="card">
                         <div class="card-body" style="overflow-x:auto;">
-                        <form action="" method="POST">
+                        <form @submit.prevent="updateShareMonth()">
                             <input type="hidden" name="_token" value="6BwLvKulnhkAcUn3BgPaQHev2ZNKme6XDhncAZzL">									
                             <div class="card no-b  no-r">
                                 <div class="card-body no-gutters">
                                     <div class="text-center mb-3"><img  src="/assets/img/hand-shake.png" width="80px"  height="80px">
-                                    <h5 class="s-36 font-weight-bold mt-2 text-green">2%</h5>
+                                    <h5 class="s-36 font-weight-bold mt-2 text-green">{{ settings.next_global_profit_share_month }}</h5>
                                     <h6 class="mt-1 s-8 font-weight-bold">Global Profit Share Month<br><small> Edit share month</small></h6></div>
                                     <div class="form-row mb-3">
                                         <div class="col-md-12">
@@ -81,14 +79,13 @@
                                                 <div class="input-group-prepend">
                                                     <div class="input-group-text"><i class="icon icon-handshake-o float-left s-20 green-text " ></i></div>
                                                 </div>
-                                                <input type="number" class="form-control r-0 light s-12" id="inlineFormInputGroupUsername2"
-                                                        placeholder="Welcome Bonus Percentage">
+                                                <input required v-model="globalShareMonth.next_global_profit_share_month" type="number" class="form-control r-0 light s-12" placeholder="Profit share month">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-row ml-1">
-                                        <input type="hidden" name="id" value="960">
-                                        <button type="submit" class="btn btn-sm btn-success btn-lg"><i class="icon-save mr-2"></i>Update Data</button>
+                                        <span class="btn btn-sm btn-success btn-lg" v-if="submitting">...</span>
+                                        <button v-else type="submit" class="btn btn-sm btn-success btn-lg"><i class="icon-save mr-2"></i>Update Data</button>
                                     </div>
                                 </div>	
                             </div>
@@ -99,12 +96,11 @@
                 <div class="col-md-6">
                     <div class="card">
                         <div class="card-body" style="overflow-x:auto;">
-                        <form action="" method="POST">
-                            <input type="hidden" name="_token" value="6BwLvKulnhkAcUn3BgPaQHev2ZNKme6XDhncAZzL">									
-                            <div class="card no-b  no-r">
+                        <form @submit.prevent="updateShareDay()">
+                            <div class="card no-b no-r">
                                 <div class="card-body no-gutters">
                                     <div class="text-center mb-3"><img  src="/assets/img/cash-withdrawal.png" width="80px"  height="80px">
-                                    <h5 class="s-36 font-weight-bold mt-2 text-green">4</h5>
+                                    <h5 class="s-36 font-weight-bold mt-2 text-green">{{ settings.next_global_profit_share_day }}</h5>
                                     <h6 class="mt-1 s-8 font-weight-bold">Global Profit share day<br><small> Edit share day</small></h6></div>
                                     <div class="form-row mb-3">
                                         <div class="col-md-12">
@@ -112,14 +108,13 @@
                                                 <div class="input-group-prepend">
                                                     <div class="input-group-text"><i class="icon icon-money-3 float-left s-20 green-text " ></i></div>
                                                 </div>
-                                                <input type="number" class="form-control r-0 light s-12" id="inlineFormInputGroupUsername2"
-                                                        placeholder="Minimum Withdrawal Limit">
+                                                <input v-model="globalShareDay.next_global_profit_share_day" type="number" class="form-control r-0 light s-12" placeholder="Profit Share day" required>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-row ml-1">
-                                        <input type="hidden" name="id" value="960">
-                                        <button type="submit" class="btn btn-sm btn-success btn-lg"><i class="icon-save mr-2"></i>Update Data</button>
+                                        <span class="btn btn-sm btn-success btn-lg" v-if="submitting">...</span>
+                                        <button v-else type="submit" class="btn btn-sm btn-success btn-lg"><i class="icon-save mr-2"></i>Update Data</button>
                                     </div>
                                 </div>	
                             </div>
@@ -133,7 +128,84 @@
 </template>
 
 <script>
+import { mapActions, mapGetters, mapState } from 'vuex';
+
     export default{
-        name:"global-profit-settings"
+        name:"global-profit-settings",
+
+        data(){
+            return{
+                globalFirstPerc:{
+                    global_profit_first_percentage:null,
+                },
+                globalSecondPerc:{
+                    global_profit_second_percentage:null,
+                },
+                globalShareDay:{
+                    next_global_profit_share_day:null,
+                },
+                globalShareMonth:{
+                    next_global_profit_share_month:null
+                }
+            }
+        },
+
+        computed:{
+            ...mapState({
+                loading:state=>state.loading,
+                submitting:state=>state.submitting
+            }),
+
+            ...mapGetters('settingStore',['settings'])
+        },
+
+        created(){
+            if(this.settings.id == undefined){
+                this.all().then(res=>{
+                    if(res.status == 200){
+                        this.globalFirstPerc.global_profit_first_percentage = this.settings.global_profit_first_percentage
+                        this.globalSecondPerc.global_profit_second_percentage = this.settings.global_profit_second_percentage
+                        this.globalShareDay.next_global_profit_share_day = this.settings.next_global_profit_share_day
+                        this.globalShareMonth.next_global_profit_share_month = this.settings.next_global_profit_share_month
+                    }
+                })
+            }
+        },
+
+        methods:{
+            ...mapActions('settingStore',['all','update']),
+
+            updateFirstPercentage(){
+                this.update(this.globalFirstPerc).then(res=>{
+                    if(res.status == 200){
+                        this.all()
+                    }
+                })
+            },
+
+            updateSecondPercentage(){
+                this.update(this.globalSecondPerc).then(res=>{
+                    if(res.status == 200){
+                        this.all()
+                    }
+                })
+            },
+
+            updateShareDay(){
+                this.update(this.globalShareDay).then(res=>{
+                    if(res.status == 200){
+                        this.all()
+                    }
+                })
+            },
+
+            updateShareMonth(){
+                this.update(this.globalShareMonth).then(res=>{
+                    if(res.status == 200){
+                        this.all()
+                    }
+                })
+            }
+        }
     }
 </script>

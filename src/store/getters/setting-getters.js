@@ -7,5 +7,9 @@ export default {
 
     setting(state){
         return state.setting
+    },
+
+    referralBonusSetting(state){
+       return state.referralBonusSetting
     }
 }

@@ -21,6 +21,22 @@ export default {
         }
     },
 
+    async getWalletBalance({commit},uuid){
+        try {
+            commit('loading',null,{root:true})
+            const res = await api.walletBalance(uuid)
+            if(res && res.status==200){
+                //console.log('total-bonus',res.data)
+                commit('walletBalance',res.data.balance)
+            }else{
+                toastr.warning(res.data.message)
+            }
+            commit('loaded',null,{root:true})
+        } catch (error) {
+            LogError(commit,error,'loaded')
+        }
+    },
+
     async getWelcomeBonus({commit},uuid){
         try {
             commit('loading',null,{root:true})
@@ -133,6 +149,140 @@ export default {
             LogError(commit,error,'loaded')
         }
     },
+
+    async getProfitPools({commit},uuid){
+        try {
+            commit('loading',null,{root:true})
+            const res = await api.profitPools(uuid)
+            if(res && res.status==200){
+                commit('profitPools',res.data)
+            }else{
+                toastr.warning(res.data.message)
+            }
+            commit('loaded',null,{root:true})
+            return res
+        } catch (error) {
+            LogError(commit,error,'loaded')
+        }
+    },
+
+    async getGlobalProfits({commit},uuid){
+        try {
+            commit('loading',null,{root:true})
+            const res = await api.globalProfits(uuid)
+            if(res && res.status==200){
+                commit('globalProfits',res.data)
+            }else{
+                toastr.warning(res.data.message)
+            }
+            commit('loaded',null,{root:true})
+            return res
+        } catch (error) {
+            LogError(commit,error,'loaded')
+        }
+    },
+
+    async getTotalEquilibrumBonus({commit},type=null){
+        try {
+            commit('loading',null,{root:true})
+            const res = await api.totalEquilibrumBonus(type)
+            if(res && res.status==200){
+                type=='count' ? commit('countEquilibrumBonus',res.data.data)
+                : commit('totalEquilibrumBonus',res.data.data)
+            }else{
+                toastr.warning(res.data.message)
+            }
+            commit('loaded',null,{root:true})
+            return res
+        } catch (error) {
+            LogError(commit,error,'loaded')
+        }
+    },
+
+    async getTotalLoyaltyBonus({commit},type=null){
+        try {
+            commit('loading',null,{root:true})
+            const res = await api.totalLoyaltyBonus()
+            if(res && res.status==200){
+                type=='count' ? commit('countLoyaltyBonus',res.data.data)
+                : commit('totalLoyaltyBonus',res.data.data)
+            }else{
+                toastr.warning(res.data.message)
+            }
+            commit('loaded',null,{root:true})
+            return res
+        } catch (error) {
+            LogError(commit,error,'loaded')
+        }
+    },
+
+    async getTotalProfitPoolBonus({commit},type=null){
+        try {
+            commit('loading',null,{root:true})
+            const res = await api.totalProfitPoolBonus()
+            if(res && res.status==200){
+                type=='count' ? commit('countProfitPoolBonus',res.data.data)
+                : commit('totalProfitPoolBonus',res.data.data)
+            }else{
+                toastr.warning(res.data.message)
+            }
+            commit('loaded',null,{root:true})
+            return res
+        } catch (error) {
+            LogError(commit,error,'loaded')
+        }
+    },
+
+    async getTotalGlobalProfitBonus({commit},type=null){
+        try {
+            commit('loading',null,{root:true})
+            const res = await api.totalGlobalProfitBonus()
+            if(res && res.status==200){
+                type=='count' ? commit('countGlobalProfitBonus',res.data.data)
+                : commit('totalGlobalProfitBonus',res.data.data)
+            }else{
+                toastr.warning(res.data.message)
+            }
+            commit('loaded',null,{root:true})
+            return res
+        } catch (error) {
+            LogError(commit,error,'loaded')
+        }
+    },
+
+    async getCompanyWalletBalance({commit}){
+        try {
+            commit('loading',null,{root:true})
+            const res = await api.companyWalletBalance()
+            if(res && res.status==200){
+                commit('companyWalletBalance',res.data.data)
+            }else{
+                toastr.warning(res.data.message)
+            }
+            commit('loaded',null,{root:true})
+            return res
+        } catch (error) {
+            LogError(commit,error,'loaded')
+        }
+    },
+
+    async getTotalCompanyWallet({commit}){
+        try {
+            commit('loading',null,{root:true})
+            const res = await api.totalCompanyWallet()
+            if(res && res.status==200){
+                commit('totalCompanyWallet',res.data.data)
+            }else{
+                toastr.warning(res.data.message)
+            }
+            commit('loaded',null,{root:true})
+            return res
+        } catch (error) {
+            LogError(commit,error,'loaded')
+        }
+    },
+
+
 
 
 

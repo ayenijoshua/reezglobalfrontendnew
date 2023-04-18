@@ -28,7 +28,7 @@
                                                     <img  src="/assets/img/cash-withdrawal.png" width="70px" height="70px">
                                                 </div>
                                                 <small class="mt-0 ml-2"><span style="color:#2E671A!important;">Total Withdrawals</span></small>
-                                                <p class="text-dark-heading font-weight-bold " style="color:#2E671A!important;">₦<span style="color:#2E671A!important;font-size:32px">57,550</span></p>
+                                                <p class="text-dark-heading font-weight-bold " style="color:#2E671A!important;">₦<span style="color:#2E671A!important;font-size:32px">{{ totalWithdrawals }}</span></p>
                                             </div>
                                         </div>
                                     </div>
@@ -55,52 +55,32 @@
                                                             </tr>
                                                         </thead>
                                                         <tbody>
-                                                            <tr>
-                                                            <td>1</td>
-                                                            <td>ogoikeyin</td>
-                                                            <td>₦12,500</td>
-                                                            <td>3,April 2020 - 10:24:43</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>2</td>
-                                                            <td>ogoikeyin1</td>
-                                                            <td>₦4,500</td>
-                                                            <td>6,April 2020 - 10:24:43</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>3</td>
-                                                            <td>Davidovie55</td>
-                                                            <td>₦9,000</td>
-                                                            <td>6,April 2020 - 10:24:43</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>4</td>
-                                                            <td>ogoikeyin2</td>
-                                                            <td>₦9,000</td>
-                                                            <td>6,April 2020 - 10:24:43</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>5</td>
-                                                            <td>Palmtree</td>
-                                                            <td>₦19,000</td>
-                                                            <td>6,April 2020 - 10:24:43</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>6</td>
-                                                            <td>Palmtree1</td>
-                                                            <td>₦8,000</td>
-                                                            <td>6,April 2020 - 10:24:43</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>7</td>
-                                                            <td>palmtree2</td>
-                                                            <td>₦7,000</td>
-                                                            <td>6,April 2020 - 10:24:43</td>
-                                                        </tr>
-
+                                                            <tr v-if="loading && withdrawalsLoading">
+                                                                <td colspan="4">
+                                                                    <b-skeleton-table
+                                                                        :rows="3"
+                                                                        :columns="4"
+                                                                        :table-props="{ bordered: true, striped: true }"
+                                                                    ></b-skeleton-table>
+                                                                </td>
+                                                            </tr>
+                                                            <template v-else>
+                                                                <tr v-if="withdrawals.length == 0">
+                                                                    <td colspan="6">
+                                                                        <div class="alert alert-info">
+                                                                            There are no withdrawals
+                                                                        </div>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr v-else v-for="withdraw,i in withdrawals" :key="i">
+                                                                    <td>{{ ++i }}</td>
+                                                                    <td>{{ withdraw.username }}</td>
+                                                                    <td>₦{{ withdraw.amount }}</td>
+                                                                    <td>{{ withdraw.created_at }}</td>
+                                                                </tr>
+                                                            </template>
                                                         </tbody>
                                                     </table>
-
                                                 </div>
                                             </div>
                                         </div>
@@ -120,7 +100,7 @@
                                                 <img src="/assets/img/registration.png"  width="70px" height="70px">
                                                 </div>
                                                 <small class="mt-0 ml-2"><span style="color:#2E671A!important;">Total Registration</span></small>
-                                                <p class="text-dark-heading font-weight-bold " style="color:#2E671A!important;">₦<span style="color:#2E671A!important;font-size:32px">367,000</span></p>
+                                                <p class="text-dark-heading font-weight-bold " style="color:#2E671A!important;">₦<span style="color:#2E671A!important;font-size:32px">{{ totalPaidUsers }}</span></p>
                                             </div>
                                         </div>
                                     </div>
@@ -149,25 +129,34 @@
                                                             </tr>
                                                         </thead>
                                                         <tbody>
-                                                            <tr>
-                                                            <td>1</td>
-                                                            <td>Kunle Oginkoya</td>
-                                                            <td>ogoikeyin</td>
-                                                            <td>VIP 1</td>
-                                                            <td>₦20,200</td>
-                                                            <td>1,April 2020 - 16:53:41</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>2</td>
-                                                            <td>Remi Oginkoya</td>
-                                                            <td>ogoikeyin1</td>
-                                                            <td>VIP 1</td>
-                                                            <td>₦20,200</td>
-                                                            <td>1,April 2020 - 16:53:41</td>
-                                                        </tr>
+                                                            <tr v-if="loading && paidUsersLoading">
+                                                                <td colspan="6">
+                                                                    <b-skeleton-table
+                                                                        :rows="3"
+                                                                        :columns="6"
+                                                                        :table-props="{ bordered: true, striped: true }"
+                                                                    ></b-skeleton-table>
+                                                                </td>
+                                                            </tr>
+                                                            <template v-else>
+                                                                <tr v-if="paidUsers.length == 0">
+                                                                    <td colspan="6">
+                                                                        <div class="alert alert-info">
+                                                                            There are not active user registrations
+                                                                        </div>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr v-else v-for="user,i in paidUsers" :key="i">
+                                                                    <td>{{ ++i }}</td>
+                                                                    <td>{{ user.first_name }} {{ user.last_name }}</td>
+                                                                    <td>{{ user.username }}</td>
+                                                                    <td>{{ user.name }}</td>
+                                                                    <td>₦{{ user.amount }}</td>
+                                                                    <td>{{ user.created_at }}</td>
+                                                                </tr>
+                                                            </template>
                                                         </tbody>
                                                     </table>
-
                                                 </div>
                                             </div>
                                         </div>
@@ -175,7 +164,6 @@
                                     </div>
                                 </div>
                             </div>
-
                         </div>
                     </div>
                 </div>
@@ -185,7 +173,50 @@
 </template>
 
 <script>
+import { mapActions, mapGetters, mapState } from 'vuex';
+
  export default{
-    name:"admin-transactions"
+    name:"admin-transactions",
+
+    data(){
+        return {
+            withdrawalsLoading:false,
+            paidUsersLoading:false
+        }
+
+        
+    },
+
+    computed:{
+        ...mapState({
+            submitting:state=>state.submitting,
+            loading:state=>state.loading
+        }),
+
+        ...mapGetters('withdrawalStore',['withdrawals','totalWithdrawals']),
+        ...mapGetters('userStore',['paidUsers','totalPaidUsers','sumPaidUsers'])
+    },
+
+    created(){
+        if(this.withdrawals.length==0){
+            this.withdrawalsLoading = true
+            this.all().then(()=>this.withdrawalsLoading = false)
+        }
+        if(!this.totalWithdrawals){
+            this.getTotal()
+        }
+        if(this.paidUsers.length==0){
+            this.paidUsersLoading = true
+            this.getPaidUsers().then(()=>this.paidUsersLoading = false)
+        }
+        if(!this.totalPaidUsers){
+            this.getTotalPaidUsers()
+        }
+    },
+
+    methods:{
+        ...mapActions('withdrawalStore',['all','getTotal']),
+        ...mapActions('userStore',['getPaidUsers','getTotalPaidUsers','getSumPaidUsers'])
+    }
  }
 </script>

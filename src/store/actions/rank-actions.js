@@ -5,12 +5,12 @@ import { notification } from '@/util/notification'
 
 export default {
 
-    async all({commit}){
+    async allRanks({commit}){
         try {
             commit('loading',null,{root:true})
             const res = await api.all()
             if(res && res.status==200){
-                commit('ranks',res.data)
+                commit('ranks',res.data.data)
             }else{
                 toastr.warning(res.data.message)
             }
@@ -46,6 +46,7 @@ export default {
                 toastr.warning(res.data.message)
             }
             commit('submitted',null,{root:true})
+            return res
         } catch (err) {
             LogError(commit,err,'submitted')
         }

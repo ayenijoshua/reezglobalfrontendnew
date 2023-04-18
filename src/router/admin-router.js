@@ -8,6 +8,7 @@ import Incentives from '@/views/admin/Incentives'
 import IncentiveRequests from '@/views/admin/IncentiveRequests'
 import Packages from '@/views/admin/Packages'
 import ProductRequests from '@/views/admin/ProductRequests'
+import Products from '@/views/admin/Products'
 // import serviceProviders from '@/views/admin/serviceProvider'
 // import productServices from '@/views/admin/productServices'
 import BonusSettings from '@/views/admin/BonusSettings'
@@ -84,6 +85,15 @@ export default [
             path:'bonus-settings',
             name:'bonus-settings',
             component:BonusSettings,
+            meta:{
+                isAdmin:true,
+                requiresAuth:true
+            },
+          },
+          {
+            path:'products',
+            name:'products',
+            component:Products,
             meta:{
                 isAdmin:true,
                 requiresAuth:true

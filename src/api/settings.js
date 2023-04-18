@@ -11,11 +11,16 @@ export default {
         return http().put(`${endPoints.settings}/update-referral-bonus/${id}`,data)
     },
 
+    referralBonusSettings(){
+        return http().get(`${endPoints.settings}/referral-bonus`)
+    },
+
     all(){
         return http().get(`${endPoints.settings}/all`)
     },
 
     setting(column){
         return http().get(`${endPoints.settings}/${column}`)
-    }
+    },
+
 }

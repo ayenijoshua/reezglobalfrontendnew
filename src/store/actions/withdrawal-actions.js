@@ -10,11 +10,12 @@ export default {
             commit('loading',null,{root:true})
             const res = await api.all()
             if(res && res.status==200){
-                commit('withdrawals',res.data.data)
+                commit('withdrawals',res.data.data.data)
             }else{
                 toastr.warning(res.data.message)
             }
             commit('loaded',null,{root:true})
+            return res
         } catch (error) {
             LogError(commit,error,'loaded')
         }
@@ -73,7 +74,7 @@ export default {
             commit('loading',null,{root:true})
             res = await api.userTotal(uuid)
             if(res.status==200){
-                commit('userTotalWithdrawals',res.data.total)
+                commit('userTotalWithdrawals',res.data.data)
             }else{
                 toastr.warning(res.data.message)
             }
@@ -89,7 +90,7 @@ export default {
             commit('loading',null,{root:true})
             res = await api.userHistory(uuid)
             if(res.status==200){
-                commit('userWithdrawals',res.data.data)
+                commit('userWithdrawals',res.data.data.data)
             }else{
                 toastr.warning(res.data.message)
             }

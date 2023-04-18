@@ -32,7 +32,7 @@
                                                     <!-- uploaded pic shown here -->
                                                     <img id="profilePic" class="pic user_avatar" src="/assets/img/dummy/u14.jpg">
 
-                                                    <Input class="uploadProfileInput" type="file" name="profile_pic" id="newProfilePhoto" accept="image/*" style="opacity: 0;" />
+                                                    <!-- <Input class="uploadProfileInput" type="file" name="profile_pic" id="newProfilePhoto" accept="image/*" style="opacity: 0;" />
                                                     <label for="newProfilePhoto" class="upload-file-block">
                                                     <div class="text-center">
                                                         <div class="mb-2">
@@ -42,10 +42,10 @@
                                                         Update <br /> Profile Photo
                                                         </div>
                                                     </div>
-                                                    </label>
+                                                    </label> -->
                                                 </div>
                                                 </div>
-                                                <div class="card-header bg-success">
+                                                <div class="">
                                                     <ul class="list-group list-group-flush">
                                                         <li class="list-group-item "><i class="icon icon-vcard float-left s-20 green-text border-right" ></i> <span class="float-right s-22 font-weight-medium green-text">{{ regPackage.vip }} - {{ regPackage.name }}</span></li>
                                                         <li class="list-group-item "><i class="icon icon-person float-left s-20 green-text border-right" ></i> <span class="float-right s-22 font-weight-medium green-text">{{ form.first_name }} {{ form.last_name }}</span></li>
@@ -233,7 +233,7 @@
                                                                         <i class="icon icon-edit"></i>&nbsp;&nbsp;Edith Account Details
                                                                     </span>
                                                                 </div><br><br>
-                                                                <form @submit.prevent=""> 
+                                                                <form @submit.prevent="updateBank()"> 
                                                                     <div class="form-group m-0">
                                                                         <div class="input-group mb-2 mr-sm-2 mb-3">
                                                                             <div class="input-group-prepend">
@@ -265,7 +265,7 @@
                                                                     </div>
                                                                     <div class="float-left mt-3">
                                                                         <span v-if="submitting" class="btn btn-sm btn-success">...</span>
-                                                                        <button v-else type="submit" disabled class="btn btn-sm btn-success"><i class="icon-save mr-2"></i>Update Data</button>
+                                                                        <button v-else type="submit" v-show="profile.bank_editable" class="btn btn-sm btn-success"><i class="icon-save mr-2"></i>Update Data</button>
                                                                     </div>
                                                                 </form>
                                                             </div>
@@ -294,7 +294,7 @@
 </template>
 
 <script>
-import { mapActions, mapGetters, mapState } from 'vuex';
+    import { mapActions, mapGetters, mapState } from 'vuex';
 
     export default {
         name:"user-profile",
@@ -329,7 +329,7 @@ import { mapActions, mapGetters, mapState } from 'vuex';
         },
 
         methods:{
-            ...mapActions('userStore',['getProfileDetails','updateProfile','updateUser','getUplineDetails']),
+            ...mapActions('userStore',['getProfileDetails','updateProfile','updateUser','getUplineDetails','updateBankDetails']),
 
             ...mapActions('authStore',['getUser']),
             ...mapActions('packageStore',['getPackage']),
@@ -344,6 +344,10 @@ import { mapActions, mapGetters, mapState } from 'vuex';
                 }
                 this.updateUser({uuid:this.authUser.uuid,data:userData})
                 this.updateProfile({uuid:this.authUser.uuid,data:form})
+            },
+
+            updateBank(){
+                this.updateBankDetails({uuid:this.authUser.uuid, data:this.bank})
             }
         },
 
@@ -359,7 +363,7 @@ import { mapActions, mapGetters, mapState } from 'vuex';
                             this.form.phone = res.data.phone
                             this.form.email = res.data.email
                             this.form.address = reslt.data.data.address
-                            this.bank.bank_account_name = reslt.data.data.bank_aacount_name
+                            this.bank.bank_account_name = reslt.data.data.bank_account_name
                             this.bank.bank_account_number = reslt.data.data.bank_account_number
                             this.bank.bank_name = reslt.data.data.bank_name
                             this.form.gender = reslt.data.data.gender
@@ -384,6 +388,8 @@ import { mapActions, mapGetters, mapState } from 'vuex';
                 this.getUplineDetails(this.authUser.uuid)
             }
         },
+
+
 
     }
 </script>

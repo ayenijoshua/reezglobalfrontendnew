@@ -10,26 +10,28 @@ export default {
             commit('loading',null,{root:true})
             const res = await api.all()
             if(res && res.status==200){
-                commit('incentiveClaims',res.data)
+                commit('incentiveClaims',res.data.data.data)
             }else{
                 toastr.warning(res.data.message)
             }
             commit('loaded',null,{root:true})
+            return res
         } catch (error) {
             LogError(commit,error,'loaded')
         }
     },
 
-    async create({commit},data){
+    async create({commit},{uuid,data}){
         try {
             commit('submitting',null,{root:true})
-            const res = await api.create(data)
+            const res = await api.create(uuid,data)
             if(res && res.status==200){
                 toastr.success("incentive claimed successfully")
             }else{
                 toastr.warning(res.data.message)
             }
         commit('submitted',null,{root:true})
+        return res
         } catch (error) {
             LogError(commit,error,'submitted')
         }
@@ -75,6 +77,23 @@ export default {
             if(res.status==200){
                 //notification.success("Incentive approved successfully")
                 commit('claims',res.data.data)
+            }else{
+                toastr.warning(res.data.message)
+            }
+            commit('loaded',null,{root:true})
+        } catch (err) {
+            LogError(commit,err,'loaded')
+        }
+    },
+
+    async getCurrentIncentive({commit},uuid){
+        var res;
+        try {
+            commit('loading',null,{root:true})
+            res = await api.currentIncentive(uuid)
+            if(res.status==200){
+                //notification.success("Incentive approved successfully")
+                commit('currentIncentive',res.data.data)
             }else{
                 toastr.warning(res.data.message)
             }

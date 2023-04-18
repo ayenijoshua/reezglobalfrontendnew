@@ -41,64 +41,96 @@
                                     <th>Registration Amount</th>
                                     <th>Edit Details</th>
                                 </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>VIP 1 - Basic</td>
-                                    <td>5PV</td>
-                                    <td>₦ 20,200</td>
-                                    <td>
-                                        <a class="btn btn-sm btn-success text-white caret" href="#" data-toggle="modal" data-target="#packageModal"><i class="icon-edit"></i></a>
-                                        </td>
+                                <tr v-if="loading && packagesLoading">
+                                    <td colspan="5">
+                                        <b-skeleton-table
+                                            :rows="3"
+                                            :columns="5"
+                                            :table-props="{ bordered: true, striped: true }"
+                                        ></b-skeleton-table>
+                                    </td>
                                 </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td>VIP 2 - Business</td>
-                                    <td>10PV</td>
-                                    <td>₦ 50,600</td>
-                                    <td>
-                                        <a class="btn btn-sm btn-success text-white caret" href="#" data-toggle="modal" data-target="#packageModal"><i class="icon-edit"></i></a>
+                                <template v-else>
+                                    <tr v-if="regPackages.length == 0">
+                                        <td colspan="5">
+                                            <div class="alert alert-info">There are no packages</div>
                                         </td>
-                                </tr>
-                                <tr>
-                                    <td>3</td>
-                                    <td>VIP 3 - Executive</td>
-                                    <td>20PV</td>
-                                    <td>₦ 120,000</td>
-                                    <td>
-                                        <a class="btn btn-sm btn-success text-white caret" href="#" data-toggle="modal" data-target="#packageModal"><i class="icon-edit"></i></a>
+                                    </tr>
+                                    <tr v-else v-for="pack,i in regPackages" :key="i">
+                                        <td>{{ ++i }}</td>
+                                        <td>{{ pack.name }}</td>
+                                        <td>{{ pack.point_value }}PV</td>
+                                        <td>₦ {{ pack.registration_value }}</td>
+                                        <td>
+                                            <a @click="setPackage(pack)" v-b-modal.edit-package class="btn btn-sm btn-success text-white caret" href="#"><i class="icon-edit"></i></a>
                                         </td>
-                                </tr>
-                                <tr>
-                                    <td>4</td>
-                                    <td>VIP 4 - Professional</td>
-                                    <td>45PV</td>
-                                    <td>₦ 222,000</td>
-                                    <td>
-                                        <a class="btn btn-sm btn-success text-white caret" href="#" data-toggle="modal" data-target="#packageModal"><i class="icon-edit"></i></a>
-                                        </td>
-                                </tr>
-                                <tr>
-                                    <td>5</td>
-                                    <td>VIP 5 - Premium</td>
-                                    <td>70PV</td>
-                                    <td>₦ 342,000</td>
-                                    <td>
-                                        <a class="btn btn-sm btn-success text-white caret" href="#" data-toggle="modal" data-target="#packageModal"><i class="icon-edit"></i></a>
-                                        </td>
-                                </tr>
+                                    </tr>
+                                </template>
                             </table>
                         </div>
                     </div>
                 </div>
             </div>
-
-            
         </div>
+        <Modal modal-id="edit-package" modal-title="Edit Package" modal-size="md">
+            <template v-if="currPackage==null">
+                <b-skeleton-table
+                    :rows="3"
+                    :columns="8"
+                    :table-props="{ bordered: true, striped: true }"
+                ></b-skeleton-table>
+            </template>
+            <EditPackage v-else :currPackage="currPackage" @updated="edited()"/>
+        </Modal>
     </div>
 </template>
 
 <script>
+    import { mapActions, mapGetters, mapState } from 'vuex';
+    import Modal from '@/components/Modal.vue';
+    import EditPackage from '@/components/admin/EditPackage.vue';
+
     export default{
-        name:"admin-packages"
+        name:"admin-packages",
+
+        components:{
+            Modal,
+            EditPackage
+        },
+
+        data(){
+            return {
+                currPackage:null,
+                packagesLoading:false
+            }
+        },
+
+        computed:{
+            ...mapState({
+                loading:state=>state.loading
+            }),
+
+            ...mapGetters('packageStore',['regPackages'])
+        },
+
+        created(){
+            if(this.regPackages.length == 0){
+                this.packagesLoading = true
+                this.all().then(()=>this.packagesLoading = false)
+            }
+        },
+
+        methods:{
+            ...mapActions('packageStore',['all','update']),
+
+            setPackage(pack){
+                this.currPackage = pack
+            },
+
+            edited(){
+                this.all()
+            }
+        }
+
     }
 </script>

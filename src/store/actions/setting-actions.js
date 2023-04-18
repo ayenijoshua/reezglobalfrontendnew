@@ -15,6 +15,7 @@ export default {
                 toastr.warning(res.data.message)
             }
             commit('loaded',null,{root:true})
+            return res
         } catch (error) {
             LogError(commit,error,'loaded')
         }
@@ -36,17 +37,18 @@ export default {
         }
     },
 
-    async update({commit},{id,data}){
+    async update({commit},data){
         var res;
         try {
             commit('submitting',null,{root:true})
-            res = await api.update(id,data)
+            res = await api.update(data)
             if(res.status==200){
-                notification.success("Setting updated successfully")
+                notification.success("data updated successfully")
             }else{
                 toastr.warning(res.data.message)
             }
             commit('submitted',null,{root:true})
+            return res
         } catch (err) {
             LogError(commit,err,'submitted')
         }
@@ -63,8 +65,27 @@ export default {
                 toastr.warning(res.data.message)
             }
             commit('submitted',null,{root:true})
+            return res;
         } catch (err) {
             LogError(commit,err,'submitted')
+        }
+    },
+
+    async getReferralBonusSetting({commit}){
+        var res;
+        try {
+            commit('loading',null,{root:true})
+            res = await api.referralBonusSettings()
+            if(res.status==200){
+                commit('referralBonusSetting',res.data.data)
+                //notification.success("Setting updated successfully")
+            }else{
+                toastr.warning(res.data.message)
+            }
+            commit('loaded',null,{root:true})
+            return res;
+        } catch (err) {
+            LogError(commit,err,'loaded')
         }
     },
 }

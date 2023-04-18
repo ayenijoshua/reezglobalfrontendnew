@@ -1,12 +1,12 @@
 <template>
     <div id="">
     <main>
-        <div class="p-t-b-100 height-full bg-green" style="background-image: url('assets/img/bg-wall2.png');">
+        <div class="p-t-b-100 height-full bg-green" style="background-image: url('assets/img/bg-wall2.png')">
             <div class="container">
                 <div class="row">
                     <div class="col-lg-7 mx-md-auto">
                         <div class="text-center">
-                           <a href=""><img class="img-responsive" src="assets/img/logo-white.png" style= "max-width: 100%;" alt=""/></a> 
+                           <a href=""><img class="img-responsive" src="/assets/img/logo-white.png" style= "max-width: 100%;" alt=""/></a> 
                             <p class="p-t-b-20 text-white">Reset Password
                                 </p>
                         </div>
@@ -35,7 +35,7 @@
                                 <a href="" class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapse1" aria-expanded="true" aria-controls="collapseOne">
                                     
                                 </a>
-                                <br><router-link :to="{name:'login'}"> <b>Login</b> </router-link>
+                                <br><router-link :to="{name:'admin-login'}"> <b>Login</b> </router-link>
                             </p>
                         </div> 
                     </div>
@@ -70,8 +70,8 @@ export default {
         ...mapActions('authStore',['resetPassword']),
 
         submit(){
-            console.log(this.form)
-            this.resetPassword(this.form)
+            //console.log(this.form)
+            this.resetPassword(this.form);//.then(())
         },
     }
 }

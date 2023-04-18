@@ -1,6 +1,6 @@
 <template>
     <main>
-        <div class="p-t-b-100 height-full bg-green" style="background-image: url('assets/img/bg-wall2.png');">
+        <div class="p-t-b-100 height-full bg-green" style="background-image: url('assets/img/bg-wall2.png')">
             <div class="container">
                 <div class="row">
                     <div class="col-lg-7 mx-md-auto">
@@ -66,7 +66,7 @@
                                         </div>
                                         <select required v-model="form.package_id" :disabled="false" class="form-control r-1 s-12" placeholder="Select Package" style="height:50px;">
                                             <option value="">Select Package</option>
-                                            <option v-for="regPackage,i in regPackages" :value="regPackage.id" :key="i">{{ regPackage.name }} - {{ regPackage.vip }} ({{regPackage.registration_value}})</option>
+                                            <option v-for="regPackage,i in regPackages" :value="regPackage.id" :key="i">{{ regPackage.name }} ({{regPackage.registration_value}})</option>
                                         </select>	   
                                     </div>								
                                 </div>
@@ -176,7 +176,8 @@ export default {
                 referrer:'',
                 phone: '',
                 package_id:''
-            }
+            },
+            //ref:null
         }
     },
     computed:{
@@ -192,6 +193,9 @@ export default {
         //if(this.packages.length()==0){
             this.all()
        // }
+
+       const params = new URL(window.location).searchParams
+       this.form.referrer = params.get('ref') ? params.get('ref') : null
     },
 
     methods:{

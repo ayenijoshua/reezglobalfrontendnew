@@ -5,10 +5,10 @@
                 <div class="col-lg-12">
                     <div class="counter-box p-40 text-white shadow2 r-5" style="background-color: #2E671A">
                         <div class="float-right">
-                            <img class="mr-3  r-3" src="assets/img/shopping-cart.png"  width="70px" height="70px">
+                            <img class="mr-3  r-3" src="/assets/img/shopping-cart.png"  width="70px" height="70px">
                         </div>
                         <small class="mt-0text-white" >Registration Products Requests</small>
-                        <p class="text-dark-heading font-weight-bold text-white"><span style="font-size:32px">127</span></p>
+                        <p class="text-dark-heading font-weight-bold text-white"><span style="font-size:32px">{{ productClaims.length }}</span></p>
                     </div>
                 </div>
             </div>
@@ -30,58 +30,132 @@
                                     <th>View Request</th>
                                     <th>Action</th>
                                 </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Innocent Aluu</td>
-                                    <td>Innocent@99</td>
-                                    <td>VIP 1 - Basic</td>
-                                    <td><span class="badge badge-warning">Pending Request</span></td>
-                                    <td>
-                                        <a class="btn-fab btn-fab-sm btn-success text-white" href="#" data-toggle="modal" data-target="#viewproductModal"><i class="icon-eye"></i></a>													
-                                    </td>
-                                    <td>
-                                        <div class="dropdown"> 
-                                            <button class="btn btn-sm btn-success  dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <i class="caret"></i>
-                                            </button>
-                                            <div class="dropdown-menu " aria-labelledby="dropdownMenuButton" style="position:fixed">
-                                                <a  class="dropdown-item text-green" href="#"  ><i class="icon-check-circle"></i>&nbsp;&nbsp; Approve</a>
-                                                <a  class="dropdown-item text-green" href="#" ><i class="icon-times-circle"></i>&nbsp;&nbsp; Decline</a>	
-                                            </div>
-                                        </div>													
+                                <tr v-if="loading && requestLoading">
+                                    <td colspan="7">
+                                        <b-skeleton-table
+                                            :rows="3"
+                                            :columns="7"
+                                            :table-props="{ bordered: true, striped: true }"
+                                        ></b-skeleton-table>
                                     </td>
                                 </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td>Felix Abraham</td>
-                                    <td>felix@09</td>
-                                    <td>VIP 2 - Business</td>
-                                    <td><span class="badge badge-success">Approved Request</span></td>
-                                    <td>
-                                        <a class="btn-fab btn-fab-sm btn-success text-white" href="#" data-toggle="modal" data-target="#viewproductModal"><i class="icon-eye"></i></a>													
-                                    </td>
-                                    <td>
-                                        <div class="dropdown"> 
-                                            <button class="btn btn-sm btn-success  dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <i class="caret"></i>
-                                            </button>
-                                            <div class="dropdown-menu " aria-labelledby="dropdownMenuButton" style="position:fixed">
-                                                <a  class="dropdown-item text-green" href="#"  ><i class="icon-check-circle"></i>&nbsp;&nbsp; Approve</a>
-                                                <a  class="dropdown-item text-green" href="#" ><i class="icon-times-circle"></i>&nbsp;&nbsp; Decline</a>	
+                                <template v-else>
+                                    <tr v-if="productClaims.length == 0">
+                                        <td colspan="7">
+                                            <div class="alert alert status">
+                                                There are no product claims
                                             </div>
-                                        </div>													
-                                    </td>
-                                </tr>
+                                        </td>
+                                    </tr>
+                                    <tr v-else v-for="prod,i in productClaims" :key="i">
+                                        <td>{{ ++i }}</td>
+                                        <td>{{ prod.first_name }} {{ prod.last_name }}</td>
+                                        <td>{{ prod.username }}</td>
+                                        <td>{{ prod.package_name }}</td>
+                                        <td><span class="badge badge-warning">Pending Request</span></td>
+                                        <td>
+                                            <a @click="setUser(prod.user_uuid)" v-b-modal.view-claims class="btn-fab btn-fab-sm btn-success text-white" href="#" data-toggle="modal" data-target="#viewproductModal"><i class="icon-eye"></i></a>													
+                                        </td>
+                                        <td>
+                                            <div class="dropdown"> 
+                                                <button class="btn btn-sm btn-success  dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <i class="caret"></i>
+                                                </button>
+                                                <div class="dropdown-menu " aria-labelledby="dropdownMenuButton" style="position:fixed">
+                                                    <a @click="accept(prod.user_uuid)" class="dropdown-item text-green" href="#"  ><i class="icon-check-circle"></i>&nbsp;&nbsp; Approve</a>
+                                                    <a @click="reject(prod.user_uuid)" class="dropdown-item text-green" href="#" ><i class="icon-times-circle"></i>&nbsp;&nbsp; Decline</a>	
+                                                </div>
+                                            </div>													
+                                        </td>
+                                    </tr>
+                                </template>
                             </table>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+
+        <Modal modal-id="view-claims" modal-title="Product Claims" modal-size="md">
+            <template v-if="user_uuid==null">
+                <b-skeleton-table
+                    :rows="3"
+                    :columns="8"
+                    :table-props="{ bordered: true, striped: true }"
+                ></b-skeleton-table>
+            </template>
+            <ProductClaimDetails v-else :uuid="user_uuid"/>
+        </Modal>
     </div>
 </template>
 <script>
+import { mapActions, mapGetters, mapState } from 'vuex';
+import Modal from '@/components/Modal.vue';
+import ProductClaimDetails from '@/components/admin/ProductClaimDetails.vue';
+
     export default{
-        name:"product-requests"
+        name:"product-requests",
+
+        components:{
+            Modal,
+            ProductClaimDetails
+        },
+
+        data(){
+            return{
+                user_uuid:null,
+                requestLoading:false
+            }
+        },
+
+        computed:{
+            ...mapState({
+                loading:state=>state.loading,
+                submitting:state=>state.submitting
+            }),
+
+            ...mapGetters('productClaimStore',['productClaims']),
+
+            
+        },
+
+        created(){
+            if(this.productClaims.length == 0){
+                this.requestLoading = true
+                this.all().then((res)=>{
+                    this.requestLoading = false
+                    if(res.status == 200){
+                        var flags = [], len = this.productClaims.length, i;
+                        for(i=0; i<len; i++){
+                            if(flags[this.productClaims[i].user_uuid]){
+                                this.productClaims.splice(i,1)
+                            }
+                            flags[this.productClaims[i].user_uuid] = true;
+                        }
+                    }  
+                })
+            }
+        },
+
+        methods:{
+            ...mapActions('productClaimStore',['all','approve','decline','getProductClaims']),
+
+            accept(id){
+                if(confirm("Are you sure to approve this request")){
+                    this.approve(id)
+                }
+            },
+
+            reject(id){
+                if(confirm("Are you sure to reject this request")){
+                    this.decline(id)
+                }
+            },
+
+            setUser(uuid){
+                this.user_uuid = uuid
+            }
+
+        }
     }
 </script>

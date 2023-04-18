@@ -3,7 +3,7 @@
         <aside class="main-sidebar fixed offcanvas shadow" data-toggle='offcanvas'>
             <section class="sidebar">
                 <div class="w-80px mt-3 mb-3 ml-3">
-                    <img src="/assets/img/deli_logo.png" width="200" height="90" alt="logo">
+                    <img src="/assets/img/deli_logo.png" style="max-width: 300%;" alt="logo">
                 </div>
                 <div class="relative">
                     <a data-toggle="collapse" href="#adminSettingsCollapse" role="button" aria-expanded="false"
@@ -42,26 +42,26 @@
                     </li>
                     <li :class="['treeview', activeMenu()=='admin-users' ? 'active' : '']" @click="setMenu('admin-users')">
                         <router-link :to="{name:'admin-users'}" >
-                            <i class="icon icon-users green-text s-18"></i><span class="green-text">Users</span> 
+                            <i class="icon icon-people green-text s-18"></i><span class="green-text">Memebers</span> 
                         </router-link>
                     </li>
                     <li :class="['treeview', activeMenu()=='admin-wallet' ? 'active' : '']" @click="setMenu('admin-wallet')">
                         <router-link :to="{name:'admin-wallet'}" >
-                            <i class="icon icon-wallet green-text s-18"></i><span class="green-text">Wallet</span> 
+                            <i class="icon icon-account_balance_wallet green-text s-18"></i><span class="green-text">Company Finance</span> 
                         </router-link>
                     </li>
                     <li :class="['treeview', activeMenu()=='admin-transactions' ? 'active' : '']" @click="setMenu('admin-transactions')">
                         <router-link :to="{name:'admin-transactions'}">
-                            <i class="icon icon-account_balance_wallet green-text s-18"></i> <span class="green-text">Transactions</span>
+                            <i class="icon icon-account_balance green-text s-18"></i> <span class="green-text">Transactions</span>
                         </router-link>
                     </li>
 
                     <li :class="['treeview', activeMenu()=='admin-incentives' ? 'active' : '']" @click="setMenu('admin-incentives')">
-                        <a href="#"><i class="icon icon-settings light-green-text s-18"></i>
+                        <a href="#"><i class="icon icon-gift light-green-text s-18"></i>
                             <span class="green-text">Incentives</span>
                             <i class="icon icon-angle-left s-18 pull-right"></i>
                         </a>
-                        <ul class="treeview-menu menu-open" style="display: block;">
+                        <ul class="treeview-menu">
                             <li>
                                 <router-link :to="{name:'admin-incentives'}" >
                                     <i class="icon icon-circle-o"></i>Update Incentives
@@ -75,19 +75,19 @@
                         </ul>
                     </li>
 
-                    <li :class="['treeview', activeMenu()=='admin-incentives' ? 'active' : '']" @click="setMenu('admin-incentives')">
-                        <a href="#"><i class="icon icon-settings light-green-text s-18"></i>
+                    <li :class="['treeview', activeMenu()=='admin-products' ? 'active' : '']" @click="setMenu('admin-product')">
+                        <a href="#"><i class="icon icon-map light-green-text s-18"></i>
                             <span class="green-text">Products</span>
                             <i class="icon icon-angle-left s-18 pull-right"></i>
                         </a>
-                        <ul class="treeview-menu menu-open" style="display: block;">
+                        <ul class="treeview-menu">
                             <li>
-                                <router-link :to="{name:'admin-incentives'}">
+                                <router-link :to="{name:'products'}">
                                     <i class="icon icon-circle-o"></i>Update Products
                                 </router-link>
                             </li>
                             <li>
-                                <router-link :to="{name:'incentive-requests'}" >
+                                <router-link :to="{name:'product-requests'}" >
                                     <i class="icon icon-circle-o"></i>Product Requests
                                 </router-link>
                             </li>
@@ -96,7 +96,7 @@
 
                     <li :class="['treeview', activeMenu()=='admin-packages' ? 'active' : '']" @click="setMenu('admin-packages')">
                         <router-link :to="{name:'admin-packages'}" >
-                            <i class="icon icon-lock3 green-text s-18"></i>
+                            <i class="icon icon-package green-text s-18"></i>
                             <span class="green-text">Packages</span>
                         </router-link>
                     </li>
@@ -116,11 +116,11 @@
                     </li>
                     
                     <li :class="['treeview', activeMenu()=='admin-settings' ? 'active' : '']" @click="setMenu('admin-settings')">
-                        <a href="#"><i class="icon icon-settings light-green-text s-18"></i>
+                        <a href="#"><i class="icon icon-gear light-green-text s-18"></i>
                             <span class="green-text">Settings</span>
                             <i class="icon icon-angle-left s-18 pull-right"></i>
                         </a>
-                        <ul class="treeview-menu menu-open" style="display: block;">
+                        <ul class="treeview-menu">
                             <li>
                                 <router-link :to="{name:'referral-bonus-settings'}">
                                     <i class="icon icon-circle-o"></i>Referral Bonus Settings
@@ -199,18 +199,30 @@
 
         <div class="control-sidebar-bg shadow white fixed"></div>
 
-         <modal :modalId="'logOut'" :modalSize="'sm'" :modalTitle="'Log out'">
-             <div class="alert alert-danger">
-                 Are you sure you want to log out?
-                 <button class="btn btn-danger" @click="logOut()">Yes</button>
-             </div>
+         <modal :modalId="'logOut'" :modalSize="'md'" :modalTitle="'Log out'">
+            <div class="card border-0 p-sm-3 p-2 justify-content-center">
+                <div class="card-header pb-0 bg-white border-0 mb-2">
+                    <h6 ><span class="font-weight-bold "> Are you sure you want to signout ?</span>
+                    <br><small>Confirm this is not a mistake.</small></h6>
+                </div>
+                <div class="card-body px-sm-4 mb-2 pt-1 pb-0"> 
+                    <div class="row justify-content-end no-gutters">
+                        <div class="col-auto mr-2">
+                            <button type="button" class="btn btn-sm btn-success px-4" @click="logOut()" data-dismiss="modal">Confirm</button>
+                        </div>
+                        <div class="col-auto">
+                            <button type="button" class="btn btn-sm btn-light text-muted" data-dismiss="modal">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            </div>  
          </modal>
     </div>
 </template>
 
 <script>
 import modal from '@/components/Modal'
-//import {mapActions} from 'vuex'
+import {mapActions} from 'vuex'
 export default {
     components:{
         modal
@@ -221,22 +233,22 @@ export default {
     },
 
     created(){
-    //     const pageArr = location.pathname.split('/')
-    //     let activeMenu = pageArr[1]+'-'+pageArr[2]
-    //    this.setMenu(activeMenu)
+        const pageArr = location.pathname.split('/')
+        let activeMenu = pageArr[1]+'-'+pageArr[2]
+       this.setMenu(activeMenu)
 
-    //    document.querySelector('title').innerHTML = 'Bfree | Admin'
+       document.querySelector('title').innerHTML = 'Delsihcare | Admin'
        //alert(document.getElementsByTagName('title').text)
     },
 
     methods:{
-        //...mapActions('authStore',['logOut']),
+        ...mapActions('authStore',['logOut']),
 
-        setMenu(){
-            //this.$store.state.activeMenu = menu
+        setMenu(menu){
+            this.$store.state.activeMenu = menu
         },
         activeMenu(){
-            return '' //this.$store.state.activeMenu
+            return this.$store.state.activeMenu
         }
     }
     

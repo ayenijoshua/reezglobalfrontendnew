@@ -9,310 +9,109 @@
                                 <a class="nav-link active" id="v-pills-wallet-summary-tab" data-toggle="pill"  href="#v-pills-wallet-summary" role="tab" aria-controls="v-pills-wallet-sumary"><i class="icon icon-lock4" ></i>Manage Google 2Factor Authenticator</a>
                             </li> -->
                             <li>
-                                <a class="nav-link" id="v-pills-Wallet-Detailed-Calculation-tab" data-toggle="pill" href="#v-pills-Wallet-Detailed-Calculation" role="tab" aria-controls="v-pills-Wallet-Detailed-Calculation" aria-selected="false"><i class="icon  icon-key6 "></i>Change Password</a>
+                                <a class="nav-link active" id="v-pills-Wallet-Detailed-Calculation-tab" data-toggle="pill" href="#v-pills-Wallet-Detailed-Calculation" role="tab" aria-controls="v-pills-Wallet-Detailed-Calculation" aria-selected="false"><i class="icon  icon-key6 "></i>Enable/Disable 2FA</a>
                             </li>
                             <li>
-                                <a class="nav-link" id="v-pills-Withdrawal-History-tab" data-toggle="pill" href="#v-pills-Withdrawal-History" role="tab" aria-controls="v-pills-Withdrawal-History" aria-selected="false"><i class="icon icon-mail-add2 "></i>Change Email</a>
+                                <a class="nav-link" id="v-pills-Withdrawal-History-tab" data-toggle="pill" href="#v-pills-Withdrawal-History" role="tab" aria-controls="v-pills-Withdrawal-History" aria-selected="false"><i class="icon icon-lock3 "></i>Change Password</a>
                             </li>
                         </ul>
                     </div>
                 </div>
             </header>
-            <div class="container-fluid animatedParent animateOnce my-3">
-                <div class="animated">
-                    <div class="tab-content" id="v-pills-tabContent">
-                        <div class="tab-pane fade" id="v-pills-wallet-summary" role="tabpanel" aria-labelledby="v-pills-wallet-summary-tab">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="row my-3">
-                                        <div class="col-md-4">
-                                            <div class="card">
-                                                <div class="card-header white text-center">
-                                                    <img src="/assets/img/step1.png" class="img-responsive">
-                                                </div>
-                                                <div class="card-body">
-                                                    <!-- Big Heading -->
-                                                    <div class="text-center">
-                                                        <h4 class="font-weight-bold">Download App</h4><br>
-                                                        <img class="img-responsive" src="/assets/img/GA.png">
-                                                    </div>
-                                                    <div class="text-center">
-                                                        <h4 class="font-weight-bold">Let's Begin The Protection...</h4>
-                                                        <h6>Click below to Download Google Authenticator</h6>
-                                                        <a target="_blank" href="https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2&hl=en
-                                                        "><img class="img-responsive" src="/assets/img/playstore.png"></a>
-                                                        <a target="_blank" href="https://apps.apple.com/us/app/google-authenticator/id388497605
-                                                        "><img class="img-responsive" src="/assets/img/apple.png"></a>
-                                                    </div>
-                                                </div>
+            
+            <div class="animated">
+            <div class="tab-content" id="v-pills-tabContent">
+                <div class="tab-pane fade show active" id="v-pills-Wallet-Detailed-Calculation" role="tabpanel" aria-labelledby="v-pills-Wallet-Detailed-Calculation-tab">
+                    <div class="row my-3">
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card border justify-content-center">
+                                    <div class="card-body"> 
+                                        <div class="text-center mt-2 mb-4"><img  src="/assets/img/private-account.png" width="80px" height="80px" alt=""></div>
+                                        <div class="text-center mb-4">
+                                            <h6 class="font-weight-bold text-green"><i class="icon-lock mr-2"></i>Login 2Factor Authentication</h6>
+                                            <small>Disable or Enable Login 2FA Authentication</small>
+                                            <div class="form-row mt-2">
+                                            <div style="padding-left:200px">
+                                                <input type="checkbox" @click="toggle2fa()"  data-toggle="switchbutton"  :checked="profile.enable_2fa" data-width="100"  data-onstyle="success" /></div>
                                             </div>
                                         </div>	
-                                        
-                                        <div class="col-md-4">
-                                            <div class="card">
-                                                <div class="card-header white text-center">
-                                                    <img src="/assets/img/step2.png" class="img-responsive">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-pane fade" id="v-pills-Withdrawal-History" role="tabpanel" aria-labelledby="v-pills-Withdrawal-History-tab">
+                    <div class="row my-3">
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-header bg-white">
+                                    <h6 class="green-text"><strong class="font-weight-bold">Send Confirmation Code</strong></h6>
+                                </div>
+                                <div class="card-body">
+                                    <form @submit.prevent="sendCode()">
+                                        <div class="form-row mb-3">
+                                            <div class="col-md-10">
+                                                <div class="input-group mb-2" >
+                                                    <div class="input-group-prepend">
+                                                        <div class="input-group-text"><i class="icon icon-email float-left s-20 green-text " ></i></div>
+                                                    </div>
+                                                    <input type="email" required v-model="form.email" readonly class="form-control r-1 light s-12" placeholder="Email"> 
                                                 </div>
-                                                <img src="" class="img-responsive">
-                                                <div class="card-body">
-                                                    
-                                                    <form action="/user/generateQr" method="post" id="generateQr">
-                                                        <input type="hidden" name="_token" value="vS9XYDdx28ERrlA2S9wbpWCyP5Au2zJfuR2AOXY8">
-                                                        <div class="text-center">
-                                                            <h4 class="font-weight-bold">Scan QRcode</h4>
-                                                                <img class="img-responsive" src="/assets/img/qrcode.png">
-                                                        </div>
-                                                        <div class="text-center">
-                                                            <h5 class="font-weight-bold">Click To Generate QR Code </h5>
-                                                            <h6>You are steps away from protecting your Back-Office</h6><br>
-                                                            <input type="hidden" name="type" value="user">
-                                                            <button class="btn btn-sm btn-success"  id="generate-qr-code"><i class="icon-arrow_forward mr-2"></i>Generate</button>
-                                                        </div>
-                                                    </form>
+                                                <div class="input-group mb-2" >
+                                                    <div class="input-group-prepend">
+                                                        <div class="input-group-text"><i class="icon icon-lock3 float-left s-20 green-text " ></i></div>
+                                                    </div>
+                                                    <input type="password" required v-model="form.old_password" class="form-control r-1 light s-12" placeholder="Old Password"> 
                                                 </div>
+                                            
+                                                <span class="btn btn-success btn-sm" v-if="submitting">...</span>
+                                                <button v-else type="submit" class="btn btn-success btn-sm btn-block">
+                                                    <i class="icon-check-square-o mr-2"></i>Send Confirmation code
+                                                </button>
                                             </div>
                                         </div>
-                                        
-                                        <div class="col-md-4">
-                                            <div class="card">
-                                                <div class="card-header white text-center">
-                                                    <img src="/assets/img/step3.png" class="img-responsive">
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-header bg-white">
+                                    <h6 class="green-text"><strong class="font-weight-bold">Change Password</strong></h6>
+                                </div>
+                                <div class="card-body">
+                                    <div class="text-center">
+                                        <small class="mt-2">To proceed with the change of your password, enter confirmation code sent to your email.</small>
+                                    </div>
+                                    
+                                    <form @submit.prevent="change()">
+                                        <div class="form-row mb-3">
+                                            <div class="col-md-10">
+                                                <div class="input-group mb-2" >
+                                                    <div class="input-group-prepend">
+                                                        <div class="input-group-text"><i class="icon icon-lock3 float-left s-20 green-text " ></i></div>
+                                                    </div>
+                                                    <input type="password" required v-model="changeForm.code" class="form-control r-1 light s-12" placeholder="Confirmation code"> 
                                                 </div>
-                                                <img src="" class="img-responsive">
                                                 
-                                                <div class="card-body">
-                                                    <div class="text-center">
-                                                        <h4 class="font-weight-bold">Complete Your Protection</h4>
-                                                        <p>Enter the code generated from Google Authenticator</p>
+                                                <div class="input-group mb-2" >
+                                                    <div class="input-group-prepend">
+                                                        <div class="input-group-text"><i class="icon icon-lock3 float-left s-20 green-text " ></i></div>
                                                     </div>
-                                                    <div class="text-center mb-2"><img class="img-responsive text-center" src="/assets/img/lock1.png"></div>
+                                                    <input type="password" required v-model="changeForm.password" class="form-control r-1 light s-12" placeholder="New Password"> 
+                                                </div>
 
-                                                    <form class="form-horizontal " method="POST" action="/user/verifyQrCode" id="verifyQrCodeForm">
-                                                                                                            
-                                                        <div class="input-group mb-2 mr-sm-2 mb-3">
-                                                            <div class="input-group-prepend">
-                                                                <div class="input-group-text"><i class="icon icon-lock float-left s-20 green-text " ></i></div>
-                                                            </div>
-                                                            <input type="text" class="form-control r-0 light s-12" id="inlineFormInputGroupUsername2"
-                                                                placeholder="Enter Generated Code"> 
-                                                        </div>
-                                                            <button class="btn btn-sm btn-success"  id="generate-qr-code"><i class="icon-arrow_forward mr-2"></i>Submit</button>
-                                                    </form>
-                                                </div>
-                                            </div> 
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="tab-pane fade show active" id="v-pills-Wallet-Detailed-Calculation" role="tabpanel" aria-labelledby="v-pills-Wallet-Detailed-Calculation-tab">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="row my-3">
-                                        <!-- bar charts group -->
-                                        <div class="col-md-12">
-                                            <div class="card">
-                                                <div class="card-header bg-white">
-                                                    <h6 class="green-text"><strong class="font-weight-bold">Change Password</strong></h6>
-                                                </div>
-                                                <div class="col-lg-6 mx-md-auto">
-                                                    <br>
-                                                    <div class="text-center">
-                                                        <small class="mt-2">To proceed with the change of your password, enter your email.</small>
-                                                    </div>
-                                                    <br>
-                                                    <form action="https://xvelopers.com/demos/html/paper-panel/dashboard2.html">
-                                                        <div class="form-group has-icon"><label>Enter Email</label>
-                                                            <input type="text" class="form-control form-control-lg" placeholder="">
-                                                        </div>
-                                                        <input type="hidden" name="user_id" value="278">
-                                                        <div class="text-right"><button type="submit" class="btn btn-success mt-2"><i class="icon-arrow_forward mr-2"></i>Submit </button></div>
-                                                    </form>
-                                                    <br>
-                                                    <br>
-                                                </div>
+                                                <span class="btn btn-success btn-sm" v-if="submitting">...</span>
+                                                <button v-else type="submit" class="btn btn-success btn-sm btn-block" value="Change">
+                                                    <i class="icon-check-square-o mr-2"></i>Change Password
+                                                </button>
                                             </div>
                                         </div>
-                                        <!-- /bar charts group -->
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="tab-pane fade" id="v-pills-Withdrawal-History" role="tabpanel" aria-labelledby="v-pills-Withdrawal-History-tab">
-                            <div class="row">
-                                <!-- bar charts group -->
-                                <div class="col-md-12">
-                                    <div class="card">
-                                        <div class="card-header bg-white">
-                                            <h6 class="green-text"><strong class="font-weight-bold">Change Email</strong></h6>
-                                        </div>
-                                        <div class="col-lg-6 mx-md-auto">
-                                            <br>
-                                            <div class="text-center">
-                                                <small class="mt-2">To proceed with the change of your Email, enter your email.</small>
-
-                                            </div>
-                                            <br>
-                                            <form action="https://xvelopers.com/demos/html/paper-panel/dashboard2.html">
-                                                <div class="form-group has-icon"><label>Enter Email</label>
-                                                    <input type="text" class="form-control form-control-lg"
-                                                        placeholder="">
-                                                </div>
-                                                <input type="hidden" name="user_id" value="278">
-                                                <div class="text-right"><button type="submit" class="btn btn-success mt-2"><i class="icon-arrow_forward mr-2"></i>Submit </button></div>
-                                            </form>
-                                            <br>
-                                            <br>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- /bar charts group -->
-                            </div>
-                        </div>
-                        
-                        <div class="tab-pane fade" id="v-pills-Request-for-cash" role="tabpanel" aria-labelledby="v-pills-Request-for-cash-tab">
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <div class="card no-b">
-                                        <div class="card-header bg-white">
-                                            <h4 class="blue-text"><strong class="font-weight-bold">Request for cash</strong></h4>
-                                            <small>Make a withdrawal request with the form below</small>
-                                        </div>
-                                        <div class="collapse show text-center" id="invoiceCard">
-                                            <div class="col-md-4">
-                                                <div class="card-body p-0">
-                                                <img src="/assets/img/cashout.png">
-                                                </div>
-                                            </div>
-                                            <div class="card-body p-">
-                                                <form class="form-horizontal form-materia" id="cash-req-form" method="POST" action="/user/cashRequest">
-                                                    <input type="hidden" name="_token" value="saGpHxjrdqo96sVX6V2kNO0n81O3kwAFgE751r3S">
-                                                    <div class="form-group">
-                                                        <div class="col-md-12">                                                                                                                                                       <input type="hidden" name="level_id" value="2">
-                                                            <input type="text" name="amount" class="form-control form-control-line" placeholder="Enter amount">
-                                                            <div class="form-group"><br>
-                                                                <div class="col-sm-12">
-                                                                    <button type="submit" class="btn btn-sm btn-primary" id="cash-req">Cash request</button>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="card no-b">
-                                        <div class="card-header bg-white">
-                                            <h4 class="blue-text"><strong class="font-weight-bold">Notification</strong></h4>
-                                            <small>We pay out at certain periods in a month</small>
-                                        </div>
-                                        <div class="collapse show text-center" id="invoiceCard">
-                                            <div class="col-md-4">
-                                                <div class="card-body p-0">
-                                                <img class="img-center" src="/assets/img/notify2.png">
-                                                </div>
-                                            </div>
-                                            <div class="card-body  text-center">
-                                                <h6 class="font-weight-bold"><strong >We honour withdrawals 2 times in a month. Minimum Withdrawal is &#8358;1000. Thank You.</strong></h6>
-                                            </div>                                            
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="card no-b">
-                                        <div class="card-header bg-white">
-                                            <h4 class="blue-text"><strong class="font-weight-bold">Wallet</strong></h4>
-                                            <small>Your current wallet balance</small>
-                                        </div>
-                                        <div class="collapse show text-center" id="invoiceCard">
-                                            <div class="col-md-4">
-                                                <div class="card-body p-0">
-                                                <img src="/assets/img/wallet2.png">
-                                                </div>
-                                            </div>
-                                            <div class="card-body text-center">
-                                                <small>Wallet Account</small>
-                                                <h1 class="font-weight-bold">&#8358;15,000</h1>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="tab-pane fade" id="v-pills-Claim-Food-Voucher" role="tabpanel" aria-labelledby="v-pills-Claim-Food-Voucher-tab">
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <div class="white">
-                                        <div class="card">
-                                            <div class="card-body no-p">
-                                                <div class="tab-content">
-                                                    <div class="tab-pane animated fadeIn show active" id="v-pills-tab1" role="tabpanel" aria-labelledby="v-pills-tab1">
-                                                        <div class="bg-primary text-white lighten-2">
-                                                            <div class="pt-5 pb-2 pl-5 pr-5">
-                                                                <h5 class="font-weight-normal s-14">Food Voucher Wallet</h5>
-                                                                <span class="s-48 font-weight-lighter text-primary"><small>₦</small>960</span>
-                                                                <div class="float-right">
-                                                                    <img class="gift" src="/assets/img/giftcard.png">
-                                                                </div>
-                                                            </div>
-                                                                                                        
-                                                            <canvas width="378" height="94" data-chart="spark" data-chart-type="line" data-dataset="[[28,530,200,430]]" data-labels="['a','b','c','d']"
-                                                                data-dataset-options="[{ borderColor:  'rgba(54, 162, 235, 1)', backgroundColor: 'rgba(54, 162, 235,1)'},]">
-                                                            </canvas>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="card no-b">
-                                        <div class="card-header bg-white">
-                                            <h4 class="blue-text"><strong class="font-weight-bold">Food Voucher for stage 2</strong></h4>
-                                            <small>Your food voucher earning at this stage</small>
-                                        </div>
-                                        <div class="collapse show text-center" id="invoiceCard">
-                                            <div class="col-md-4">
-                                                <div class="card-body p-0">
-                                                <img class="img-center" src="/assets/img/buyfood.png">
-                                                </div>
-                                            </div>
-                                            <div class="card-body text-center">
-                                                <small>Voucher</small>
-                                                <h1 class="font-weight-bold">&#8358;28,000</h1>
-                                            </div>                                           
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="card no-b">
-                                        <div class="card-header bg-white">
-                                            <h4 class="blue-text"><strong class="font-weight-bold">Claim</strong></h4>
-                                            <small>Choose an option to spend your voucher bonus</small>
-                                        </div>
-                                        <div class="collapse show" id="invoiceCard">
-                                            <div class="col-md-4">
-                                                <div class="card-body p-0">
-                                                <img src="/assets/img/choose.png">
-                                                </div>
-                                            </div>
-                                            <div class="card-body">             
-                                                <div class="form-row">
-                                                    <div class="col-md-12 mb-3">
-                                                        <select class="custom-select select2" required>
-                                                            <option value="">Claim Option</option>
-                                                            <option value="1">Shoprite Voucher</option>
-                                                            <option value="2">Cash</option>
-                                                        </select><br><br>
-                                                        <button class="btn btn-primary" type="submit" >Claim Incentive</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    </form>
                                 </div>
                             </div>
                         </div>
@@ -320,10 +119,77 @@
                 </div>
             </div>
         </div>
+
+        </div>
     </div>
 </template>
 <script>
+import { mapActions, mapGetters, mapState } from 'vuex';
     export default{
-        name:'user-security'
+        name:'user-security',
+
+        data(){
+            return{
+                form2Fa:{
+                    enable_2fa:null
+                },
+                form:{
+                code:null,
+                email: null,
+                old_password:null,
+                user_type:'user'
+            },
+            changeForm:{
+                code:null,
+                password:null,
+                email: null,
+                user_type:'user'
+            }
+            }
+        },
+
+        computed:{
+            ...mapState({
+                submitting:state=>state.submitting,
+                loading:state=>state.loading
+            }),
+
+            ...mapGetters('authStore',['authUser']),
+            ...mapGetters('userStore',['profile'])
+        },
+
+        created(){
+            if(this.authUser.uuid == undefined){
+                this.getUser().then(res=>{
+                    if(res.status == 200){
+                        this.getProfileDetails(res.data.uuid)
+                        this.form.email = res.data.email
+                        this.changeForm.email = res.data.email
+                    }
+                })
+            }else{
+                this.getProfileDetails(this.authUser.uuid)
+                this.form.email = this.authUser.email
+                this.changeForm.email = this.authUser.email
+            }
+            
+        },
+
+        methods:{
+            ...mapActions('authStore',['changePasswordLink','getUser','changePassword']),
+            ...mapActions('userStore',['toggle2FA','getProfileDetails']),
+
+            toggle2fa(){
+                this.form2Fa.enable_2fa = ! this.authUser.enable_2fa
+                this.toggle2FA({uuid:this.authUser.uuid,data:this.form2Fa})
+            },
+            sendCode(){
+                this.changePasswordLink(this.form)
+            },
+
+            change(){
+                this.changePassword(this.changeForm)
+            }
+        }
     }
 </script>

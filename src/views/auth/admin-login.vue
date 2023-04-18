@@ -1,12 +1,12 @@
 <template>
     <div id="">
     <main>
-        <div class="p-t-b-100 height-full bg-green" style="background-image: url('assets/img/bg-wall2.png');">
+        <div class="p-t-b-100 height-full bg-green" style="background-image: url('assets/img/bg-wall2.png')">
             <div class="container">
                 <div class="row">
                     <div class="col-lg-7 mx-md-auto">
                         <div class="text-center">
-                            <img class="img-responsive" src="assets/img/logo-white.png" width="500" height="218" alt="">
+                            <img class="img-responsive" src="/assets/img/logo-white.png" width="500" height="218" alt="">
                             <p class="p-t-b-20 text-white">Back Office, signin...
                                 </p>
                         </div>
@@ -25,7 +25,7 @@
                                     </div>
                                 </div>
                                 <div class="col-lg-12">
-                                    <span v-if="submitting" class="btn btn-success btn-lg btn-block">...</span>
+                                    <span v-if="submitting && logSubmitting" class="btn btn-success btn-lg btn-block">...</span>
                                     <input v-else type="submit" class="btn btn-success btn-lg btn-block" value="Login">
                                 </div>
                             </div>
@@ -44,7 +44,7 @@
                                         </div>
                                     </div>
                                     <div class="col-lg-12 text-center">
-                                        <span v-if="submitting" class="btn btn-success btn-lg btn-block">...</span>
+                                        <span v-if="submitting && resetSubmitting" class="btn btn-success btn-lg btn-block">...</span>
                                         <input v-else type="submit"  class="btn btn-success btn-lg btn-block" value="Reset Password">
                                     </div>
                                 </form>
@@ -70,7 +70,9 @@ export default {
             reset_form:{
                 email:null,
                 user_type:'admin'
-            }
+            },
+            resetSubmitting:false,
+            logSubmitting:false
         }
     },
 
@@ -84,12 +86,13 @@ export default {
         ...mapActions('authStore',['adminLogin','resetPasswordLink']),
 
         loginUser(){ 
-            //this.$router.push({name:'dashboard'})
-            this.adminLogin(this.form)
+           this.logSubmitting = true
+            this.adminLogin(this.form).then(()=>this.logSubmitting = false)
         },
 
         submitReset(){
-            this.resetPasswordLink(this.reset_form)
+            this.resetSubmitting = true
+            this.resetPasswordLink(this.reset_form).then(()=>this.resetSubmitting = false)
         }
     }
 }

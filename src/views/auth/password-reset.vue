@@ -15,18 +15,16 @@
                                 <div class="col-lg-6">
                                     <div class="form-group has-icon"><i class="icon-user"></i>
                                         <input required type="password" v-model="form.code" class="form-control form-control-lg no-b" placeholder="Code">
-                                        <span toggle="#password-field" class=" icon-eye3 green-text field-icon toggle-password mr-3" style="text-decoration: none;"></span>
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="form-group has-icon"><i class="icon-lock green-text"></i>								    
                                         <input type="password" v-model="form.password" class="form-control form-control-lg no-b" id="password-field" placeholder="Enter new password">
-                                        <span toggle="#password-field" class=" icon-eye3 green-text field-icon toggle-password mr-3" style="text-decoration: none;"></span>
                                     </div>
                                 </div>
                                 <div class="col-lg-12">
-                                    <span v-if="submitting" class="btn btn-primary btn-lg btn-block">...</span>
-                                    <input v-else type="submit" class="btn btn-success btn-lg btn-block" value="Authenticate">
+                                    <span v-if="submitting" class="btn btn-success btn-lg btn-block">...</span>
+                                    <input v-else type="submit" class="btn btn-success btn-lg btn-block" value="Submit">
                                 </div>
                             </div>
                         </form>

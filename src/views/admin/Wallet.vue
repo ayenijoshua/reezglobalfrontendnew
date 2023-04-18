@@ -8,7 +8,7 @@
                             <img  src="/assets/img/wallet1.png">
                         </div>
                         <small class="mt-0text-white" >Total Company Wallet</small>
-                        <p class="text-dark-heading font-weight-bold text-white">₦<span style="font-size:32px">156,550,000</span></p>
+                        <p class="text-dark-heading font-weight-bold text-white">₦<span style="font-size:32px">{{ companyWalletBalance }}</span></p>
                     </div>
                     <div class="row my-3">
                         <div class="col-md-12">
@@ -19,16 +19,15 @@
                                 <div class="card-body" style="overflow-x:auto;">
                                     <table class="table table-bordered table-hover">
                                         <tr>
-                                            <th>Total Registration payments (TRP)</th>
+                                            <th>TOTal Company Wallet (TRP)</th>
                                             <th>Total Withdrawals (TW)</th>
-                                            <th>Net Balance ( TRP - TW)</th>
+                                            <th>Company Wallet Balance ( TRP - TW)</th>
                                         </tr>
                                         <tr>
-                                            <td>₦ 256,550,000</td>
-                                            <td>₦ 39,000,000</td>
-                                            <td>₦ 156,550,000</td>
+                                            <td>₦ {{ totalCompanyWallet }}</td>
+                                            <td>₦ {{ totalWithdrawals }}</td>
+                                            <td>₦ {{ companyWalletBalance }}</td>
                                         </tr>
-                                        
                                     </table>
                                 </div>
                             </div>
@@ -45,7 +44,7 @@
                                     <img src="/assets/img/accounts.png">
                                 </div>
                                 <small class="mt-0 ml-2"><span style="color:#2E671A!important;">Total Registration Products Amount</span></small>
-                                <p class="text-dark-heading font-weight-bold " style="color:#2E671A!important;">₦<span style="color:#2E671A!important;font-size:32px">556,550,000</span></p>
+                                <p class="text-dark-heading font-weight-bold " style="color:#2E671A!important;">₦<span style="color:#2E671A!important;font-size:32px">{{ sumClaimedProducts }}</span></p>
                             </div>
                         </div>
                     </div>
@@ -61,7 +60,7 @@
                                             <div class="d-flex flex-row mt-4 mb-4 ml-4">
                                                 <div  style="padding-right:20px">
                                                     <h6 class="mt-0 mb-1 font-weight-bold text-white" >Products Sold</h6>
-                                                    <div class="mt-1 text-dark-heading text-white float-right" >1,231,334</div>
+                                                    <div class="mt-1 text-dark-heading text-white float-right" >{{ totalProductSold }}</div>
                                                 </div>
                                             </div>
                                         </div>
@@ -80,7 +79,7 @@
                                             <div class="d-flex flex-row mt-4 mb-4 ml-4">
                                                 <div  style="padding-left:20px">
                                                     <h6 class="mt-0 mb-1 font-weight-bold text-white" >Total Products PV</h6>
-                                                    <div class="mt-1 text-dark-heading text-white float-right"  >1,302,334 PV</div>
+                                                    <div class="mt-1 text-dark-heading text-white float-right">{{ totalProductPV }} PV</div>
                                                 </div>
                                             </div>
                                         </div>
@@ -340,7 +339,57 @@
 </template>
 
 <script>
+import { mapGetters, mapState, mapActions } from 'vuex';
+
     export default{
-        name:"admin-wallet"
+        name:"admin-wallet",
+
+        data(){
+            return{
+
+            }
+        },
+
+        computed:{
+            ...mapState({
+                loading:state=>state.loading
+            }),
+
+            ...mapGetters('bonusStore',['companyWalletBalance','totalCompanyWallet']),
+            ...mapGetters('userStore',['totalRegistrations','totalRegistrationPV']),
+            ...mapGetters('withdrawalStore',['totalWithdrawals','withdrawals']),
+            ...mapGetters('productClaimStore',['sumClaimedProducts','totalProductSold','totalProductPV']),
+        },
+
+        created(){
+            if(!this.companyWalletBalance){
+                this.getCompanyWalletBalance()
+            }
+            if(!this.totalRegistrations){
+                this.getTotalRegistrations()
+            }
+            if(!this.totalCompanyWallet){
+                this.getTotalCompanyWallet()
+            }
+            if(!this.sumClaimedProducts){
+                this.getSumClaimedProducts()
+            }
+            if(!this.totalProductSold){
+                this.getTotalProductSold()
+            }
+            if(!this.totalProductPV){
+                this.getTotalProductPV()
+            }
+            if(!this.totalWithdrawals){
+                this.getTotal()
+            }
+        },
+
+        methods:{
+            ...mapActions('bonusStore',['getCompanyWalletBalance','getTotalCompanyWallet']),
+            ...mapActions('userStore',['getTotalRegistrations','getTotalRegistrationPV']),
+            ...mapActions('withdrawalStore',['getTotal','all']),
+            ...mapActions('productClaimStore',['getSumClaimedProducts','getTotalProductSold','getTotalProductPV']),
+        }
     }
 </script>

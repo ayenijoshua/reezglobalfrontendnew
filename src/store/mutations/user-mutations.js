@@ -36,5 +36,38 @@ export default {
 
     uplineDetails(state,data){
         state.uplineDetails = data
+    },
+
+    downlines(state,data){
+        state.downlines = data
+    },
+
+    directDownlines(state,data){
+        state.directDownlines = data
+    },
+
+    genealogy(state,data){
+        state.genealogy = data
+    },
+
+    totalRegistrations(state,data){
+        state.totalRegistrations = data
+    },
+
+    totalRegistrationPV(state,data){
+        state.totalRegistrationPV = data
+    },
+
+    paidUsers(state,data){
+        state.paidUsers = data
+    },
+
+    totalPaidUsers(state,data){
+        state.totalPaidUsers = data
+    },
+
+    sumPaidUsers(state,data){
+        state.sumPaidUsers = data
     }
+
 }

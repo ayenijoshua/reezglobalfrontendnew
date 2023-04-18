@@ -7,6 +7,10 @@ export default {
         return http().get(`${endPoints.users}`)
     },
 
+    user(uuid){
+        return http().get(`${endPoints.users}/${uuid}/user`)
+    },
+
     updateUser(uuid,data){
         return http().put(`${endPoints.users}/${uuid}/update`,data)
     },
@@ -65,5 +69,53 @@ export default {
 
     uplineDetails(uuid){
         return http().get(`${endPoints.users}/${uuid}/upline-details`)
+    },
+
+    downlines(uuid){
+        return http().get(`${endPoints.users}/${uuid}/downlines`)
+    },
+
+    directDownlines(uuid){
+        return http().get(`${endPoints.users}/${uuid}/direct-downlines`)
+    },
+
+    genealogy(uuid){
+        return http().get(`${endPoints.users}/${uuid}/genealogy`)
+    },
+
+    inviteGuest(uuid,data){
+        return http().post(`${endPoints.users}/${uuid}/invite-guest`,data)
+    },
+
+    totalRegistrations(){
+        return http().get(`${endPoints.users}/total-registrations`)
+    },
+
+    totalRegistrationPV(){
+        return http().get(`${endPoints.users}/total-registration-pv`)
+    },
+
+    sendMessage(uuid,data){
+        return http().post(`${endPoints.users}/${uuid}/send-message`,data)
+    },
+
+    toggle2FA(uuid,data){
+        return http().put(`${endPoints.users}/${uuid}/toggle-2fa`,data)
+    },
+
+    setBankEditable(uuid,data){
+        return http().put(`${endPoints.users}/${uuid}/bank-editable`,data)
+    },
+
+    paidUsers(){
+        return http().get(`${endPoints.users}/paid-users`)
+    },
+
+    totalPaidUsers(){
+        return http().get(`${endPoints.users}/total-paid-users`)
+    },
+
+    sumPaidUsers(){
+        return http().get(`${endPoints.users}/sum-paid-users`)
     }
 }

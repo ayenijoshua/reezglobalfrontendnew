@@ -50,4 +50,20 @@ export default {
     changePassword(data){
         return http().post(`${endPoints.auth}/change-password`,data)
     },
+
+    changeUserPassword(uuid,data){
+        return http().put(`${endPoints.auth}/${uuid}/change-user-password`,data)
+    },
+
+    toggleAdmin2fa(data){
+        return http().put(`${endPoints.auth}/toggle-admin-2fa`,data)
+    },
+
+    send2faVerificatioEmail(data){
+        return http().post(`${endPoints.auth}/send-2fa-verification-email`,data)
+    },
+
+    twoFactorAuth(data){
+        return http().post(`${endPoints.auth}/authenticate-2fa`,data)
+    },
 }

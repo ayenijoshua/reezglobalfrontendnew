@@ -13,6 +13,7 @@ export default  {
     ranks: `${apiVersion}/ranks`,
     incentives: `${apiVersion}/incentives`,
     incentiveClaims: `${apiVersion}/incentive-claims`,
+    productClaims: `${apiVersion}/product-claims`,
     settings: `${apiVersion}/settings`,
     packages: `${apiVersion}/packages`,
     products: `${apiVersion}/products`,
