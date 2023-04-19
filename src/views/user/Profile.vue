@@ -27,34 +27,43 @@
                                                 <h6 class="green-text"><strong class="font-weight-bold">Profile Details</strong></h6>
                                             </div>
                                             <div class="card-body text-center ">
-                                                <div class="profile-pic-wrapper">
-                                                <div class="pic-holder">
-                                                    <!-- uploaded pic shown here -->
-                                                    <img id="profilePic" class="pic user_avatar" src="/assets/img/dummy/u14.jpg">
+                                                <template v-if="loading && profileLoading">
+                                                    <b-card>
+                                                        <b-skeleton width="85%"></b-skeleton>
+                                                        <b-skeleton width="55%"></b-skeleton>
+                                                        <b-skeleton width="70%"></b-skeleton>
+                                                    </b-card>
+                                                </template>
+                                                <template v-else>
+                                                    <div class="profile-pic-wrapper">
+                                                        <div class="pic-holder">
+                                                            <!-- uploaded pic shown here -->
+                                                            <img id="profilePic" class="pic user_avatar" src="/assets/img/dummy/u14.jpg">
 
-                                                    <!-- <Input class="uploadProfileInput" type="file" name="profile_pic" id="newProfilePhoto" accept="image/*" style="opacity: 0;" />
-                                                    <label for="newProfilePhoto" class="upload-file-block">
-                                                    <div class="text-center">
-                                                        <div class="mb-2">
-                                                        <i class="fa fa-camera fa-2x"></i>
-                                                        </div>
-                                                        <div class="text-uppercase">
-                                                        Update <br /> Profile Photo
+                                                            <!-- <Input class="uploadProfileInput" type="file" name="profile_pic" id="newProfilePhoto" accept="image/*" style="opacity: 0;" />
+                                                            <label for="newProfilePhoto" class="upload-file-block">
+                                                            <div class="text-center">
+                                                                <div class="mb-2">
+                                                                <i class="fa fa-camera fa-2x"></i>
+                                                                </div>
+                                                                <div class="text-uppercase">
+                                                                Update <br /> Profile Photo
+                                                                </div>
+                                                            </div>
+                                                            </label> -->
                                                         </div>
                                                     </div>
-                                                    </label> -->
-                                                </div>
-                                                </div>
-                                                <div class="">
-                                                    <ul class="list-group list-group-flush">
-                                                        <li class="list-group-item "><i class="icon icon-vcard float-left s-20 green-text border-right" ></i> <span class="float-right s-22 font-weight-medium green-text">{{ regPackage.vip }} - {{ regPackage.name }}</span></li>
-                                                        <li class="list-group-item "><i class="icon icon-person float-left s-20 green-text border-right" ></i> <span class="float-right s-22 font-weight-medium green-text">{{ form.first_name }} {{ form.last_name }}</span></li>
-                                                        <li class="list-group-item"><i class="icon icon-phone2 float-left s-20 green-text border-right"></i> <span class="float-right s-12 font-weight-medium green-text">{{ form.phone }}</span></li>
-                                                        <li class="list-group-item"><i class="icon icon-mail-envelope-closed4 float-left s-20 green-text border-right"></i> <span class="float-right s-12 font-weight-medium green-text">{{ form.email }}</span></li>
-                                                        <li class="list-group-item"><i class="icon icon-account_box float-left s-20 green-text border-right"></i>  <span class="float-right s-12 font-weight-medium green-text">{{ authUser.username }}</span></li>
-                                                        <li class="list-group-item"><i class="icon icon-home float-left s-20 green-text border-right"></i> <span class="float-right s-12 font-weight-medium green-text text-right" style="width:130px">{{ form.address }}</span></li>
-                                                    </ul>
-                                                </div>
+                                                    <div class="">
+                                                        <ul class="list-group list-group-flush">
+                                                            <li class="list-group-item "><i class="icon icon-vcard float-left s-20 green-text border-right" ></i> <span class="float-right s-22 font-weight-medium green-text">{{ regPackage.vip }} - {{ regPackage.name }}</span></li>
+                                                            <li class="list-group-item "><i class="icon icon-person float-left s-20 green-text border-right" ></i> <span class="float-right s-22 font-weight-medium green-text">{{ form.first_name }} {{ form.last_name }}</span></li>
+                                                            <li class="list-group-item"><i class="icon icon-phone2 float-left s-20 green-text border-right"></i> <span class="float-right s-12 font-weight-medium green-text">{{ form.phone }}</span></li>
+                                                            <li class="list-group-item"><i class="icon icon-mail-envelope-closed4 float-left s-20 green-text border-right"></i> <span class="float-right s-12 font-weight-medium green-text">{{ form.email }}</span></li>
+                                                            <li class="list-group-item"><i class="icon icon-account_box float-left s-20 green-text border-right"></i>  <span class="float-right s-12 font-weight-medium green-text">{{ authUser.username }}</span></li>
+                                                            <li class="list-group-item"><i class="icon icon-home float-left s-20 green-text border-right"></i> <span class="float-right s-12 font-weight-medium green-text text-right" style="width:130px">{{ form.address }}</span></li>
+                                                        </ul>
+                                                    </div>
+                                                </template>
                                             </div>
                                         </div>	
                                     </div>
@@ -70,92 +79,101 @@
                                                     <h6 class="green-text"><strong class="font-weight-bold">Edit Profile</strong></h6>
                                                 </div>
                                                 <div class="card-body">
-                                                    <form id="profile-form" @submit.prevent="profileUpdate()">
-                                                        <div class="card no-b no-r">
-                                                            <div class="card-body">
-                                                                <div class="form-row">
-                                                                    <div class="col-md-12">
-                                                                        <div class="form-row mb-2">
-                                                                            <div class="form-group col-6 m-0">
-                                                                                <div class="input-group mb-2 mr-sm-2 mb-3">
-                                                                                    <div class="input-group-prepend">
-                                                                                        <div class="input-group-text"><i class="icon icon-person float-left s-20 green-text " ></i></div>
-                                                                                    </div>
-                                                                                    <input name="first_name" :value="form.first_name" type="text" class="form-control r-0 light s-12" placeholder="First Name">
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="form-group col-6 m-0">
-                                                                                <div class="input-group mb-2 mr-sm-2 mb-3">
-                                                                                    <div class="input-group-prepend">
-                                                                                        <div class="input-group-text"><i class="icon icon-person float-left s-20 green-text " ></i></div>
-                                                                                    </div>
-                                                                                    <input name="last_name" :value="form.last_name" type="text" class="form-control r-0 light s-12" placeholder="Last Name">
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                        
-                                                                        <div class="form-row mb-2">
-                                                                            <div class="form-group col-6 m-0">
-                                                                                <div class="input-group mb-2 mr-sm-2">
-                                                                                    <div class="input-group-prepend">
-                                                                                        <div class="input-group-text"><i class="icon icon-phone float-left s-20 green-text " ></i></div>
-                                                                                    </div>
-                                                                                    <input name="phone" :value="form.phone" type="text" class="form-control r-0 light s-12"
-                                                                                        placeholder="Phone Number">
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="form-group col-6 m-0">
-                                                                                <div class="input-group mb-2 mr-sm-2">
-                                                                                    <div class="input-group-prepend">
-                                                                                        <div class="input-group-text"><i class="icon icon-mail-envelope-closed4 float-left s-20 green-text"></i></div>
-                                                                                    </div>
-                                                                                    <input type="text" name="email" readonly :value="form.email" class="form-control r-0 light s-12"
-                                                                                        placeholder="Email Address">
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                        
-                                                                        <div class="form-row mb-2">
-                                                                            <div class="form-group col-6 m-0">
-                                                                                <div class="form-group m-0">
-                                                                                    <div class="input-group  mr-sm-2 mb-3">
+                                                    <template v-if="loading && profileLoading">
+                                                        <b-card>
+                                                            <b-skeleton width="85%"></b-skeleton>
+                                                            <b-skeleton width="55%"></b-skeleton>
+                                                            <b-skeleton width="70%"></b-skeleton>
+                                                        </b-card>
+                                                    </template>
+                                                    <template v-else>
+                                                        <form id="profile-form" @submit.prevent="profileUpdate()">
+                                                            <div class="card no-b no-r">
+                                                                <div class="card-body">
+                                                                    <div class="form-row">
+                                                                        <div class="col-md-12">
+                                                                            <div class="form-row mb-2">
+                                                                                <div class="form-group col-6 m-0">
+                                                                                    <div class="input-group mb-2 mr-sm-2 mb-3">
                                                                                         <div class="input-group-prepend">
                                                                                             <div class="input-group-text"><i class="icon icon-person float-left s-20 green-text " ></i></div>
                                                                                         </div>
-                                                                                        <select name="gender" class="form-control r-0 light s-12">
-                                                                                            <option value="" :selected="!profile.gender">Select gender</option>
-                                                                                            <option value="male" :selected="profile.gender=='male'">Male</option>
-                                                                                            <option value="female" :selected="profile.gender=='female'">Female</option>
-                                                                                        </select>
+                                                                                        <input name="first_name" :value="form.first_name" type="text" class="form-control r-0 light s-12" placeholder="First Name">
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="form-group col-6 m-0">
+                                                                                    <div class="input-group mb-2 mr-sm-2 mb-3">
+                                                                                        <div class="input-group-prepend">
+                                                                                            <div class="input-group-text"><i class="icon icon-person float-left s-20 green-text " ></i></div>
+                                                                                        </div>
+                                                                                        <input name="last_name" :value="form.last_name" type="text" class="form-control r-0 light s-12" placeholder="Last Name">
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
+                                                                            
+                                                                            <div class="form-row mb-2">
+                                                                                <div class="form-group col-6 m-0">
+                                                                                    <div class="input-group mb-2 mr-sm-2">
+                                                                                        <div class="input-group-prepend">
+                                                                                            <div class="input-group-text"><i class="icon icon-phone float-left s-20 green-text " ></i></div>
+                                                                                        </div>
+                                                                                        <input name="phone" :value="form.phone" type="text" class="form-control r-0 light s-12"
+                                                                                            placeholder="Phone Number">
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="form-group col-6 m-0">
+                                                                                    <div class="input-group mb-2 mr-sm-2">
+                                                                                        <div class="input-group-prepend">
+                                                                                            <div class="input-group-text"><i class="icon icon-mail-envelope-closed4 float-left s-20 green-text"></i></div>
+                                                                                        </div>
+                                                                                        <input type="text" name="email" readonly :value="form.email" class="form-control r-0 light s-12"
+                                                                                            placeholder="Email Address">
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            
+                                                                            <div class="form-row mb-2">
+                                                                                <div class="form-group col-6 m-0">
+                                                                                    <div class="form-group m-0">
+                                                                                        <div class="input-group  mr-sm-2 mb-3">
+                                                                                            <div class="input-group-prepend">
+                                                                                                <div class="input-group-text"><i class="icon icon-person float-left s-20 green-text " ></i></div>
+                                                                                            </div>
+                                                                                            <select name="gender" class="form-control r-0 light s-12">
+                                                                                                <option value="" :selected="!profile.gender">Select gender</option>
+                                                                                                <option value="male" :selected="profile.gender=='male'">Male</option>
+                                                                                                <option value="female" :selected="profile.gender=='female'">Female</option>
+                                                                                            </select>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
 
-                                                                            <div class="form-group col-6 m-0">
-                                                                                <div class="form-group m-0">
-                                                                                    <div class="input-group mr-sm-2 mb-3">
-                                                                                    <div class="input-group-prepend">
-                                                                                        <div class="input-group-text"><i class="icon icon-person float-left s-20 green-text " ></i></div>
-                                                                                    </div>
-                                                                                    <input type="file" name="image" title="profile photo" class="form-control r-0 light s-12"
-                                                                                        placeholder="Profile photo">
+                                                                                <div class="form-group col-6 m-0">
+                                                                                    <div class="form-group m-0">
+                                                                                        <div class="input-group mr-sm-2 mb-3">
+                                                                                        <div class="input-group-prepend">
+                                                                                            <div class="input-group-text"><i class="icon icon-person float-left s-20 green-text " ></i></div>
+                                                                                        </div>
+                                                                                        <input type="file" name="image" title="profile photo" class="form-control r-0 light s-12"
+                                                                                            placeholder="Profile photo">
+                                                                                        </div>
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
+                                                                            <div class="form-group m-0">
+                                                                                <textarea name="address" :value="profile.address" rows="5" type="text" class="form-control r-0 light s-12" id="address"
+                                                                                placeholder="Residential Address"></textarea>
+                                                                            </div>	
                                                                         </div>
-                                                                        <div class="form-group m-0">
-                                                                            <textarea name="address" :value="profile.address" rows="5" type="text" class="form-control r-0 light s-12" id="address"
-                                                                            placeholder="Residential Address"></textarea>
-                                                                        </div>	
                                                                     </div>
+                                                                </div>	
+                                                                <div class="card-body">
+                                                                    <span class="btn btn-sm btn-success btn-lg" v-if="submitting">...</span>
+                                                                    <button v-else type="submit" class="btn btn-sm btn-success btn-lg"><i class="icon-save mr-2"></i>Update Data</button>
                                                                 </div>
-                                                            </div>	
-                                                            <div class="card-body">
-                                                                <span class="btn btn-sm btn-success btn-lg" v-if="submitting">...</span>
-                                                                <button v-else type="submit" class="btn btn-sm btn-success btn-lg"><i class="icon-save mr-2"></i>Update Data</button>
                                                             </div>
-                                                        </div>
-                                                    </form>
+                                                        </form>
+                                                    </template>
                                                 </div>
                                             </div>
                                         </div>
@@ -169,17 +187,26 @@
                                                 <h6 class="text-white"><strong class="font-weight-bold">Upline Details</strong></h6>
                                             </div>
                                             <div class="card-body text-center">
-                                                <div class="avatar avatar-xl mb-3 ">
-                                                    <img class="user_avatar" src="/assets/img/dummy/u2a.png" alt="User Image">
-                                                </div>
-                                                <div class="card-header">
-                                                    <ul class="list-group list-group-flush" >
-                                                        <li class="list-group-item"  style="background-color:#2E671A;"><i class="icon icon-vcard float-left s-20 text-white border-right" ></i> <span class="float-right s-22 font-weight-medium text-white">{{ uplineDetails.package }}</span></li>
-                                                        <li class="list-group-item "  style="background-color:#2E671A;"><i class="icon icon-person float-left s-20 text-white border-right" ></i> <span class="float-right s-22 font-weight-medium text-white ">{{ uplineDetails.first_name }} {{ uplineDetails.last_name }}</span></li>
-                                                        <li class="list-group-item"  style="background-color:#2E671A;"><i class="icon icon-mail-envelope-closed4 text-white float-left s-20  border-right"></i> <span class="float-right s-12 font-weight-medium text-white">{{ uplineDetails.email }}</span></li>
-                                                        <li class="list-group-item"  style="background-color:#2E671A;"><i class="icon icon-account_box float-left s-20 text-white border-right"></i>  <span class="float-right s-12 font-weight-medium text-white">{{ uplineDetails.username }}</span></li>
-                                                    </ul>
-                                                </div>
+                                                <template v-if="loading && uplineLoading">
+                                                    <b-card>
+                                                        <b-skeleton width="85%"></b-skeleton>
+                                                        <b-skeleton width="55%"></b-skeleton>
+                                                        <b-skeleton width="70%"></b-skeleton>
+                                                    </b-card>
+                                                </template>
+                                                <template v-else>
+                                                    <div class="avatar avatar-xl mb-3 ">
+                                                        <img class="user_avatar" src="/assets/img/dummy/u2a.png" alt="User Image">
+                                                    </div>
+                                                    <div class="card-header">
+                                                        <ul class="list-group list-group-flush" >
+                                                            <li class="list-group-item"  style="background-color:#2E671A;"><i class="icon icon-vcard float-left s-20 text-white border-right" ></i> <span class="float-right s-22 font-weight-medium text-white">{{ uplineDetails.package }}</span></li>
+                                                            <li class="list-group-item "  style="background-color:#2E671A;"><i class="icon icon-person float-left s-20 text-white border-right" ></i> <span class="float-right s-22 font-weight-medium text-white ">{{ uplineDetails.first_name }} {{ uplineDetails.last_name }}</span></li>
+                                                            <li class="list-group-item"  style="background-color:#2E671A;"><i class="icon icon-mail-envelope-closed4 text-white float-left s-20  border-right"></i> <span class="float-right s-12 font-weight-medium text-white">{{ uplineDetails.email }}</span></li>
+                                                            <li class="list-group-item"  style="background-color:#2E671A;"><i class="icon icon-account_box float-left s-20 text-white border-right"></i>  <span class="float-right s-12 font-weight-medium text-white">{{ uplineDetails.username }}</span></li>
+                                                        </ul>
+                                                    </div>
+                                                </template>
                                             </div>
                                         </div>	
                                     </div>
@@ -313,7 +340,10 @@
                     bank_account_name:'',
                     bank_account_number:'',
                     bank_name:''
-                }
+                },
+
+                profileLoading:false,
+                uplineLoading:true
             }
         },
 
@@ -348,48 +378,52 @@
 
             updateBank(){
                 this.updateBankDetails({uuid:this.authUser.uuid, data:this.bank})
+            },
+
+            profileData(res,reslt){
+                this.form.first_name = res.data.first_name
+                this.form.last_name = res.data.last_name
+                this.form.phone = res.data.phone
+                this.form.email = res.data.email
+                this.form.address = reslt.data.data.address
+                this.bank.bank_account_name = reslt.data.data.bank_account_name
+                this.bank.bank_account_number = reslt.data.data.bank_account_number
+                this.bank.bank_name = reslt.data.data.bank_name
+                this.form.gender = reslt.data.data.gender
             }
         },
 
        created(){
             //this.getUser()
             //return
-            if(Object.entries(this.authUser).length == 0){
+            if(Object.entries(this.profile).length == 0 || this.authUser.uuid == undefined){
+                //if(Object.entries(this.authUser).length == 0){
                 this.getUser().then(res=>{
                     if(res.status == 200){
+                        this.profileLoading = true
                         this.getProfileDetails(res.data.uuid).then(reslt=>{
-                            this.form.first_name = res.data.first_name
-                            this.form.last_name = res.data.last_name
-                            this.form.phone = res.data.phone
-                            this.form.email = res.data.email
-                            this.form.address = reslt.data.data.address
-                            this.bank.bank_account_name = reslt.data.data.bank_account_name
-                            this.bank.bank_account_number = reslt.data.data.bank_account_number
-                            this.bank.bank_name = reslt.data.data.bank_name
-                            this.form.gender = reslt.data.data.gender
+                            this.profileData(res,reslt)
+                            this.profileLoading = false
                         })
                         this.getPackage(res.data.package_id)
-                        this.getUplineDetails(res.data.uuid)
+                        this.uplineLoading = true
+                        this.getUplineDetails(res.data.uuid).then(()=>this.uplineLoading=false)
                     }
                 })
+                
             }else{
-                this.getProfileDetails(this.authUser.uuid).then(reslt=>{
-                    this.form.first_name = this.authUser.first_name
-                    this.form.last_name = this.authUser.last_name
-                    this.form.phone = this.authUser.phone
-                    this.form.email = this.authUser.email
-                    this.form.address = reslt.data.data.address
-                    this.bank.bank_account_name = reslt.data.data.bank_account_name
-                    this.bank.bank_account_number = reslt.data.data.bank_account_number
-                    this.bank.bank_name = reslt.data.data.bank_name
-                    this.form.gender = reslt.data.data.gender
-                })
-                this.getPackage(this.authUser.package_id)
-                this.getUplineDetails(this.authUser.uuid)
+                this.form.first_name = this.authUser.first_name
+                this.form.last_name = this.authUser.last_name
+                this.form.phone = this.authUser.phone || this.profile.phone
+                this.form.email = this.authUser.email 
+                this.form.address = this.profile.address
+                this.bank.bank_account_name = this.profile.bank_account_name
+                this.bank.bank_account_number = this.profile.bank_account_number
+                this.bank.bank_name = this.profile.bank_name
+                this.form.gender = this.profile.gender
             }
+            
         },
-
-
 
     }
 </script>

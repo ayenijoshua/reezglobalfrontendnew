@@ -56,6 +56,13 @@
                         </router-link>
                     </li>
 
+                    <li :class="['treeview', activeMenu()=='admin-ranks' ? 'active' : '']" @click="setMenu('admin-packages')">
+                        <router-link :to="{name:'admin-ranks'}" >
+                            <i class="icon icon-rank green-text s-18"></i>
+                            <span class="green-text">Ranks</span>
+                        </router-link>
+                    </li>
+
                     <li :class="['treeview', activeMenu()=='admin-incentives' ? 'active' : '']" @click="setMenu('admin-incentives')">
                         <a href="#"><i class="icon icon-gift light-green-text s-18"></i>
                             <span class="green-text">Incentives</span>
@@ -100,13 +107,6 @@
                             <span class="green-text">Packages</span>
                         </router-link>
                     </li>
-
-                    <!-- <li :class="['treeview', activeMenu()=='admin-packages' ? 'active' : '']" @click="setMenu('admin-packages')">
-                        <router-link :to="{name:'admin-packages'}" >
-                            <i class="icon icon-lock3 green-text s-18"></i>
-                            <span class="green-text">Ranks</span>
-                        </router-link>
-                    </li> -->
                     
                     <li :class="['treeview', activeMenu()=='admin-security' ? 'active' : '']" @click="setMenu('admin-security')">
                         <router-link :to="{name:'admin-security'}" >
@@ -146,6 +146,11 @@
                                     <i class="icon icon-circle-o"></i>Withdrawal Settings
                                 </router-link>
                             </li>
+                            <li>
+                                <router-link :to="{name:'company-details'}" >
+                                    <i class="icon icon-circle-o"></i>Company Details
+                                </router-link>
+                            </li>
                         </ul>
                     </li>
                 </ul>
@@ -183,7 +188,7 @@
                     <ul class="nav navbar-nav">
                         <!-- Messages-->
                         <li class="dropdown custom-dropdown messages-menu">
-                            <a class="nav-link ml-2" data-toggle="control-sidebar">
+                            <a class="nav-link ml-2">
                                 <i class="icon icon-sign-out" :style="{color:'green'}" v-b-modal.logOut></i>
                             </a>
                         </li>

@@ -151,7 +151,7 @@
                             <div class="tab-content">
                                 <div class="tab-pane show active" id="v-pills-w1-tab1" role="tabpanel" aria-labelledby="v-pills-w1-tab1">
                                     <div class="row p-3">
-                                        <template v-if="loading">
+                                        <template v-if="loading && incLoading">
                                             <b-skeleton-table
                                                 :rows="5"
                                                 :columns="5"
@@ -225,8 +225,11 @@
                                         <div class="col-md-12">
                                             <form @submit.prevent="inviteFriend()">
                                                 <div class="form-row">
-                                                    <div class="col-md-12 mb-3">
+                                                    <div class="col-md-6 mb-3">
                                                         <input type="email" required v-model="inviteForm.email" class="form-control" id="validationDefault03" placeholder="Recipients Email Address">
+                                                    </div>
+                                                    <div class="col-md-6 mb-3">
+                                                        <input type="text" v-model="inviteForm.referrer" class="form-control" id="validationDefault03" placeholder="Referrer">
                                                     </div>
                                                 </div>
                                                 <span v-if="submitting" class="btn btn-success">...</span>
@@ -299,7 +302,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr v-if="loading">
+                                        <tr v-if="loading && incClaimLoading">
                                             <td colspan="4">
                                                 <b-skeleton-table
                                                     :rows="5"
@@ -357,7 +360,7 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <tr v-if="loading">
+                                                        <tr v-if="loading && prodLoading">
                                                             <td colspan="5">
                                                                 <b-skeleton-table
                                                                     :rows="3"
@@ -414,7 +417,7 @@
                         </div>
                         <div class="float-left">
                             <div class="card-body">
-                                <template v-if="loading">
+                                <template v-if="loading && prodClaimLoading">
                                     <b-skeleton-table
                                         :rows="3"
                                         :columns="3"
@@ -479,7 +482,7 @@ export default{
             product_ids:[],
             totalWorth:0,
             totalPv:0,
-            productClaimStatus:'processing',
+            productClaimStatus:'Unclaimed',
             guestEmail:null,
 
             form:{
@@ -488,8 +491,14 @@ export default{
             }, 
             
             inviteForm:{
-                email:null
-            }
+                email:null,
+                referrer:null
+            },
+
+            prodClaimLoading:false,
+            prodLoading:false,
+            incClaimLoading:false,
+            incLoading:false
         }
     },
 
@@ -504,7 +513,7 @@ export default{
         },
         
         ...mapGetters('bonusStore',['welcomeBonus',
-        'equilibrumBonus','loyaltyBonus','referralBonus',
+        'equilibrumBonus','loyaltyBonus','referralBonus','placementBonus',
         'profitPool','globalProfit','totalBonus','walletBalance']),
 
         ...mapGetters('packageStore',['regPackage']),
@@ -532,7 +541,8 @@ export default{
         }
         
         if(this.products.length == 0){
-            this.getProducts()
+            this.prodLoading = true
+            this.getProducts().then(()=>this.prodLoading = false)
         }
         
         
@@ -551,39 +561,81 @@ export default{
         ...mapActions('productClaimStore',['claimProduct','getProductClaims']),
         
         getBonuses(uuid){
-            this.getWelcomeBonus(uuid)
-            this.getEquilibrumBonus(uuid)
-            this.getLoyaltyBonus(uuid)
-            this.getReferralBonus(uuid)
-            this.getPlacementBonus(uuid)
-            this.getTotalBonus(uuid)
-            this.getTotalPVs(uuid)
-            this.getProfitPool(uuid)
-            this.getGlobalProfit(uuid)
-            this.getWalletBalance(uuid)
+            if(!this.welcomeBonus){
+                this.getWelcomeBonus(uuid)
+            }
+            if(!this.equilibrumBonus){
+                this.getEquilibrumBonus(uuid)
+            }
+            if(!this.loyaltyBonus){
+                this.getLoyaltyBonus(uuid)
+            }
+            if(!this.referralBonus){
+                this.getReferralBonus(uuid)
+            }
+            if(!this.placementBonus){
+                this.getPlacementBonus(uuid)
+            }
+            if(!this.totalBonus){
+                this.getTotalBonus(uuid)
+            }
+            if(!this.totalPV){
+                this.getTotalPVs(uuid)
+            }
+            if(!this.profitPool){
+                this.getProfitPool(uuid)
+            }
+            if(!this.globalProfit){
+                this.getGlobalProfit(uuid)
+            }
+            if(!this.walletBalance){
+                this.getWalletBalance(uuid)
+            }
+            
         },
 
         getDashboardData(authUser){
-            this.getPackage(authUser.package_id)
+            if(this.regPackage.name == undefined){
+                this.getPackage(authUser.package_id)
+            }
+            
             this.getBonuses(authUser.uuid)
+
             if(authUser.package_id == 6){
                 this.profitPoolEligible = true
             }
             if(authUser.rank_id >= 5){
                 this.globalProfitEligible = true
             }
-            this.getCurrentIncentive(authUser.uuid)
-            this.getClaims(authUser.uuid)
-            this.getProductClaims(authUser.uuid).then(res=>{
-                if( res.status == 200){
-                    this.userProductClaims.forEach(ele=>{
-                        console.log(ele.worth)
-                        this.totalWorth = this.totalWorth + ele.worth
-                        this.totalPv = this.totalPv + ele.points
-                        this.productClaimStatus = ele.status
-                    })
-                }
-            })
+            if(!this.currentIncentive){
+                this.incLoading = true
+                this.getCurrentIncentive(authUser.uuid).then(()=>this.incLoading=false)
+            }
+            if(this.claims.length == 0){
+                this.incClaimLoading = true
+                this.getClaims(authUser.uuid).then(()=>this.incClaimLoading = false)
+            }
+            
+            if(this.userProductClaims.length == 0){
+                this.prodClaimLoading = true
+                this.getProductClaims(authUser.uuid).then(res=>{
+                    if( res.status == 200){
+                        this.userProductClaims.forEach(ele=>{
+                            this.totalWorth = this.totalWorth + ele.worth
+                            this.totalPv = this.totalPv + ele.points
+                            this.productClaimStatus = ele.status
+                        })
+                    }
+                    this.prodClaimLoading = false
+                })
+            }else{
+                this.userProductClaims.forEach(ele=>{
+                    this.totalWorth = this.totalWorth + ele.worth
+                    this.totalPv = this.totalPv + ele.points
+                    this.productClaimStatus = ele.status
+                })
+            }
+            
         },
 
         claimIncentive(){

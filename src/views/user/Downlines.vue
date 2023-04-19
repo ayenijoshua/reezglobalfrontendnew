@@ -9,7 +9,7 @@
                                 <div class="col-md-12">
                                     <div class="row my-3">
                                         <div class="col-md-4">
-                                            <template v-if="loading">
+                                            <template v-if="loading && directDownlinesLoading">
                                                 <b-skeleton-table
                                                     :rows="3"
                                                     :columns="3"
@@ -70,7 +70,7 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <tr v-if="loading">
+                                                        <tr v-if="loading && downlinesLoading">
                                                             <td colspan="5">
                                                                 <b-skeleton-table
                                                                     :rows="3"
@@ -117,7 +117,8 @@ import { mapActions, mapGetters, mapState } from 'vuex';
 
         data(){
             return {
-
+                downlinesLoading:false,
+                directDownlinesLoading:false
             }
         },
 
@@ -131,14 +132,20 @@ import { mapActions, mapGetters, mapState } from 'vuex';
         },
 
         created(){
-            if(Object.entries(this.authUser.length)==0){
+            if(this.directDownlines.length == 0 || this.downlines.length==0){
+                if(Object.entries(this.authUser).length==0){
                 this.getUser().then(res=>{
-                    this.getDownlines(res.data.uuid)
-                    this.getDirectDownlines(this.authUser.uuid)
+                    this.downlinesLoading = true
+                    this.directDownlinesLoading = true
+                    this.getDownlines(res.data.uuid).then(()=>this.downlinesLoading = false)
+                    this.getDirectDownlines(this.authUser.uuid).then(()=>this.directDownlinesLoading = false)
                 })
-            }else{
-                this.getDownlines(this.authUser.uuid)
-                this.getDirectDownlines(this.authUser.uuid)
+                }else{
+                    this.downlinesLoading = true
+                    this.directDownlinesLoading = true
+                    this.getDownlines(this.authUser.uuid).then(()=>this.downlinesLoading = false)
+                    this.getDirectDownlines(this.authUser.uuid).then(()=>this.directDownlinesLoading = false)
+                }
             }
         },
 

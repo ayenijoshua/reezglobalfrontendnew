@@ -9,7 +9,7 @@
                 <div class="navbar-custom-menu">
                     <ul class="nav navbar-nav">
 
-                        <!-- Notifications -->
+                        <!-- Notifications 
                         <li class="dropdown custom-dropdown notifications-menu">
                             <a href="#" class=" nav-link" data-toggle="dropdown" aria-expanded="false">
                                 <i class="icon-notifications" style="color:#2E671A;"></i>
@@ -18,7 +18,7 @@
                             <ul class="dropdown-menu dropdown-menu-right">
                                 <li class="header">You have 10 notifications</li>
                                 <li>
-                                    <!-- inner menu: contains the actual data -->
+                                     inner menu: contains the actual data -
                                     <ul class="menu">
                                         <li>
                                             <a class="green-text toast-action" href="#" data-title="Hey, Innocent!" data-message="Your registration was successful. Please proceed with your email verification" data-type="success" data-position-class="toast-top-right" >
@@ -41,7 +41,7 @@
                                 </li>
                                 <li class="footer p-2 text-center"><a class="green-text" href="#">View all</a></li>
                             </ul>
-                        </li>
+                        </li>-->
                         <!-- Right Sidebar Toggle Button -->
                         <li>
                             <a href="#" class="nav-link ml-2" v-b-modal.logOut>
@@ -105,7 +105,7 @@
                     </div>
                     
                     <div class="row mb-3">
-                        <div class="col-md-12">
+                        <!-- <div class="col-md-12">
                             <div class="text-center mt-5">
                                 <h6 class="font-weight-bold" style="color:#2E671A;">Let's get things rolling!<br><small>Kindly proceed with your email verification to activate your account as a newly registered partner.</small></h6>
                             </div>
@@ -176,7 +176,7 @@
                                 </div>
                             </div>	
 
-                        </div>
+                        </div> -->
                     </div>	
                     
                     <div class="row mb-3">
@@ -227,10 +227,10 @@
                                                                     <div class="no-gutters">
                                                                         <div class="card-body text-center">
                                                                             <small class="s-8" style="margin: 0em; padding: 0em;" >Account Name</small>
-                                                                            <h1 class="font-weight-bold text-green" style="margin: 0em; padding: 0em;">Innocent Aluu</h1>
+                                                                            <h1 class="font-weight-bold text-green" style="margin: 0em; padding: 0em;">{{ form.bank_account_name }}</h1>
                                                                         </div> 	
                                                                     </div>
-                                                                    <span v-if="submitting" class="btn btn-success btn-lg btn-block">...</span>
+                                                                    <span v-if="submitting && bankSubmitting" class="btn btn-success btn-lg btn-block">...</span>
                                                                     <button v-else type="submit" class="btn btn-sm btn-success btn-lg"><i class="icon-save mr-2"></i>Confirm Details</button>
                                                                 </div>
                                                             </div>
@@ -251,7 +251,8 @@
                                 <div class="text-center mt-5">
                                     <img  src="/assets/img/cards.png" width="300px">
                                     <h6 class="font-weight-bold" style="color:#2E671A;">Proceed To Payment<br><small>Kindly complete your registration as a partner by proceeding with your package payment.</small></h6>
-                                    <a @click="makePayment()" class="btn btn-sm btn-success mb-3 mt-2 btn-lg"><i class="icon icon-credit-card"></i>Pay Now</a>
+                                    <span v-if="submitting && paySubmitting" class="btn btn-sm btn-success mb-3 mt-2 btn-lg">...</span>
+                                    <a v-else @click="makePayment()" class="btn btn-sm btn-success mb-3 mt-2 btn-lg"><i class="icon icon-credit-card"></i>Pay Now</a>
                                 </div>
                             </div>	
                         </div>
@@ -267,12 +268,24 @@
             </div>
         </modal>
 
-        <modal :modalId="'logOut'" :modalSize="'sm'" :modalTitle="'Log out'">
-            <div class="alert alert-danger">
-                Are you sure you want to log out?
-                <button class="btn btn-danger" @click="logOut()">Yes</button>
-            </div>
-        </modal>
+        <modal :modalId="'logOut'" :modalSize="'md'" :modalTitle="''">
+            <div class="card border-0 p-sm-3 p-2 justify-content-center">
+                <div class="card-header pb-0 bg-white border-0 mb-2">
+                <h6 ><span class="font-weight-bold"> Are you sure you want to signout ?</span>
+                    <br><small>Confirm this is not a mistake.</small></h6>
+                </div>
+                <div class="card-body px-sm-4 mb-2 pt-1 pb-0"> 
+                    <div class="row justify-content-end no-gutters">
+                        <div class="col-auto mr-2">
+                            <button type="button" class="btn btn-sm btn-success px-4" @click="logOut()" data-dismiss="modal">Confirm</button>
+                        </div>
+                        <div class="col-auto">
+                            <button type="button" class="btn btn-sm btn-light text-muted" data-dismiss="modal">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            </div>  
+         </modal>
     </div>
     
 </template>
@@ -280,6 +293,7 @@
 <script>
     import { mapState,mapActions,mapGetters } from 'vuex';
     import modal from '@/components/Modal.vue'
+    import vm from '../main'
     export default{
         name:"user-welcome",
 
@@ -295,7 +309,10 @@
                     bank_name:'', //this.profile.id ? this.profile.bank_name : ''
                 },
                 payLink:null,
-                amount:null
+                amount:null,
+
+                paySubmitting:false,
+                bankSubmitting:false
             }
         },
 
@@ -338,43 +355,46 @@
             updateBank(){
                 var uuid = this.authUser.uuid;
                 let data = {uuid:uuid,data:this.form}
+                this.bankSubmitting = true
                 this.updateBankDetails(data).then(res=>{
                     if(res.status==200){
                         this.getProfileDetails(uuid)
                     }
+                    this.bankSubmitting = false
                 })
             },
 
             makePayment(){
+                this.paySubmitting = true
                 let data = {amount:this.amount}
                 this.initiateFund(data)
             },
 
             initiateFund(data){
-            var that = this
-            this.initiate(data).then(res=>{
-                console.log(res)
-                var result = res
-                if(res.status == 200){
-                    //if(that.productService.name == 'paystack'){
-                        that.payLink = res.data.data.data.authorization_url
-                        that.$bvModal.show('pay')
-                        //alert(res.data.data.data.authorization_url)
-                        //check modal events or use webhook
-                    //}
+                var that = this
+                this.initiate(data).then(res=>{
+                    console.log(res)
+                    var result = res
+                    if(res.status == 200){
+                        //if(that.productService.name == 'paystack'){
+                            that.payLink = res.data.data.data.authorization_url
+                            that.$bvModal.show('pay')
+                            //alert(res.data.data.data.authorization_url)
+                            //check modal events or use webhook
+                        //}
 
-                    if(process.env.VUE_APP_ENV == 'testing'){
-                        setTimeout(() => {
-                            that.verify({reference:result.data.data.data.reference}).then(resp=>{
-                                if(resp.status == 200){
-                                    that.$emit('wallet-funded')
-                                }
-                            })
-                        }, 20000);
+                        if(process.env.VUE_APP_ENV == 'testing'){
+                            setTimeout(() => {
+                                that.verify({reference:result.data.data.data.reference}).then(resp=>{
+                                    if(resp.status == 200){
+                                        vm.$router.push({name:'user-dashboard'})
+                                    }
+                                })
+                            }, 30000);
+                        }
                     }
-                }
-            })
-            
+                    this.paySubmitting = false
+                })
             },
         }
     }

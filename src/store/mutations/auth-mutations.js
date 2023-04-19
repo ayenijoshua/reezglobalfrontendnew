@@ -11,8 +11,8 @@ export default {
         state.authUser = data
     },
 
-    loggedOut(state){
-        state.authUser = {}
-        localStorage.removeItem('delishcare-token')
+    loggedOut(){
+        localStorage.clear();window.location.reload()
+        //localStorage.removeItem('delishcare-token')
     }
 }

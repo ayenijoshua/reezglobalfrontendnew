@@ -12,7 +12,7 @@ export default {
     },
 
     update(id,data){
-        return http().post(`${endPoints.ranks}/${id}/update`,data)
+        return http().put(`${endPoints.ranks}/${id}/update`,data)
     },
 
     single(id){

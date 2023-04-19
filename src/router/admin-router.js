@@ -16,7 +16,8 @@ import GlobalProfitSettings from '@/views/admin/GlobalProfitSettings'
 import ProfitPoolSettings from '@/views/admin/ProfitPoolSettings'
 import ReferralBonusSettings from '@/views/admin/ReferralBonusSettings'
 import WithdrawalSettings from '@/views/admin/WithdrawalSettings'
-// import conversionRates from '@/views/admin/conversionRates'
+import CompanyDetails from '@/views/admin/CompanyDetails'
+import Ranks from '@/views/admin/Ranks'
 
 export default [
     {
@@ -76,6 +77,15 @@ export default [
             path:'incentives',
             name:'admin-incentives',
             component:Incentives,
+            meta:{
+                isAdmin:true,
+                requiresAuth:true
+            },
+          },
+          {
+            path:'ranks',
+            name:'admin-ranks',
+            component:Ranks,
             meta:{
                 isAdmin:true,
                 requiresAuth:true
@@ -163,57 +173,16 @@ export default [
                 requiresAuth:true
             },
           },
+          {
+            path:'company-details',
+            name:'company-details',
+            component:CompanyDetails,
+            meta:{
+                isAdmin:true,
+                requiresAuth:true
+            },
+          },
 
         ]
-          
-         
-        //   {
-        //     path:'virtual-card',
-        //     name:'admin-virtual-card',
-        //     component:virtualCard,
-        //     meta:{
-        //         isAdmin:true,
-        //         requiresAuth:true
-        //     },
-        //   },
-
-        //   {
-        //     path:'providers',
-        //     name:'admin-providers',
-        //     component:serviceProviders,
-        //     meta:{
-        //         isAdmin:true,
-        //         requiresAuth:true
-        //     },
-        //   },
-        //   {
-        //     path:'product-services',
-        //     name:'admin-product-services',
-        //     component:productServices,
-        //     meta:{
-        //         isAdmin:true,
-        //         requiresAuth:true
-        //     },
-        //   },
-        //   {
-        //     path:'charges',
-        //     name:'admin-charges',
-        //     component:charges,
-        //     meta:{
-        //         isAdmin:true,
-        //         requiresAuth:true
-        //     },
-        //   },
-        //   {
-        //     path:'conversion-rates',
-        //     name:'admin-conversion-rates',
-        //     component:conversionRates,
-        //     meta:{
-        //         isAdmin:true,
-        //         requiresAuth:true
-        //     },
-        //   },
-          
-        // ]
     }
 ]

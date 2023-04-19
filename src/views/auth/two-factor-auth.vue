@@ -6,8 +6,8 @@
                 <div class="row">
                     <div class="col-lg-7 mx-md-auto">
                         <div class="text-white text-center ">
-                            <img class="img-responsive" src="assets/img/logo-white.png" style= "max-width: 100%;padding-bottom:40px" alt="">
-                            <img class="img-responsive" src="assets/img/protection.png" style= "max-width:100px;padding-bottom:10px" alt="">
+                            <img class="img-responsive" src="/assets/img/logo-white.png" style= "max-width: 100%;padding-bottom:40px" alt="">
+                            <img class="img-responsive" src="/assets/img/protection.png" style= "max-width:100px;padding-bottom:10px" alt="">
                             <p class=" font-weight-lighter">2FA Authentication (Enter code sent to your mail)</p>
                         </div>
                         <form @submit.prevent="submit()">

@@ -88,7 +88,7 @@
                             </div>
                         </div>
                     </div>	
-                    <div class="row my-3">
+                    <!-- <div class="row my-3">
                         <div class="col-md-12">
                             <div class="card">
                                 <div class="card-header bg-white">
@@ -143,7 +143,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                     <!-- <div class="d-sm-flex align-items-center justify-content-between border-bottom mt-5 mb-3 ">
                         <h6 class="s-12 text-green">
                             <img  class="ml-2 mb-1" src="/assets/img/investor_perform.png" style="width:20px;height:20px">&nbsp;<strong>Investments & ROI</strong>

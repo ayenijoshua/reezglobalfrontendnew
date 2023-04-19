@@ -16,7 +16,7 @@
                                 <img class="user_avatar" src="/assets/img/dummy/u2a.png" alt="User Image">
                             </div>
                             <div class="float-left info">
-                                <h6 class="font-weight-light mt-2 mb-1" style="color:#2E671A">Innocent Aluu</h6>
+                                <h6 class="font-weight-light mt-2 mb-1" style="color:#2E671A">{{ authUser.first_name }} {{ authUser.last_name }}</h6>
                                 <a class="text-success" href="#" ><i class="icon-circle text-success blink"></i> Online</a>
                             </div>
                         </div>
@@ -115,7 +115,7 @@
                     <ul class="nav navbar-nav">
                         <!-- Messages-->
                         <li class="dropdown custom-dropdown messages-menu">
-                            <a class="nav-link ml-2" data-toggle="control-sidebar">
+                            <a class="nav-link ml-2">
                                 <i class="icon icon-sign-out" :style="{color:'green'}" v-b-modal.logOut></i>
                             </a>
                         </li>

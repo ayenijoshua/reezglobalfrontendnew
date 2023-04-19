@@ -180,7 +180,7 @@ import { mapActions, mapGetters, mapState } from 'vuex';
             ...mapActions('userStore',['toggle2FA','getProfileDetails']),
 
             toggle2fa(){
-                this.form2Fa.enable_2fa = ! this.authUser.enable_2fa
+                this.form2Fa.enable_2fa = ! this.profile.enable_2fa
                 this.toggle2FA({uuid:this.authUser.uuid,data:this.form2Fa})
             },
             sendCode(){

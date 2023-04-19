@@ -138,13 +138,13 @@
                                         </select>
                                     </div>								
                                 </div> -->
-                                <div class="col-lg-12" >
+                                <div class="col-lg-12">
                                     <p class="text-center text-white">
                                         <input required class="form-check-input" type="checkbox" value="true" id="cb1" style="margin-top: 0.5rem;">Accept Our <a href="" class="font-weight-bold" target="blank">Privacy Policy</a> and 
                                         <a href="" class="font-weight-bold" target="blank">Terms</a>
                                     </p>
                                     <span v-if="submitting" class="btn btn-success btn-lg btn-block">...</span>
-                                    <input v-else type="submit" disabled class="btn btn-success btn-lg btn-block" value="Register">
+                                    <input v-else type="submit" class="btn btn-success btn-lg btn-block" value="Register">
                                     <div class="text-center">
                                         <img class="img-responsive text-center" src="assets/img/or.png" style= "max-width:250px; padding-top:30px; padding-bottom:10px;" alt=""> 
                                         <p class="forget-pass text-white text-center">Do You have an account already? 
@@ -168,14 +168,15 @@ export default {
     data(){
         return{
             form:{
-                first_name: '',
-                last_name:'',
-                username:'',
-                email: '',
-                password: '',
-                referrer:'',
-                phone: '',
-                package_id:''
+                first_name: null,
+                last_name:null,
+                username:null,
+                email: null,
+                password: null,
+                referrer:null,
+                phone: null,
+                package_id:null,
+                placer:null
             },
             //ref:null
         }
@@ -196,6 +197,7 @@ export default {
 
        const params = new URL(window.location).searchParams
        this.form.referrer = params.get('ref') ? params.get('ref') : null
+       this.form.placer = params.get('placer') ? params.get('placer') : null
     },
 
     methods:{

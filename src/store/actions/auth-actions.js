@@ -23,14 +23,16 @@ export default {
                     return
                 }
 
-                if(res.data.data.payment.status == 'approved'){
+                commit('authUser',res.data.data)
+
+                if(res.data.data.payment == 'approved'){
                     vm.$router.push({name:'user-dashboard'})
                 }else{
                     vm.$router.push({name:'welcome'})
                 }
                 //res.data.token = res.data.data.access_token
                 //console.log('token',res.data.data.headers)
-                commit('authUser',res.data.data)
+                
                 
             }else{
                 toastr.warning(res.data.message)
@@ -152,21 +154,15 @@ export default {
     async logOut({commit}){
         try {
             commit('submitting',null,{root:true})
-            //console.log(id)
-            //const res = await api.logOut(id)
-            //if(res.status==200){
-                //toastr.success('Logged out successfully')
-                let authUser = store.getters['authStore/authUser']
-                console.log(authUser)
-                if(authUser.is_admin != undefined){
-                    vm.$router.push({name:'admin-login'})
-                }else{
-                    vm.$router.push({name:'user-login'})
-                }
-                commit('loggedOut')
-            //}else{
-                //toastr.error(res.data.message)
-           // }
+            let authUser = store.getters['authStore/authUser']
+            //console.log(authUser)
+            if(authUser.is_admin){
+                vm.$router.push({name:'admin-login'})
+            }else{
+                vm.$router.push({name:'user-login'})
+            }
+            //store.commit('authStore/authUser',null)
+            commit('loggedOut')
             commit('submitted',null,{root:true})
         } catch (error) {
             LogError(commit,error,'submitted')
