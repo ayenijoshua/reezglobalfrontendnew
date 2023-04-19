@@ -383,7 +383,7 @@
                             //check modal events or use webhook
                         //}
 
-                        if(process.env.VUE_APP_ENV == 'testing'){
+                        //if(process.env.VUE_APP_ENV == 'testing'){
                             setTimeout(() => {
                                 that.verify({reference:result.data.data.data.reference}).then(resp=>{
                                     if(resp.status == 200){
@@ -391,7 +391,7 @@
                                     }
                                 })
                             }, 30000);
-                        }
+                        //}
                     }
                     this.paySubmitting = false
                 })
