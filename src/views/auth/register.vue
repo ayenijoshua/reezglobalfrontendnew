@@ -65,7 +65,7 @@
                                             <div class="input-group-text bg-white" ><i class="icon icon-card_membership float-left s-20 green-text "></i></div>
                                         </div>
                                         <select required v-model="form.package_id" :disabled="false" class="form-control r-1 s-12" placeholder="Select Package" style="height:50px;">
-                                            <option value="">Select Package</option>
+                                            <option :value="null">Select Package</option>
                                             <option v-for="regPackage,i in regPackages" :value="regPackage.id" :key="i">{{ regPackage.name }} ({{regPackage.registration_value}})</option>
                                         </select>	   
                                     </div>								
