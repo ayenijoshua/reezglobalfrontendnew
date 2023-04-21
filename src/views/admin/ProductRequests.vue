@@ -141,15 +141,15 @@ import ProductClaimDetails from '@/components/admin/ProductClaimDetails.vue';
             ...mapActions('productClaimStore',['all','approve','decline','getProductClaims']),
 
             accept(id){
-                if(confirm("Are you sure to approve this request")){
+                //if(confirm("Are you sure to approve this request")){
                     this.approve(id)
-                }
+                //}
             },
 
             reject(id){
-                if(confirm("Are you sure to reject this request")){
+                //if(confirm("Are you sure to reject this request")){
                     this.decline(id)
-                }
+                //}
             },
 
             setUser(uuid){

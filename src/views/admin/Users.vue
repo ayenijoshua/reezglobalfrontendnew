@@ -45,14 +45,14 @@
                                             </tr>
                                             <tr v-else v-for="user,i in users" :key="i">
                                                 <td>{{ ++i }}</td>
-                                                <td>{{ user.photo_path }}</td>
+                                                <td> <img :src="imageURL(user.photo_path)" :style="{'width': '50px'}" class="img-responsive"/></td>
                                                 <td>{{ user.first_name }} {{ user.last_name }}</td>
                                                 <td>{{ user.username }}</td>
                                                 <td>{{ user.name }}</td>
                                                 <td>{{ user.created_at }}</td>
                                                 <td>
                                                     <div class="dropdown">
-                                                        <button class="btn btn-sm btn-success  dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                        <button class="btn btn-sm btn-success dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                             <i class="caret"></i>
                                                         </button>
                                                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="position:fixed">
@@ -210,7 +210,11 @@
         ...mapActions("userStore", ["getUsers"]),
         setUser(user) {
             this.user = user;
-        }
+        },
+
+        imageURL(image){
+            return image ? process.env.VUE_APP_IMAGE_PATH+'/'+image : '/assets/img/dummy/u2a.png'
+        }  
     },
     
 }

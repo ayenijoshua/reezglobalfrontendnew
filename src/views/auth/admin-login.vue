@@ -1,14 +1,13 @@
 <template>
     <div id="">
     <main>
-        <div class="p-t-b-100 height-full bg-green" style="background-image: url('assets/img/bg-wall2.png')">
+        <div class="p-t-b-100 height-full bg-green" style="background-image: url('assets/img/bg-wall2.png');">
             <div class="container">
                 <div class="row">
                     <div class="col-lg-7 mx-md-auto">
                         <div class="text-center">
-                            <img class="img-responsive" src="/assets/img/logo-white.png" width="500" height="218" alt="">
-                            <p class="p-t-b-20 text-white">Back Office, signin...
-                                </p>
+                            <img class="img-responsive" src="/assets/img/logo-white.png" style= "max-width: 100%;" alt="">
+                            <p class="p-t-b-20 text-white">Back Office, signin...</p>
                         </div>
                         <form @submit.prevent="loginUser()">
                             <div class="row">
@@ -31,11 +30,14 @@
                             </div>
                         </form>
                         <div class="row">
-                            <p class="forget-pass text-white text-center">Have you forgot your username or password ? 
-                                <a href="" class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapse1" aria-expanded="true" aria-controls="collapseOne">
-                                    <b>Retrieve Here</b>
-                                </a>
-                            </p>
+                            <div class="text-center">
+                                <p class="forget-pass text-white text-center">Have you forgotten your username or password ? 
+                                    <a href="" :style="{'text-decoration':'none'}" class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapse1" aria-expanded="true" aria-controls="collapseOne">
+                                        <b>Retrieve Here</b>
+                                    </a>
+                                </p>
+                            </div>
+                            
                             <div id="collapse1" class="collapse hidden col-lg-12" aria-labelledby="headingOne" data-parent="#accordionExample" style="">
                                 <form @submit.prevent="submitReset()">
                                     <div class="col-lg-12">

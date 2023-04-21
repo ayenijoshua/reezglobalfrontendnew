@@ -13,11 +13,11 @@
                                     <div class="d-flex flex-row mt-4 mb-4 ml-4">
                                         <div class="border-right" style="padding-right:20px">
                                             <h6 class="mt-0 mb-1 font-weight-bold text-white" >Total Registrations</h6>
-                                            <div class="mt-1 text-dark-heading text-white float-right" >{{ totalRegistrations }}</div>
+                                            <div class="mt-1 text-dark-heading text-white float-right" >{{ totalRegistrations?.toLocaleString('en-US') }}</div>
                                         </div>
                                         <div style="padding-left:20px">
                                             <h6 class="mt-0 mb-1 font-weight-bold text-white">Total Registrations PV</h6>
-                                            <div class="mt-1 text-dark-heading text-white float-left"  >{{ totalRegistrationPV }} PV</div>
+                                            <div class="mt-1 text-dark-heading text-white float-left">{{ totalRegistrationPV?.toLocaleString('en-US') }} PV</div>
                                         </div>
                                     </div>
                                 </div>
@@ -36,11 +36,11 @@
                                     <div class="d-flex flex-row mt-4 mb-4 ml-4">
                                         <div class="border-right" style="padding-right:20px">
                                             <h6 class="mt-0 mb-1 font-weight-bold text-white" >Products Sold</h6>
-                                            <div class="mt-1 text-dark-heading text-white float-right" >{{ totalProductSold }}</div>
+                                            <div class="mt-1 text-dark-heading text-white float-right" >{{ totalProductSold?.toLocaleString('en-US') }}</div>
                                         </div>
                                         <div  style="padding-left:20px">
                                             <h6 class="mt-0 mb-1 font-weight-bold text-white" >Total Products PV</h6>
-                                            <div class="mt-1 text-dark-heading text-white float-left"  >{{ totalProductPV }} PV</div>
+                                            <div class="mt-1 text-dark-heading text-white float-left"  >{{ totalProductPV?.toLocaleString('en-US') }} PV</div>
                                         </div>
                                     </div>
                                 </div>
@@ -62,11 +62,11 @@
                                     <div class="d-flex flex-row mt-4 mb-4 ml-4">
                                         <div class="border-right" style="padding-right:20px">
                                             <p><span class="badge text-white bg-green mr-1"><i class="icon icon-check" ></i>&nbsp;&nbsp;Eligible</span></p>
-                                            <div class="mt-1 text-dark-heading text-green float-right" >{{ countEquilibrumBonus }}</div>
+                                            <div class="mt-1 text-dark-heading text-green float-right" >{{ countEquilibrumBonus?.toLocaleString('en-US') }}</div>
                                         </div>
                                         <div  style="padding-left:20px">
                                             <p class="font-weight-bold text-green">Total Earned</p>
-                                            <div class="mt-1 text-dark-heading text-green float-left"  >₦{{ totalEquilibrumBonus }}</div>
+                                            <div class="mt-1 text-dark-heading text-green float-left"  >₦{{ totalEquilibrumBonus?.toLocaleString('en-US') }}</div>
                                         </div>
                                     </div>
                                 </div>
@@ -86,11 +86,11 @@
                                     <div class="d-flex flex-row mt-4 mb-4 ml-4">
                                         <div class="border-right" style="padding-right:20px">
                                             <p><span class="badge text-white bg-green mr-1"><i class="icon icon-check" ></i>&nbsp;&nbsp;Eligible</span></p>
-                                            <div class="mt-1 text-dark-heading text-green float-right" >{{ countLoyaltyBonus }}</div>
+                                            <div class="mt-1 text-dark-heading text-green float-right" >{{ countLoyaltyBonus?.toLocaleString('en-US') }}</div>
                                         </div>
                                         <div  style="padding-left:20px">
                                             <p class="font-weight-bold text-green">Total Earned</p>
-                                            <div class="mt-1 text-dark-heading text-green float-left"  >₦{{ totalLoyaltyBonus }}</div>
+                                            <div class="mt-1 text-dark-heading text-green float-left"  >₦{{ totalLoyaltyBonus?.toLocaleString('en-US') }}</div>
                                         </div>
                                     </div>
                                 </div>
@@ -113,11 +113,11 @@
                                     <div class="d-flex flex-row mt-4 mb-4 ml-4">
                                         <div class="border-right" style="padding-right:20px">
                                             <p><span class="badge text-white bg-green mr-1"><i class="icon icon-check" ></i>&nbsp;&nbsp;Eligible</span></p>
-                                            <div class="mt-1 text-dark-heading text-green float-right" >{{ countProfitPoolBonus }}</div>
+                                            <div class="mt-1 text-dark-heading text-green float-right" >{{ countProfitPoolBonus?.toLocaleString('en-US') }}</div>
                                         </div>
                                         <div style="padding-left:20px">
                                             <p class="font-weight-bold text-green">Total Earned</p>
-                                            <div class="mt-1 text-dark-heading text-green float-left"  >₦{{ totalProfitPoolBonus }}</div>
+                                            <div class="mt-1 text-dark-heading text-green float-left"  >₦{{ totalProfitPoolBonus?.toLocaleString('en-US') }}</div>
                                         </div>
                                     </div>
                                 </div>
@@ -137,11 +137,11 @@
                                     <div class="d-flex flex-row mt-4 mb-4 ml-4">
                                         <div class="border-right" style="padding-right:20px">
                                             <p><span class="badge text-white bg-green mr-1"><i class="icon icon-check" ></i>&nbsp;&nbsp;Eligible</span></p>
-                                            <div class="mt-1 text-dark-heading text-green float-right" >{{ countGlobalProfitBonus }}</div>
+                                            <div class="mt-1 text-dark-heading text-green float-right" >{{ countGlobalProfitBonus?.toLocaleString('en-US') }}</div>
                                         </div>
                                         <div  style="padding-left:20px">
                                             <p class="font-weight-bold text-green">Total Earned</p>
-                                            <div class="mt-1 text-dark-heading text-green float-left"  >₦{{ totalGlobalProfitBonus }}</div>
+                                            <div class="mt-1 text-dark-heading text-green float-left"  >₦{{ totalGlobalProfitBonus?.toLocaleString('en-US') }}</div>
                                         </div>
                                     </div>
                                 </div>
@@ -159,7 +159,7 @@
                             <img src="/assets/img/accounts.png">
                         </div>
                         <small class="mt-0 ml-2"><span style="color:#2E671A!important;">Total Registration Products Amount</span></small>
-                        <p class="text-dark-heading font-weight-bold " style="color:#2E671A!important;">₦<span style="color:#2E671A!important;font-size:32px">{{ sumClaimedProducts }}</span></p>
+                        <p class="text-dark-heading font-weight-bold " style="color:#2E671A!important;">₦<span style="color:#2E671A!important;font-size:32px">{{ sumClaimedProducts?.toLocaleString('en-US') }}</span></p>
                     </div>
                 </div>
             </div>
@@ -171,7 +171,7 @@
                             <img src="/assets/img/wallet1.png">
                         </div>
                         <small class="mt-0text-white" >Total Company Wallet</small>
-                        <p class="text-dark-heading font-weight-bold text-white">₦<span style="font-size:32px">{{ companyWalletBalance }}</span></p>
+                        <p class="text-dark-heading font-weight-bold text-white">₦<span style="font-size:32px">{{ companyWalletBalance?.toLocaleString('en-US') }}</span></p>
                     </div>
                 </div>
             </div>
@@ -210,7 +210,10 @@
                                                         <div class="row column-row">
                                                             <div class="form-row">
                                                                 <div class="ml-4">
-                                                                    <input @click="showFrontPage()" v-model="frontPageForm.show_front_page_message" type="checkbox"  :checked="settings.show_front_page_message" data-width="100"  data-onstyle="success" />
+                                                                    <h6 class="mt-2 mb-1 font-weight-bold text-green">
+                                                                         <input title="Front page notification" v-b-popover.hover.top="'Click to enable/disable Front page notification'" @click="showFrontPage()" v-model="frontPageForm.show_front_page_message" type="checkbox"  :checked="settings.show_front_page_message" data-width="100"  data-onstyle="success" />
+                                                                         Check to Enable | Uncheck to disable
+                                                                    </h6>
                                                                 </div>
                                                             </div>
                                                             <div class="ml-auto mr-3">

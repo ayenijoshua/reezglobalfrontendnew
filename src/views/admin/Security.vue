@@ -28,9 +28,10 @@
                                             <h6 class="font-weight-bold text-green"><i class="icon-lock mr-2"></i>Login 2Factor Authentication</h6>
                                             <small>Disable or Enable Login 2FA Authentication</small>
                                             <div class="form-row mt-2">
-                                            <div style="padding-left:200px">
-                                                <span v-if="authUser.enable_2fa"><b>Enabled</b></span><span v-else><b>Disabled</b></span> &nbsp;
-                                                <input type="checkbox" title="Toggle 2FA" v-b-popover.hover.top="'Click to enable/disable 2FA'" @click="toggle2fa()"  data-toggle="switchbutton"  :checked="authUser.enable_2fa" data-width="100"  data-onstyle="success" /></div>
+                                                <div style="padding-left:100px">
+                                                    <span v-if="authUser.enable_2fa"><b>Enabled</b></span><span v-else><b>Disabled</b></span> &nbsp;
+                                                        <input type="checkbox" title="Toggle 2FA" v-b-popover.hover.top="'Click to enable/disable 2FA'" @click="toggle2fa()"  data-toggle="switchbutton"  :checked="authUser.enable_2fa" data-width="100"  data-onstyle="success" />
+                                                </div>
                                             </div>
                                         </div>	
                                     </div>
@@ -50,7 +51,7 @@
                                 <div class="card-body">
                                     <form @submit.prevent="sendCode()">
                                         <div class="form-row mb-3">
-                                            <div class="col-md-10">
+                                            <div class="col-md-12">
                                                 <div class="input-group mb-2" >
                                                     <div class="input-group-prepend">
                                                         <div class="input-group-text"><i class="icon icon-email float-left s-20 green-text " ></i></div>
@@ -87,7 +88,7 @@
                                     
                                     <form @submit.prevent="change()">
                                         <div class="form-row mb-3">
-                                            <div class="col-md-10">
+                                            <div class="col-md-12">
                                                 <div class="input-group mb-2" >
                                                     <div class="input-group-prepend">
                                                         <div class="input-group-text"><i class="icon icon-lock3 float-left s-20 green-text " ></i></div>

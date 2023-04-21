@@ -28,7 +28,7 @@
                                                     <img  src="/assets/img/cash-withdrawal.png" width="70px" height="70px">
                                                 </div>
                                                 <small class="mt-0 ml-2"><span style="color:#2E671A!important;">Total Withdrawals</span></small>
-                                                <p class="text-dark-heading font-weight-bold " style="color:#2E671A!important;">₦<span style="color:#2E671A!important;font-size:32px">{{ totalWithdrawals }}</span></p>
+                                                <p class="text-dark-heading font-weight-bold " style="color:#2E671A!important;">₦<span style="color:#2E671A!important;font-size:32px">{{ totalWithdrawals?.toLocaleString('en-US') }}</span></p>
                                             </div>
                                         </div>
                                     </div>
@@ -75,7 +75,7 @@
                                                                 <tr v-else v-for="withdraw,i in withdrawals" :key="i">
                                                                     <td>{{ ++i }}</td>
                                                                     <td>{{ withdraw.username }}</td>
-                                                                    <td>₦{{ withdraw.amount }}</td>
+                                                                    <td>₦{{ withdraw.amount?.toLocaleString('en-US') }}</td>
                                                                     <td>{{ withdraw.created_at }}</td>
                                                                 </tr>
                                                             </template>
@@ -97,10 +97,10 @@
                                         <div class="col-lg-12">
                                             <div class="counter-box p-40 text-white shadow2 r-5 flex-wrap" style="background-color: #ffff">
                                                 <div class="float-right">
-                                                <img src="/assets/img/registration.png"  width="70px" height="70px">
+                                                    <img src="/assets/img/registration.png"  width="70px" height="70px">
                                                 </div>
                                                 <small class="mt-0 ml-2"><span style="color:#2E671A!important;">Total Registration</span></small>
-                                                <p class="text-dark-heading font-weight-bold " style="color:#2E671A!important;">₦<span style="color:#2E671A!important;font-size:32px">{{ totalPaidUsers }}</span></p>
+                                                <p class="text-dark-heading font-weight-bold " style="color:#2E671A!important;">₦<span style="color:#2E671A!important;font-size:32px">{{ totalPaidUsers?.toLocaleString('en-US') }}</span></p>
                                             </div>
                                         </div>
                                     </div>
@@ -151,7 +151,7 @@
                                                                     <td>{{ user.first_name }} {{ user.last_name }}</td>
                                                                     <td>{{ user.username }}</td>
                                                                     <td>{{ user.name }}</td>
-                                                                    <td>₦{{ user.amount }}</td>
+                                                                    <td>₦{{ user.amount?.toLocaleString('en-US') }}</td>
                                                                     <td>{{ user.created_at }}</td>
                                                                 </tr>
                                                             </template>
@@ -183,8 +183,6 @@ import { mapActions, mapGetters, mapState } from 'vuex';
             withdrawalsLoading:false,
             paidUsersLoading:false
         }
-
-        
     },
 
     computed:{
