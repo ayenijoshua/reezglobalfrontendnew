@@ -32,8 +32,9 @@
                                             <h6 class="font-weight-bold text-green"><i class="icon-lock mr-2"></i>Login 2Factor Authentication</h6>
                                             <small>Disable or Enable Login 2FA Authentication</small>
                                             <div class="form-row mt-2">
-                                            <div style="padding-left:200px">
-                                                <input type="checkbox" @click="toggle2fa()"  data-toggle="switchbutton"  :checked="profile.enable_2fa" data-width="100"  data-onstyle="success" /></div>
+                                            <div style="padding-left:150px">
+                                              <span v-if="profile.enable_2fa"><b>Enabled</b></span><span v-else><b>Disabled</b></span> &nbsp;  
+                                              <input type="checkbox" title="Toggle 2FA" v-b-popover.hover.top="'Click to enable/disable 2FA'" @click="toggle2fa()"  data-toggle="switchbutton"  :checked="profile.enable_2fa" data-width="100"  data-onstyle="success" /></div>
                                             </div>
                                         </div>	
                                     </div>
@@ -53,7 +54,7 @@
                                 <div class="card-body">
                                     <form @submit.prevent="sendCode()">
                                         <div class="form-row mb-3">
-                                            <div class="col-md-10">
+                                            <div class="col-md-12">
                                                 <div class="input-group mb-2" >
                                                     <div class="input-group-prepend">
                                                         <div class="input-group-text"><i class="icon icon-email float-left s-20 green-text " ></i></div>
@@ -67,7 +68,7 @@
                                                     <input type="password" required v-model="form.old_password" class="form-control r-1 light s-12" placeholder="Old Password"> 
                                                 </div>
                                             
-                                                <span class="btn btn-success btn-sm" v-if="submitting">...</span>
+                                                <span class="btn btn-success btn-sm" v-if="submitting && codeSubmitting">...</span>
                                                 <button v-else type="submit" class="btn btn-success btn-sm btn-block">
                                                     <i class="icon-check-square-o mr-2"></i>Send Confirmation code
                                                 </button>
@@ -90,7 +91,7 @@
                                     
                                     <form @submit.prevent="change()">
                                         <div class="form-row mb-3">
-                                            <div class="col-md-10">
+                                            <div class="col-md-12">
                                                 <div class="input-group mb-2" >
                                                     <div class="input-group-prepend">
                                                         <div class="input-group-text"><i class="icon icon-lock3 float-left s-20 green-text " ></i></div>
@@ -105,7 +106,7 @@
                                                     <input type="password" required v-model="changeForm.password" class="form-control r-1 light s-12" placeholder="New Password"> 
                                                 </div>
 
-                                                <span class="btn btn-success btn-sm" v-if="submitting">...</span>
+                                                <span class="btn btn-success btn-sm" v-if="submitting && changeSubmitting">...</span>
                                                 <button v-else type="submit" class="btn btn-success btn-sm btn-block" value="Change">
                                                     <i class="icon-check-square-o mr-2"></i>Change Password
                                                 </button>
@@ -138,13 +139,15 @@ import { mapActions, mapGetters, mapState } from 'vuex';
                 email: null,
                 old_password:null,
                 user_type:'user'
-            },
-            changeForm:{
-                code:null,
-                password:null,
-                email: null,
-                user_type:'user'
-            }
+                },
+                changeForm:{
+                    code:null,
+                    password:null,
+                    email: null,
+                    user_type:'user'
+                },
+                changeSubmitting:false,
+                codeSubmitting:false
             }
         },
 
@@ -181,14 +184,16 @@ import { mapActions, mapGetters, mapState } from 'vuex';
 
             toggle2fa(){
                 this.form2Fa.enable_2fa = ! this.profile.enable_2fa
-                this.toggle2FA({uuid:this.authUser.uuid,data:this.form2Fa})
+                this.toggle2FA({uuid:this.authUser.uuid,data:this.form2Fa}).then(()=>this.getProfileDetails(this.authUser.uuid))
             },
             sendCode(){
-                this.changePasswordLink(this.form)
+                this.codeSubmitting = true
+                this.changePasswordLink(this.form).then(()=>this.codeSubmitting=false)
             },
 
             change(){
-                this.changePassword(this.changeForm)
+                this.changeSubmitting = true
+                this.changePassword(this.changeForm).then(()=>this.changeSubmitting=false)
             }
         }
     }

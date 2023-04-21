@@ -1,11 +1,13 @@
 <template>
     <main>
-        <div class="p-t-b-100 height-full bg-green" style="background-image: url('assets/img/bg-wall2.png')">
+        <div class="p-t-b-100 height-full bg-green" style="background-image: url('assets/img/bg-wall2.png');">
             <div class="container">
                 <div class="row">
                     <div class="col-lg-7 mx-md-auto">
                         <div class="text-center">
-                            <img class="img-responsive" src="assets/img/logo-white.png" style= "max-width: 100%;" alt="">
+                            <a href="https://delishcare.com">
+                                <img class="img-responsive" src="assets/img/logo-white.png" style= "max-width: 100%;" alt="">
+                            </a>
                             <p class="mt-3 text-white">Let the Journey Begin...</p>
                         </div>
                         <form @submit.prevent="submit()" id="regForm">
@@ -32,6 +34,7 @@
                                     <div class="form-group has-icon green-text" >
                                         <i class="icon-lock"></i>
                                         <input required v-model="form.password" type="password" class="form-control form-control-lg no-b" placeholder="password" id="password-field" >
+                                        <span @click="viewPass()" id="eye" class="green-text field-icon toggle-password mr-3 icon-eye3" style="text-decoration: none"></span>
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
@@ -64,9 +67,9 @@
                                         <div class="input-group-prepend ">
                                             <div class="input-group-text bg-white" ><i class="icon icon-card_membership float-left s-20 green-text "></i></div>
                                         </div>
-                                        <select required v-model="form.package_id" :disabled="false" class="form-control r-1 s-12" placeholder="Select Package" style="height:50px;">
+                                        <select required v-model="form.package_id" :disabled="false" class="form-control r-1 s-16" placeholder="Select Package" style="height:50px;">
                                             <option :value="null">Select Package</option>
-                                            <option v-for="regPackage,i in regPackages" :value="regPackage.id" :key="i">{{ regPackage.name }} ({{regPackage.registration_value}})</option>
+                                            <option v-for="regPackage,i in regPackages" :value="regPackage.id" :key="i">{{ regPackage.name }} (₦{{regPackage.registration_value.toLocaleString('en-US')}})</option>
                                         </select>	   
                                     </div>								
                                 </div>
@@ -161,6 +164,18 @@
         <!-- #primary -->
     </main>
 </template>
+
+<style>
+    .field-icon {
+        float: right;
+        margin-left: -30px;
+        margin-top: -35px;
+        position: relative;
+        z-index: 2;
+        font-size: 20px;
+    }
+</style>
+
 <script>
 import {mapActions, mapState, mapGetters} from 'vuex'
 export default {
@@ -215,6 +230,17 @@ export default {
             //     phone: formData.get('phone'),
             // }
             this.register(this.form)
+        },
+
+        viewPass(){
+            let pass = document.getElementById('password-field');
+            this.showPass = !this.showPass
+            if(this.showPass){
+                pass.type = 'text'
+            }else{
+                pass.type = 'password'
+            }
+            
         }
     }
 };

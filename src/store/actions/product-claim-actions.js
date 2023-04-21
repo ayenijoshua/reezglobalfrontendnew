@@ -31,7 +31,8 @@ export default {
             }else{
                 toastr.warning(res.data.message)
             }
-        commit('submitted',null,{root:true})
+            commit('submitted',null,{root:true})
+            return res
         } catch (error) {
             LogError(commit,error,'submitted')
         }

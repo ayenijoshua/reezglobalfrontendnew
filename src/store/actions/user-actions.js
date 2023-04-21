@@ -94,7 +94,7 @@ export default {
         try {
             commit('submitting',null,{root:true})
             const res = await api.updateUser(uuid,data)
-            processResponse(commit,res,'user','user updated successfully')
+            //processResponse(commit,res,'user','user updated successfully')
             commit('submitted',null,{root:true})
             return res
         } catch (error) {
@@ -313,7 +313,9 @@ export default {
             commit('submitting',null,{root:true})
             const res = await api.toggle2FA(uuid,data)
             if(res.status == 200){
-                notification.success("2FA toggled successfully");
+                data.enable_2fa 
+                ? notification.success("2FA enabled successfully")
+                : notification.success("2FA disabled successfully");
             }
             
             commit('submitted',null,{root:true})

@@ -36,12 +36,12 @@
                                                         </div>
                                                         <div class="card-body text-center">
                                                             <div class="avatar avatar-xl mb-3 ">
-                                                                <img class="user_avatar" src="/assets/img/dummy/u2a.png" alt="User Image">
+                                                                <img class="user_avatar" :src="imageURL(dirDown.photo_path)" alt="User Image">
                                                             </div>
-                                                            <div class="card-header">
+                                                            <div class="">
                                                                 <ul class="list-group list-group-flush" >
-                                                                    <li class="list-group-item"><i class="icon icon-vcard float-left s-20 green-text border-right" ></i> <span class="float-right s-22 font-weight-medium green-text">{{ dirDown.package }}</span></li>
-                                                                    <li class="list-group-item " ><i class="icon icon-person float-left s-20 green-text border-right" ></i> <span class="float-right s-22 font-weight-medium green-text ">{{ dirDown.name }}</span></li>
+                                                                    <li class="list-group-item"><i class="icon icon-vcard float-left s-20 green-text border-right" ></i> <span class="float-right s-12 font-weight-medium green-text">{{ dirDown.package }}</span></li>
+                                                                    <li class="list-group-item" ><i class="icon icon-person float-left s-20 green-text border-right" ></i> <span class="float-right s-12 font-weight-medium green-text ">{{ dirDown.name }}</span></li>
                                                                     <li class="list-group-item"  ><i class="icon icon-mail-envelope-closed4 green-text float-left s-20  border-right"></i> <span class="float-right s-12 font-weight-medium green-text">{{ dirDown.email }}</span></li>
                                                                     <li class="list-group-item" ><i class="icon icon-account_box float-left s-20 green-text border-right"></i>  <span class="float-right s-12 font-weight-medium green-text">{{ dirDown.username }}</span></li>
                                                                 </ul>
@@ -128,18 +128,18 @@ import { mapActions, mapGetters, mapState } from 'vuex';
             }),
 
             ...mapGetters('userStore',['downlines','directDownlines']),
-            ...mapGetters('authStore',['authUser'])
+            ...mapGetters('authStore',['authUser']),
         },
 
         created(){
             if(this.directDownlines.length == 0 || this.downlines.length==0){
                 if(Object.entries(this.authUser).length==0){
-                this.getUser().then(res=>{
-                    this.downlinesLoading = true
-                    this.directDownlinesLoading = true
-                    this.getDownlines(res.data.uuid).then(()=>this.downlinesLoading = false)
-                    this.getDirectDownlines(this.authUser.uuid).then(()=>this.directDownlinesLoading = false)
-                })
+                    this.getUser().then(res=>{
+                        this.downlinesLoading = true
+                        this.directDownlinesLoading = true
+                        this.getDownlines(res.data.uuid).then(()=>this.downlinesLoading = false)
+                        this.getDirectDownlines(this.authUser.uuid).then(()=>this.directDownlinesLoading = false)
+                    })
                 }else{
                     this.downlinesLoading = true
                     this.directDownlinesLoading = true
@@ -151,7 +151,12 @@ import { mapActions, mapGetters, mapState } from 'vuex';
 
         methods:{
             ...mapActions('userStore',['getDownlines','getDirectDownlines']),
-            ...mapActions('authStore',['getUser'])
+            ...mapActions('authStore',['getUser']),
+
+            imageURL(image){
+                let img = image
+               return img ? process.env.VUE_APP_IMAGE_PATH+'/'+img : '/assets/img/dummy/u2a.png'
+            },
         }
     }
 </script>

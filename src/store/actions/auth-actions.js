@@ -129,7 +129,7 @@ export default {
             commit('submitting',null,{root:true})
             var res = await api.emailConfirmation(data)
             if(res.status == 200){
-                toastr.success("Email confirmed successfully, plase login to continue")
+                toastr.success("Email confirmed successfully, please login to continue")
                 vm.$router.push({name:'user-login'})
             }
             commit('submitted',null,{root:true})
@@ -143,7 +143,7 @@ export default {
             commit('submitting',null,{root:true})
             var res = await api.resendEmailConfirmationCode(data)
             if(res.status == 200){
-                toastr.success("Email confirmed code resent successfully")
+                toastr.success("Email confirmation code resent successfully")
             }
             commit('submitted',null,{root:true})
         } catch (err) {
@@ -281,7 +281,9 @@ export default {
             commit('submitting',null,{root:true})
             const res = await api.toggleAdmin2fa(data)
             if(res && res.status==200){
-                toastr.success('2fa toggled successfully')
+                data.enable_2fa 
+                ? toastr.success("2FA enabled successfully")
+                : toastr.success("2FA disabled successfully");
             }else{
                 toastr.error(res.data.message)
             }

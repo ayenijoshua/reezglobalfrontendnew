@@ -6,9 +6,10 @@
                     <div class="row">
                         <div class="col-lg-7 mx-md-auto">
                             <div class="text-center">
-                                <img class="img-responsive" src="assets/img/logo-white.png" style= "max-width: 100%;" alt="">
-                                <p class="p-t-b-20 text-white">Welcome back, signin...
-                                    </p>
+                                <a href="https://delishcare.com">
+                                    <img class="img-responsive" src="assets/img/logo-white.png" style= "max-width: 100%;" alt="">
+                                </a>
+                                <p class="p-t-b-20 text-white">Welcome back, signin...</p>
                             </div>
                             <form @submit.prevent="loginUser()">
                                 <div class="row">
@@ -21,7 +22,8 @@
                                     <div class="col-lg-6">
                                         <div class="form-group has-icon"><i class="icon-lock green-text"></i>
                                             <input type="password" v-model="form.password" class="form-control form-control-lg no-b"
-                                                placeholder="Password" value="" id="password-field">
+                                                placeholder="Password" id="password-field">
+                                                <span @click="viewPass()" id="eye" class="green-text field-icon toggle-password mr-3 icon-eye3" style="text-decoration: none"></span>
                                         </div>
                                     </div>
 
@@ -72,6 +74,17 @@
         </main>
     </div>  
 </template>
+
+<style>
+    .field-icon {
+    float: right;
+    margin-left: -30px;
+    margin-top: -35px;
+    position: relative;
+    z-index: 2;
+    font-size: 20px;
+}
+</style>
 <script>
 import {mapActions,mapState} from 'vuex'
 export default {
@@ -88,7 +101,9 @@ export default {
             },
 
             resetSubmitting:false,
-            logSubmitting:false
+            logSubmitting:false,
+
+            showPass:false
         }
     },
 
@@ -109,6 +124,17 @@ export default {
         submitReset(){
             this.resetSubmitting = true
             this.resetPasswordLink(this.reset_form).then(()=>this.resetSubmitting = false)
+        },
+
+        viewPass(){
+            let pass = document.getElementById('password-field');
+            this.showPass = !this.showPass
+            if(this.showPass){
+                pass.type = 'text'
+            }else{
+                pass.type = 'password'
+            }
+            
         }
     }
 }

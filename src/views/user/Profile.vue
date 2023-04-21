@@ -38,7 +38,7 @@
                                                     <div class="profile-pic-wrapper">
                                                         <div class="pic-holder">
                                                             <!-- uploaded pic shown here -->
-                                                            <img id="profilePic" class="pic user_avatar" src="/assets/img/dummy/u14.jpg">
+                                                            <img id="profilePic" :style="{'width': '150px'}" class="pic user_avatar" :src="imageURL">
 
                                                             <!-- <Input class="uploadProfileInput" type="file" name="profile_pic" id="newProfilePhoto" accept="image/*" style="opacity: 0;" />
                                                             <label for="newProfilePhoto" class="upload-file-block">
@@ -55,8 +55,8 @@
                                                     </div>
                                                     <div class="">
                                                         <ul class="list-group list-group-flush">
-                                                            <li class="list-group-item "><i class="icon icon-vcard float-left s-20 green-text border-right" ></i> <span class="float-right s-22 font-weight-medium green-text">{{ regPackage.vip }} - {{ regPackage.name }}</span></li>
-                                                            <li class="list-group-item "><i class="icon icon-person float-left s-20 green-text border-right" ></i> <span class="float-right s-22 font-weight-medium green-text">{{ form.first_name }} {{ form.last_name }}</span></li>
+                                                            <li class="list-group-item "><i class="icon icon-vcard float-left s-20 green-text border-right" ></i> <span class="float-right s-12 font-weight-medium green-text">{{ regPackage.name }}</span></li>
+                                                            <li class="list-group-item "><i class="icon icon-person float-left s-20 green-text border-right" ></i> <span class="float-right s-12 font-weight-medium green-text">{{ form.first_name }} {{ form.last_name }}</span></li>
                                                             <li class="list-group-item"><i class="icon icon-phone2 float-left s-20 green-text border-right"></i> <span class="float-right s-12 font-weight-medium green-text">{{ form.phone }}</span></li>
                                                             <li class="list-group-item"><i class="icon icon-mail-envelope-closed4 float-left s-20 green-text border-right"></i> <span class="float-right s-12 font-weight-medium green-text">{{ form.email }}</span></li>
                                                             <li class="list-group-item"><i class="icon icon-account_box float-left s-20 green-text border-right"></i>  <span class="float-right s-12 font-weight-medium green-text">{{ authUser.username }}</span></li>
@@ -133,7 +133,7 @@
                                                                             </div>
                                                                             
                                                                             <div class="form-row mb-2">
-                                                                                <div class="form-group col-6 m-0">
+                                                                                <div class="form-group col-12 m-0">
                                                                                     <div class="form-group m-0">
                                                                                         <div class="input-group  mr-sm-2 mb-3">
                                                                                             <div class="input-group-prepend">
@@ -148,15 +148,15 @@
                                                                                     </div>
                                                                                 </div>
 
-                                                                                <div class="form-group col-6 m-0">
+                                                                                <div class="form-group col-12 m-0">
                                                                                     <div class="form-group m-0">
-                                                                                        <div class="input-group mr-sm-2 mb-3">
-                                                                                        <div class="input-group-prepend">
-                                                                                            <div class="input-group-text"><i class="icon icon-person float-left s-20 green-text " ></i></div>
+                                                                                        <div class="dropbox">
+                                                                                            <input v-b-popover.hover.top="'Drag your photo here or click to browse'" required type="file" title="profile photo" name="image" @change="filesChange($event.target.files);" class="form-control form-control-line input-file">
+                                                                                            <p id="img-preview" >
+                                                                                                Drag your photo here<br> or click to browse
+                                                                                            </p>
                                                                                         </div>
-                                                                                        <input type="file" name="image" title="profile photo" class="form-control r-0 light s-12"
-                                                                                            placeholder="Profile photo">
-                                                                                        </div>
+                                                                                        <!-- <input type="file" name="image" title="profile photo" class="form-control r-0 light s-12" placeholder="Profile photo"> -->
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
@@ -195,14 +195,14 @@
                                                     </b-card>
                                                 </template>
                                                 <template v-else>
-                                                    <div class="avatar avatar-xl mb-3 ">
-                                                        <img class="user_avatar" src="/assets/img/dummy/u2a.png" alt="User Image">
+                                                    <div class="avatar avatar-xl mb-3">
+                                                        <img class="user_avatar" :src="uplineImageURL" alt="User Image">
                                                     </div>
-                                                    <div class="card-header">
+                                                    <div class="">
                                                         <ul class="list-group list-group-flush" >
-                                                            <li class="list-group-item"  style="background-color:#2E671A;"><i class="icon icon-vcard float-left s-20 text-white border-right" ></i> <span class="float-right s-22 font-weight-medium text-white">{{ uplineDetails.package }}</span></li>
-                                                            <li class="list-group-item "  style="background-color:#2E671A;"><i class="icon icon-person float-left s-20 text-white border-right" ></i> <span class="float-right s-22 font-weight-medium text-white ">{{ uplineDetails.first_name }} {{ uplineDetails.last_name }}</span></li>
-                                                            <li class="list-group-item"  style="background-color:#2E671A;"><i class="icon icon-mail-envelope-closed4 text-white float-left s-20  border-right"></i> <span class="float-right s-12 font-weight-medium text-white">{{ uplineDetails.email }}</span></li>
+                                                            <li class="list-group-item border-bottom"  style="background-color:#2E671A;"><i class="icon icon-vcard float-left s-20 text-white border-right" ></i> <span class="float-right s-12 font-weight-medium text-white">{{ uplineDetails.package }}</span></li>
+                                                            <li class="list-group-item border-bottom"  style="background-color:#2E671A;"><i class="icon icon-person float-left s-20 text-white border-right" ></i> <span class="float-right s-22 font-weight-medium text-white ">{{ uplineDetails.first_name }} {{ uplineDetails.last_name }}</span></li>
+                                                            <li class="list-group-item border-bottom"  style="background-color:#2E671A;"><i class="icon icon-mail-envelope-closed4 text-white float-left s-20  border-right"></i> <span class="float-right s-12 font-weight-medium text-white">{{ uplineDetails.email }}</span></li>
                                                             <li class="list-group-item"  style="background-color:#2E671A;"><i class="icon icon-account_box float-left s-20 text-white border-right"></i>  <span class="float-right s-12 font-weight-medium text-white">{{ uplineDetails.username }}</span></li>
                                                         </ul>
                                                     </div>
@@ -239,7 +239,7 @@
                                                                     <div class="card-body" >
                                                                         <div class="d-flex align-items-center">
                                                                             <div class="avatar avatar-xl mr-4 ">
-                                                                                <img class="user_avatar" src="/assets/img/dummy/u2a.png" alt="User Image">
+                                                                                <img class="user_avatar" :src="imageURL" alt="User Image">
                                                                             </div>
                                                                             <div>
                                                                                 <span class="text-white" id="d1" style="font-size:10px" >Account Name</span>
@@ -257,7 +257,7 @@
                                                             <div class="col-md-4 mr-4 ml-4">
                                                                 <div class="mt-4 ml-auto mb-3" style="padding-right:20px" >
                                                                     <span class="green-text float-right font-weight-bold" id="d1" style="font-size:12px">
-                                                                        <i class="icon icon-edit"></i>&nbsp;&nbsp;Edith Account Details
+                                                                        <i class="icon icon-edit"></i>&nbsp;&nbsp;Edit Account Details
                                                                     </span>
                                                                 </div><br><br>
                                                                 <form @submit.prevent="updateBank()"> 
@@ -320,6 +320,35 @@
     </div>
 </template>
 
+<style>
+  .dropbox {
+    outline: 2px dashed green; /* the dash box */
+    background: white;
+    color: dimgray;
+    min-height: 100px !important; /* minimum height */
+    position: relative;
+    cursor: pointer;
+  }
+
+  .input-file {
+    opacity: 0; /* invisible but it's there! */
+    width: 100%;
+    height: 100px !important;
+    position: absolute;
+    cursor: pointer;
+  }
+
+  .dropbox:hover {
+    background: lightgreen; /* when mouse over to the drop zone, change color */
+  }
+
+  .dropbox p {
+    font-size: 1.2em;
+    text-align: center;
+    padding: 50px 0;
+  }
+</style>
+
 <script>
     import { mapActions, mapGetters, mapState } from 'vuex';
 
@@ -355,7 +384,16 @@
 
             ...mapGetters('authStore',['authUser']),
             ...mapGetters('userStore',['profile','uplineDetails']),
-            ...mapGetters('packageStore',['regPackage'])
+            ...mapGetters('packageStore',['regPackage']),
+
+            imageURL(){
+                let img = this.profile.photo_path
+               return img ? process.env.VUE_APP_IMAGE_PATH+'/'+img : '/assets/img/dummy/u2a.png'
+            },
+            uplineImageURL(){
+                let img = this.uplineDetails.photo_path
+               return img ? process.env.VUE_APP_IMAGE_PATH+'/'+img : '/assets/img/dummy/u2a.png'
+            }
         },
 
         methods:{
@@ -373,23 +411,43 @@
                     phone:form.get('phone')
                 }
                 this.updateUser({uuid:this.authUser.uuid,data:userData})
-                this.updateProfile({uuid:this.authUser.uuid,data:form})
+                this.updateProfile({uuid:this.authUser.uuid,data:form}).then(res=>{
+                    if(res.status == 200){
+                        this.getProfileDetails(this.authUser.uuid)
+                    }
+                })
             },
 
             updateBank(){
-                this.updateBankDetails({uuid:this.authUser.uuid, data:this.bank})
+                this.updateBankDetails({uuid:this.authUser.uuid, data:this.bank}).then(res=>{
+                    if(res.status == 200){
+                        this.getProfileDetails(this.authUser.uuid)
+                    }
+                })
             },
 
             profileData(res,reslt){
                 this.form.first_name = res.data.first_name
                 this.form.last_name = res.data.last_name
-                this.form.phone = res.data.phone
+                this.form.phone = reslt.phone || res.data.phone
                 this.form.email = res.data.email
                 this.form.address = reslt.data.data.address
                 this.bank.bank_account_name = reslt.data.data.bank_account_name
                 this.bank.bank_account_number = reslt.data.data.bank_account_number
                 this.bank.bank_name = reslt.data.data.bank_name
                 this.form.gender = reslt.data.data.gender
+            },
+
+            filesChange(files){
+                const file = files[0]
+                const prev = document.getElementById('img-preview')
+                if(file){
+                    const fileReader = new FileReader()
+                    fileReader.readAsDataURL(file)
+                    fileReader.addEventListener("load",function(){
+                        prev.innerHTML = '<img style="width: 100px !important; height:100px !important;" src="'+this.result+'"/>'
+                    })
+                }
             }
         },
 

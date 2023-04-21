@@ -38,6 +38,53 @@
         </div>
     </div>
 </template>
+
+<style>
+    .orgchart .node .title{
+        background-color:rgb(46,103,26) !important
+    }
+    .orgchart .node .lines .rightLine{
+        border-right:rgb(46,103,26) !important
+    }
+    .orgchart .node .lines .leftLine{
+        border-left:rgb(46,103,26) !important
+    }
+    .orgchart .node .content {
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        width: 100%;
+        height: 20px;
+        font-size: 11px;
+        line-height: 18px;
+        border: 1px solid rgb(46,103,26);
+        border-radius: 0 0 4px 4px;
+        text-align: center;
+        background-color: #fff;
+        color: #333;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .orgchart {
+        -webkit-box-sizing: border-box;
+        box-sizing: none;
+        display: block;
+        min-height: 0px;
+        min-width: 0px;
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        background-image: -webkit-gradient(linear,left top,right top,color-stop(10%,rgba(200,0,0,.15)),color-stop(0,transparent)),-webkit-gradient(linear,left top,left bottom,color-stop(10%,rgba(200,0,0,.15)),color-stop(0,transparent));
+        background-image: linear-gradient(90deg,rgb(255,255,255) 10%,transparent 0),linear-gradient(rgb(255,255,255) 10%,transparent 0);
+        background-size: 10px 10px;
+        border: 0px dashed transparent;
+        padding: 20px;
+    }
+</style>
+
 <script>
     import OrganizationChart from 'vue-organization-chart'
     import 'vue-organization-chart/dist/orgchart.css'

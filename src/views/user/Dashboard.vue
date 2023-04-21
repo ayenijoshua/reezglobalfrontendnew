@@ -3,7 +3,12 @@
         <div class="">
             <div class="row mb-5">
                 <div class="col-md-4">
-                    <div class="card" style="background-color: #2E671A">
+                    <b-card v-if="packageLoading && loading">
+                        <b-skeleton width="85%"></b-skeleton>
+                        <b-skeleton width="55%"></b-skeleton>
+                        <b-skeleton width="70%"></b-skeleton>
+                    </b-card>
+                    <div v-else class="card" style="background-color: #2E671A">
                         <div class="card-body" >
                             <div class="d-flex align-items-center">
                                 <div class="mr-3">
@@ -12,14 +17,19 @@
                                 </div>
                                 <div class="ml-auto">
                                     <h6 class="mt-0 mb-1 font-weight-bold text-white">Registration Package</h6>
-                                    <div class="mt-1 text-dark-heading text-white float-right" >{{ regPackage.name }} </div>
+                                    <div class="mt-1 text-dark-heading text-white float-right">{{ regPackage.name }} </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <div class="card" style="background-color: #2E671A" >
+                    <b-card v-if="welcomeBonusLoading && loading">
+                        <b-skeleton width="85%"></b-skeleton>
+                        <b-skeleton width="55%"></b-skeleton>
+                        <b-skeleton width="70%"></b-skeleton>
+                    </b-card>
+                    <div v-else class="card" style="background-color: #2E671A" >
                         <div class="card-body" >
                             <div class="d-flex align-items-center">
                                 <div class="mr-3">
@@ -27,15 +37,19 @@
                                 </div>
                                 <div class="ml-auto">
                                     <h6 class="mt-0 mb-1 font-weight-bold text-white" >Welcome Bonus</h6>
-                                    <div class="mt-1 text-dark-heading text-white float-right" >₦  {{ welcomeBonus }}</div>
-                                    
+                                    <div class="mt-1 text-dark-heading text-white float-right" >₦  {{ welcomeBonus?.toLocaleString('en-US') }}</div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <div class="card" style="background-color: #2E671A" >
+                    <b-card v-if="referralBonusLoading && loading">
+                        <b-skeleton width="85%"></b-skeleton>
+                        <b-skeleton width="55%"></b-skeleton>
+                        <b-skeleton width="70%"></b-skeleton>
+                    </b-card>
+                    <div v-else class="card" style="background-color: #2E671A" >
                         <div class="card-body" >
                             <div class="d-flex align-items-center">
                                 <div class="mr-3">
@@ -44,8 +58,7 @@
                                 </div>
                                 <div class="ml-auto">
                                     <h6 class="mt-0 mb-1 font-weight-bold text-white" >Referral Bonus</h6>
-                                    <div class="mt-1 text-dark-heading text-white float-right" >₦  {{ referralBonus }}</div>
-                                    
+                                    <div class="mt-1 text-dark-heading text-white float-right" >₦  {{ referralBonus?.toLocaleString('en-US') }}</div>
                                 </div>
                             </div>
                         </div>
@@ -55,42 +68,62 @@
             <!--States-->
             <div class="row my-5">
                 <div class="col-lg-3">
-                    <div class="counter-box p-40 white shadow2 r-5">
+                    <b-card v-if="equilibrumBonusLoading && loading">
+                        <b-skeleton width="85%"></b-skeleton>
+                        <b-skeleton width="55%"></b-skeleton>
+                        <b-skeleton width="70%"></b-skeleton>
+                    </b-card>
+                    <div v-else class="counter-box p-40 white shadow2 r-5">
                         <div class="float-right">
                             <img src="/assets/img/equil.png" alt="Generic placeholder image" width="60px" height="60px">
                         </div>
-                        <div class="mt-1 text-dark-heading text-green" >{{ equilibrumBonus }}</div>
+                        <div class="mt-1 text-dark-heading text-green" >{{ equilibrumBonus?.toLocaleString('en-US') }}</div>
                         <h6 class="counter-title font-weight-bold" style="color:#2E671A">Equilibrum (₦) </h6><br>
                         <span class="badge text-white bg-green"><i class="icon icon-check" ></i>&nbsp;&nbsp;Eligible</span>
                     </div>
                 </div>
                 <div class="col-lg-3">
-                    <div class="counter-box p-40 white shadow2 r-5">
+                    <b-card v-if="loyaltyBonusLoading && loading">
+                        <b-skeleton width="85%"></b-skeleton>
+                        <b-skeleton width="55%"></b-skeleton>
+                        <b-skeleton width="70%"></b-skeleton>
+                    </b-card>
+                    <div v-else class="counter-box p-40 white shadow2 r-5">
                         <div class="float-right">
                             <img src="/assets/img/bonus.png" alt="Generic placeholder image" width="60px" height="60px">
                         </div>
-                        <div class="mt-1 text-dark-heading text-green" >{{ loyaltyBonus }}</div>
+                        <div class="mt-1 text-dark-heading text-green" >{{ loyaltyBonus?.toLocaleString('en-Us') }}</div>
                         <h6 class="counter-title font-weight-bold" style="color:#2E671A">Loyalty (₦)</h6><br>
                         <span class="badge text-white bg-green"><i class="icon icon-check" ></i>&nbsp;&nbsp;Eligible</span>
                     </div>
                 </div>
                 <div class="col-lg-3">
-                    <div class="counter-box p-40 white shadow2 r-5">
+                    <b-card v-if="profitPoolLoading && loading">
+                        <b-skeleton width="85%"></b-skeleton>
+                        <b-skeleton width="55%"></b-skeleton>
+                        <b-skeleton width="70%"></b-skeleton>
+                    </b-card>
+                    <div v-else class="counter-box p-40 white shadow2 r-5">
                         <div class="float-right">
                             <img  src="/assets/img/bars.png" alt="Generic placeholder image" width="60px" height="60px">
                         </div>
-                        <div class="mt-1 text-dark-heading text-green" >{{ profitPool }}</div>
+                        <div class="mt-1 text-dark-heading text-green" >{{ profitPool?.toLocaleString('en-US') }}</div>
                         <h6 class="counter-title font-weight-bold" style="color:#2E671A">Profit Pool (₦) </h6><br>
                         <span v-if="profitPoolEligible" class="badge text-white bg-green"><i class="icon icon-check"></i>&nbsp;&nbsp;Eligible</span>
                         <span v-else class="badge text-white bg-red"><i class="icon icon-close" ></i>&nbsp;&nbsp;Not Eligible</span>
                     </div>
                 </div>
                 <div class="col-lg-3">
-                    <div class="counter-box p-40  text-white shadow2 r-5" style="background-color: #2E671A">
+                    <b-card v-if="globalProfitLoading && loading">
+                        <b-skeleton width="85%"></b-skeleton>
+                        <b-skeleton width="55%"></b-skeleton>
+                        <b-skeleton width="70%"></b-skeleton>
+                    </b-card>
+                    <div v-else class="counter-box p-40  text-white shadow2 r-5" style="background-color: #2E671A">
                         <div class="float-right">
                             <img  src="/assets/img/salary_white.png" alt="Generic placeholder image" width="60px" height="60px">
                         </div>
-                        <div class="mt-1 text-dark-heading text-white" >{{ globalProfit }}</div>
+                        <div class="mt-1 text-dark-heading text-white" >{{ globalProfit?.toLocaleString('en-US') }}</div>
                         <h6 class="counter-title font-weight-bold">Global Profit (₦)</h6><br>
                         <span v-if="globalProfitEligible" class="badge text-white bg-green"><i class="icon icon-check"></i>&nbsp;&nbsp;Eligible</span>
                         <span v-else class="badge text-white bg-red"><i class="icon icon-close" ></i>&nbsp;&nbsp;Not Eligible</span>
@@ -100,18 +133,28 @@
             <!--States-->
             <div class="row my-5">
                 <div class="col-lg-12">
-                    <div class="counter-box p-40 text-white shadow2 r-5" style="background-color: #2E671A">
+                    <b-card v-if="walletBalanceLoading && loading">
+                        <b-skeleton width="85%"></b-skeleton>
+                        <b-skeleton width="55%"></b-skeleton>
+                        <b-skeleton width="70%"></b-skeleton>
+                    </b-card>
+                    <div v-else class="counter-box p-40 text-white shadow2 r-5" style="background-color: #2E671A">
                         <div class="float-right">
                             <img  src="/assets/img/companywallet.png">
                         </div>
                         <h6 class="mt-0text-white" >Total Wallet Earned</h6>
-                        <div class="text-dark-heading font-weight-bold text-white" >₦<span class="s-36">{{ walletBalance }}</span></div>
+                        <div class="text-dark-heading font-weight-bold text-white" >₦<span class="s-36">{{ walletBalance?.toLocaleString('en-US') }}</span></div>
                     </div>
                 </div>
             </div>
             <div class="d-flex row row-eq-height my-3">
                 <div class="col-md-4">
-                    <div class="card">
+                    <b-card v-if="totalPVLoading && loading">
+                        <b-skeleton width="85%"></b-skeleton>
+                        <b-skeleton width="55%"></b-skeleton>
+                        <b-skeleton width="70%"></b-skeleton>
+                    </b-card>
+                    <div v-else class="card">
                         <div class="card-body ">
                             <div class="float-up text-center">
                                 <img  src="/assets/img/pv1.png">
@@ -229,7 +272,7 @@
                                                         <input type="email" required v-model="inviteForm.email" class="form-control" id="validationDefault03" placeholder="Recipients Email Address">
                                                     </div>
                                                     <div class="col-md-6 mb-3">
-                                                        <input type="text" v-model="inviteForm.referrer" class="form-control" id="validationDefault03" placeholder="Referrer">
+                                                        <input type="text" title="Referrer" v-b-popover.hover.top="'Enter a referrer if you already have 2 downlines '" v-model="inviteForm.referrer" class="form-control" id="validationDefault03" placeholder="Referrer ID *">
                                                     </div>
                                                 </div>
                                                 <span v-if="submitting" class="btn btn-success">...</span>
@@ -241,8 +284,8 @@
                                                 <div class="col-md-12 mb-3">
                                                     <h3 class="font-weight-bold s-14 text-center">Click to copy your referral link</h3>
                                                 </div>	
-                                                <div class="col-md-8 mb-3" >
-                                                    <input type="text" class="form-control" value="https://delishcare.com/goke154" id="referrallink" readonly >
+                                                <div class="col-md-8 mb-3">
+                                                    <input type="text" class="form-control" :value="referrerLink" id="referrallink" readonly >
                                                 </div>
                                                 <div class="col-md-4 mb-3">
                                                         <input type="button" class="btn btn-success" @click="myFunction()" value="Copy Referral Link" id="button">
@@ -276,7 +319,6 @@
                                         <div class="col-md-12 text-center">
                                             <h3 class="font-weight-bold s-14 text-center">{{ settings.general_message_subject }}</h3>
                                             <span class="font-weight-lighter ">{{ settings.general_message }}</span>
-
                                         </div>
                                     </div>
                                 </div>
@@ -498,7 +540,18 @@ export default{
             prodClaimLoading:false,
             prodLoading:false,
             incClaimLoading:false,
-            incLoading:false
+            incLoading:false,
+
+            welcomeBonusLoading:false,
+            loyaltyBonusLoading:false,
+            equilibrumBonusLoading:false,
+            referralBonusLoading:false,
+            totalBonusLoading:false,
+            profitPoolLoading:false,
+            walletBalanceLoading:false,
+            globalProfitLoading:false,
+            packageLoading:false,
+            totalPVLoading:false
         }
     },
 
@@ -510,6 +563,12 @@ export default{
 
         imageURL(){
             return process.env.VUE_APP_IMAGE_PATH
+        },
+
+        referrerLink(){
+            return this.inviteForm.referrer 
+            ? 'https://delishcare.com/'+'?ref='+this.inviteForm.referrer +'&placer='+this.authUser.username
+            : 'https://delishcare.com/'+'?ref='+this.authUser.username
         },
         
         ...mapGetters('bonusStore',['welcomeBonus',
@@ -562,41 +621,51 @@ export default{
         
         getBonuses(uuid){
             if(!this.welcomeBonus){
-                this.getWelcomeBonus(uuid)
+                this.welcomeBonusLoading = true
+                this.getWelcomeBonus(uuid).then(()=>this.welcomeBonusLoading = false)
             }
             if(!this.equilibrumBonus){
-                this.getEquilibrumBonus(uuid)
+                this.equilibrumBonusLoading = true
+                this.getEquilibrumBonus(uuid).then(()=>this.equilibrumBonusLoading = false)
             }
             if(!this.loyaltyBonus){
-                this.getLoyaltyBonus(uuid)
+                this.loyaltyBonusLoading = true
+                this.getLoyaltyBonus(uuid).then(()=>this.loyaltyBonusLoading = false)
             }
             if(!this.referralBonus){
-                this.getReferralBonus(uuid)
+                this.referralBonusLoading = true
+                this.getReferralBonus(uuid).then(()=>this.referralBonusLoading = false)
             }
             if(!this.placementBonus){
                 this.getPlacementBonus(uuid)
             }
             if(!this.totalBonus){
-                this.getTotalBonus(uuid)
+                this.totalBonusLoading = true
+                this.getTotalBonus(uuid).then(()=>this.totalBonusLoading = false)
             }
             if(!this.totalPV){
-                this.getTotalPVs(uuid)
+                this.totalPVLoading = true
+                this.getTotalPVs(uuid).then(()=>this.totalPVLoading=false)
             }
             if(!this.profitPool){
-                this.getProfitPool(uuid)
+                this.profitPoolLoading = true
+                this.getProfitPool(uuid).then(()=>this.profitPoolLoading = false)
             }
             if(!this.globalProfit){
-                this.getGlobalProfit(uuid)
+                this.globalProfitLoading = true
+                this.getGlobalProfit(uuid).then(()=>this.globalProfitLoading = false)
             }
             if(!this.walletBalance){
-                this.getWalletBalance(uuid)
+                this.walletBalanceLoading = true
+                this.getWalletBalance(uuid).then(()=>this.walletBalanceLoading = false)
             }
             
         },
 
         getDashboardData(authUser){
             if(this.regPackage.name == undefined){
-                this.getPackage(authUser.package_id)
+                this.packageLoading = true
+                this.getPackage(authUser.package_id).then(()=>this.packageLoading=false)
             }
             
             this.getBonuses(authUser.uuid)
@@ -658,6 +727,7 @@ export default{
                     this.userProductClaims.forEach(ele=>{
                         this.totalWorth = this.totalWorth + ele.worth
                         this.totalPv = this.totalPv + ele.points
+                        this.productClaimStatus = ele.status
                     })
                 }
             })

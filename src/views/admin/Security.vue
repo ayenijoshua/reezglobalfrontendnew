@@ -29,7 +29,8 @@
                                             <small>Disable or Enable Login 2FA Authentication</small>
                                             <div class="form-row mt-2">
                                             <div style="padding-left:200px">
-                                                <input type="checkbox" @click="toggle2fa()"  data-toggle="switchbutton"  :checked="authUser.enable_2fa" data-width="100"  data-onstyle="success" /></div>
+                                                <span v-if="authUser.enable_2fa"><b>Enabled</b></span><span v-else><b>Disabled</b></span> &nbsp;
+                                                <input type="checkbox" title="Toggle 2FA" v-b-popover.hover.top="'Click to enable/disable 2FA'" @click="toggle2fa()"  data-toggle="switchbutton"  :checked="authUser.enable_2fa" data-width="100"  data-onstyle="success" /></div>
                                             </div>
                                         </div>	
                                     </div>
@@ -176,7 +177,7 @@ import { mapActions, mapGetters, mapState } from 'vuex';
 
             toggle2fa(){
                 this.form2Fa.enable_2fa = ! this.authUser.enable_2fa
-                this.toggleAdmin2fa(this.form2Fa)
+                this.toggleAdmin2fa(this.form2Fa).then(()=>this.getAdmin())
             },
             sendCode(){
                 this.codeSubmitting = true

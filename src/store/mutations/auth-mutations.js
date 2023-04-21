@@ -12,7 +12,7 @@ export default {
     },
 
     loggedOut(){
-        localStorage.clear();window.location.reload()
-        //localStorage.removeItem('delishcare-token')
+        localStorage.removeItem('delishcare-token')
+        window.location.reload()
     }
 }
