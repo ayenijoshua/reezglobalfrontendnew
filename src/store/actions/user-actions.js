@@ -330,7 +330,9 @@ export default {
             commit('submitting',null,{root:true})
             const res = await api.setBankEditable(uuid,data)
             if(res.status == 200){
-                notification.success("Bank editable toggled successfully");
+                data.bank_editable
+                ? notification.success("Bank editable enabled successfully")
+                : notification.success("Bank editable disabled successfully");
             }
             
             commit('submitted',null,{root:true})

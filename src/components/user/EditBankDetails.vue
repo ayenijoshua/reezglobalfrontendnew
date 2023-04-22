@@ -1,6 +1,9 @@
 <template>
     <div class="card border-0 justify-content-center">
-        <div class="card-body"> 
+        <div v-if="!userHasProfile" class="card-body">
+            <div class="alert alert-info">User has not submitted bank details</div>
+        </div>
+        <div v-else class="card-body"> 
             <div class=" form-row mb-3">  
                 <form @submit.prevent="profileUpdate()">                      
                     <div class="form-group col-12 m-0">
@@ -63,11 +66,11 @@
                         </div>
                         <div>
                             <span class="text-white" id="d1" style="font-size:10px" >Account Name</span>
-                            <h6 class="font-weight-bold text-white" id="d1">{{ profile.bank_account_name }}</h6>
+                            <h6 class="font-weight-bold text-white" id="d1">{{ profile?.bank_account_name }}</h6>
                             <span class="text-white" id="d1" style="font-size:10px" >Account Number</span>
-                            <h6 class="font-weight-bold text-white" id="d1">{{ profile.bank_account_number }}</h6>
+                            <h6 class="font-weight-bold text-white" id="d1">{{ profile?.bank_account_number }}</h6>
                             <span class="text-white" id="d1" style="font-size:10px" >Bank Name</span>
-                            <h6 class="font-weight-bold text-white" id="d1">{{ profile.bank_name }}</h6>
+                            <h6 class="font-weight-bold text-white" id="d1">{{ profile?.bank_name }}</h6>
                         </div>
                     </div>
                 </div>
@@ -86,6 +89,7 @@ export default{
             type:Object,
             required:true
         },
+        
     },
 
     data(){
@@ -95,7 +99,8 @@ export default{
                 bank_account_number:null,
                 bank_name:null
             },
-            bank_editable:false
+            bank_editable:false,
+            userHasProfile:true
         }
     },
 
@@ -107,12 +112,19 @@ export default{
         ...mapGetters('userStore',['profile'])
     },
 
-    created(){
-            this.getProfileDetails(this.user.uuid).then(reslt=>{
-            this.form.bank_account_name = reslt.data.data.bank_account_name
-            this.form.bank_account_number = reslt.data.data.bank_account_number
-            this.form.bank_name = reslt.data.data.bank_name
-            this.bank_editable = reslt.data.data.bank_editable
+    mounted(){
+        
+        this.getProfileDetails(this.user.uuid).then(reslt=>{
+            if(reslt.status==200){
+                if(!reslt.data.data){
+                    this.userHasProfile = false
+                }else{
+                    this.form.bank_account_name = reslt.data.data.bank_account_name
+                    this.form.bank_account_number = reslt.data.data.bank_account_number
+                    this.form.bank_name = reslt.data.data.bank_name
+                    this.bank_editable = reslt.data.data.bank_editable
+                }
+            }
         })
     },
 
