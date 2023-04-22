@@ -43,7 +43,14 @@ export default {
             commit('submitting',null,{root:true})
             res = await api.update(data)
             if(res.status==200){
-                notification.success("data updated successfully")
+                if(data.show_front_page_message !== undefined){
+                    data.show_front_page_message
+                    ? notification.success("Front page notification enabled successfully")
+                    : notification.success("Front page notification disabled successfully");
+                }else{
+                    notification.success("data updated successfully")
+                }
+                
             }else{
                 toastr.warning(res.data.message)
             }
