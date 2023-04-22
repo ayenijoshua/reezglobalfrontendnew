@@ -50,7 +50,6 @@ export default {
                 }else{
                     notification.success("data updated successfully")
                 }
-                
             }else{
                 toastr.warning(res.data.message)
             }
