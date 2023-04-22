@@ -43,7 +43,7 @@ export default {
             commit('submitting',null,{root:true})
             res = await api.update(data)
             if(res.status==200){
-                if(data.show_front_page_message !== undefined){
+                if(data.show_front_page_message !== undefined){ 
                     data.show_front_page_message 
                     ? notification.success("Front Page Notification Enabled")
                     : notification.success("Front Page Notification Disabled")
