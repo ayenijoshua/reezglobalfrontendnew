@@ -27,7 +27,7 @@ export default {
             const res = await api.create(uuid,data)
             if(res && res.status==200){
                 commit('userProductClaims',res.data.data)
-                toastr.success("product claimed successfully")
+                toastr.success("Product claimed successfully")
             }else{
                 toastr.warning(res.data.message)
             }

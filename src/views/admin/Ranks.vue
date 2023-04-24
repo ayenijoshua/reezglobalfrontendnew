@@ -13,7 +13,7 @@
                                     <th>S/N</th>
                                     <th>Name</th>
                                     <th>Points</th>
-                                    <th>Global profit eligible</th>
+                                    <th>Global Profit Eligible</th>
                                     <th>Edit Details</th>
                                 </tr>
                                 <tr v-if="loading && ranksLoading">
@@ -36,7 +36,7 @@
                                         <td>{{ pack.name }}</td>
                                         <td>{{ pack.points }}PV</td>
                                         <td>
-                                            <span :class="['btn btn-small',pack.is_global_profit_eligible?'btn-success':'btn-danger']">{{ pack.is_global_profit_eligible?'ELigible':'Not-eligible'}}</span>
+                                            <span :class="['btn btn-small',pack.is_global_profit_eligible?'btn-success':'btn-danger']">{{ pack.is_global_profit_eligible?'Eligible':'Not-Eligible'}}</span>
                                         </td>
                                         <td>
                                             <a @click="setRank(pack)" v-b-modal.edit-rank class="btn btn-sm btn-success text-white caret" href="#"><i class="icon-edit"></i></a>

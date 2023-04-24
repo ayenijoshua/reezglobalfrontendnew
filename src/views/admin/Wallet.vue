@@ -19,7 +19,7 @@
                                 <div class="card-body" style="overflow-x:auto;">
                                     <table class="table table-bordered table-hover">
                                         <tr>
-                                            <th>TOTal Company Wallet (TRP)</th>
+                                            <th>Total Company Wallet (TRP)</th>
                                             <th>Total Withdrawals (TW)</th>
                                             <th>Company Wallet Balance ( TRP - TW)</th>
                                         </tr>

@@ -45,7 +45,7 @@
                                     <div class="text-center">
                                         <img class="img-responsive text-center" src="assets/img/or.png" style= "max-width:250px;" alt="">
                                         <p class="text-white mt-3">Don't Have an Account?
-                                            <router-link :to="{name:'admin-login'}"> <b>Proceed to login!</b></router-link>
+                                            <router-link :to="{name:'admin-login'}"  :style="{'text-decoration':'none'}"> <b>Proceed to login!</b></router-link>
                                         </p>
                                     </div>
                                 </div>
