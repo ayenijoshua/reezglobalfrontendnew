@@ -142,9 +142,9 @@
                         <div class="col-auto mr-2">
                             <button type="button" class="btn btn-sm btn-success px-4" @click="logOut()" data-dismiss="modal">Confirm</button>
                         </div>
-                        <div class="col-auto">
+                        <!-- <div class="col-auto">
                             <button type="button" class="btn btn-sm btn-light text-muted" data-dismiss="modal">Cancel</button>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
             </div>  

@@ -94,10 +94,17 @@
                             <small class="text-green mt-4">kindly be reminded that there is a <span class="font-weight-bold">7-day time limit</span> for completing your registration,so please finish the remaining part as soon as possible to avoid missing out.</small>
                                 <div class="text-center mt-3">
                                     <div id="timer" class="flex-wrap d-flex justify-content-center mt-3" >
-                                        <div id="days" class="align-items-center flex-column d-flex justify-content-center"></div>
-                                        <div id="hours" class="align-items-center flex-column d-flex justify-content-center"></div>
-                                        <div id="minutes" class="align-items-center flex-column d-flex justify-content-center"></div>
-                                        <div id="seconds" class="align-items-center flex-column d-flex justify-content-center"></div>
+                                        <VueCountdown :time="getTime">
+                                            <template slot-scope="props">
+                                                <div style="width: 200px !important;" id="days" class="align-items-center flex-column d-flex justify-content-center">{{ props.days }}</div>
+                                                <div id="hours" class="align-items-center flex-column d-flex justify-content-center">{{ props.hours }}</div>
+                                                <div id="minutes" class="align-items-center flex-column d-flex justify-content-center">{{ props.minutes }}</div>
+                                                <div id="seconds" class="align-items-center flex-column d-flex justify-content-center">{{ props.seconds }}</div>
+                                            </template>
+                                            <!---<template slot-scope="props">Time Remaining：{{ props.days }} days, {{ props.hours }} hours, {{ props.minutes }} minutes, {{ props.seconds }} seconds.</template>-->
+                                        </VueCountdown>
+                                        
+                                        
                                     </div>
                                 </div>	
                             </div>
@@ -290,15 +297,52 @@
     
 </template>
 
+<style>
+    #timer div {
+        background-color: #000000;
+        color: #ffffff;
+        width: 150px !important;
+        height: 150px !important;
+        border-radius: 5px;
+        font-size: 25px;
+        font-weight: 700;
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+    #timer div {
+        display: inline !important;
+        margin-top: -2px;
+        font-size: 15px;
+        font-weight: 500;
+    }
+
+    @media only screen and (max-width: 767px) {
+        #timer {
+            margin-top: -20px;
+        }
+        #timer div {
+            width: 95px;
+            height: 100px;
+            font-size: 32px;
+            margin-top: 20px;
+        }
+        #timer div span {
+            font-size: 14px;
+        }
+    }
+</style>
+
 <script>
     import { mapState,mapActions,mapGetters } from 'vuex';
     import modal from '@/components/Modal.vue'
     import vm from '../main'
+    import VueCountdown from '@chenfengyuan/vue-countdown';
     export default{
         name:"user-welcome",
 
         components:{
-            modal
+            modal,
+            VueCountdown
         },
 
         data(){
@@ -325,6 +369,13 @@
             ...mapGetters('authStore',['authUser']),
             ...mapGetters('userStore',['profile']),
             //...mapGetters('packageStore',['regPackage'])
+
+            getTime(){
+                let userTime = new Date(this.authUser.created_at).getTime()
+                let today = new Date().getTime()
+                let diff = today - userTime
+                return diff
+            }
         },
 
         mounted(){

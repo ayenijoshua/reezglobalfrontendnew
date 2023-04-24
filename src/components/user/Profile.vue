@@ -33,7 +33,7 @@
                                                 <div class="profile-pic-wrapper">
                                                 <div class="pic-holder">
                                                     <!-- uploaded pic shown here -->
-                                                    <img id="profilePic" class="pic user_avatar" src="/assets/img/dummy/u14.jpg">
+                                                    <img id="profilePic" class="pic user_avatar" :style="{'width': '150px'}" :src="imageURL">
 
                                                     <!-- <Input class="uploadProfileInput" type="file" name="profile_pic" id="newProfilePhoto" accept="image/*" style="opacity: 0;" />
                                                     <label for="newProfilePhoto" class="upload-file-block">
@@ -50,8 +50,8 @@
                                                 </div>
                                                 <div class="">
                                                     <ul class="list-group list-group-flush">
-                                                        <li class="list-group-item "><i class="icon icon-vcard float-left s-20 green-text border-right" ></i> <span class="float-right s-22 font-weight-medium green-text">{{ regPackage.vip }} - {{ regPackage.name }}</span></li>
-                                                        <li class="list-group-item "><i class="icon icon-person float-left s-20 green-text border-right" ></i> <span class="float-right s-22 font-weight-medium green-text">{{ form.first_name }} {{ form.last_name }}</span></li>
+                                                        <li class="list-group-item "><i class="icon icon-vcard float-left s-20 green-text border-right" ></i> <span class="float-right s-12 font-weight-medium green-text">{{ regPackage.vip }} - {{ regPackage.name }}</span></li>
+                                                        <li class="list-group-item "><i class="icon icon-person float-left s-20 green-text border-right" ></i> <span class="float-right s-12 font-weight-medium green-text">{{ form.first_name }} {{ form.last_name }}</span></li>
                                                         <li class="list-group-item"><i class="icon icon-phone2 float-left s-20 green-text border-right"></i> <span class="float-right s-12 font-weight-medium green-text">{{ form.phone }}</span></li>
                                                         <li class="list-group-item"><i class="icon icon-mail-envelope-closed4 float-left s-20 green-text border-right"></i> <span class="float-right s-12 font-weight-medium green-text">{{ form.email }}</span></li>
                                                         <li class="list-group-item"><i class="icon icon-account_box float-left s-20 green-text border-right"></i>  <span class="float-right s-12 font-weight-medium green-text">{{ user.username }}</span></li>
@@ -118,7 +118,7 @@
                                                                         </div>
                                                                         
                                                                         <div class="form-row mb-2">
-                                                                            <div class="form-group col-6 m-0">
+                                                                            <div class="form-group col-12 m-0">
                                                                                 <div class="form-group m-0">
                                                                                     <div class="input-group  mr-sm-2 mb-3">
                                                                                         <div class="input-group-prepend">
@@ -133,7 +133,7 @@
                                                                                 </div>
                                                                             </div>
 
-                                                                            <div class="form-group col-6 m-0">
+                                                                            <!-- <div class="form-group col-6 m-0">
                                                                                 <div class="form-group m-0">
                                                                                     <div class="input-group mr-sm-2 mb-3">
                                                                                     <div class="input-group-prepend">
@@ -143,7 +143,7 @@
                                                                                         placeholder="Profile photo">
                                                                                     </div>
                                                                                 </div>
-                                                                            </div>
+                                                                            </div> -->
                                                                         </div>
                                                                         <div class="form-group m-0">
                                                                             <textarea name="address" :value="profile?.address" rows="5" type="text" class="form-control r-0 light s-12" id="address"
@@ -168,9 +168,9 @@
                                             </div>
                                             <div class="card-body text-center">
                                                 <div class="avatar avatar-xl mb-3 ">
-                                                    <img class="user_avatar" src="/assets/img/dummy/u2a.png" alt="User Image">
+                                                    <img class="user_avatar" :src="uplineImageURL" alt="User Image">
                                                 </div>
-                                                <div class="card-header">
+                                                <div class="">
                                                     <ul class="list-group list-group-flush" >
                                                         <li class="list-group-item"  style="background-color:#2E671A;"><i class="icon icon-vcard float-left s-20 text-white border-right" ></i> <span class="float-right s-22 font-weight-medium text-white">{{ uplineDetails.package }}</span></li>
                                                         <li class="list-group-item "  style="background-color:#2E671A;"><i class="icon icon-person float-left s-20 text-white border-right" ></i> <span class="float-right s-22 font-weight-medium text-white ">{{ uplineDetails.first_name }} {{ uplineDetails.last_name }}</span></li>
@@ -210,7 +210,7 @@
                                                                     <div class="card-body" >
                                                                         <div class="d-flex align-items-center">
                                                                             <div class="avatar avatar-xl mr-4 ">
-                                                                                <img class="user_avatar" src="/assets/img/dummy/u2a.png" alt="User Image">
+                                                                                <img class="user_avatar" :src="imageURL" alt="User Image">
                                                                             </div>
                                                                             <div>
                                                                                 <span class="text-white" id="d1" style="font-size:10px" >Account Name</span>
@@ -328,7 +328,16 @@ export default {
 
         ...mapGetters('authStore',['authUser']),
         ...mapGetters('userStore',['profile','uplineDetails']),
-        ...mapGetters('packageStore',['regPackage'])
+        ...mapGetters('packageStore',['regPackage']),
+
+        imageURL(){
+            let img = this.profile.photo_path
+            return img ? process.env.VUE_APP_IMAGE_PATH+'/'+img : '/assets/img/dummy/u2a.png'
+        },
+        uplineImageURL(){
+            let img = this.uplineDetails.photo_path
+            return img ? process.env.VUE_APP_IMAGE_PATH+'/'+img : '/assets/img/dummy/u2a.png'
+        }
     },
 
     methods:{

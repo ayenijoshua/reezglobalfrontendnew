@@ -34,6 +34,7 @@
                                                             <tr>
                                                             <th scope="col">Welcome Bonus (TWB)</th>
                                                             <th scope="col">Total Referral Bonus (TRB)</th>
+                                                            <th scope="col">Total Placement Bonus (TPB)</th>
                                                             <th scope="col">Total Equilibrum Bonus (TEB)</th>
                                                             <th scope="col">Total Loyalty Bonus (TLB)</th>
                                                             <th scope="col">Profit Pool Bonus (PPB)</th>
@@ -44,14 +45,15 @@
                                                         </thead>
                                                         <tbody>
                                                             <tr>
-                                                            <td>₦{{ welcomeBonus }}</td>
-                                                            <td>₦{{ referralBonus }} </td>
-                                                            <td>₦{{ equilibrumBonus }}</td>
-                                                            <td>₦{{ loyaltyBonus }}</td>
-                                                            <td>₦{{ profitPool }}</td>
-                                                            <td>₦{{ globalProfit }}</td>
-                                                            <td>₦{{ userTotalWithdrawals }}</td>
-                                                            <td>₦{{ walletBalance }}</td>
+                                                            <td>₦{{ welcomeBonus?.toLocaleString('en-US') }}</td>
+                                                            <td>₦{{ referralBonus?.toLocaleString('en-US') }} </td>
+                                                            <td>₦{{ placementBonus?.toLocaleString('en-US') }} </td>
+                                                            <td>₦{{ equilibrumBonus?.toLocaleString('en-US') }}</td>
+                                                            <td>₦{{ loyaltyBonus?.toLocaleString('en-US') }}</td>
+                                                            <td>₦{{ profitPool?.toLocaleString('en-US') }}</td>
+                                                            <td>₦{{ globalProfit?.toLocaleString('en-US') }}</td>
+                                                            <td>₦{{ userTotalWithdrawals?.toLocaleString('en-US') }}</td>
+                                                            <td>₦{{ walletBalance?.toLocaleString('en-US') }}</td>
                                                             </tr>
                                                         </tbody>
                                                     </table>
@@ -177,7 +179,7 @@
                                                 </div>
                                             </div>
                                             <div class="card-body text-center">
-                                                <h1 class="font-weight-bold text-green" style="margin: 0em; padding: 0em;">₦{{ walletBalance }}</h1>
+                                                <h1 class="font-weight-bold text-green" style="margin: 0em; padding: 0em;">₦{{ walletBalance?.toLocaleString('en-US') }}</h1>
                                                 <small class="s-8" style="margin: 0em; padding: 0em;" >Available Balance</small>
                                             </div>  
                                         </div>
@@ -243,12 +245,12 @@
                                                                         </tr>
                                                                         <tr v-else v-for="withdraw,i in userWithdrawals" :key="i">
                                                                             <td>{{ ++i }}</td>
-                                                                            <td>₦{{ withdraw.amount }}</td>
+                                                                            <td>₦{{ withdraw.amount?.toLocaleString('en-US') }}</td>
                                                                             <td>{{ withdraw.status }}</td>
                                                                             <td>{{ withdraw.created_at }}</td>
                                                                         </tr>
                                                                     </template>
-                                                                    <tr><th colspan="3">Total withdrawals (TW)</th><td>₦{{ userTotalWithdrawals }}</td></tr>
+                                                                    <tr><th colspan="3">Total withdrawals (TW)</th><td>₦{{ userTotalWithdrawals?.toLocaleString('en-US') }}</td></tr>
                                                                 </tbody>
                                                             </table>
                                                         </div>
@@ -291,7 +293,7 @@
             ...mapGetters('authUser',['authUser']),
             ...mapGetters('bonusStore',['welcomeBonus',
                 'equilibrumBonus','loyaltyBonus','referralBonus',
-                'profitPool','profitPools','globalProfit',
+                'profitPool','profitPools','globalProfit','placementBonus',
                 'globalProfits','totalBonus','walletBalance']),
             ...mapGetters('authStore',['authUser']),
             ...mapGetters('withdrawalStore',['userWithdrawals','userTotalWithdrawals']),
