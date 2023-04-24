@@ -36,119 +36,119 @@
                 </div>
                 <ul class="sidebar-menu">
                     <li :class="['treeview', activeMenu()=='admin-dashboard' ? 'active' : '']" @click="setMenu('admin-dashboard')">
-                        <router-link :to="{name:'admin-dashboard'}" >
+                        <router-link :to="{name:'admin-dashboard'}" :style="{'text-decoration': 'none'}" >
                             <i class="icon icon-barometer2 green-text s-18"></i><span class="green-text">Dashboard</span> 
                         </router-link>
                     </li>
                     <li :class="['treeview', activeMenu()=='admin-users' ? 'active' : '']" @click="setMenu('admin-users')">
-                        <router-link :to="{name:'admin-users'}" >
+                        <router-link :to="{name:'admin-users'}" :style="{'text-decoration': 'none'}" >
                             <i class="icon icon-people green-text s-18"></i><span class="green-text">Memebers</span> 
                         </router-link>
                     </li>
                     <li :class="['treeview', activeMenu()=='admin-wallet' ? 'active' : '']" @click="setMenu('admin-wallet')">
-                        <router-link :to="{name:'admin-wallet'}" >
+                        <router-link :to="{name:'admin-wallet'}" :style="{'text-decoration': 'none'}" >
                             <i class="icon icon-account_balance_wallet green-text s-18"></i><span class="green-text">Company Finance</span> 
                         </router-link>
                     </li>
                     <li :class="['treeview', activeMenu()=='admin-transactions' ? 'active' : '']" @click="setMenu('admin-transactions')">
-                        <router-link :to="{name:'admin-transactions'}">
+                        <router-link :to="{name:'admin-transactions'}" :style="{'text-decoration': 'none'}">
                             <i class="icon icon-account_balance green-text s-18"></i> <span class="green-text">Transactions</span>
                         </router-link>
                     </li>
 
                     <li :class="['treeview', activeMenu()=='admin-ranks' ? 'active' : '']" @click="setMenu('admin-packages')">
-                        <router-link :to="{name:'admin-ranks'}" >
-                            <i class="icon icon-rank green-text s-18"></i>
+                        <router-link :to="{name:'admin-ranks'}" :style="{'text-decoration': 'none'}" >
+                            <i class="icon icon-medal5 green-text s-18"></i>
                             <span class="green-text">Ranks</span>
                         </router-link>
                     </li>
 
                     <li :class="['treeview', activeMenu()=='admin-incentives' ? 'active' : '']" @click="setMenu('admin-incentives')">
-                        <a href="#"><i class="icon icon-gift light-green-text s-18"></i>
+                        <a href="#" :style="{'text-decoration': 'none'}"><i class="icon icon-gift green-text s-18" ></i>
                             <span class="green-text">Incentives</span>
                             <i class="icon icon-angle-left s-18 pull-right"></i>
                         </a>
                         <ul class="treeview-menu">
                             <li>
-                                <router-link :to="{name:'admin-incentives'}" >
-                                    <i class="icon icon-circle-o"></i>Update Incentives
+                                <router-link :to="{name:'admin-incentives'}"  :style="{'text-decoration': 'none'}">
+                                    <i class="icon icon-arrow-right"></i>Update Incentives
                                 </router-link>
                             </li>
                             <li>
-                                <router-link :to="{name:'incentive-requests'}" >
-                                    <i class="icon icon-circle-o"></i>Incemtive Requests
+                                <router-link :to="{name:'incentive-requests'}" :style="{'text-decoration': 'none'}" >
+                                    <i class="icon icon-arrow-right"></i>Incentive Requests
                                 </router-link>
                             </li>
                         </ul>
                     </li>
 
                     <li :class="['treeview', activeMenu()=='admin-products' ? 'active' : '']" @click="setMenu('admin-product')">
-                        <a href="#"><i class="icon icon-map light-green-text s-18"></i>
+                        <a href="#" :style="{'text-decoration': 'none'}"><i class="icon icon-shopping-bag green-text s-18"></i>
                             <span class="green-text">Products</span>
                             <i class="icon icon-angle-left s-18 pull-right"></i>
                         </a>
                         <ul class="treeview-menu">
                             <li>
-                                <router-link :to="{name:'products'}">
-                                    <i class="icon icon-circle-o"></i>Update Products
+                                <router-link :to="{name:'products'}" :style="{'text-decoration': 'none'}">
+                                    <i class="icon icon-arrow-right"></i>Update Products
                                 </router-link>
                             </li>
                             <li>
-                                <router-link :to="{name:'product-requests'}" >
-                                    <i class="icon icon-circle-o"></i>Product Requests
+                                <router-link :to="{name:'product-requests'}" :style="{'text-decoration': 'none'}">
+                                    <i class="icon icon-arrow-right"></i>Product Requests
                                 </router-link>
                             </li>
                         </ul>
                     </li>
 
                     <li :class="['treeview', activeMenu()=='admin-packages' ? 'active' : '']" @click="setMenu('admin-packages')">
-                        <router-link :to="{name:'admin-packages'}" >
-                            <i class="icon icon-package green-text s-18"></i>
+                        <router-link :to="{name:'admin-packages'}" :style="{'text-decoration': 'none'}">
+                            <i class="icon icon-package2 green-text s-18"></i>
                             <span class="green-text">Packages</span>
                         </router-link>
                     </li>
                     
                     <li :class="['treeview', activeMenu()=='admin-security' ? 'active' : '']" @click="setMenu('admin-security')">
-                        <router-link :to="{name:'admin-security'}" >
+                        <router-link :to="{name:'admin-security'}" :style="{'text-decoration': 'none'}">
                             <i class="icon icon-lock3 green-text s-18"></i>
                             <span class="green-text">Security</span>
                         </router-link>
                     </li>
                     
                     <li :class="['treeview', activeMenu()=='admin-settings' ? 'active' : '']" @click="setMenu('admin-settings')">
-                        <a href="#"><i class="icon icon-gear light-green-text s-18"></i>
+                        <a href="#" :style="{'text-decoration': 'none'}"><i class="icon icon-gear green-text s-18"></i>
                             <span class="green-text">Settings</span>
                             <i class="icon icon-angle-left s-18 pull-right"></i>
                         </a>
                         <ul class="treeview-menu">
                             <li>
-                                <router-link :to="{name:'referral-bonus-settings'}">
-                                    <i class="icon icon-circle-o"></i>Referral Bonus Settings
+                                <router-link :to="{name:'referral-bonus-settings'}" :style="{'text-decoration': 'none'}">
+                                    <i class="icon icon-arrow-right"></i>Referral Bonus Settings
                                 </router-link>
                             </li>
                             <li>
-                                <router-link :to="{name:'profit-pool-settings'}" >
-                                    <i class="icon icon-circle-o"></i>Profit Pool Settings
+                                <router-link :to="{name:'profit-pool-settings'}" :style="{'text-decoration': 'none'}" >
+                                    <i class="icon icon-arrow-right"></i>Profit Pool Settings
                                 </router-link>
                             </li>
                             <li>
-                                <router-link :to="{name:'global-profit-settings'}" >
-                                    <i class="icon icon-circle-o"></i>Global Profit Settings
+                                <router-link :to="{name:'global-profit-settings'}" :style="{'text-decoration': 'none'}" >
+                                    <i class="icon icon-arrow-right"></i>Global Profit Settings
                                 </router-link>
                             </li>
                             <li>
-                                <router-link :to="{name:'bonus-settings'}" >
-                                    <i class="icon icon-circle-o"></i>Bonus Settings
+                                <router-link :to="{name:'bonus-settings'}" :style="{'text-decoration': 'none'}" >
+                                    <i class="icon icon-arrow-right"></i>Bonus Settings
                                 </router-link>
                             </li>
                             <li>
-                                <router-link :to="{name:'withdrawal-settings'}" >
-                                    <i class="icon icon-circle-o"></i>Withdrawal Settings
+                                <router-link :to="{name:'withdrawal-settings'}" :style="{'text-decoration': 'none'}">
+                                    <i class="icon icon-arrow-right"></i>Withdrawal Settings
                                 </router-link>
                             </li>
                             <li>
-                                <router-link :to="{name:'company-details'}" >
-                                    <i class="icon icon-circle-o"></i>Company Details
+                                <router-link :to="{name:'company-details'}" :style="{'text-decoration': 'none'}">
+                                    <i class="icon icon-arrow-right"></i>Company Details
                                 </router-link>
                             </li>
                         </ul>
@@ -178,9 +178,6 @@
                                 <i></i>
                             </a>
                         </div>
-                        <div class="d-none d-md-block">
-                            <h5 class="nav-title text-green">admin</h5>
-                        </div>
                     </div>
                 </div>
                 <!--Top Menu Start -->
@@ -204,7 +201,7 @@
 
         <div class="control-sidebar-bg shadow white fixed"></div>
 
-         <modal :modalId="'logOut'" :modalSize="'md'" :modalTitle="'Log out'">
+         <modal :modalId="'logOut'" :modalSize="'md'" :modalTitle="''">
             <div class="card border-0 p-sm-3 p-2 justify-content-center">
                 <div class="card-header pb-0 bg-white border-0 mb-2">
                     <h6 ><span class="font-weight-bold "> Are you sure you want to signout ?</span>
@@ -216,7 +213,7 @@
                             <button type="button" class="btn btn-sm btn-success px-4" @click="logOut()" data-dismiss="modal">Confirm</button>
                         </div>
                         <div class="col-auto">
-                            <button type="button" class="btn btn-sm btn-light text-muted" data-dismiss="modal">Cancel</button>
+                            <button type="button" class="btn btn-sm btn-light text-muted"  data-dismiss="modal">Cancel</button>
                         </div>
                     </div>
                 </div>

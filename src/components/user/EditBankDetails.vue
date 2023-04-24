@@ -40,8 +40,9 @@
                 <h6 class="font-weight-bold text-green"><i class="icon-lock mr-2"></i>Enable Bank Account Change</h6>
                 <small>Allow Member to change account details by-self.</small>
                 <div class="form-row mt-2">
-                    <div style="padding-left:170px">
-                        <input @click="setEditable()" type="checkbox" v-model="bank_editable" data-toggle="switchbutton"  :checked="bank_editable" data-width="100"  data-onstyle="success" />
+                    <div style="padding-left:80px">
+                        <small><input @click="setEditable()" type="checkbox" v-model="bank_editable" data-toggle="switchbutton"  :checked="bank_editable" data-width="100"  data-onstyle="success" :style="{'accent-color': '#2E671A'}"/>
+                        Check to Enable | Uncheck to disable </small>
                     </div>
                 </div>
             </div>	
