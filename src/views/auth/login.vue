@@ -45,7 +45,7 @@
                                     <div class="text-center">
                                         <img class="img-responsive text-center" src="assets/img/or.png" style= "max-width:250px;" alt="">
                                         <p class="text-white mt-3">Don't Have an Account?
-                                            <router-link :to="{name:'user-register'}"> <b>Register Now!</b></router-link>
+                                            <router-link class="font-weight-bold" :to="{name:'user-register'}" :style="{'text-decoration': 'none'}"> <b>Register Now!</b></router-link>
                                         </p>
                                     </div>
                                 </div>

@@ -6,9 +6,10 @@
                 <h6 class="font-weight-bold text-green"><i class="icon-lock mr-2"></i>Login 2Factor Authentication</h6>
                 <small>Disable or Enable Login 2FA Authentication</small>
                 <div class="form-row mt-2">
-                    <div style="padding-left:160px">
+                    <div style="padding-left:220px">
                         <form>
-                            <input @change="submit()" type="checkbox" v-model="enable_2fa" :checked="enable_2fa"  data-toggle="switchbutton" data-width="100"  data-onstyle="success" />
+                            <small class="font-weight-bold"><input @change="submit()" type="checkbox" v-model="enable_2fa" :checked="enable_2fa"  data-toggle="switchbutton" data-width="100"  data-onstyle="success" :style="{'accent-color': '#2E671A'}" />
+                             Check to Enable | Uncheck to disable</small>
                         </form>
                         
                     </div>

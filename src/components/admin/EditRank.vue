@@ -33,13 +33,13 @@
                                     </select>
                                 </div>
 
-                                <div class="input-group mr-sm-2 mt-3 mb-3">
+                                <!------<div class="input-group mr-sm-2 mt-3 mb-3">
                                     <div class="input-group-prepend">
                                         <div class="input-group-text"><i class="icon icon-sitemap float-left s-20 green-text" ></i></div>
                                     </div>
                                     <textarea v-model="form.description" class="form-control r-0 light s-12"
                                             placeholder="Rank Description"></textarea>
-                                </div>
+                                </div>--->
 
                             </div>
                         </div>

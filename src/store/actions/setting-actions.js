@@ -43,7 +43,7 @@ export default {
             commit('submitting',null,{root:true})
             res = await api.update(data)
             if(res.status==200){
-                notification.success("data updated successfully")
+                notification.success("Data updated successfully")
             }else{
                 toastr.warning(res.data.message)
             }

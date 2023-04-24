@@ -18,8 +18,8 @@
         <div class="animated">
             <div class="tab-content" id="v-pills-tabContent">
                 <div class="tab-pane fade show active" id="v-pills-Wallet-Detailed-Calculation" role="tabpanel" aria-labelledby="v-pills-Wallet-Detailed-Calculation-tab">
-                    <div class="row my-3">
-                        <div class="col-md-6">
+                    <div class="row my-3 d-flex justify-content-center">
+                        <div class="col-md-8">
                             <div class="card">
                                 <div class="card border justify-content-center">
                                     <div class="card-body"> 
@@ -28,9 +28,10 @@
                                             <h6 class="font-weight-bold text-green"><i class="icon-lock mr-2"></i>Login 2Factor Authentication</h6>
                                             <small>Disable or Enable Login 2FA Authentication</small>
                                             <div class="form-row mt-2">
-                                                <div style="padding-left:100px">
-                                                    <span v-if="authUser.enable_2fa"><b>Enabled</b></span><span v-else><b>Disabled</b></span> &nbsp;
-                                                        <input type="checkbox" title="Toggle 2FA" v-b-popover.hover.top="'Click to enable/disable 2FA'" @click="toggle2fa()"  data-toggle="switchbutton"  :checked="authUser.enable_2fa" data-width="100"  data-onstyle="success" />
+                                                <div style="padding-left:250px">
+                                                        <span v-if="authUser.enable_2fa"><b>Enabled</b></span><span v-else><b>Disabled</b></span> &nbsp;
+                                                        <input type="checkbox" title="Toggle 2FA" v-b-popover.hover.top="'Click to enable/disable 2FA'" @click="toggle2fa()"  data-toggle="switchbutton"  :checked="authUser.enable_2fa" data-width="100"  data-onstyle="success" :style="{'accent-color': '#2E671A'}" />
+                                                        Check to Enable | Uncheck to disable
                                                 </div>
                                             </div>
                                         </div>	
@@ -50,8 +51,8 @@
                                 </div>
                                 <div class="card-body">
                                     <form @submit.prevent="sendCode()">
-                                        <div class="form-row mb-3">
-                                            <div class="col-md-12">
+                                        <div class="form-row mb-3 d-flex justify-content-center">
+                                            <div class="col-md-8">
                                                 <div class="input-group mb-2" >
                                                     <div class="input-group-prepend">
                                                         <div class="input-group-text"><i class="icon icon-email float-left s-20 green-text " ></i></div>
@@ -82,13 +83,13 @@
                                     <h6 class="green-text"><strong class="font-weight-bold">Change Password</strong></h6>
                                 </div>
                                 <div class="card-body">
-                                    <div class="text-center">
-                                        <small class="mt-2">To proceed with the change of your password, enter confirmation code sent to your email.</small>
+                                    <div class="text-center mb-3">
+                                        <small class="mt-2">To proceed with the change of your password,<br> enter confirmation code sent to your email.</small>
                                     </div>
                                     
                                     <form @submit.prevent="change()">
-                                        <div class="form-row mb-3">
-                                            <div class="col-md-12">
+                                        <div class="form-row mb-3 d-flex justify-content-center">
+                                            <div class="col-md-8">
                                                 <div class="input-group mb-2" >
                                                     <div class="input-group-prepend">
                                                         <div class="input-group-text"><i class="icon icon-lock3 float-left s-20 green-text " ></i></div>

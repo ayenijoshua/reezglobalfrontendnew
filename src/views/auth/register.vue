@@ -143,15 +143,15 @@
                                 </div> -->
                                 <div class="col-lg-12">
                                     <p class="text-center text-white">
-                                        <input required class="form-check-input" type="checkbox" value="true" id="cb1" style="margin-top: 0.5rem;">Accept Our <a href="" class="font-weight-bold" target="blank">Privacy Policy</a> and 
-                                        <a href="" class="font-weight-bold" target="blank">Terms</a>
+                                        <input required class="form-check-input" type="checkbox" value="true" id="cb1" style="margin-top: 0.5rem;" :style="{'accent-color': '#2E671A'}">Accept Our <a href="" class="font-weight-bold" target="blank" :style="{'text-decoration':'none'}" >Privacy Policy</a> and 
+                                        <a href="" class="font-weight-bold" target="blank" :style="{'text-decoration':'none'}">Terms</a>
                                     </p>
                                     <span v-if="submitting" class="btn btn-success btn-lg btn-block">...</span>
                                     <input v-else type="submit" class="btn btn-success btn-lg btn-block" value="Register">
                                     <div class="text-center">
                                         <img class="img-responsive text-center" src="assets/img/or.png" style= "max-width:250px; padding-top:30px; padding-bottom:10px;" alt=""> 
                                         <p class="forget-pass text-white text-center">Do You have an account already? 
-                                            <router-link :to="{name:'user-login'}"><b>Click Here to Login</b></router-link>
+                                            <router-link  class="font-weight-bold" :to="{name:'user-login'}" :style="{'text-decoration':'none'}"><b>Click Here to Login</b></router-link>
                                         </p>
                                     </div>
                                 </div>

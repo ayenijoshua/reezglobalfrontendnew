@@ -211,7 +211,7 @@
                                                             <div class="form-row">
                                                                 <div class="ml-4">
                                                                     <h6 class="mt-2 mb-1 font-weight-bold text-green">
-                                                                         <input title="Front page notification" v-b-popover.hover.top="'Click to enable/disable Front page notification'" @click="showFrontPage()" v-model="frontPageForm.show_front_page_message" type="checkbox"  :checked="settings.show_front_page_message" data-width="100"  data-onstyle="success" />
+                                                                         <input title="Front page notification" v-b-popover.hover.top="'Click to enable/disable Front page notification'" @click="showFrontPage()" v-model="frontPageForm.show_front_page_message" type="checkbox"  :checked="settings.show_front_page_message" data-width="100"  data-onstyle="success" :style="{'accent-color': '#2E671A'}" />
                                                                          Check to Enable | Uncheck to disable
                                                                     </h6>
                                                                 </div>
@@ -397,5 +397,6 @@ import { mapActions, mapGetters, mapState } from 'vuex';
                 this.update(this.showFrontPageModal)
             }
         }
+
     }
 </script>

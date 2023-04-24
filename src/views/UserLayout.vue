@@ -36,33 +36,33 @@
                 </div>
                 <ul class="sidebar-menu">
                     <li :class="['treeview', activeMenu()=='user-dashboard' ? 'active' : '']" @click="setMenu('user-dashboard')">
-                        <router-link :to="{name:'user-dashboard'}" >
+                        <router-link :to="{name:'user-dashboard'}" :style="{'text-decoration':'none'}">
                             <i class="icon icon-barometer2 green-text s-18"></i><span class="green-text">Dashboard</span> 
                         </router-link>
                     </li>
                     <li :class="['treeview', activeMenu()=='user-profile' ? 'active' : '']" @click="setMenu('user-profile')">
-                        <router-link :to="{name:'user-profile'}" >
+                        <router-link :to="{name:'user-profile'}" :style="{'text-decoration':'none'}" >
                             <i class="icon icon-vcard green-text s-18"></i><span class="green-text">Profile</span> 
                         </router-link>
                     </li>
                     <li :class="['treeview', activeMenu()=='user-downlines' ? 'active' : '']" @click="setMenu('user-downlines')">
-                        <router-link :to="{name:'user-downlines'}" >
+                        <router-link :to="{name:'user-downlines'}" :style="{'text-decoration':'none'}">
                             <i class="icon icon-people green-text s-18"></i><span class="green-text">Downlines</span> 
                         </router-link>
                     </li>
                     <li :class="['treeview', activeMenu()=='user-genealogy' ? 'active' : '']" @click="setMenu('user-genealogy')">
-                        <router-link :to="{name:'user-genealogy'}" >
+                        <router-link :to="{name:'user-genealogy'}" :style="{'text-decoration':'none'}">
                             <i class="icon icon-sitemap green-text s-18"></i><span class="green-text">Genealogy</span> 
                         </router-link>
                     </li>
                     <li :class="['treeview', activeMenu()=='user-wallet' ? 'active' : '']" @click="setMenu('user-wallet')">
-                        <router-link :to="{name:'user-wallet'}">
+                        <router-link :to="{name:'user-wallet'}" :style="{'text-decoration':'none'}">
                             <i class="icon icon-account_balance green-text s-18"></i><span class="green-text">Transactions</span> 
                         </router-link>
                     </li>
                     
                     <li :class="['treeview', activeMenu()=='user-security' ? 'active' : '']" @click="setMenu('user-security')">
-                        <router-link :to="{name:'user-security'}" >
+                        <router-link :to="{name:'user-security'}" :style="{'text-decoration':'none'}">
                             <i class="icon icon-lock3 green-text s-18"></i>
                             <span class="green-text">Security</span>
                         </router-link>

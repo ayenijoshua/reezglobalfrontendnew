@@ -26,7 +26,7 @@ export default {
             commit('submitting',null,{root:true})
             const res = await api.create(data)
             if(res && res.status==200){
-                toastr.success("incentive created successfully")
+                toastr.success("Incentive created successfully")
             }else{
                 toastr.warning(res.data.message)
             }

@@ -423,7 +423,7 @@
                                                                     <td>₦{{ product.worth }}</td>
                                                                     <td>
                                                                         <div class="form-check">
-                                                                            <input name="product_ids[]" :key="i" class="form-check-input" type="checkbox" :value="product.id" id="cb1">
+                                                                            <input name="product_ids[]" :key="i" class="form-check-input" type="checkbox" :value="product.id" id="cb1" :style="{'accent-color': '#2E671A'}">
                                                                         </div>
                                                                     </td>
                                                                 </tr>
