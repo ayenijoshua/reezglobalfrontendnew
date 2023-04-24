@@ -42,7 +42,7 @@ export default {
             commit('submitting',null,{root:true})
             res = await api.initiate(uuid,data)
             if(res.status==200){
-                notification.success("Withdrawal successful successfully")
+                notification.success("Withdrawal Request successful")
             }else{
                 toastr.warning(res.data.message)
             }

@@ -78,7 +78,7 @@
                 </div>				
             </div>	
         </div>
-        <Modal modal-id="user-profile" modal-title="User Profile" :modalSize="'xl'">
+        <Modal modal-id="user-profile" modal-title="" :modalSize="'xl'">
             <template v-if="user==null">
                 <b-skeleton-table
                     :rows="3"
@@ -88,7 +88,7 @@
             </template>
             <Profile v-else :user="user"/>
         </Modal>
-        <Modal modal-id="user-genealogy" modal-title="User Genealogy" modal-size="xl">
+        <Modal modal-id="user-genealogy" modal-title="" modal-size="xl">
             <template v-if="user==null">
                 <b-skeleton-table
                     :rows="3"
@@ -99,7 +99,7 @@
             <Genealogy v-else :user="user"/>
         </Modal>
         
-        <Modal modal-id="user-bank-details" modal-title="User Bank details" modal-size="md">
+        <Modal modal-id="user-bank-details" modal-title="" modal-size="md">
             <template v-if="user==null">
                 <b-skeleton-table
                     :rows="3"
@@ -109,7 +109,7 @@
             </template>
             <EditBankDetails v-else :user="user"/>
         </Modal>
-        <Modal modal-id="user-password" modal-title="User Password" modal-size="lg">
+        <Modal modal-id="user-password" modal-title="" modal-size="lg">
             <template v-if="user==null">
                 <b-skeleton-table
                     :rows="3"
@@ -119,7 +119,7 @@
             </template>
             <EditPassword v-else :user="user"/>
         </Modal>
-        <Modal modal-id="user-2fa" modal-title="Login 2FA Authentication" modal-size="lg">
+        <Modal modal-id="user-2fa" modal-title="" modal-size="lg">
             <template v-if="user==null">
                 <b-skeleton-table
                     :rows="3"
@@ -129,7 +129,7 @@
             </template>
             <Toggle2fa v-else :user="user"/>
         </Modal>
-        <Modal modal-id="send-message" modal-title="Send Message" modal-size="lg">
+        <Modal modal-id="send-message" modal-title="" modal-size="lg">
             <template v-if="user==null">
                 <b-skeleton-table
                     :rows="3"
@@ -139,7 +139,7 @@
             </template>
             <SendMessage v-else :user="user"/>
         </Modal>
-        <Modal modal-id="user-wallet" modal-title="User Wallet" modal-size="xl">
+        <Modal modal-id="user-wallet" modal-title="" modal-size="xl">
             <template v-if="user==null">
                 <b-skeleton-table
                     :rows="3"
@@ -149,7 +149,7 @@
             </template>
             <Wallet v-else :user="user"/>
         </Modal>
-        <Modal modal-id="user-dashboard" modal-title="User Dashboard" modal-size="xl">
+        <Modal modal-id="user-dashboard" modal-title="" modal-size="xl">
             <template v-if="user==null">
                 <b-skeleton-table
                     :rows="3"
