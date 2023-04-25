@@ -83,6 +83,29 @@
         padding: 20px;
     }
 
+    .orgchart .lines .downLine {
+    background-color: rgb(46,103,26);
+    margin: 0 auto;
+    height: 20px;
+    width: 2px;
+    float: none;
+}
+
+.orgchart .lines .rightLine {
+    border-right: 1px solid rgb(46,103,26);
+    float: none;
+    border-radius: 0;
+}
+
+.orgchart .lines .leftLine {
+    border-left: 1px solid rgb(46,103,26);
+    float: none;
+    border-radius: 0;
+}
+
+.orgchart .lines .topLine {
+    border-top: 2px solid rgba(46,103,26);
+}
 </style>
 <script>
     import OrganizationChart from 'vue-organization-chart'

@@ -17,7 +17,7 @@
                             </div>
                             <div class="float-left info">
                                 <h6 class="font-weight-light mt-2 mb-1" style="color:#2E671A">{{ authUser.first_name }} {{ authUser.last_name }}</h6>
-                                <a class="text-success" href="#" ><i class="icon-circle text-success blink"></i> Online</a>
+                                <a class="text-success" href="#" :style="{'text-decoration':'none'}"><i class="icon-circle text-success blink"></i> Online</a>
                             </div>
                         </div>
                         <div class="clearfix"></div>

@@ -49,18 +49,21 @@
                                             placeholder="phone">
                                     </div>
                                 </div>
-                                <div class="col-lg-6">
-                                    <div class="form-group has-icon green-text"><i class="icon-user-plus"></i>
-                                        <input required v-model="form.referrer" type="text" class="form-control form-control-lg no-b"
-                                            placeholder="Sponsore">
-                                    </div>
-                                </div>
+
                                 <div class="col-lg-6">
                                     <div class="form-group has-icon green-text"><i class="icon-sitemap"></i>
                                         <input v-model="form.placer" type="text" class="form-control form-control-lg no-b"
+                                            placeholder="Sponsor/Upline">
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6">
+                                    <div class="form-group has-icon green-text"><i class="icon-user-plus"></i>
+                                        <input required v-model="form.referrer" type="text" class="form-control form-control-lg no-b"
                                             placeholder="Placement">
                                     </div>
                                 </div>
+
 
                                 <div class="col-lg-12">
                                     <div class="input-group focused mb-3" style="height:50px;">

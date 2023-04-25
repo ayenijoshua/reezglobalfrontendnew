@@ -109,6 +109,7 @@
                                                         <td>₦{{ prod.worth }}</td>
                                                         <td>
                                                             <a @click="setProduct(prod)" v-b-modal.edit-product class="btn btn-sm btn-success text-white caret" href="#"><i class="icon-edit"></i></a>
+                                                            <a @click="setProduct(prod)"  class="btn btn-sm btn-warning text-white caret ml-2" href="#"><i class="icon-trash"></i></a>
                                                         </td>
                                                     </tr>
                                                 </template>															  
