@@ -53,7 +53,7 @@
                                 <div class="col-lg-6">
                                     <div class="form-group has-icon green-text"><i class="icon-sitemap"></i>
                                         <input required v-model="form.referrer" type="text" class="form-control form-control-lg no-b"
-                                            placeholder="Sponsor/Upline">
+                                            placeholder="Upline">
                                     </div>
                                 </div>
 
