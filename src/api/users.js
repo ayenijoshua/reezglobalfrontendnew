@@ -3,8 +3,8 @@ import {http} from './axios-config'
 
 export default {
 
-    users(){
-        return http().get(`${endPoints.users}`)
+    users(page=null){
+        return http().get(`${endPoints.users}?page=${page}`)
     },
 
     user(uuid){
@@ -107,8 +107,8 @@ export default {
         return http().put(`${endPoints.users}/${uuid}/bank-editable`,data)
     },
 
-    paidUsers(){
-        return http().get(`${endPoints.users}/paid-users`)
+    paidUsers(page=null){
+        return http().get(`${endPoints.users}/paid-users?page=${page}`)
     },
 
     totalPaidUsers(){

@@ -44,7 +44,7 @@
                                                 <td colspan="7">There are no users</td>
                                             </tr>
                                             <tr v-else v-for="user,i in users" :key="i">
-                                                <td>{{ ++i }}</td>
+                                                <td>{{ (usersPerPage * (usersCurrentPage - 1)) + ( ++i) }}</td>
                                                 <td> <img :src="imageURL(user.photo_path)" :style="{'width': '50px'}" class="img-responsive"/></td>
                                                 <td>{{ user.first_name }} {{ user.last_name }}</td>
                                                 <td>{{ user.username }}</td>
@@ -72,6 +72,8 @@
                                         </template>
                                     </tbody>
                                 </table>
+                                <br>
+                                <BasePaginator v-if="userAction" :action="userAction" :current_page="usersCurrentPage" :last_page="usersLastPage" :total_pages="usersTotalPages" :per_page="usersPerPage"></BasePaginator>
                             </div>
                         </div>
                     </div>
@@ -173,6 +175,7 @@
     import Toggle2fa from '@/components/user/Toggle2fa.vue';
     import SendMessage from '@/components/user/SendMessage.vue';
     import Wallet from '@/components/user/Wallet.vue';
+    import BasePaginator from '@/components/BasePaginator.vue';
 
     export default{
     name: "admin-users",
@@ -185,7 +188,8 @@
         Toggle2fa,
         SendMessage,
         Wallet,
-        Dashboard
+        Dashboard,
+        BasePaginator
     },
     data() {
         return {
@@ -198,7 +202,8 @@
             loading: state => state.loading,
             submitting: state => state.submitting
         }),
-        ...mapGetters("userStore", ["users"])
+        ...mapGetters("userStore", 
+        ["users",'userAction','usersCurrentPage','usersLastPage','usersPerPage','usersTotalPages'])
     },
     created() {
         if (this.users.length == 0) {
