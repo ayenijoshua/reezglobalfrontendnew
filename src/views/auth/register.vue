@@ -52,15 +52,14 @@
 
                                 <div class="col-lg-6">
                                     <div class="form-group has-icon green-text"><i class="icon-sitemap"></i>
-                                        <input v-model="form.placer" type="text" class="form-control form-control-lg no-b"
+                                        <input required v-model="form.referrer" type="text" class="form-control form-control-lg no-b"
                                             placeholder="Sponsor/Upline">
                                     </div>
                                 </div>
 
                                 <div class="col-lg-6">
                                     <div class="form-group has-icon green-text"><i class="icon-user-plus"></i>
-                                        <input required v-model="form.referrer" type="text" class="form-control form-control-lg no-b"
-                                            placeholder="Placement">
+                                        <input v-b-popover.hover.top="'If your upline has exceeded two direct registrations, place him/her here'" title="Sponsor" v-model="form.placer" type="text" class="form-control form-control-lg no-b" placeholder="Sponsor">
                                     </div>
                                 </div>
 
