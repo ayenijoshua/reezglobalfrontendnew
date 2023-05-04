@@ -38,12 +38,18 @@
                                     <tr v-else v-for="refBo, i in referralBonusSetting" :key="i">
                                         <td>{{ ++i }}</td>
                                         <td>{{ refBo.name }}</td>
-                                        <td>{{ refBo.generation_1_percentage }} PV</td>
-                                        <td>{{refBo.generation_2_percentage}} PV</td>
-                                        <td>{{refBo.generation_3_percentage}}</td>
-                                        <td>{{refBo.generation_4_percentage}}</td>
-                                        <td>{{refBo.generation_5_percentage}}</td>
-                                        <td>{{refBo.generation_6_percentage}}</td>
+                                        <td><span v-if="refBo.generation_1_percentage==0"></span>
+                                            <span v-else>{{refBo.generation_1_percentage}} %</span></td>
+                                        <td><span v-if="refBo.generation_2_percentage==0"></span>
+                                            <span v-else>{{refBo.generation_2_percentage}} %</span></td>
+                                        <td><span v-if="refBo.generation_3_percentage==0"></span>
+                                            <span v-else>{{refBo.generation_3_percentage}} %</span></td>
+                                        <td><span v-if="refBo.generation_4_percentage==0"></span>
+                                            <span v-else>{{refBo.generation_4_percentage}} %</span></td>
+                                        <td><span v-if="refBo.generation_5_percentage==0"></span>
+                                            <span v-else>{{refBo.generation_5_percentage}} %</span></td>
+                                        <td><span v-if="refBo.generation_6_percentage==0"></span>
+                                            <span v-else>{{refBo.generation_6_percentage}} %</span></td>
                                         <td>
                                             <a @click="setSetting(refBo)" v-b-modal.edit-settings class="btn btn-sm btn-success text-white caret" href="#"><i class="icon-edit"></i></a>
                                         </td>
