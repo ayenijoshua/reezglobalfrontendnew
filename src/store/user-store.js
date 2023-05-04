@@ -21,7 +21,21 @@ export default{
             totalRegistrationPV:null,
             paidUsers:[],
             totalPaidUsers:null,
-            sumPaidUsers:null
+            sumPaidUsers:null,
+
+            userAction:null,
+            userState:null,
+            usersCurrentPage:null,
+            usersLastPage:null,
+            usersPerPage:null,
+            usersTotalPages:null,
+
+            paidUserAction:null,
+            paidUserState:null,
+            paidUsersCurrentPage:null,
+            paidUsersLastPage:null,
+            paidUsersPerPage:null,
+            paidUsersTotalPages:null
         }
     },
     actions:{

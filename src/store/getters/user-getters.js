@@ -65,5 +65,40 @@ export default {
 
     sumPaidUsers(state){
         return state.sumPaidUsers
+    },
+
+    userAction(state){
+        return state.userAction
+    },
+    userState(state){
+        return state.userState
+    },
+    usersCurrentPage(state){
+        return state.usersCurrentPage
+    },
+    usersLastPage(state){
+        return state.usersLastPage
+    },
+    usersPerPage(state){
+        return state.usersPerPage
+    },
+    usersTotalPages(state){
+        return state.usersTotalPages
+    },
+
+    paidUserAction(state){
+        return state.paidUserAction
+    },
+    paidUsersCurrentPage(state){
+        return state.paidUsersCurrentPage
+    },
+    paidUsersLastPage(state){
+        return state.paidUsersLastPage
+    },
+    paidUsersPerPage(state){
+        return state.paidUsersPerPage
+    },
+    paidUsersTotalPages(state){
+        return state.paidUsersTotalPages
     }
 }
