@@ -388,11 +388,11 @@
 
             imageURL(){
                 let img = this.profile.photo_path
-               return img ? process.env.VUE_APP_IMAGE_PATH+'/'+img : '/assets/img/dummy/u2a.png'
+               return img ? process.env.VUE_APP_IMAGE_PATH+'/'+img : '/assets/img/mock-image.jpeg'
             },
             uplineImageURL(){
                 let img = this.uplineDetails.photo_path
-               return img ? process.env.VUE_APP_IMAGE_PATH+'/'+img : '/assets/img/dummy/u2a.png'
+               return img ? process.env.VUE_APP_IMAGE_PATH+'/'+img : '/assets/img/mock-image.jpeg'
             }
         },
 

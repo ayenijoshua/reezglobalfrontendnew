@@ -13,7 +13,7 @@
                     <div class="user-panel p-3 light mb-2">
                         <div>
                             <div class="float-left image">
-                                <img class="user_avatar" src="/assets/img/dummy/u2a.png" alt="User Image">
+                                <img class="user_avatar" :src="imageURL" alt="User Image">
                             </div>
                             <div class="float-left info">
                                 <h6 class="font-weight-light mt-2 mb-1" style="color:#2E671A">{{ authUser.first_name }} {{ authUser.last_name }}</h6>
@@ -162,6 +162,12 @@ export default {
 
     computed:{
         ...mapGetters('authStore',['authUser']),
+        ...mapGetters('userStore',['profile']),
+
+        imageURL(){
+            let img = this.profile.photo_path
+            return img ? process.env.VUE_APP_IMAGE_PATH+'/'+img : '/assets/img/mock-image.jpeg'
+        },
 
     },
 
@@ -174,19 +180,26 @@ export default {
        //alert(document.getElementsByTagName('title').text)
 
        //if(Object.entries(this.authUser).length == 0){
-        this.getUser()
+        this.getUser().then(res=>{
+            if(res.status == 200){
+                this.getProfileDetails(this.authUser.uuid)
+            }
+        })
        //}
     },
 
     methods:{
         ...mapActions('authStore',['logOut','getUser']),
+        ...mapActions('userStore',['getProfileDetails']),
 
         setMenu(menu='dashboard'){
             this.$store.state.activeMenu = menu
         },
         activeMenu(){
             return this.$store.state.activeMenu
-        }
+        },
+
+        
     }
     
 }

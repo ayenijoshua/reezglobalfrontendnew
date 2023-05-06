@@ -51,7 +51,8 @@
                                         <td><span v-if="refBo.generation_6_percentage==0"></span>
                                             <span v-else>{{refBo.generation_6_percentage}} %</span></td>
                                         <td>
-                                            <a @click="setSetting(refBo)" v-b-modal.edit-settings class="btn btn-sm btn-success text-white caret" href="#"><i class="icon-edit"></i></a>
+                                            <a @click="setSetting(refBo)" v-b-modal.edit-settings class="btn btn-sm btn-success text-white caret" href="#">
+                                                <i class="icon-edit"></i></a>
                                         </td>
                                     </tr>
                                 </template>
@@ -117,6 +118,10 @@
             edited(){
                 this.requestLoading = true
                 this.getReferralBonusSetting().then(()=>this.requestLoading = false)
+            },
+
+            isNumeric(n){
+                return !isNaN(parseFloat(n)) && isFinite(n)
             }
         }
     }

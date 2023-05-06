@@ -39,8 +39,9 @@
                                                             <th scope="col">Total Loyalty Bonus (TLB)</th>
                                                             <th scope="col">Profit Pool Bonus (PPB)</th>
                                                             <th scope="col">Global Pool Sharing (GPS)</th>
+                                                            <th scope="col">Total Bonus (TB)</th>
                                                             <th scope="col">Total withdrawals (TW)</th>
-                                                            <th scope="col">Wallet balance {WB - TW}</th>
+                                                            <th scope="col">Wallet balance TB - TW}</th>
                                                             </tr>
                                                         </thead>
                                                         <tbody>
@@ -52,6 +53,7 @@
                                                             <td>₦{{ loyaltyBonus?.toLocaleString('en-US') }}</td>
                                                             <td>₦{{ profitPool?.toLocaleString('en-US') }}</td>
                                                             <td>₦{{ globalProfit?.toLocaleString('en-US') }}</td>
+                                                            <td>₦{{ totalBonus?.toLocaleString('en-US') }}</td>
                                                             <td>₦{{ userTotalWithdrawals?.toLocaleString('en-US') }}</td>
                                                             <td>₦{{ walletBalance?.toLocaleString('en-US') }}</td>
                                                             </tr>

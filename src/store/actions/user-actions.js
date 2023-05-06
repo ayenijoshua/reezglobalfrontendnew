@@ -238,6 +238,19 @@ export default {
         }
     },
 
+    async countDirectDownlines({commit},uuid){
+        try {
+            commit('loading',null,{root:true})
+            const res = await api.countDirectDownlines(uuid)
+            //commit('directDownlines',res.data.data)
+            
+            commit('loaded',null,{root:true})
+            return res
+        } catch (error) {
+            LogError(commit,error,'loaded')
+        }
+    },
+
     async getGenealogy({commit},uuid){
         try {
             commit('loading',null,{root:true})

@@ -53,4 +53,24 @@ export default {
             LogError(commit,err,'submitted')
         }
     },
+
+    async toggleStatus({commit,dispatch},{id,data}){
+        var res;
+        try {
+            commit('submitting',null,{root:true})
+            res = await api.toggleStatus(id,data)
+            if(res.status==200){
+                data.is_active 
+                ? notification.success("Product enabled successfully")
+                : notification.success("Product disabled successfully")
+                dispatch('getProducts')
+            }else{
+                toastr.warning(res.data.message)
+            }
+            commit('submitted',null,{root:true})
+            return res
+        } catch (err) {
+            LogError(commit,err,'submitted')
+        }
+    },
 }

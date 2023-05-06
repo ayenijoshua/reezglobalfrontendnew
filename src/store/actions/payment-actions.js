@@ -38,4 +38,21 @@ export default{
             LogError(commit,error,'submitted')
         }
     },
+
+    async getWalletBalance({commit}){
+        try {
+            commit('loading',null,{root:true})
+            
+            const res = await api.walletBalance()
+            if(res.status==200){
+                commit('walletBalance',res.data.data)
+            }else{
+                notification.error(res.data.message)
+            }
+            commit('loaded',null,{root:true})
+            return res
+        } catch (error) {
+            LogError(commit,error,'loaded')
+        }
+    },
 }

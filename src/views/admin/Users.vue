@@ -218,7 +218,7 @@
         },
 
         imageURL(image){
-            return image ? process.env.VUE_APP_IMAGE_PATH+'/'+image : '/assets/img/dummy/u2a.png'
+            return image ? process.env.VUE_APP_IMAGE_PATH+'/'+image : '/assets/img/mock-image.jpeg'
         }  
     },
     

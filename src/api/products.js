@@ -17,5 +17,9 @@ export default {
 
     single(id){
         return http().get(`${endPoints.products}/${id}`)
+    },
+
+    toggleStatus(id,data){
+        return http().put(`${endPoints.products}/${id}/toggle-status`,data)
     }
 }

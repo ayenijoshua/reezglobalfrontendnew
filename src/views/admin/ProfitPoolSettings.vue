@@ -17,12 +17,12 @@
                                                 <div class="input-group-prepend">
                                                     <div class="input-group-text"><i class="icon icon-money-3 float-left s-20 green-text " ></i></div>
                                                 </div>
-                                                <input v-model="profitPoolPerc.profit_pool_percentage" type="number" class="form-control r-0 light s-12" required placeholder="Percentage">
+                                                <input v-model="profitPoolPerc.profit_pool_percentage" type="" class="form-control r-0 light s-12" required placeholder="Percentage">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-row ml-1">
-                                        <span class="btn btn-sm btn-success btn-lg" v-if="submitting">...</span>
+                                        <span class="btn btn-sm btn-success btn-lg" v-if="submitting && profitPoolPerSubmit">...</span>
                                         <button v-else type="submit" class="btn btn-sm btn-success btn-lg"><i class="icon-save mr-2"></i>Update Data</button>
                                     </div>
                                 </div>	
@@ -46,12 +46,12 @@
                                                 <div class="input-group-prepend">
                                                     <div class="input-group-text"><i class="icon icon-calendar float-left s-20 green-text"></i></div>
                                                 </div>
-                                                <input v-model="profitPoolDur.profit_pool_duration" type="number" class="form-control r-0 light s-12" required placeholder="Duration">
+                                                <input v-model="profitPoolDur.profit_pool_duration" min="1" max="12" type="number" class="form-control r-0 light s-12" required placeholder="Duration">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-row ml-1">
-                                        <span class="btn btn-sm btn-success btn-lg" v-if="submitting">...</span>
+                                        <span class="btn btn-sm btn-success btn-lg" v-if="submitting && profitPoolMonthSubmit">...</span>
                                         <button v-else type="submit" class="btn btn-sm btn-success btn-lg"><i class="icon-save mr-2"></i>Update Data</button>
                                     </div>
                                 </div>	
@@ -79,12 +79,12 @@
                                                 <div class="input-group-prepend">
                                                     <div class="input-group-text"><i class="icon icon-calendar float-left s-20 green-text " ></i></div>
                                                 </div>
-                                                <input v-model="profitPoolOff.profit_pool_days_offset" type="number" class="form-control r-0 light s-12" required placeholder="Offset">
+                                                <input v-model="profitPoolOff.profit_pool_days_offset" type="number" min="1" class="form-control r-0 light s-12" required placeholder="Offset">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-row ml-1">
-                                        <span class="btn btn-sm btn-success btn-lg" v-if="submitting">...</span>
+                                        <span class="btn btn-sm btn-success btn-lg" v-if="submitting && profitPoolOffsetSubmit">...</span>
                                         <button v-else type="submit" class="btn btn-sm btn-success btn-lg"><i class="icon-save mr-2"></i>Update Data</button>
                                     </div>
                                 </div>	
@@ -108,12 +108,12 @@
                                                 <div class="input-group-prepend">
                                                     <div class="input-group-text"><i class="icon icon-sitemap float-left s-20 green-text " ></i></div>
                                                 </div>
-                                                <input v-model="profitPoolNumD.profit_pool_num_of_downlines" type="number" class="form-control r-0 light s-12" required placeholder="Required downlines">
+                                                <input v-model="profitPoolNumD.profit_pool_num_of_downlines" type="number" min="1" class="form-control r-0 light s-12" required placeholder="Required downlines">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-row ml-1">
-                                        <span class="btn btn-sm btn-success btn-lg" v-if="submitting">...</span>
+                                        <span class="btn btn-sm btn-success btn-lg" v-if="submitting && profitPoolDnlSubmit">...</span>
                                         <button v-else type="submit" class="btn btn-sm btn-success btn-lg"><i class="icon-save mr-2"></i>Update Data</button>
                                     </div>
                                 </div>	
@@ -128,6 +128,7 @@
 </template>
 
 <script>
+import { notification } from '@/util/notification';
 import { mapActions, mapGetters, mapState } from 'vuex';
 
     export default{
@@ -146,7 +147,12 @@ import { mapActions, mapGetters, mapState } from 'vuex';
                 },
                 profitPoolOff:{
                     profit_pool_days_offset:null
-                }
+                },
+
+                profitPoolPerSubmit:false,
+                profitPoolMonthSubmit:false,
+                profitPoolDnlSubmit:false,
+                profitPoolOffsetSubmit:false
             }
         },
 
@@ -169,6 +175,11 @@ import { mapActions, mapGetters, mapState } from 'vuex';
                         this.profitPoolOff.profit_pool_days_offset = this.settings.profit_pool_days_offset
                     }
                 })
+            }else{
+                this.profitPoolPerc.profit_pool_percentage = this.settings.profit_pool_percentage
+                this.profitPoolNumD.profit_pool_num_of_downlines = this.settings.profit_pool_num_of_downlines
+                this.profitPoolDur.profit_pool_duration = this.settings.profit_pool_duration
+                this.profitPoolOff.profit_pool_days_offset = this.settings.profit_pool_days_offset
             }
         },
 
@@ -176,35 +187,51 @@ import { mapActions, mapGetters, mapState } from 'vuex';
             ...mapActions('settingStore',['all','update']),
 
             updateDownline(){
+                this.profitPoolDnlSubmit = true
                 this.update(this.profitPoolNumD).then(res=>{
                     if(res.status == 200){
                         this.all()
                     }
+                    this.profitPoolDnlSubmit = false;
                 })
             },
 
             updateDuration(){
+                this.profitPoolMonthSubmit = true
                 this.update(this.profitPoolDur).then(res=>{
                     if(res.status == 200){
                         this.all()
                     }
+                    this.profitPoolMonthSubmit = false
                 })
             },
 
             updateOffset(){
+                this.profitPoolOffsetSubmit = true
                 this.update(this.profitPoolOff).then(res=>{
                     if(res.status == 200){
                         this.all()
                     }
+                    this.profitPoolOffsetSubmit = false
                 })
             },
 
             updatePercentage(){
+                if(!this.isNumeric(this.profitPoolPerc.profit_pool_percentage)){
+                    notification.warning("Please enter a valid number")
+                    return
+                }
+                this.profitPoolPerSubmit = true
                 this.update(this.profitPoolPerc).then(res=>{
                     if(res.status == 200){
                         this.all()
                     }
+                    this.profitPoolPerSubmit = false
                 })
+            },
+
+            isNumeric(n){
+                return !isNaN(parseFloat(n)) && isFinite(n)
             }
         }
     }

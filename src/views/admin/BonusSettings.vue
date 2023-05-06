@@ -10,7 +10,7 @@
                             <div class="card no-b  no-r">
                                 <div class="card-body no-gutters">
                                     <div class="text-center mb-3"><img  src="/assets/img/equil.png" width="80px"  height="80px">
-                                    <h5 class="s-36 font-weight-bold mt-2 text-green">₦ {{ settings.equillibrum_bonus }}</h5>
+                                    <h5 class="s-36 font-weight-bold mt-2 text-green">₦ {{ settings.equillibrum_bonus?.toLocaleString('en-US') }}</h5>
                                     <h6 class="mt-1 s-8 font-weight-bold">OFFICIAL EQUILIBRIUM BONUS<br><small> Edit preferred equilibrium bonus</small></h6></div>
                                     <div class="form-row mb-3">
                                         <div class="col-md-12">
@@ -23,7 +23,7 @@
                                         </div>
                                     </div>
                                     <div class="form-row ml-1">
-                                        <span v-if="submitting" class="btn btn-sm btn-success btn-lg">...</span>
+                                        <span v-if="submitting && equilibrumBonusSubmitting" class="btn btn-sm btn-success btn-lg">...</span>
                                         <button v-else type="submit" class="btn btn-sm btn-success btn-lg"><i class="icon-save mr-2"></i>Update Data</button>
                                     </div>
                                 </div>	
@@ -47,12 +47,12 @@
                                                 <div class="input-group-prepend">
                                                     <div class="input-group-text"><i class="icon icon-money-3 float-left s-20 green-text " ></i></div>
                                                 </div>
-                                                <input v-model="loyaltyBonus.loyalty_bonus_percentage" required  min="1" type="number" class="form-control r-0 light s-12" placeholder="Loyalty Bonus">
+                                                <input v-model="loyaltyBonus.loyalty_bonus_percentage" required type="" class="form-control r-0 light s-12" placeholder="Loyalty Bonus">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-row ml-1">
-                                        <span v-if="submitting" class="btn btn-sm btn-success btn-lg">...</span>
+                                        <span v-if="submitting && loyaltyBonusSubmitting" class="btn btn-sm btn-success btn-lg">...</span>
                                         <button v-else type="submit" class="btn btn-sm btn-success btn-lg"><i class="icon-save mr-2"></i>Update Data</button>
                                     </div>
                                 </div>	
@@ -79,12 +79,12 @@
                                                 <div class="input-group-prepend">
                                                     <div class="input-group-text"><i class="icon icon-handshake-o float-left s-20 green-text " ></i></div>
                                                 </div>
-                                                <input v-model="welcomeBonus.welcome_bonus_percentage" required min="1" type="number" class="form-control r-0 light s-12" placeholder="Welcome Bonus Percentage">
+                                                <input v-model="welcomeBonus.welcome_bonus_percentage" required type="" class="form-control r-0 light s-12" placeholder="Welcome Bonus Percentage">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-row ml-1">
-                                        <span v-if="submitting" class="btn btn-sm btn-success btn-lg">...</span>
+                                        <span v-if="submitting && welcomeBonusSubmitting" class="btn btn-sm btn-success btn-lg">...</span>
                                         <button  v-else type="submit" class="btn btn-sm btn-success btn-lg"><i class="icon-save mr-2"></i>Update Data</button>
                                     </div>
                                 </div>	
@@ -110,12 +110,12 @@
                                                 <div class="input-group-prepend">
                                                     <div class="input-group-text"><i class="icon icon-handshake-o float-left s-20 green-text " ></i></div>
                                                 </div>
-                                                <input v-model="placementBonus.placement_bonus_percentage" required min="1" type="number" class="form-control r-0 light s-12" placeholder="Placement Bonus Percentage">
+                                                <input v-model="placementBonus.placement_bonus_percentage" required  type="" class="form-control r-0 light s-12" placeholder="Placement Bonus Percentage">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-row ml-1">
-                                        <span v-if="submitting" class="btn btn-sm btn-success btn-lg">...</span>
+                                        <span v-if="submitting && placementBonusSubmitting" class="btn btn-sm btn-success btn-lg">...</span>
                                         <button v-else type="submit" class="btn btn-sm btn-success btn-lg"><i class="icon-save mr-2"></i>Update Data</button>
                                     </div>
                                 </div>	
@@ -130,6 +130,7 @@
 </template>
 
 <script>
+import { notification } from '@/util/notification';
 import { mapActions, mapGetters, mapState } from 'vuex';
 
     export default{
@@ -148,7 +149,12 @@ import { mapActions, mapGetters, mapState } from 'vuex';
                 },
                 placementBonus:{
                     placement_bonus_percentage:null
-                }
+                },
+
+                welcomeBonusSubmitting:false,
+                loyaltyBonusSubmitting:false,
+                equilibrumBonusSubmitting:false,
+                placementBonusSubmitting:false
             }
         },
 
@@ -171,6 +177,11 @@ import { mapActions, mapGetters, mapState } from 'vuex';
                         this.placementBonus.placement_bonus_percentage = this.settings.placement_bonus_percentage
                     }
                 })
+            }else{
+                this.equilibrumBonus.equillibrum_bonus = this.settings.equillibrum_bonus
+                this.welcomeBonus.welcome_bonus_percentage = this.settings.welcome_bonus_percentage
+                this.loyaltyBonus.loyalty_bonus_percentage = this.settings.loyalty_bonus_percentage
+                this.placementBonus.placement_bonus_percentage = this.settings.placement_bonus_percentage
             }
         },
 
@@ -178,35 +189,59 @@ import { mapActions, mapGetters, mapState } from 'vuex';
             ...mapActions('settingStore',['all','update']),
 
             updateWelcomeBonus(){
+                if(!this.isNumeric(this.welcomeBonus.welcome_bonus_percentage)){
+                    notification.warning("please enter a valid number")
+                    return
+                }
+                this.welcomeBonusSubmitting = true
                 this.update(this.welcomeBonus).then(res=>{
                     if(res.status == 200){
                         this.all()
                     }
+                    this.welcomeBonusSubmitting = false
                 })
             },
 
             updateEquilibrumBonus(){
+                this.equilibrumBonusSubmitting = true
                 this.update(this.equilibrumBonus).then(res=>{
                     if(res.status == 200){
                         this.all()
                     }
+                    this.equilibrumBonusSubmitting = false
                 })
             },
 
             updateLoyaltyBonus(){
+                if(!this.isNumeric(this.loyaltyBonus.loyalty_bonus_percentage)){
+                    notification.warning("please enter a valid number")
+                    return
+                }
+                this.loyaltyBonusSubmitting = true
                 this.update(this.loyaltyBonus).then(res=>{
                     if(res.status == 200){
                         this.all()
                     }
+                    this.loyaltyBonusSubmitting = false
                 })
             },
 
             updatePlacementBonus(){
+                if(!this.isNumeric(this.placementBonus.placement_bonus_percentage)){
+                    notification.warning("please enter a valid number")
+                    return
+                }
+                this.placementBonusSubmitting = true
                 this.update(this.placementBonus).then(res=>{
                     if(res.status == 200){
                         this.all()
                     }
+                    this.placementBonusSubmitting = false
                 })
+            },
+
+            isNumeric(n){
+                return !isNaN(parseFloat(n)) && isFinite(n)
             }
         }
     }

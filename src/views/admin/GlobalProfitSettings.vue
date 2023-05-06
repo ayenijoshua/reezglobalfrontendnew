@@ -17,12 +17,12 @@
                                                 <div class="input-group-prepend">
                                                     <div class="input-group-text"><i class="icon icon-money-3 float-left s-20 green-text " ></i></div>
                                                 </div>
-                                                <input v-model="globalFirstPerc.global_profit_first_percentage" type="number" class="form-control r-0 light s-12" placeholder="First percentage" required>
+                                                <input v-model="globalFirstPerc.global_profit_first_percentage" type="" class="form-control r-0 light s-12" placeholder="First percentage" required>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-row ml-1">
-                                        <span class="btn btn-sm btn-success btn-lg" v-if="submitting">...</span>
+                                        <span class="btn btn-sm btn-success btn-lg" v-if="submitting && firstPercSubmitting">...</span>
                                         <button v-else type="submit" class="btn btn-sm btn-success btn-lg"><i class="icon-save mr-2"></i>Update Data</button>
                                     </div>
                                 </div>	
@@ -46,12 +46,12 @@
                                                 <div class="input-group-prepend">
                                                     <div class="input-group-text"><i class="icon icon-money-3 float-left s-20 green-text " ></i></div>
                                                 </div>
-                                                <input required v-model="globalSecondPerc.global_profit_second_percentage" type="number" class="form-control r-0 light s-12" placeholder="First Profit PRecentage">
+                                                <input required v-model="globalSecondPerc.global_profit_second_percentage" type="" class="form-control r-0 light s-12" placeholder="First Profit PRecentage">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-row ml-1">
-                                        <span class="btn btn-sm btn-success btn-lg" v-if="submitting">...</span>
+                                        <span class="btn btn-sm btn-success btn-lg" v-if="submitting && secondPercSubmitting">...</span>
                                         <button v-else type="submit" class="btn btn-sm btn-success btn-lg"><i class="icon-save mr-2"></i>Update Data</button>
                                     </div>
                                 </div>	
@@ -79,12 +79,13 @@
                                                 <div class="input-group-prepend">
                                                     <div class="input-group-text"><i class="icon icon-calendar float-left s-20 green-text " ></i></div>
                                                 </div>
-                                                <input required v-model="globalShareMonth.next_global_profit_share_month" type="number" class="form-control r-0 light s-12" placeholder="Profit share month">
+                                                <input required v-model="globalShareMonth.next_global_profit_share_month" type="number" min="1" max="12" class="form-control r-0 light s-12" placeholder="Profit share month"
+                                                v-b-popover.hover.top="'Use numeric value for month. e.g 1 for January, 10 for October'" title="Global Profit Month">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-row ml-1">
-                                        <span class="btn btn-sm btn-success btn-lg" v-if="submitting">...</span>
+                                        <span class="btn btn-sm btn-success btn-lg" v-if="submitting && shareMonthSubmitting">...</span>
                                         <button v-else type="submit" class="btn btn-sm btn-success btn-lg"><i class="icon-save mr-2"></i>Update Data</button>
                                     </div>
                                 </div>	
@@ -108,12 +109,12 @@
                                                 <div class="input-group-prepend">
                                                     <div class="input-group-text"><i class="icon icon-calendar float-left s-20 green-text " ></i></div>
                                                 </div>
-                                                <input v-model="globalShareDay.next_global_profit_share_day" type="number" class="form-control r-0 light s-12" placeholder="Profit Share day" required>
+                                                <input v-model="globalShareDay.next_global_profit_share_day" type="number" min="1" max="31" class="form-control r-0 light s-12" placeholder="Profit Share day" required>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-row ml-1">
-                                        <span class="btn btn-sm btn-success btn-lg" v-if="submitting">...</span>
+                                        <span class="btn btn-sm btn-success btn-lg" v-if="submitting && shareDaySubmitting">...</span>
                                         <button v-else type="submit" class="btn btn-sm btn-success btn-lg"><i class="icon-save mr-2"></i>Update Data</button>
                                     </div>
                                 </div>	
@@ -128,6 +129,7 @@
 </template>
 
 <script>
+import { notification } from '@/util/notification';
 import { mapActions, mapGetters, mapState } from 'vuex';
 
     export default{
@@ -146,7 +148,12 @@ import { mapActions, mapGetters, mapState } from 'vuex';
                 },
                 globalShareMonth:{
                     next_global_profit_share_month:null
-                }
+                },
+
+                firstPercSubmitting:false,
+                secondPercSubmitting:false,
+                shareMonthSubmitting:false,
+                shareDaySubmitting:false
             }
         },
 
@@ -169,6 +176,11 @@ import { mapActions, mapGetters, mapState } from 'vuex';
                         this.globalShareMonth.next_global_profit_share_month = this.settings.next_global_profit_share_month
                     }
                 })
+            }else{
+                this.globalFirstPerc.global_profit_first_percentage = this.settings.global_profit_first_percentage
+                this.globalSecondPerc.global_profit_second_percentage = this.settings.global_profit_second_percentage
+                this.globalShareDay.next_global_profit_share_day = this.settings.next_global_profit_share_day
+                this.globalShareMonth.next_global_profit_share_month = this.settings.next_global_profit_share_month
             }
         },
 
@@ -176,35 +188,55 @@ import { mapActions, mapGetters, mapState } from 'vuex';
             ...mapActions('settingStore',['all','update']),
 
             updateFirstPercentage(){
+                if(!this.isNumeric(this.globalFirstPerc.global_profit_first_percentage)){
+                    notification.warning("Please enter a valid number")
+                    return
+                }
+                this.firstPercSubmitting = true
                 this.update(this.globalFirstPerc).then(res=>{
                     if(res.status == 200){
                         this.all()
                     }
+                    this.firstPercSubmitting = false
                 })
             },
 
             updateSecondPercentage(){
+                if(!this.isNumeric(this.globalSecondPerc.global_profit_second_percentage)){
+                    notification.warning("Please enter a valid number")
+                    return
+                }
+                this.secondPercSubmitting = true
                 this.update(this.globalSecondPerc).then(res=>{
                     if(res.status == 200){
                         this.all()
                     }
+                    this.secondPercSubmitting = false
                 })
             },
 
             updateShareDay(){
+                this.shareDaySubmitting = true
                 this.update(this.globalShareDay).then(res=>{
                     if(res.status == 200){
                         this.all()
                     }
+                    this.shareDaySubmitting = false
                 })
             },
 
             updateShareMonth(){
+                this.shareMonthSubmitting = true
                 this.update(this.globalShareMonth).then(res=>{
                     if(res.status == 200){
                         this.all()
                     }
+                    this.shareMonthSubmitting = false
                 })
+            },
+
+            isNumeric(n){
+                return !isNaN(parseFloat(n)) && isFinite(n)
             }
         }
     }

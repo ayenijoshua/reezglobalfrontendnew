@@ -58,7 +58,7 @@
                                 </div>
                                 <div class="ml-auto">
                                     <h6 class="mt-0 mb-1 font-weight-bold text-white" >Referral Bonus</h6>
-                                    <div class="mt-1 text-dark-heading text-white float-right" >₦  {{ referralBonus?.toLocaleString('en-US') }}</div>
+                                    <div class="mt-1 text-dark-heading text-white float-right" >₦  {{ (referralBonus + placementBonus)?.toLocaleString('en-US') }}</div>
                                 </div>
                             </div>
                         </div>
@@ -79,7 +79,8 @@
                         </div>
                         <div class="mt-1 text-dark-heading text-green" >{{ equilibrumBonus?.toLocaleString('en-US') }}</div>
                         <h6 class="counter-title font-weight-bold" style="color:#2E671A">Equilibrum (₦) </h6><br>
-                        <span class="badge text-white bg-green"><i class="icon icon-check" ></i>&nbsp;&nbsp;Eligible</span>
+                        <span v-if="equilibrumBonusEligible" class="badge text-white bg-green"><i class="icon icon-check" ></i>&nbsp;&nbsp;Eligible</span>
+                        <span v-else class="badge text-white bg-danger"><i class="icon icon-close" ></i>&nbsp;&nbsp;Not-Eligible</span>
                     </div>
                 </div>
                 <div class="col-lg-3">
@@ -94,7 +95,8 @@
                         </div>
                         <div class="mt-1 text-dark-heading text-green" >{{ loyaltyBonus?.toLocaleString('en-Us') }}</div>
                         <h6 class="counter-title font-weight-bold" style="color:#2E671A">Loyalty (₦)</h6><br>
-                        <span class="badge text-white bg-green"><i class="icon icon-check" ></i>&nbsp;&nbsp;Eligible</span>
+                        <span v-if="loyaltyBonusEligible" class="badge text-white bg-green"><i class="icon icon-check" ></i>&nbsp;&nbsp;Eligible</span>
+                        <span class="badge text-white bg-red"><i class="icon icon-close" ></i>&nbsp;&nbsp;Not-Eligible</span>
                     </div>
                 </div>
                 <div class="col-lg-3">
@@ -143,7 +145,7 @@
                             <img  src="/assets/img/companywallet.png">
                         </div>
                         <h6 class="mt-0text-white" >Total Wallet Earned</h6>
-                        <div class="text-dark-heading font-weight-bold text-white" >₦<span class="s-36">{{ walletBalance?.toLocaleString('en-US') }}</span></div>
+                        <div class="text-dark-heading font-weight-bold text-white" >₦<span class="s-36">{{ totalBonus?.toLocaleString('en-US') }}</span></div>
                     </div>
                 </div>
             </div>
@@ -206,7 +208,7 @@
                                                 <p class="alert alert-info">You are yet to qualify for an incentive</p>
                                             </div>
                                             <template v-else>
-                                                <div class="col-md-6">
+                                                <div class="col-md-6" id="yourContainer">
                                                     <img class="gift" :src="imageURL+'/'+currentIncentive.file_path">
                                                 </div>
                                                 <div class="col-md-6">
@@ -339,27 +341,31 @@
                                         <tr>
                                             <th scope="col">S/N</th>
                                             <th scope="col">Incentive Claimed</th>
+                                            <th scope="col">Worth</th>
+                                            <th scope="col">Status</th>
                                             <th scope="col">PV Level</th>
                                             <th scope="col">Date</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr v-if="loading && incClaimLoading">
-                                            <td colspan="4">
+                                            <td colspan="6">
                                                 <b-skeleton-table
                                                     :rows="5"
-                                                    :columns="5"
+                                                    :columns="6"
                                                     :table-props="{ bordered: true, striped: true }"
                                                 ></b-skeleton-table>
                                             </td>
                                         </tr>
                                         <template v-else>
                                             <tr v-if="claims.length == 0">
-                                                <td colspan="4">There are no claimed incentives</td>
+                                                <td colspan="6">There are no claimed incentives</td>
                                             </tr>
                                             <tr v-else v-for="claim,i in claims" :key="i">
                                                 <th scope="row">{{ ++i }}</th>
                                                 <td>{{ claim.incentive }}</td>
+                                                <td>{{ claim.worth?.toLocaleString('en-US')}}</td>
+                                                <td>{{ claim.status }}</td>
                                                 <td>{{ claim.points }} PV</td>
                                                 <td>{{ claim.created_at }} </td>
                                             </tr>
@@ -512,6 +518,18 @@
     </div>
 </template>
 
+<style>
+    #yourContainer {
+        width: 500px;
+        height: 170px;
+    }
+
+    #yourContainer img {
+        max-width: 100%;
+        max-height: 100%;
+    }
+</style>
+
 <script>
 import {mapActions,mapGetters,mapState} from 'vuex'
 export default{
@@ -521,6 +539,8 @@ export default{
         return {
             profitPoolEligible:false,
             globalProfitEligible:false,
+            equilibrumBonusEligible:false,
+            loyaltyBonusEligible:false,
             product_ids:[],
             totalWorth:0,
             totalPv:0,
@@ -567,8 +587,8 @@ export default{
 
         referrerLink(){
             return this.inviteForm.referrer 
-            ? 'https://delishcare.com/'+'?ref='+this.inviteForm.referrer +'&placer='+this.authUser.username
-            : 'https://delishcare.com/'+'?ref='+this.authUser.username
+            ? 'https://app.delishcare.com/register'+'?ref='+this.inviteForm.referrer +'&placer='+this.authUser.username
+            : 'https://app.delishcare.com/register'+'?ref='+this.authUser.username
         },
         
         ...mapGetters('bonusStore',['welcomeBonus',
@@ -577,7 +597,7 @@ export default{
 
         ...mapGetters('packageStore',['regPackage']),
         ...mapGetters('authStore',['authUser']),
-        ...mapGetters('userStore',['totalPV']),
+        ...mapGetters('userStore',['totalPV','uplineDetails','directDownlines']),
         ...mapGetters('settingStore',['settings']),
         ...mapGetters('incentiveClaimStore',['claims','currentIncentive']),
         ...mapGetters('productStore',['products']),
@@ -613,7 +633,7 @@ export default{
         'getProfitPool','getGlobalProfit','getPlacementBonus','getTotalBonus','getWalletBalance']),
         ...mapActions('packageStore',['getPackage']),
         ...mapActions('authStore',['getUser']),
-        ...mapActions('userStore',['getTotalPVs','inviteGuest']),
+        ...mapActions('userStore',['getTotalPVs','inviteGuest','getUplineDetails','countDirectDownlines']),
         ...mapActions('settingStore',['getSetting','all']),
         ...mapActions('incentiveClaimStore',['getClaims','getCurrentIncentive','create']),
         ...mapActions('productStore',['getProducts']),
@@ -704,7 +724,36 @@ export default{
                     this.productClaimStatus = ele.status
                 })
             }
-            
+
+            this.countDirectDownlines(this.authUser.uuid).then(res=>{
+                if(res.status == 200){
+                    if(res.data.data >= 2){
+                        this.equilibrumBonusEligible = true
+                    }
+                }
+            })
+
+            if(this.uplineDetails.uuid != undefined){
+                this.countDirectDownlines(this.uplineDetails.uuid).then(res=>{
+                    if(res.status == 200){
+                        if(res.data.data >= 2){
+                            this.loyaltyBonusEligible = true
+                        }
+                    }
+                })
+            }else{
+                this.getUplineDetails(this.authUser.uuid).then(res=>{
+                    if(res.status == 200){
+                        this.countDirectDownlines(this.uplineDetails.uuid).then(res1=>{
+                            if(res1.status == 200){
+                                if(res1.data.data >= 2){
+                                    this.loyaltyBonusEligible = true
+                                }
+                            }
+                        })
+                    }
+                })
+            }
         },
 
         claimIncentive(){

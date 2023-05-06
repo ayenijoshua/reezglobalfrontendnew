@@ -13,42 +13,42 @@
                                     <div class="input-group-prepend">
                                         <div class="input-group-text"><i class="icon icon-sitemap float-left s-20 green-text " ></i></div>
                                     </div>
-                                    <input v-model="form.generation_1_percentage" type="number" class="form-control r-0 light s-12" 
+                                    <input v-model="form.generation_1_percentage" type="" class="form-control r-0 light s-12" 
                                             placeholder="1st generation">
                                 </div>
                                 <div class="input-group mr-sm-2 mt-3 mb-3">
                                     <div class="input-group-prepend">
                                         <div class="input-group-text"><i class="icon icon-sitemap float-left s-20 green-text" ></i></div>
                                     </div>
-                                    <input v-model="form.generation_2_percentage" type="number" class="form-control r-0 light s-12" 
+                                    <input v-model="form.generation_2_percentage" type="" class="form-control r-0 light s-12" 
                                             placeholder="2nd generation">
                                 </div>
                                 <div class="input-group mt-3 mb-3">
                                     <div class="input-group-prepend">
                                         <div class="input-group-text"><i class="icon icon-sitemap float-left s-20 green-text " ></i></div>
                                     </div>
-                                    <input v-model="form.generation_3_percentage" type="number" class="form-control r-0 light s-12" 
+                                    <input v-model="form.generation_3_percentage" type="" class="form-control r-0 light s-12" 
                                             placeholder="3rd generation">
                                 </div>
                                 <div class="input-group mt-3 mb-3">
                                     <div class="input-group-prepend">
                                         <div class="input-group-text"><i class="icon icon-sitemap float-left s-20 green-text " ></i></div>
                                     </div>
-                                    <input v-model="form.generation_4_percentage" type="number" class="form-control r-0 light s-12" 
+                                    <input v-model="form.generation_4_percentage" type="" class="form-control r-0 light s-12" 
                                             placeholder="4th generation">
                                 </div>
                                 <div class="input-group mt-3 mb-3">
                                     <div class="input-group-prepend">
                                         <div class="input-group-text"><i class="icon icon-sitemap float-left s-20 green-text " ></i></div>
                                     </div>
-                                    <input v-model="form.generation_5_percentage" type="number" class="form-control r-0 light s-12" 
+                                    <input v-model="form.generation_5_percentage" type="" class="form-control r-0 light s-12" 
                                             placeholder="5th generation">
                                 </div>
                                 <div class="input-group mt-3 mb-3">
                                     <div class="input-group-prepend">
                                         <div class="input-group-text"><i class="icon icon-sitemap float-left s-20 green-text " ></i></div>
                                     </div>
-                                    <input v-model="form.generation_6_percentage" type="number" class="form-control r-0 light s-12" 
+                                    <input v-model="form.generation_6_percentage" type="" class="form-control r-0 light s-12" 
                                             placeholder="6th generation">
                                 </div>
                             </div>
@@ -63,6 +63,7 @@
 </template>
 
 <script>
+import { notification } from '@/util/notification';
 import { mapActions, mapState } from 'vuex';
 
     export default{
@@ -77,7 +78,7 @@ import { mapActions, mapState } from 'vuex';
         data(){
             return {
                 form:{
-                    package_id:null,
+                    //package_id:null,
                     generation_1_percentage:null,
                     generation_2_percentage:null,
                     generation_3_percentage:null,
@@ -95,7 +96,7 @@ import { mapActions, mapState } from 'vuex';
         },
 
         created(){
-            this.form.package_id = this.setting.package_id
+            //this.form.package_id = this.setting.package_id
             this.form.generation_1_percentage = this.setting.generation_1_percentage
             this.form.generation_2_percentage = this.setting.generation_2_percentage
             this.form.generation_3_percentage = this.setting.generation_3_percentage
@@ -108,11 +109,29 @@ import { mapActions, mapState } from 'vuex';
             ...mapActions('settingStore',['updateReferralBonus']),
 
             update(){
+                var error = false
+                console.log(Object.entries(this.form))
+                Object.entries(this.form).forEach((ele)=>{
+                    for(var i=0; i<ele.length; i++){
+                        if(i==0){continue;}
+                        if(ele[i] && !this.isNumeric(ele[i])){
+                            notification.warning(`${ele[0]} is not a valid number`)
+                            error = true
+                        }
+                    } 
+                })
+                if(error){
+                    return;
+                }
                 this.updateReferralBonus({id:this.setting.id,data:this.form}).then(res=>{
                     if(res.status == 200){
                         this.$emit('updated')
                     }
                 })
+            },
+
+            isNumeric(n){
+                return !isNaN(parseFloat(n)) && isFinite(n)
             }
         }
     }

@@ -79,6 +79,10 @@ export default {
         return http().get(`${endPoints.users}/${uuid}/direct-downlines`)
     },
 
+    countDirectDownlines(uuid){
+        return http().get(`${endPoints.users}/${uuid}/count-direct-downlines`)
+    },
+
     genealogy(uuid){
         return http().get(`${endPoints.users}/${uuid}/genealogy`)
     },

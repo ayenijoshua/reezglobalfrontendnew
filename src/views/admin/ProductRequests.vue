@@ -129,8 +129,9 @@ import ProductClaimDetails from '@/components/admin/ProductClaimDetails.vue';
                         for(i=0; i<len; i++){
                             if(flags[this.productClaims[i].user_uuid]){
                                 this.productClaims.splice(i,1)
+                            }else{
+                                flags[this.productClaims[i].user_uuid] = true;
                             }
-                            flags[this.productClaims[i].user_uuid] = true;
                         }
                     }  
                 })
