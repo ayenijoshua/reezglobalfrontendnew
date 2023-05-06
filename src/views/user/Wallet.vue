@@ -206,7 +206,7 @@
                                                 </div>
                                             </div>
                                             <div class="card-body  text-center">
-                                                <small>We honour withdrawals 2 times in a month.<br>  Minimum withdrawal is ₦1,000.</small>
+                                                <small><br>  Minimum withdrawal is ₦{{ settings.minimum_withdrawal?.toLocaleString('en-US') }}.</small>
                                             </div>                                            
                                         </div>
                                     </div>
@@ -299,6 +299,7 @@
                 'globalProfits','totalBonus','walletBalance']),
             ...mapGetters('authStore',['authUser']),
             ...mapGetters('withdrawalStore',['userWithdrawals','userTotalWithdrawals']),
+            ...mapGetters('settingsStore',['settings']),
         },
 
         created(){
@@ -313,6 +314,10 @@
                 this.getUserTotal(this.authUser.uuid)
                 this.getUserHistory(this.authUser.uuid)
             }
+
+            if(this.settings.id == undefined){
+                this.all()
+            }
         },
 
         methods:{
@@ -325,6 +330,7 @@
                 ...mapActions('authStore',['getUser']),
 
                 ...mapActions('withdrawalStore',['getUserTotal','getUserHistory','initiate']),
+                ...mapActions('settingsStore',['all']),
 
             getBonuses(uuid){
                 this.getWelcomeBonus(uuid)

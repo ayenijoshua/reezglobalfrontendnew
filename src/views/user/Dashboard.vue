@@ -96,7 +96,7 @@
                         <div class="mt-1 text-dark-heading text-green" >{{ loyaltyBonus?.toLocaleString('en-Us') }}</div>
                         <h6 class="counter-title font-weight-bold" style="color:#2E671A">Loyalty (₦)</h6><br>
                         <span v-if="loyaltyBonusEligible" class="badge text-white bg-green"><i class="icon icon-check" ></i>&nbsp;&nbsp;Eligible</span>
-                        <span class="badge text-white bg-red"><i class="icon icon-close" ></i>&nbsp;&nbsp;Not-Eligible</span>
+                        <span v-else class="badge text-white bg-red"><i class="icon icon-close" ></i>&nbsp;&nbsp;Not-Eligible</span>
                     </div>
                 </div>
                 <div class="col-lg-3">
