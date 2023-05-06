@@ -35,18 +35,12 @@
                                 <a v-else class=" text-white" href="#" @click="sendCode()" style="text-decoration:none">
                                     <span class="font-weight-bold">Resend Confirmation Code</span>
                                 </a>
-                            </div>
-                            <div class="col-md-12">
-                                <p class="forget-pass text-white text-center">
-                                    <a href="" class="" style="text-decoration: none; font-size:12px;" data-toggle="collapse" data-target="#collapse1" aria-expanded="true" aria-controls="collapseOne">Forgot your password ?</a>
-                                </p>                   
-                            </div>
-                                
+                            </div>                                
                             <div class="col-md-12">
                                 <div class="text-center">
                                     <img class="img-responsive text-center" src="assets/img/or.png" style= "max-width:250px;" alt="">
                                     <p class="text-white mt-3">
-                                        <router-link :to="{name:'user-login'}"> <b>Proceed to login!</b></router-link>
+                                        <router-link :to="{name:'user-login'}" style="text-decoration:none"> <b>Proceed to login!</b></router-link>
                                     </p>
                                 </div>
                             </div>

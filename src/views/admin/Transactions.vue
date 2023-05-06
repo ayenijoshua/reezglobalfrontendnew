@@ -44,6 +44,12 @@
                                                     <h4 class="green-text"><strong class="font-weight-bold">Withdrawal Details</strong></h4>
                                                 </div>
                                                 <div class="card-body" style="overflow-x:auto;">
+                                                    <div class=" mb-3" style="float:right">
+                                                        <form class="form-inline my-2 my-lg-0 ">
+                                                            <input class="form-control mr-sm-2" type="search" placeholder="" aria-label="Search">
+                                                            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                                                        </form>
+                                                    </div>
                                                     <table id="example2" class="table table-bordered table-hover data-tables"
                                                         data-options='{ "paging": false; "searching":false}'>
                                                         <thead>
@@ -51,15 +57,16 @@
                                                                 <th>S/N</th>
                                                                 <th>Username</th>
                                                                 <th>Amount</th>
+                                                                <th>Status</th>
                                                                 <th>Payout Date</th>
                                                             </tr>
                                                         </thead>
                                                         <tbody>
                                                             <tr v-if="loading && withdrawalsLoading">
-                                                                <td colspan="4">
+                                                                <td colspan="5">
                                                                     <b-skeleton-table
                                                                         :rows="3"
-                                                                        :columns="4"
+                                                                        :columns="5"
                                                                         :table-props="{ bordered: true, striped: true }"
                                                                     ></b-skeleton-table>
                                                                 </td>
@@ -76,6 +83,7 @@
                                                                     <td>{{ ++i }}</td>
                                                                     <td>{{ withdraw.username }}</td>
                                                                     <td>₦{{ withdraw.amount?.toLocaleString('en-US') }}</td>
+                                                                    <td>{{ withdraw.status }}</td>
                                                                     <td>{{ withdraw.created_at }}</td>
                                                                 </tr>
                                                             </template>
@@ -100,7 +108,7 @@
                                                     <img src="/assets/img/registration.png"  width="70px" height="70px">
                                                 </div>
                                                 <small class="mt-0 ml-2"><span style="color:#2E671A!important;">Total Registration</span></small>
-                                                <p class="text-dark-heading font-weight-bold " style="color:#2E671A!important;">₦<span style="color:#2E671A!important;font-size:32px">{{ totalPaidUsers?.toLocaleString('en-US') }}</span></p>
+                                                <p class="text-dark-heading font-weight-bold " style="color:#2E671A!important;"><span style="color:#2E671A!important;font-size:32px">{{ totalPaidUsers?.toLocaleString('en-US') }}</span></p>
                                             </div>
                                         </div>
                                     </div>
@@ -116,6 +124,12 @@
                                                     <h4 class="green-text"><strong class="font-weight-bold">Registration Details</strong></h4>
                                                 </div>
                                                 <div class="card-body" style="overflow-x:auto;">
+                                                    <div class=" mb-3" style="float:right">
+                                                        <form class="form-inline my-2 my-lg-0 ">
+                                                            <input class="form-control mr-sm-2" type="search" placeholder="" aria-label="Search">
+                                                            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                                                        </form>
+                                                    </div>
                                                     <table id="example2" class="table table-bordered table-hover data-tables"
                                                         data-options='{ "paging": false; "searching":false}'>
                                                         <thead>
@@ -147,7 +161,7 @@
                                                                     </td>
                                                                 </tr>
                                                                 <tr v-else v-for="user,i in paidUsers" :key="i">
-                                                                    <td>{{ ++i }}</td>
+                                                                    <td>{{ (paidUsersPerPage * (paidUsersCurrentPage - 1)) +( ++i) }}</td>
                                                                     <td>{{ user.first_name }} {{ user.last_name }}</td>
                                                                     <td>{{ user.username }}</td>
                                                                     <td>{{ user.name }}</td>
@@ -157,6 +171,8 @@
                                                             </template>
                                                         </tbody>
                                                     </table>
+                                                    <br>
+                                                    <BasePaginator v-if="paidUserAction" :action="paidUserAction" :current_page="paidUsersCurrentPage" :last_page="paidUsersLastPage" :total_pages="paidUsersTotalPages" :per_page="paidUsersPerPage"></BasePaginator>
                                                 </div>
                                             </div>
                                         </div>
@@ -174,9 +190,13 @@
 
 <script>
 import { mapActions, mapGetters, mapState } from 'vuex';
-
+import BasePaginator from '@/components/BasePaginator.vue';
  export default{
     name:"admin-transactions",
+
+    components:{
+        BasePaginator
+    },
 
     data(){
         return {
@@ -192,7 +212,8 @@ import { mapActions, mapGetters, mapState } from 'vuex';
         }),
 
         ...mapGetters('withdrawalStore',['withdrawals','totalWithdrawals']),
-        ...mapGetters('userStore',['paidUsers','totalPaidUsers','sumPaidUsers'])
+        ...mapGetters('userStore',['paidUsers','totalPaidUsers','sumPaidUsers',
+    'paidUserAction','paidUsersCurrentPage','paidUsersLastPage','paidUsersPerPage','paidUsersTotalPages'])
     },
 
     created(){

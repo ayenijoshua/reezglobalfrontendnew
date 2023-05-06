@@ -17,7 +17,10 @@
             </header>
             <div class="container-fluid animatedParent animateOnce my-3">
                 <div class="animated">
-                    <div class="tab-content" id="v-pills-tabContent">
+                    <div v-if="!userHasProfile" class="card-body">
+                        <div class="alert alert-info">User has not submitted profile details</div>
+                    </div>
+                    <div v-else class="tab-content" id="v-pills-tabContent">
                         <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
                             <div class="row">
                                 <div class="col-md-3">
@@ -30,7 +33,7 @@
                                                 <div class="profile-pic-wrapper">
                                                 <div class="pic-holder">
                                                     <!-- uploaded pic shown here -->
-                                                    <img id="profilePic" class="pic user_avatar" src="/assets/img/dummy/u14.jpg">
+                                                    <img id="profilePic" class="pic user_avatar" :style="{'width': '150px'}" :src="imageURL">
 
                                                     <!-- <Input class="uploadProfileInput" type="file" name="profile_pic" id="newProfilePhoto" accept="image/*" style="opacity: 0;" />
                                                     <label for="newProfilePhoto" class="upload-file-block">
@@ -47,8 +50,8 @@
                                                 </div>
                                                 <div class="">
                                                     <ul class="list-group list-group-flush">
-                                                        <li class="list-group-item "><i class="icon icon-vcard float-left s-20 green-text border-right" ></i> <span class="float-right s-22 font-weight-medium green-text">{{ regPackage.vip }} - {{ regPackage.name }}</span></li>
-                                                        <li class="list-group-item "><i class="icon icon-person float-left s-20 green-text border-right" ></i> <span class="float-right s-22 font-weight-medium green-text">{{ form.first_name }} {{ form.last_name }}</span></li>
+                                                        <li class="list-group-item "><i class="icon icon-vcard float-left s-20 green-text border-right" ></i> <span class="float-right s-12 font-weight-medium green-text">{{ regPackage.vip }} - {{ regPackage.name }}</span></li>
+                                                        <li class="list-group-item "><i class="icon icon-person float-left s-20 green-text border-right" ></i> <span class="float-right s-12 font-weight-medium green-text">{{ form.first_name }} {{ form.last_name }}</span></li>
                                                         <li class="list-group-item"><i class="icon icon-phone2 float-left s-20 green-text border-right"></i> <span class="float-right s-12 font-weight-medium green-text">{{ form.phone }}</span></li>
                                                         <li class="list-group-item"><i class="icon icon-mail-envelope-closed4 float-left s-20 green-text border-right"></i> <span class="float-right s-12 font-weight-medium green-text">{{ form.email }}</span></li>
                                                         <li class="list-group-item"><i class="icon icon-account_box float-left s-20 green-text border-right"></i>  <span class="float-right s-12 font-weight-medium green-text">{{ user.username }}</span></li>
@@ -115,22 +118,22 @@
                                                                         </div>
                                                                         
                                                                         <div class="form-row mb-2">
-                                                                            <div class="form-group col-6 m-0">
+                                                                            <div class="form-group col-12 m-0">
                                                                                 <div class="form-group m-0">
                                                                                     <div class="input-group  mr-sm-2 mb-3">
                                                                                         <div class="input-group-prepend">
                                                                                             <div class="input-group-text"><i class="icon icon-person float-left s-20 green-text " ></i></div>
                                                                                         </div>
                                                                                         <select name="gender" class="form-control r-0 light s-12">
-                                                                                            <option value="" :selected="!profile.gender">Select gender</option>
-                                                                                            <option value="male" :selected="profile.gender=='male'">Male</option>
-                                                                                            <option value="female" :selected="profile.gender=='female'">Female</option>
+                                                                                            <option value="" :selected="!profile?.gender">Select gender</option>
+                                                                                            <option value="male" :selected="profile?.gender=='male'">Male</option>
+                                                                                            <option value="female" :selected="profile?.gender=='female'">Female</option>
                                                                                         </select>
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
 
-                                                                            <div class="form-group col-6 m-0">
+                                                                            <!-- <div class="form-group col-6 m-0">
                                                                                 <div class="form-group m-0">
                                                                                     <div class="input-group mr-sm-2 mb-3">
                                                                                     <div class="input-group-prepend">
@@ -140,10 +143,10 @@
                                                                                         placeholder="Profile photo">
                                                                                     </div>
                                                                                 </div>
-                                                                            </div>
+                                                                            </div> -->
                                                                         </div>
                                                                         <div class="form-group m-0">
-                                                                            <textarea name="address" :value="profile.address" rows="5" type="text" class="form-control r-0 light s-12" id="address"
+                                                                            <textarea name="address" :value="profile?.address" rows="5" type="text" class="form-control r-0 light s-12" id="address"
                                                                             placeholder="Residential Address"></textarea>
                                                                         </div>	
                                                                     </div>
@@ -165,9 +168,9 @@
                                             </div>
                                             <div class="card-body text-center">
                                                 <div class="avatar avatar-xl mb-3 ">
-                                                    <img class="user_avatar" src="/assets/img/dummy/u2a.png" alt="User Image">
+                                                    <img class="user_avatar" :src="uplineImageURL" alt="User Image">
                                                 </div>
-                                                <div class="card-header">
+                                                <div class="">
                                                     <ul class="list-group list-group-flush" >
                                                         <li class="list-group-item"  style="background-color:#2E671A;"><i class="icon icon-vcard float-left s-20 text-white border-right" ></i> <span class="float-right s-22 font-weight-medium text-white">{{ uplineDetails.package }}</span></li>
                                                         <li class="list-group-item "  style="background-color:#2E671A;"><i class="icon icon-person float-left s-20 text-white border-right" ></i> <span class="float-right s-22 font-weight-medium text-white ">{{ uplineDetails.first_name }} {{ uplineDetails.last_name }}</span></li>
@@ -207,7 +210,7 @@
                                                                     <div class="card-body" >
                                                                         <div class="d-flex align-items-center">
                                                                             <div class="avatar avatar-xl mr-4 ">
-                                                                                <img class="user_avatar" src="/assets/img/dummy/u2a.png" alt="User Image">
+                                                                                <img class="user_avatar" :src="imageURL" alt="User Image">
                                                                             </div>
                                                                             <div>
                                                                                 <span class="text-white" id="d1" style="font-size:10px" >Account Name</span>
@@ -311,7 +314,9 @@ export default {
                 bank_account_name:'',
                 bank_account_number:'',
                 bank_name:''
-            }
+            },
+
+            userHasProfile:true
         }
     },
 
@@ -323,7 +328,16 @@ export default {
 
         ...mapGetters('authStore',['authUser']),
         ...mapGetters('userStore',['profile','uplineDetails']),
-        ...mapGetters('packageStore',['regPackage'])
+        ...mapGetters('packageStore',['regPackage']),
+
+        imageURL(){
+            let img = this.profile.photo_path
+            return img ? process.env.VUE_APP_IMAGE_PATH+'/'+img : '/assets/img/dummy/u2a.png'
+        },
+        uplineImageURL(){
+            let img = this.uplineDetails.photo_path
+            return img ? process.env.VUE_APP_IMAGE_PATH+'/'+img : '/assets/img/dummy/u2a.png'
+        }
     },
 
     methods:{
@@ -347,15 +361,22 @@ export default {
 
    created(){
         this.getProfileDetails(this.user.uuid).then(reslt=>{
-            this.form.first_name = this.user.first_name
-            this.form.last_name = this.user.last_name
-            this.form.phone = this.user.phone
-            this.form.email = this.user.email
-            this.form.address = reslt.data.data.address
-            this.bank.bank_account_name = reslt.data.data.bank_account_name
-            this.bank.bank_account_number = reslt.data.data.bank_account_number
-            this.bank.bank_name = reslt.data.data.bank_name
-            this.form.gender = reslt.data.data.gender
+            if(reslt.status == 200){
+                if(!reslt.data.data){
+                    this.userHasProfile = false
+                }else{
+                    this.form.first_name = this.user.first_name
+                    this.form.last_name = this.user.last_name
+                    this.form.phone = this.user.phone
+                    this.form.email = this.user.email
+                    this.form.address = reslt.data.data.address
+                    this.bank.bank_account_name = reslt.data.data.bank_account_name
+                    this.bank.bank_account_number = reslt.data.data.bank_account_number
+                    this.bank.bank_name = reslt.data.data.bank_name
+                    this.form.gender = reslt.data.data.gender
+                }
+            }
+            
         })
         this.getPackage(this.user.package_id)
         this.getUplineDetails(this.user.uuid)

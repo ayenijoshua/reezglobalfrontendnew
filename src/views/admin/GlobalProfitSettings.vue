@@ -8,7 +8,7 @@
                         <form @submit.prevent="updateFirstPercentage()">
                             <div class="card no-b  no-r">
                                 <div class="card-body no-gutters">
-                                    <div class="text-center mb-3"><img  src="/assets/img/equil.png" width="80px"  height="80px">
+                                    <div class="text-center mb-3"><img  src="/assets/img/investors.png" width="80px"  height="80px">
                                     <h5 class="s-36 font-weight-bold mt-2 text-green">{{ settings.global_profit_first_percentage }}%</h5>
                                     <h6 class="mt-1 s-8 font-weight-bold">Global Profit first Percentage<br><small> Edit first percentage</small></h6></div>
                                     <div class="form-row mb-3">
@@ -37,7 +37,7 @@
                         <form @submit.prevent="updateSecondPercentage()">
                             <div class="card no-b  no-r">
                                 <div class="card-body no-gutters">
-                                    <div class="text-center mb-3"><img  src="/assets/img/bonus.png" width="80px"  height="80px">
+                                    <div class="text-center mb-3"><img  src="/assets/img/investors.png" width="80px"  height="80px">
                                     <h5 class="s-36 font-weight-bold mt-2 text-green">{{ settings.global_profit_second_percentage }}%</h5>
                                     <h6 class="mt-1 s-8 font-weight-bold">Global Profit Second Percentage<br><small> Edit profit second percentage</small></h6></div>
                                     <div class="form-row mb-3">
@@ -70,14 +70,14 @@
                             <input type="hidden" name="_token" value="6BwLvKulnhkAcUn3BgPaQHev2ZNKme6XDhncAZzL">									
                             <div class="card no-b  no-r">
                                 <div class="card-body no-gutters">
-                                    <div class="text-center mb-3"><img  src="/assets/img/hand-shake.png" width="80px"  height="80px">
+                                    <div class="text-center mb-3"><img  src="/assets/img/calendar.png" width="80px"  height="80px">
                                     <h5 class="s-36 font-weight-bold mt-2 text-green">{{ settings.next_global_profit_share_month }}</h5>
                                     <h6 class="mt-1 s-8 font-weight-bold">Global Profit Share Month<br><small> Edit share month</small></h6></div>
                                     <div class="form-row mb-3">
                                         <div class="col-md-12">
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
-                                                    <div class="input-group-text"><i class="icon icon-handshake-o float-left s-20 green-text " ></i></div>
+                                                    <div class="input-group-text"><i class="icon icon-calendar float-left s-20 green-text " ></i></div>
                                                 </div>
                                                 <input required v-model="globalShareMonth.next_global_profit_share_month" type="number" class="form-control r-0 light s-12" placeholder="Profit share month">
                                             </div>
@@ -99,14 +99,14 @@
                         <form @submit.prevent="updateShareDay()">
                             <div class="card no-b no-r">
                                 <div class="card-body no-gutters">
-                                    <div class="text-center mb-3"><img  src="/assets/img/cash-withdrawal.png" width="80px"  height="80px">
+                                    <div class="text-center mb-3"><img  src="/assets/img/calendar.png" width="80px"  height="80px">
                                     <h5 class="s-36 font-weight-bold mt-2 text-green">{{ settings.next_global_profit_share_day }}</h5>
                                     <h6 class="mt-1 s-8 font-weight-bold">Global Profit share day<br><small> Edit share day</small></h6></div>
                                     <div class="form-row mb-3">
                                         <div class="col-md-12">
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
-                                                    <div class="input-group-text"><i class="icon icon-money-3 float-left s-20 green-text " ></i></div>
+                                                    <div class="input-group-text"><i class="icon icon-calendar float-left s-20 green-text " ></i></div>
                                                 </div>
                                                 <input v-model="globalShareDay.next_global_profit_share_day" type="number" class="form-control r-0 light s-12" placeholder="Profit Share day" required>
                                             </div>

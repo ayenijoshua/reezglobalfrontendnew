@@ -8,7 +8,7 @@
                         <form @submit.prevent="updatePercentage()">
                             <div class="card no-b  no-r">
                                 <div class="card-body no-gutters">
-                                    <div class="text-center mb-3"><img  src="/assets/img/equil.png" width="80px"  height="80px">
+                                    <div class="text-center mb-3"><img  src="/assets/img/investors.png" width="80px"  height="80px">
                                     <h5 class="s-36 font-weight-bold mt-2 text-green"> {{ settings.profit_pool_percentage }} %</h5>
                                     <h6 class="mt-1 s-8 font-weight-bold">Profit Pool Percentage<br><small> Edit profit pool percentage</small></h6></div>
                                     <div class="form-row mb-3">
@@ -37,14 +37,14 @@
                         <form @submit.prevent="updateDuration()">
                             <div class="card no-b  no-r">
                                 <div class="card-body no-gutters">
-                                    <div class="text-center mb-3"><img  src="/assets/img/bonus.png" width="80px"  height="80px">
+                                    <div class="text-center mb-3"><img  src="/assets/img/calendar.png" width="80px"  height="80px">
                                     <h5 class="s-36 font-weight-bold mt-2 text-green">{{ settings.profit_pool_duration }} Months</h5>
                                     <h6 class="mt-1 s-8 font-weight-bold">Profit Pool Duration<br><small> Edit profit pool duration</small></h6></div>
                                     <div class="form-row mb-3">
                                         <div class="col-md-12">
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
-                                                    <div class="input-group-text"><i class="icon icon-money-3 float-left s-20 green-text"></i></div>
+                                                    <div class="input-group-text"><i class="icon icon-calendar float-left s-20 green-text"></i></div>
                                                 </div>
                                                 <input v-model="profitPoolDur.profit_pool_duration" type="number" class="form-control r-0 light s-12" required placeholder="Duration">
                                             </div>
@@ -70,14 +70,14 @@
                             <input type="hidden" name="_token" value="6BwLvKulnhkAcUn3BgPaQHev2ZNKme6XDhncAZzL">									
                             <div class="card no-b  no-r">
                                 <div class="card-body no-gutters">
-                                    <div class="text-center mb-3"><img  src="/assets/img/hand-shake.png" width="80px"  height="80px">
-                                    <h5 class="s-36 font-weight-bold mt-2 text-green">{{ settings.profit_pool_days_offset }} days aftet activation</h5>
+                                    <div class="text-center mb-3"><img  src="/assets/img/calendar.png" width="80px"  height="80px">
+                                    <h5 class="s-36 font-weight-bold mt-2 text-green">{{ settings.profit_pool_days_offset }} Days After Activation</h5>
                                     <h6 class="mt-1 s-8 font-weight-bold">Profit Pool Days Offset<br><small> Edit profit Pool days offset</small></h6></div>
                                     <div class="form-row mb-3">
                                         <div class="col-md-12">
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
-                                                    <div class="input-group-text"><i class="icon icon-handshake-o float-left s-20 green-text " ></i></div>
+                                                    <div class="input-group-text"><i class="icon icon-calendar float-left s-20 green-text " ></i></div>
                                                 </div>
                                                 <input v-model="profitPoolOff.profit_pool_days_offset" type="number" class="form-control r-0 light s-12" required placeholder="Offset">
                                             </div>
@@ -99,14 +99,14 @@
                         <form @submit.prevent="updateDownline()">
                             <div class="card no-b  no-r">
                                 <div class="card-body no-gutters">
-                                    <div class="text-center mb-3"><img  src="/assets/img/cash-withdrawal.png" width="80px"  height="80px">
+                                    <div class="text-center mb-3"><img  src="/assets/img/pv1.png" width="80px"  height="80px">
                                     <h5 class="s-36 font-weight-bold mt-2 text-green">Requires {{ settings.profit_pool_num_of_downlines }} Downlines</h5>
                                     <h6 class="mt-1 s-8 font-weight-bold">Profit Pool Required Downlines<br><small> Edit profit pool reequired downlines</small></h6></div>
                                     <div class="form-row mb-3">
                                         <div class="col-md-12">
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
-                                                    <div class="input-group-text"><i class="icon icon-money-3 float-left s-20 green-text " ></i></div>
+                                                    <div class="input-group-text"><i class="icon icon-sitemap float-left s-20 green-text " ></i></div>
                                                 </div>
                                                 <input v-model="profitPoolNumD.profit_pool_num_of_downlines" type="number" class="form-control r-0 light s-12" required placeholder="Required downlines">
                                             </div>

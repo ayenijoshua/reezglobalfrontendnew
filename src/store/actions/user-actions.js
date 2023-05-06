@@ -4,15 +4,20 @@ import { LogError,processResponse } from '@/util/responseHandler'
 
 export default {
 
-    async getUsers({commit}){
+    async getUsers({commit},page=null){
         try {
             //alert()
             commit('loading',null,{root:true})
-            const res = await api.users()
-            
+            const res = await api.users(page)
             if(res.status==200){
-                
                 commit('users',res.data.data.data)
+
+                commit('userAction','userStore/getUsers')
+                commit('userState',res.data.data.data)
+                commit('usersCurrentPage',res.data.data.current_page)
+                commit('usersLastPage',res.data.data.last_page)
+                commit('usersPerPage',res.data.data.per_page)
+                commit('usersTotalPages',res.data.data.total)
             }else{
                 notification.error(res.message)
             }
@@ -330,7 +335,9 @@ export default {
             commit('submitting',null,{root:true})
             const res = await api.setBankEditable(uuid,data)
             if(res.status == 200){
-                notification.success("Bank editable toggled successfully");
+                data.bank_editable
+                ? notification.success("Bank editable enabled successfully")
+                : notification.success("Bank editable disabled successfully");
             }
             
             commit('submitted',null,{root:true})
@@ -340,12 +347,18 @@ export default {
         }
     },
 
-    async getPaidUsers({commit}){
+    async getPaidUsers({commit},page=null){
         try {
             commit('loading',null,{root:true})
-            const res = await api.paidUsers()
+            const res = await api.paidUsers(page)
             if(res.status == 200){
                 commit('paidUsers',res.data.data.data)
+
+                commit('paidUserAction','userStore/getPaidUsers')
+                commit('paidUsersCurrentPage',res.data.data.current_page)
+                commit('paidUsersLastPage',res.data.data.last_page)
+                commit('paidUsersPerPage',res.data.data.per_page)
+                commit('paidUsersTotalPages',res.data.data.total)
             }
             
             commit('loaded',null,{root:true})

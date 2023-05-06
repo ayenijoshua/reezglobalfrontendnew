@@ -159,7 +159,7 @@
                             <div class="float-up text-center">
                                 <img  src="/assets/img/pv1.png">
                             </div>
-                            <div class="sc-counter font-weight-bold s-36 text-center" style="color:#2E671A">{{ totalPV }}</div>
+                            <div class="sc-counter font-weight-bold s-36 text-center" style="color:#2E671A">{{ totalPV?.toLocaleString('en-US') }}</div>
                             <h6 class="counter-title text-center font-weight-bold" style="color:#2E671A">Cumulated Point Value (CPV)</h6>
                         </div>
                     </div>
@@ -171,7 +171,7 @@
                                 </div><br><br>
                                 <div class="text-center">
                                     <small class="font-weight-normal s-10"><strong>OFFICIAL POINT VALUE RATE</strong></small>
-                                    <p class="font-weight-bold text-success" style="font-size:25px">1 PV = {{ settings.unit_point_value }} NGN(&#8358;)</p>
+                                    <p class="font-weight-bold text-success" style="font-size:25px">1 PV = {{ settings.unit_point_value?.toLocaleString('en-US') }} NGN(&#8358;)</p>
                                 </div><br><br><br>
                             </div>
                         </div>
@@ -212,10 +212,10 @@
                                                 <div class="col-md-6">
                                                     <div class="card-body pt-0 mt-5">
                                                         <h6 class="mt-0 green-text" >Cash Equivalent</h6>
-                                                        <div class="text-dark-heading font-weight-bold green-text" >₦<span class="s-36">{{ currentIncentive.worth }}</span></div>
+                                                        <div class="text-dark-heading font-weight-bold green-text" >₦<span class="s-36">{{ currentIncentive.worth?.toLocaleString('en-US') }}</span></div>
                                                         <hr>
                                                         <h6 class="mt-0 green-text" >Cumulated Point Value (CPV)</h6>
-                                                        <div class="text-dark-heading font-weight-bold green-text"><span class="s-36">{{ currentIncentive.points }}PV</span></div>
+                                                        <div class="text-dark-heading font-weight-bold green-text"><span class="s-36">{{ currentIncentive.points?.toLocaleString('en-US') }}PV</span></div>
                                                         <hr>
                                                         <h6 class="mt-0 green-text" >Incentive</h6>
                                                         <div class="text-dark-heading font-weight-bold green-text" ><span class="s-36">{{ currentIncentive.incentive }}</span></div>									
@@ -423,7 +423,7 @@
                                                                     <td>₦{{ product.worth }}</td>
                                                                     <td>
                                                                         <div class="form-check">
-                                                                            <input name="product_ids[]" :key="i" class="form-check-input" type="checkbox" :value="product.id" id="cb1">
+                                                                            <input name="product_ids[]" :key="i" class="form-check-input" type="checkbox" :value="product.id" id="cb1" :style="{'accent-color': '#2E671A'}">
                                                                         </div>
                                                                     </td>
                                                                 </tr>

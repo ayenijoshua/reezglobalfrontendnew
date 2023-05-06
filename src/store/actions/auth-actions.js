@@ -235,7 +235,7 @@ export default {
             commit('submitting',null,{root:true})
             const res = await api.resetPassword(data)
             if(res && res.status==200){
-                toastr.success('password has been reset successfully, please login to continue')
+                toastr.success('Password has been reset successfully, please login to continue')
                 data.user_type == 'user' ? vm.$router.push({name:'user-login'}) : vm.$router.push({name:'admin-login'})
             }else{
                 toastr.error(res.data.message)
@@ -251,7 +251,7 @@ export default {
             commit('submitting',null,{root:true})
             const res = await api.changePassword(data)
             if(res && res.status==200){
-                toastr.success('password has been changed successfully')
+                toastr.success('Password has been changed successfully')
             }else{
                 toastr.error(res.data.message)
             }

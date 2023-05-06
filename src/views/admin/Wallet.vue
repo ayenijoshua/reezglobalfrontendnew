@@ -19,14 +19,14 @@
                                 <div class="card-body" style="overflow-x:auto;">
                                     <table class="table table-bordered table-hover">
                                         <tr>
-                                            <th>TOTal Company Wallet (TRP)</th>
+                                            <th>Total Company Wallet (TRP)</th>
                                             <th>Total Withdrawals (TW)</th>
                                             <th>Company Wallet Balance ( TRP - TW)</th>
                                         </tr>
                                         <tr>
-                                            <td>₦ {{ totalCompanyWallet }}</td>
-                                            <td>₦ {{ totalWithdrawals }}</td>
-                                            <td>₦ {{ companyWalletBalance }}</td>
+                                            <td>₦ {{ totalCompanyWallet?.toLocaleString('en-US') }}</td>
+                                            <td>₦ {{ totalWithdrawals?.toLocaleString('en-US') }}</td>
+                                            <td>₦ {{ companyWalletBalance?.toLocaleString('en-US') }}</td>
                                         </tr>
                                     </table>
                                 </div>
@@ -44,7 +44,7 @@
                                     <img src="/assets/img/accounts.png">
                                 </div>
                                 <small class="mt-0 ml-2"><span style="color:#2E671A!important;">Total Registration Products Amount</span></small>
-                                <p class="text-dark-heading font-weight-bold " style="color:#2E671A!important;">₦<span style="color:#2E671A!important;font-size:32px">{{ sumClaimedProducts }}</span></p>
+                                <p class="text-dark-heading font-weight-bold " style="color:#2E671A!important;">₦<span style="color:#2E671A!important;font-size:32px">{{ sumClaimedProducts?.toLocaleString('en-US') }}</span></p>
                             </div>
                         </div>
                     </div>
@@ -60,7 +60,7 @@
                                             <div class="d-flex flex-row mt-4 mb-4 ml-4">
                                                 <div  style="padding-right:20px">
                                                     <h6 class="mt-0 mb-1 font-weight-bold text-white" >Products Sold</h6>
-                                                    <div class="mt-1 text-dark-heading text-white float-right" >{{ totalProductSold }}</div>
+                                                    <div class="mt-1 text-dark-heading text-white float-right" >{{ totalProductSold?.toLocaleString('en-US') }}</div>
                                                 </div>
                                             </div>
                                         </div>
@@ -79,7 +79,7 @@
                                             <div class="d-flex flex-row mt-4 mb-4 ml-4">
                                                 <div  style="padding-left:20px">
                                                     <h6 class="mt-0 mb-1 font-weight-bold text-white" >Total Products PV</h6>
-                                                    <div class="mt-1 text-dark-heading text-white float-right">{{ totalProductPV }} PV</div>
+                                                    <div class="mt-1 text-dark-heading text-white float-right">{{ totalProductPV?.toLocaleString('en-US') }} PV</div>
                                                 </div>
                                             </div>
                                         </div>

@@ -14,13 +14,14 @@
                                 <div class="col-lg-6">
                                     <div class="form-group has-icon"><i class="icon-user"></i>
                                         <input type="text" v-model="form.email" class="form-control form-control-lg no-b"
-                                            placeholder="email">
+                                            placeholder="email" >
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="form-group has-icon"><i class="icon-lock"></i>
                                         <input type="password" v-model="form.password" class="form-control form-control-lg no-b"
                                             placeholder="Password">
+                                            
                                     </div>
                                 </div>
                                 <div class="col-lg-12">
@@ -30,10 +31,10 @@
                             </div>
                         </form>
                         <div class="row">
-                            <div class="text-center">
+                            <div class="text-center ml-3">
                                 <p class="forget-pass text-white text-center">Have you forgotten your username or password ? 
-                                    <a href="" :style="{'text-decoration':'none'}" class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapse1" aria-expanded="true" aria-controls="collapseOne">
-                                        <b>Retrieve Here</b>
+                                    <a href="" class="font-weight-bold" :style="{'text-decoration':'none'}"  data-toggle="collapse" data-target="#collapse1" aria-expanded="true" aria-controls="collapseOne">
+                                        Retrieve Here
                                     </a>
                                 </p>
                             </div>

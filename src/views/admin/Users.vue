@@ -10,12 +10,19 @@
                                     <ul class="nav nav-tabs card-header-tabs nav-material">
                                         <li class="nav-item">
                                             <a class="nav-link text-green" id="w1-tab1" data-toggle="tab" >MEMBERS INFORMATION</a>
-                                        </li>	
+                                        </li>
+	
                                     </ul>
                                 </div>
                             </div>
                         </div>
                         <div class="card-body ">
+                            <div class=" mb-3" style="float:right">
+                                <form class="form-inline my-2 my-lg-0 ">
+                                    <input class="form-control mr-sm-2" type="search" placeholder="" aria-label="Search">
+                                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                                </form>
+                            </div>
                             <div class="table-responsive">
                                 <table id="example2" class="table table-bordered table-hover data-tables" data-options='{ "paging": false; "searching":false}'>
                                     <thead>
@@ -44,7 +51,7 @@
                                                 <td colspan="7">There are no users</td>
                                             </tr>
                                             <tr v-else v-for="user,i in users" :key="i">
-                                                <td>{{ ++i }}</td>
+                                                <td>{{ (usersPerPage * (usersCurrentPage - 1)) + ( ++i) }}</td>
                                                 <td> <img :src="imageURL(user.photo_path)" :style="{'width': '50px'}" class="img-responsive"/></td>
                                                 <td>{{ user.first_name }} {{ user.last_name }}</td>
                                                 <td>{{ user.username }}</td>
@@ -72,13 +79,15 @@
                                         </template>
                                     </tbody>
                                 </table>
+                                <br>
+                                <BasePaginator v-if="userAction" :action="userAction" :current_page="usersCurrentPage" :last_page="usersLastPage" :total_pages="usersTotalPages" :per_page="usersPerPage"></BasePaginator>
                             </div>
                         </div>
                     </div>
                 </div>				
             </div>	
         </div>
-        <Modal modal-id="user-profile" modal-title="User Profile" :modalSize="'xl'">
+        <Modal modal-id="user-profile" modal-title="" :modalSize="'xl'">
             <template v-if="user==null">
                 <b-skeleton-table
                     :rows="3"
@@ -88,7 +97,7 @@
             </template>
             <Profile v-else :user="user"/>
         </Modal>
-        <Modal modal-id="user-genealogy" modal-title="User Genealogy" modal-size="xl">
+        <Modal modal-id="user-genealogy" modal-title="" modal-size="xl">
             <template v-if="user==null">
                 <b-skeleton-table
                     :rows="3"
@@ -99,7 +108,7 @@
             <Genealogy v-else :user="user"/>
         </Modal>
         
-        <Modal modal-id="user-bank-details" modal-title="User Bank details" modal-size="md">
+        <Modal modal-id="user-bank-details" modal-title="" modal-size="md">
             <template v-if="user==null">
                 <b-skeleton-table
                     :rows="3"
@@ -109,7 +118,7 @@
             </template>
             <EditBankDetails v-else :user="user"/>
         </Modal>
-        <Modal modal-id="user-password" modal-title="User Password" modal-size="lg">
+        <Modal modal-id="user-password" modal-title="" modal-size="lg">
             <template v-if="user==null">
                 <b-skeleton-table
                     :rows="3"
@@ -119,7 +128,7 @@
             </template>
             <EditPassword v-else :user="user"/>
         </Modal>
-        <Modal modal-id="user-2fa" modal-title="Login 2FA Authentication" modal-size="lg">
+        <Modal modal-id="user-2fa" modal-title="" modal-size="lg">
             <template v-if="user==null">
                 <b-skeleton-table
                     :rows="3"
@@ -129,7 +138,7 @@
             </template>
             <Toggle2fa v-else :user="user"/>
         </Modal>
-        <Modal modal-id="send-message" modal-title="Send Message" modal-size="lg">
+        <Modal modal-id="send-message" modal-title="" modal-size="lg">
             <template v-if="user==null">
                 <b-skeleton-table
                     :rows="3"
@@ -139,7 +148,7 @@
             </template>
             <SendMessage v-else :user="user"/>
         </Modal>
-        <Modal modal-id="user-wallet" modal-title="User Wallet" modal-size="xl">
+        <Modal modal-id="user-wallet" modal-title="" modal-size="xl">
             <template v-if="user==null">
                 <b-skeleton-table
                     :rows="3"
@@ -149,7 +158,7 @@
             </template>
             <Wallet v-else :user="user"/>
         </Modal>
-        <Modal modal-id="user-dashboard" modal-title="User Dashboard" modal-size="xl">
+        <Modal modal-id="user-dashboard" modal-title="" modal-size="xl">
             <template v-if="user==null">
                 <b-skeleton-table
                     :rows="3"
@@ -173,6 +182,7 @@
     import Toggle2fa from '@/components/user/Toggle2fa.vue';
     import SendMessage from '@/components/user/SendMessage.vue';
     import Wallet from '@/components/user/Wallet.vue';
+    import BasePaginator from '@/components/BasePaginator.vue';
 
     export default{
     name: "admin-users",
@@ -185,7 +195,8 @@
         Toggle2fa,
         SendMessage,
         Wallet,
-        Dashboard
+        Dashboard,
+        BasePaginator
     },
     data() {
         return {
@@ -198,7 +209,8 @@
             loading: state => state.loading,
             submitting: state => state.submitting
         }),
-        ...mapGetters("userStore", ["users"])
+        ...mapGetters("userStore", 
+        ["users",'userAction','usersCurrentPage','usersLastPage','usersPerPage','usersTotalPages'])
     },
     created() {
         if (this.users.length == 0) {
