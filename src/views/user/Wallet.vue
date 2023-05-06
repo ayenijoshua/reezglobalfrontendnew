@@ -299,7 +299,7 @@
                 'globalProfits','totalBonus','walletBalance']),
             ...mapGetters('authStore',['authUser']),
             ...mapGetters('withdrawalStore',['userWithdrawals','userTotalWithdrawals']),
-            ...mapGetters('settingsStore',['settings']),
+            ...mapGetters('settingStore',['settings']),
         },
 
         created(){
@@ -330,7 +330,7 @@
                 ...mapActions('authStore',['getUser']),
 
                 ...mapActions('withdrawalStore',['getUserTotal','getUserHistory','initiate']),
-                ...mapActions('settingsStore',['all']),
+                ...mapActions('settingStore',['all']),
 
             getBonuses(uuid){
                 this.getWelcomeBonus(uuid)
