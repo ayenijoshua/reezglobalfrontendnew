@@ -11,16 +11,28 @@
                                         <li class="nav-item">
                                             <a class="nav-link text-green" id="w1-tab1" data-toggle="tab" >MEMBERS INFORMATION</a>
                                         </li>
-	
                                     </ul>
                                 </div>
                             </div>
                         </div>
                         <div class="card-body ">
+                            <div class=" mb-3" style="float:left">
+                                <div class="dropdown">
+                                    <button class="btn btn-sm btn-success dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <i class="caret"></i>{{usersType.charAt(0).toUpperCase() + usersType.slice(1) }} Users
+                                    </button>
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="position:fixed">
+                                        <button @click="loadUsers('all')" class="dropdown-item text-green"> All Users</button>
+                                        <button @click="loadUsers('active')" class="dropdown-item text-green"> Active Users</button>
+                                        <button @click="loadUsers('inactive')" class="dropdown-item text-green">Inactive Users</button>
+                                    </div>
+                                </div>
+                            </div>
                             <div class=" mb-3" style="float:right">
-                                <form class="form-inline my-2 my-lg-0 ">
-                                    <input class="form-control mr-sm-2" type="search" placeholder="" aria-label="Search">
-                                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                                <form class="form-inline my-2 my-lg-0" @submit.prevent="search()">
+                                    <input v-model="searche" class="form-control float-left mr-sm-2" type="text" placeholder="" aria-label="Search">
+                                    <span v-if="loading" class="btn btn-outline-success my-2 my-sm-0">...</span>
+                                    <button v-else class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
                                 </form>
                             </div>
                             <div class="table-responsive">
@@ -30,6 +42,7 @@
                                             <th scope="col">S/N</th>
                                             <th scope="col">Profile Image</th>
                                             <th scope="col">Full Name</th>
+                                            <th scope="col">Email</th>
                                             <th scope="col">Username</th>
                                             <th scope="col">Package</th>
                                             <th scope="col">Date of Reg.</th>
@@ -38,22 +51,26 @@
                                     </thead>
                                     <tbody>
                                         <tr v-if="loading && usersLoading">
-                                            <td colspan="7">
+                                            <td colspan="8">
                                                 <b-skeleton-table
                                                     :rows="3"
-                                                    :columns="7"
+                                                    :columns="8"
                                                     :table-props="{ bordered: true, striped: true }"
                                                 ></b-skeleton-table>
                                             </td>
                                         </tr>
                                         <template v-else>
                                             <tr v-if="users.length == 0">
-                                                <td colspan="7">There are no users</td>
+                                                <td colspan="8"> 
+                                                    <span v-if="usersType=='all'">There are no users</span>
+                                                    <span v-else>There are no {{ usersType }} users</span>
+                                                </td>
                                             </tr>
                                             <tr v-else v-for="user,i in users" :key="i">
                                                 <td>{{ (usersPerPage * (usersCurrentPage - 1)) + ( ++i) }}</td>
                                                 <td> <img :src="imageURL(user.photo_path)" :style="{'width': '50px'}" class="img-responsive"/></td>
                                                 <td>{{ user.first_name }} {{ user.last_name }}</td>
+                                                <td>{{ user.email }}</td>
                                                 <td>{{ user.username }}</td>
                                                 <td>{{ user.name }}</td>
                                                 <td>{{ user.created_at }}</td>
@@ -201,7 +218,9 @@
     data() {
         return {
             user: null,
-            usersLoading:false
+            usersLoading:false,
+            searche:null,
+            usersType:'all'
         };
     },
     computed: {
@@ -215,18 +234,28 @@
     created() {
         if (this.users.length == 0) {
             this.usersLoading = true
-            this.getUsers().then(()=>this.usersLoading = false);
+            this.getUsers({page:null,type:null}).then(()=>this.usersLoading = false);
         }
     },
     methods: {
-        ...mapActions("userStore", ["getUsers"]),
+        ...mapActions("userStore", ["getUsers",'searchUsers']),
+
         setUser(user) {
             this.user = user;
         },
 
         imageURL(image){
             return image ? process.env.VUE_APP_IMAGE_PATH+'/'+image : '/assets/img/mock-image.jpeg'
-        }  
+        },
+
+        search(){
+            this.searchUsers({search:this.searche})
+        },
+
+        loadUsers(type){
+            this.usersType = type
+            this.getUsers({page:1,type})
+        }
     },
     
 }

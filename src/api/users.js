@@ -3,8 +3,8 @@ import {http} from './axios-config'
 
 export default {
 
-    users(page=null){
-        return http().get(`${endPoints.users}?page=${page}`)
+    users(page=null,type=null){
+        return http().get(`${endPoints.users}?page=${page}&type=${type}`)
     },
 
     user(uuid){
@@ -121,5 +121,13 @@ export default {
 
     sumPaidUsers(){
         return http().get(`${endPoints.users}/sum-paid-users`)
+    },
+
+    search(search,page){
+        return http().get(`${endPoints.users}/search?page=${page}&search=${search}`)
+    },
+
+    searchPaidUsers(search,page){
+        return http().get(`${endPoints.users}/search-paid-users?page=${page}&search=${search}`)
     }
 }

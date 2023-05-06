@@ -8,7 +8,7 @@
                             <img class="mr-3  r-3" src="/assets/img/incentive.png"  width="70px" height="70px">
                         </div>
                         <small class="mt-0text-white" >Incentives Requests</small>
-                        <p class="text-dark-heading font-weight-bold text-white"><span style="font-size:32px">7</span></p>
+                        <p class="text-dark-heading font-weight-bold text-white"><span style="font-size:32px">{{incentiveClaims.length}}</span></p>
                     </div>
                 </div>
             </div>

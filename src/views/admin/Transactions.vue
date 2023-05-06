@@ -45,9 +45,10 @@
                                                 </div>
                                                 <div class="card-body" style="overflow-x:auto;">
                                                     <div class=" mb-3" style="float:right">
-                                                        <form class="form-inline my-2 my-lg-0 ">
-                                                            <input class="form-control mr-sm-2" type="search" placeholder="" aria-label="Search">
-                                                            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                                                        <form class="form-inline my-2 my-lg-0" @submit.prevent="searchWithdraws()">
+                                                            <input v-model="searchParam" class="form-control mr-sm-2" type="search" placeholder="">
+                                                            <span v-if="loading" class="btn btn-outline-success my-2 my-sm-0">...</span>
+                                                            <button v-else class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
                                                         </form>
                                                     </div>
                                                     <table id="example2" class="table table-bordered table-hover data-tables"
@@ -125,9 +126,10 @@
                                                 </div>
                                                 <div class="card-body" style="overflow-x:auto;">
                                                     <div class=" mb-3" style="float:right">
-                                                        <form class="form-inline my-2 my-lg-0 ">
-                                                            <input class="form-control mr-sm-2" type="search" placeholder="" aria-label="Search">
-                                                            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                                                        <form class="form-inline my-2 my-lg-0" @submit.prevent=" searchRegs()">
+                                                            <input required v-model="regSearchParam" class="form-control mr-sm-2" type="search" placeholder="" aria-label="Search">
+                                                            <span v-if="loading" class="btn btn-outline-success my-2 my-sm-0">...</span>
+                                                            <button v-else class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
                                                         </form>
                                                     </div>
                                                     <table id="example2" class="table table-bordered table-hover data-tables"
@@ -201,7 +203,9 @@ import BasePaginator from '@/components/BasePaginator.vue';
     data(){
         return {
             withdrawalsLoading:false,
-            paidUsersLoading:false
+            paidUsersLoading:false,
+            searchParam:null,
+            regSearchParam:null
         }
     },
 
@@ -234,8 +238,16 @@ import BasePaginator from '@/components/BasePaginator.vue';
     },
 
     methods:{
-        ...mapActions('withdrawalStore',['all','getTotal']),
-        ...mapActions('userStore',['getPaidUsers','getTotalPaidUsers','getSumPaidUsers'])
+        ...mapActions('withdrawalStore',['all','getTotal','searchWithdrawals']),
+        ...mapActions('userStore',['getPaidUsers','getTotalPaidUsers','getSumPaidUsers','searchPaidUsers']),
+
+        searchWithdraws(){
+            this.searchWithdrawals({page:1,query:this.searchParam})
+        },
+
+        searchRegs(){
+            this.searchPaidUsers({page:1,search:this.regSearchParam})
+        }
     }
  }
 </script>

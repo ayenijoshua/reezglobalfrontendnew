@@ -5,10 +5,10 @@ import { notification } from '@/util/notification'
 
 export default {
 
-    async all({commit}){
+    async all({commit},page=null){
         try {
             commit('loading',null,{root:true})
-            const res = await api.all()
+            const res = await api.all(page)
             if(res && res.status==200){
                 commit('withdrawals',res.data.data.data)
             }else{
@@ -18,6 +18,22 @@ export default {
             return res
         } catch (error) {
             LogError(commit,error,'loaded')
+        }
+    },
+
+    async searchWithdrawals({commit},{query,page=null}){
+        var res;
+        try {
+            commit('loading',null,{root:true})
+            res = await api.search(query,page)
+            if(res.status==200){
+                commit('withdrawals',res.data.data.data)
+            }else{
+                toastr.warning(res.data.message)
+            }
+            commit('loaded',null,{root:true})
+        } catch (err) {
+            LogError(commit,err,'loaded')
         }
     },
 
@@ -99,4 +115,6 @@ export default {
             LogError(commit,err,'loaded')
         }
     },
+
+    
 }

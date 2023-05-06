@@ -46,6 +46,10 @@
       query_data:{
         type:Object,
         required:false
+      },
+      usersType:{
+        type:String,
+        defafult:'all',
       }
     },
 
@@ -57,7 +61,7 @@
 
     methods: {
       firstPage() {
-        this.$store.dispatch(this.action, this.setParameter(1)).then(() => {
+        this.$store.dispatch(this.action, {page:this.setParameter(1),type:this.usersType}).then(() => {
           // this.$router.push({
           //   path: this.path,
           //   query: { page: 1 },
@@ -65,7 +69,7 @@
         });
       },
       prevPage() {
-        this.$store.dispatch(this.action, this.setParameter(this.current_page - 1)).then(() => {
+        this.$store.dispatch(this.action, {page:this.setParameter(this.current_page - 1),type:this.usersType}).then(() => {
           // this.$router.push({
           //   path: this.path,
           //   query: { page: this.current_page - 1 },
@@ -73,7 +77,7 @@
         });
       },
       nextPage() {
-        this.$store.dispatch(this.action, this.setParameter(this.current_page + 1) ).then(() => {
+        this.$store.dispatch(this.action, {page:this.setParameter(this.current_page + 1),type:this.usersType} ).then(() => {
           // this.$router.push({
           //   path: this.path,
           //   query: { page: this.current_page + 1 },
@@ -81,7 +85,7 @@
         });
       },
       lastPage() {
-        this.$store.dispatch(this.action, this.setParameter(this.last_page)).then(() => {
+        this.$store.dispatch(this.action, {page:this.setParameter(this.last_page),type:this.usersType}).then(() => {
           // this.$router.push({
           //   path: this.path,
           //   query: { page: this.last_page },

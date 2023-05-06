@@ -4,15 +4,37 @@ import { LogError,processResponse } from '@/util/responseHandler'
 
 export default {
 
-    async getUsers({commit},page=null){
+    async getUsers({commit},{page=null,type=null}){
         try {
             //alert()
             commit('loading',null,{root:true})
-            const res = await api.users(page)
+            const res = await api.users(page,type)
             if(res.status==200){
                 commit('users',res.data.data.data)
 
                 commit('userAction','userStore/getUsers')
+                commit('userState',res.data.data.data)
+                commit('usersCurrentPage',res.data.data.current_page)
+                commit('usersLastPage',res.data.data.last_page)
+                commit('usersPerPage',res.data.data.per_page)
+                commit('usersTotalPages',res.data.data.total)
+            }else{
+                notification.error(res.message)
+            }
+            commit('loaded',null,{root:true})
+        } catch (error) {
+            LogError(commit,error,'loaded')
+        }
+    },
+
+    async searchUsers({commit},{page=null,search}){
+        try {
+            commit('loading',null,{root:true})
+            const res = await api.search(search,page)
+            if(res.status==200){
+                commit('users',res.data.data.data)
+
+                commit('userAction','userStore/searchUsers')
                 commit('userState',res.data.data.data)
                 commit('usersCurrentPage',res.data.data.current_page)
                 commit('usersLastPage',res.data.data.last_page)
@@ -368,6 +390,27 @@ export default {
                 commit('paidUsers',res.data.data.data)
 
                 commit('paidUserAction','userStore/getPaidUsers')
+                commit('paidUsersCurrentPage',res.data.data.current_page)
+                commit('paidUsersLastPage',res.data.data.last_page)
+                commit('paidUsersPerPage',res.data.data.per_page)
+                commit('paidUsersTotalPages',res.data.data.total)
+            }
+            
+            commit('loaded',null,{root:true})
+            return res
+        } catch (error) {
+            LogError(commit,error,'loaded')
+        }
+    },
+
+    async searchPaidUsers({commit},{page=null,search}){
+        try {
+            commit('loading',null,{root:true})
+            const res = await api.searchPaidUsers(page,search)
+            if(res.status == 200){
+                commit('paidUsers',res.data.data.data)
+
+                commit('paidUserAction','userStore/searchPaidUsers')
                 commit('paidUsersCurrentPage',res.data.data.current_page)
                 commit('paidUsersLastPage',res.data.data.last_page)
                 commit('paidUsersPerPage',res.data.data.per_page)

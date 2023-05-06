@@ -120,7 +120,7 @@
                             <span class="green-text">Settings</span>
                             <i class="icon icon-angle-left s-18 pull-right"></i>
                         </a>
-                        <ul class="treeview-menu">
+                        <ul class="treeview-menu menu-open" style="display:block">
                             <li>
                                 <router-link :to="{name:'referral-bonus-settings'}" :style="{'text-decoration': 'none'}">
                                     <i class="icon icon-arrow-right"></i>Referral Bonus Settings

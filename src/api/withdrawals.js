@@ -11,6 +11,10 @@ export default {
         return http().get(`${endPoints.withdrawals}/all`)
     },
 
+    search(search,page){
+        return http().get(`${endPoints.withdrawals}/search?search=${search}&page=${page}`)
+    },
+
     userHistory(uuid){
         return http().get(`${endPoints.withdrawals}/${uuid}/user-history`)
     },

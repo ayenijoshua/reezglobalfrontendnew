@@ -2,7 +2,7 @@
     <div>
         <div class="animated">				
             <div class="row my-3">
-                <div class="col-md-6">
+                <div class="col-md-12">
                     <div class="card">
                         <div class="card-header bg-white">
                             <h6 class="green-text"><strong class="font-weight-bold">OFFICIAL POINT VALUE RATE</strong></h6>
@@ -25,26 +25,9 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6">
-                    <div class="card">
-                        <div class="card-body" style="overflow-x:auto;">
-                            <div class="card no-b  no-r">
-                                <div class="card-body no-gutters">
-                                    <div class="text-center mb-3"><img  src="/assets/img/wallet1.png" width="80px"  height="80px">
-                                    <h5 class="s-36 font-weight-bold mt-2 text-green">₦ {{ availableBalance?.toLocaleString('en-US') }}</h5>
-                                    <h6 class="mt-1 s-8 font-weight-bold">Balance On Fincra<br></h6></div>
-                                    <div class="form-row ml-1">
-                                        <button class="btn btn-sm btn-success btn-lg" @click="reloadBalance()"><i class="icon-save mr-2"></i>Reload Data</button>
-                                    </div>
-                                </div>	
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
 
             <div class="row my-3">
-
                 <div class="col-md-6">
                     <div class="card">
                         <div class="card-body" style="overflow-x:auto;">
@@ -101,6 +84,70 @@
                                 </div>	
                             </div>
                         </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row my-3">
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-body" style="overflow-x:auto;">
+                            <div class="card no-b  no-r">
+                                <div class="card-body no-gutters">
+                                    <div class="text-center mb-3"><img  src="/assets/img/wallet1.png" width="80px"  height="80px">
+                                    <h5 class="s-36 font-weight-bold mt-2 text-green">₦ {{ availableBalance?.toLocaleString('en-US') }}</h5>
+                                    <h6 class="mt-1 s-8 font-weight-bold">Balance On Fincra<br></h6></div>
+                                    <div class="form-row ml-1">
+                                        <button class="btn btn-sm btn-success btn-lg" @click="reloadBalance()"><i class="icon-save mr-2"></i>Reload Data</button>
+                                    </div>
+                                </div>	
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="com-md-6">
+                    <div class="card">
+                        <div class="card-body" style="overflow-x:auto;">
+                            <form @submit.prevent="submit()">
+                                <div class="card no-b  no-r">
+                                    <div class="card-body no-gutters">
+                                        <div class="text-center mb-3"><img  src="/assets/img/equil.png" width="80px"  height="80px">
+                                        <h6 class="mt-1 s-8 font-weight-bold">Withdrawal Charge Settings</h6></div>
+                                        <div class="form-row mb-3">
+                                            <div class="col-md-12 mb-2">
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <div class="input-group-text"><i class="icon icon-phone float-left s-20 green-text " ></i></div>
+                                                    </div>
+                                                    <select v-model="withdrawalCharge.withdrawal_charge_type" class="form-control r-0 light s-12">
+                                                        <template v-if="!settings.withdrawal_charge_type">
+                                                            <option :value="null">Select charge type</option>
+                                                        </template>
+                                                        <template>
+                                                            <option :selected="settings.withdrawal_charge_type=='percentage'" value="percentage">Percentage</option>
+                                                            <option :selected="settings.withdrawal_charge_type=='flat'" value="flat">Flat</option>
+                                                        </template>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12 mb-2">
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <div class="input-group-text"><i class="icon icon-email float-left s-20 green-text " ></i></div>
+                                                    </div>
+                                                    <input v-model="withdrawalCharge.withdrawal_charge" class="form-control r-0 light s-12" required placeholder="Withdrawal Charge">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-row ml-1">
+                                            <span v-if="submitting && withdrawalChargeSubmitting" class="btn btn-sm btn-success btn-lg">...</span>
+                                            <button v-else type="submit" disabled class="btn btn-sm btn-success btn-lg"><i class="icon-save mr-2"></i>Update Data</button>
+                                        </div>
+                                    </div>	
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -168,6 +215,12 @@ import Modal from '@/components/Modal.vue';
 
                 minWithSubmitting:false,
                 maxWithSubmitting:false,
+                withdrawalChargeSubmitting:false,
+
+                withdrawalCharge:{
+                    withdrawal_charge_type:null,
+                    withdrawal_charge:null
+                }
 
             }
         },
@@ -189,12 +242,16 @@ import Modal from '@/components/Modal.vue';
                         this.unitPV.unit_point_value = this.settings.unit_point_value
                         this.minWithdrawal.minimum_withdrawal = this.settings.minimum_withdrawal
                         this.maxWithdrawal.maximum_withdrawal = this.settings.maximum_withdrawal
+                        this.withdrawalCharge.withdrawal_charge = this.settings.withdrawal_charge
+                        this.withdrawalCharge.withdrawal_charge_type = this.settings.withdrawal_charge_type
                     }
                 })
             }else{
                 this.unitPV.unit_point_value = this.settings.unit_point_value
                 this.minWithdrawal.minimum_withdrawal = this.settings.minimum_withdrawal
                 this.maxWithdrawal.maximum_withdrawal = this.settings.maximum_withdrawal
+                this.withdrawalCharge.withdrawal_charge = this.settings.withdrawal_charge
+                this.withdrawalCharge.withdrawal_charge_type = this.settings.withdrawal_charge_type
             }
 
             this.getWalletBalance().then(res=>{
@@ -216,7 +273,6 @@ import Modal from '@/components/Modal.vue';
                 })
             },
 
-            
             updateMaxWithrawal(){
                 this.maxWithSubmitting = true
                 this.update(this.maxWithdrawal).then(res=>{
@@ -239,7 +295,12 @@ import Modal from '@/components/Modal.vue';
 
             reloadBalance(){
                 this.getWalletBalance()
+            },
+
+            updateWithdrawalChagre(){
+                this.update(this.withdrawalCharge)
             }
+            
         }
     }
 </script>
