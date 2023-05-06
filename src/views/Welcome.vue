@@ -91,15 +91,15 @@
                     <div class="row mt-2">
                         <div class="col-md-12">
                             <div class="text-center mt-3">
-                            <small class="text-green mt-4">kindly be reminded that there is a <span class="font-weight-bold">7-day time limit</span> for completing your registration,so please finish the remaining part as soon as possible to avoid missing out.</small>
+                            <small class="text-green mt-4 mb-3">kindly be reminded that there is a <span class="font-weight-bold">7-day time limit</span> for completing your registration,so please finish the remaining part as soon as possible to avoid missing out.</small>
                                 <div class="text-center mt-3">
-                                    <div id="timer" class="flex-wrap d-flex justify-content-center mt-3" >
+                                    <div id="timer" class="flex-wrap d-flex justify-content-center mt-3"  style="padding-top: 30px;">
                                         <VueCountdown :time="getTime">
                                             <template slot-scope="props">
-                                                <div style="width: 200px !important;" id="days" class="align-items-center flex-column d-flex justify-content-center">{{ props.days }}</div>
-                                                <div id="hours" class="align-items-center flex-column d-flex justify-content-center">{{ props.hours }}</div>
-                                                <div id="minutes" class="align-items-center flex-column d-flex justify-content-center">{{ props.minutes }}</div>
-                                                <div id="seconds" class="align-items-center flex-column d-flex justify-content-center">{{ props.seconds }}</div>
+                                                <div style="width: 200px !important; padding-right:20px; padding-left:20px; padding-top:20px; padding-bottom:20px;" id="days" class="align-items-center flex-column d-flex justify-content-center">{{ props.days }}&nbsp;&nbsp;DAYS</div>  
+                                                <div style="width: 200px !important; padding-right:20px; padding-left:20px; padding-top:20px; padding-bottom:20px;" id="hours" class="align-items-center flex-column d-flex justify-content-center">{{ props.hours }}&nbsp;&nbsp;HOURS</div>
+                                                <div style="width: 200px !important; padding-right:20px; padding-left:20px; padding-top:20px; padding-bottom:20px;" id="minutes" class="align-items-center flex-column d-flex justify-content-center">{{ props.minutes }}&nbsp;&nbsp;MINUTES</div>
+                                                <div style="width: 200px !important; padding-right:20px; padding-left:20px; padding-top:20px; padding-bottom:20px;" id="seconds" class="align-items-center flex-column d-flex justify-content-center">{{ props.seconds }}&nbsp;&nbsp;SECONDS</div>
                                             </template>
                                             <!---<template slot-scope="props">Time Remaining：{{ props.days }} days, {{ props.hours }} hours, {{ props.minutes }} minutes, {{ props.seconds }} seconds.</template>-->
                                         </VueCountdown>
@@ -330,6 +330,42 @@
             font-size: 14px;
         }
     }
+
+/*-=-=-=-=-=-=-=-=-=-=-=- */
+/* Column Grids */
+/*-=-=-=-=-=-=-=-=-=-=-=- */
+
+.col_half { width: 49%; }
+.col_third { width: 32%; }
+.col_fourth { width: 23.5%; }
+.col_fifth { width: 18.4%; }
+.col_sixth { width: 15%; }
+.col_three_fourth { width: 74.5%;}
+.col_twothird{ width: 66%;}
+.col_half,
+.col_third,
+.col_twothird,
+.col_fourth,
+.col_three_fourth,
+.col_fifth{
+  position: relative;
+  display:inline;
+  display: inline-block;
+  float: left;
+  margin-right: 2%;
+  margin-bottom: 20px;
+}
+.end { margin-right: 0 !important; }
+/* Column Grids End */
+
+.wrapper { width: 980px; margin: 30px auto; position: relative;}
+.counter { background-color: #ffffff; padding: 20px 0; border-radius: 5px;}
+.count-title { font-size: 40px; font-weight: normal;  margin-top: 10px; margin-bottom: 0; text-align: center; }
+.count-text { font-size: 13px; font-weight: normal;  margin-top: 10px; margin-bottom: 0; text-align: center; }
+.fa-2x { margin: 0 auto; float: none; display: table; color: #4ad1e5; }
+
+
+
 </style>
 
 <script>

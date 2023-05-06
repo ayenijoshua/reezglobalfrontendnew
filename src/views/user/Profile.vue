@@ -153,11 +153,15 @@
                                                                                         <div class="dropbox">
                                                                                             <input v-b-popover.hover.top="'Drag your photo here or click to browse'" required type="file" title="profile photo" name="image" @change="filesChange($event.target.files);" class="form-control form-control-line input-file">
                                                                                             <p id="img-preview" >
-                                                                                                Drag your photo here<br> or click to browse
+                                                                                                Drag your photo here<br> or click to browse<br>
+                                                                                                <span style="font-size: 10px;">Image size should not exceed 500kB</span>
                                                                                             </p>
+                                                                                            
                                                                                         </div>
+                                                                                        
                                                                                         <!-- <input type="file" name="image" title="profile photo" class="form-control r-0 light s-12" placeholder="Profile photo"> -->
                                                                                     </div>
+                                                                                    
                                                                                 </div>
                                                                             </div>
                                                                             <div class="form-group m-0">

@@ -44,6 +44,12 @@
                                                     <h4 class="green-text"><strong class="font-weight-bold">Withdrawal Details</strong></h4>
                                                 </div>
                                                 <div class="card-body" style="overflow-x:auto;">
+                                                    <div class=" mb-3" style="float:right">
+                                                        <form class="form-inline my-2 my-lg-0 ">
+                                                            <input class="form-control mr-sm-2" type="search" placeholder="" aria-label="Search">
+                                                            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                                                        </form>
+                                                    </div>
                                                     <table id="example2" class="table table-bordered table-hover data-tables"
                                                         data-options='{ "paging": false; "searching":false}'>
                                                         <thead>
@@ -118,6 +124,12 @@
                                                     <h4 class="green-text"><strong class="font-weight-bold">Registration Details</strong></h4>
                                                 </div>
                                                 <div class="card-body" style="overflow-x:auto;">
+                                                    <div class=" mb-3" style="float:right">
+                                                        <form class="form-inline my-2 my-lg-0 ">
+                                                            <input class="form-control mr-sm-2" type="search" placeholder="" aria-label="Search">
+                                                            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                                                        </form>
+                                                    </div>
                                                     <table id="example2" class="table table-bordered table-hover data-tables"
                                                         data-options='{ "paging": false; "searching":false}'>
                                                         <thead>

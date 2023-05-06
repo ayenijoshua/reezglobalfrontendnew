@@ -10,12 +10,19 @@
                                     <ul class="nav nav-tabs card-header-tabs nav-material">
                                         <li class="nav-item">
                                             <a class="nav-link text-green" id="w1-tab1" data-toggle="tab" >MEMBERS INFORMATION</a>
-                                        </li>	
+                                        </li>
+	
                                     </ul>
                                 </div>
                             </div>
                         </div>
                         <div class="card-body ">
+                            <div class=" mb-3" style="float:right">
+                                <form class="form-inline my-2 my-lg-0 ">
+                                    <input class="form-control mr-sm-2" type="search" placeholder="" aria-label="Search">
+                                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                                </form>
+                            </div>
                             <div class="table-responsive">
                                 <table id="example2" class="table table-bordered table-hover data-tables" data-options='{ "paging": false; "searching":false}'>
                                     <thead>
