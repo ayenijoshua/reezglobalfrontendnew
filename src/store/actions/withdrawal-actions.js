@@ -37,6 +37,22 @@ export default {
         }
     },
 
+    async getUserPendingWithdrawals({commit},uuid){
+        var res;
+        try {
+            commit('loading',null,{root:true})
+            res = await api.userPendingWithdrawals(uuid)
+            if(res.status==200){
+                commit('userPendingWithdrawals',res.data.data)
+            }else{
+                toastr.warning(res.data.message)
+            }
+            commit('loaded',null,{root:true})
+        } catch (err) {
+            LogError(commit,err,'loaded')
+        }
+    },
+
     async getDetails({commit},id){
         try {
             commit('loading',null,{root:true})

@@ -10,7 +10,8 @@ export default{
             userWithdrawals:[],
             totalWithdrawals:null,
             userTotalWithdrawals:null,
-            withdrawal:{}
+            withdrawal:{},
+            userPendingWithdrawals:[]
         }
     },
     actions:{

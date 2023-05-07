@@ -197,11 +197,6 @@
                                     <div class="card no-b">
                                         <div class="card-header bg-white">
                                             <h4 class="green-text"><strong class="font-weight-bold">Notification</strong></h4>
-                                            <div v-if="settings.charge">
-                                                <small v-if="settings.withdrawal_charge_type=='percentage'">You will be charged {{ settings.charge }} % of your withdrawal amount</small>
-                                                <small class="mb-3">You will be charge ₦{{ settings.charge }} for your withdrawal.</small><br>
-                                                <b><i>Please note that these charges are bank charges from our third party providers</i></b>
-                                            </div>
                                         </div>
                                         <div class="collapse show text-center" id="invoiceCard">
                                             <div class="col-md-4">
@@ -210,6 +205,11 @@
                                                 </div>
                                             </div>
                                             <div class="card-body  text-center">
+                                                <div v-if="settings.charge">
+                                                    <small v-if="settings.withdrawal_charge_type=='percentage'">You will be charged {{ settings.charge }} % of your withdrawal amount</small>
+                                                    <small class="mb-3">You will be charge ₦{{ settings.charge }} for your withdrawal.</small><br>
+                                                    <b><i>Please note that these charges are bank charges from our third party providers</i></b>
+                                                </div>
                                                 <small><br>  Minimum withdrawal is ₦{{ settings.minimum_withdrawal?.toLocaleString('en-US') }}.</small>
                                             </div>                                            
                                         </div>
@@ -247,16 +247,27 @@
                                                                     </tr>
 
                                                                     <template v-else>
-                                                                        <tr v-if="userWithdrawals.length == 0">
-                                                                            <td colspan="5">There are no withdrawals</td>
-                                                                        </tr>
-                                                                        <tr v-else v-for="withdraw,i in userWithdrawals" :key="i">
-                                                                            <td>{{ ++i }}</td>
-                                                                            <td>₦{{ withdraw.amount?.toLocaleString('en-US') }}</td>
-                                                                            <td>₦{{ withdraw.fee?.toLocaleString('en-US') }}</td>
-                                                                            <td>{{ withdraw.status }}</td>
-                                                                            <td>{{ withdraw.created_at }}</td>
-                                                                        </tr>
+                                                                        <template v-if="userPendingWithdrawals.length > 0">
+                                                                            <tr v-for="withdraw,i in userPendingWithdrawals" :key="i">
+                                                                                <td>{{ ++i }}</td>
+                                                                                <td>₦{{ withdraw.amount?.toLocaleString('en-US') }}</td>
+                                                                                <td>₦{{ withdraw.fee?.toLocaleString('en-US') }}</td>
+                                                                                <td>{{ withdraw.txn_status }}</td>
+                                                                                <td>{{ withdraw.created_at }}</td>
+                                                                            </tr>
+                                                                        </template>
+                                                                        <template>
+                                                                            <tr v-if="userWithdrawals.length == 0 && userPendingWithdrawals.length == 0">
+                                                                                <td colspan="5">There are no withdrawals</td>
+                                                                            </tr>
+                                                                            <tr v-else v-for="withdraw,i in userWithdrawals" :key="i">
+                                                                                <td>{{ ++i }}</td>
+                                                                                <td>₦{{ withdraw.amount?.toLocaleString('en-US') }}</td>
+                                                                                <td>₦{{ withdraw.fee?.toLocaleString('en-US') }}</td>
+                                                                                <td>{{ withdraw.status }}</td>
+                                                                                <td>{{ withdraw.created_at }}</td>
+                                                                            </tr>
+                                                                        </template>
                                                                     </template>
                                                                     <tr><th colspan="5">Total withdrawals (TW)</th><td>₦{{ userTotalWithdrawals?.toLocaleString('en-US') }}</td></tr>
                                                                 </tbody>
@@ -289,7 +300,6 @@ import { mapActions,mapState,mapGetters } from 'vuex';
                 form:{
                     amount:''
                 }
-                
             }
         },
 
@@ -305,7 +315,7 @@ import { mapActions,mapState,mapGetters } from 'vuex';
                 'profitPool','profitPools','globalProfit','placementBonus',
                 'globalProfits','totalBonus','walletBalance']),
             ...mapGetters('authStore',['authUser']),
-            ...mapGetters('withdrawalStore',['userWithdrawals','userTotalWithdrawals']),
+            ...mapGetters('withdrawalStore',['userWithdrawals','userTotalWithdrawals','userPendingWithdrawals']),
             ...mapGetters('settingStore',['settings']),
         },
 
@@ -315,11 +325,19 @@ import { mapActions,mapState,mapGetters } from 'vuex';
                     this.getBonuses(res.data.uuid)
                     this.getUserTotal(res.data.uuid)
                     this.getUserHistory(res.data.uuid)
+                    this.getUserPendingWithdrawals(res.data.uuid)
                 })
             }else{
                 this.getBonuses(this.authUser.uuid)
-                this.getUserTotal(this.authUser.uuid)
-                this.getUserHistory(this.authUser.uuid)
+                if(!this.userTotalWithdrawals){
+                    this.getUserTotal(this.authUser.uuid)
+                }
+                if(this.userWithdrawals.length == 0){
+                    this.getUserHistory(this.authUser.uuid)
+                }
+                if(this.userPendingWithdrawals.length == 0){
+                    this.getUserPendingWithdrawals(this.authUser.uuid)
+                }
             }
 
             if(this.settings.id == undefined){
@@ -336,22 +354,44 @@ import { mapActions,mapState,mapGetters } from 'vuex';
 
                 ...mapActions('authStore',['getUser']),
 
-                ...mapActions('withdrawalStore',['getUserTotal','getUserHistory','initiate']),
+                ...mapActions('withdrawalStore',['getUserTotal','getUserHistory','initiate','getUserPendingWithdrawals']),
                 ...mapActions('settingStore',['all']),
 
             getBonuses(uuid){
-                this.getWelcomeBonus(uuid)
-                this.getEquilibrumBonus(uuid)
-                this.getLoyaltyBonus(uuid)
-                this.getReferralBonus(uuid)
-                this.getPlacementBonus(uuid)
-                this.getTotalBonus(uuid)
+                if(!this.welcomeBonus){
+                    this.getWelcomeBonus(uuid)
+                }
+                if(!this.equilibrumBonus){
+                    this.getEquilibrumBonus(uuid)
+                }
+                if(!this.loyaltyBonus){
+                    this.getLoyaltyBonus(uuid)
+                }
+                if(!this.referralBonus){
+                    this.getReferralBonus(uuid)
+                }
+                if(!this.placementBonus){
+                    this.getPlacementBonus(uuid)
+                }
+                if(!this.totalBonus){
+                    this.getTotalBonus(uuid)
+                }
+                if(!this.profitPool){
+                    this.getProfitPool(uuid)
+                }
+                if(!this.globalProfit){
+                    this.getGlobalProfit(uuid)
+                }
                 //this.getTotalPVs(uuid)
-                this.getProfitPool(uuid)
-                this.getGlobalProfit(uuid)
-                this.getProfitPools(uuid)
-                this.getGlobalProfits(uuid)
-                this.getWalletBalance(uuid)
+                if(!this.profitPools.length == 0){
+                    this.getProfitPools(uuid)
+                }
+                if(!this.globalProfits.length == 0){
+                    this.getGlobalProfits(uuid)
+                }
+                if(!this.walletBalance){
+                    this.getWalletBalance(uuid)
+                }
             },
 
             processWithdrawal()

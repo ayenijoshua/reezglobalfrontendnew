@@ -29,5 +29,9 @@ export default {
 
     details(id){
         return http().get(`${endPoints.withdrawals}/${id}/details`)
+    },
+
+    userPendingWithdrawals(uuid){
+        return http().get(`${endPoints.withdrawals}/${uuid}/pending`)
     }
 }

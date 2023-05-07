@@ -7,7 +7,7 @@
                     <form @submit.prevent="submit()">
                         <div class="card no-b  no-r">
                             <div class="card-body no-gutters">
-                                <div class="text-center mb-3"><img  src="/assets/img/equil.png" width="80px"  height="80px">
+                                <div class="text-center mb-3"><img  src="/assets/img/office-building.png" width="80px"  height="80px">
                                 <h6 class="mt-1 s-8 font-weight-bold">Company Details<br><small> Edit company details</small></h6></div>
                                 <div class="form-row mb-3">
                                     <div class="col-md-12 mb-2">

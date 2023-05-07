@@ -21,5 +21,9 @@ export default {
         return state.userTotalWithdrawals
     },
 
+    userPendingWithdrawals(state){
+        return state.userPendingWithdrawals
+    },
+
     
 }
