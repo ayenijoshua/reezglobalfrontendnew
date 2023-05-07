@@ -94,7 +94,7 @@
                             <small class="text-green mt-4 mb-3">kindly be reminded that there is a <span class="font-weight-bold">7-day time limit</span> for completing your registration,so please finish the remaining part as soon as possible to avoid missing out.</small>
                                 <div class="text-center mt-3">
                                     <div id="timer" class="flex-wrap d-flex justify-content-center mt-3"  style="padding-top: 30px;">
-                                        <VueCountdown :time="getTime">
+                                        <VueCountdown v-if="!loading" :time="getTime">
                                             <template slot-scope="props">
                                                 <div style="width: 200px !important; padding-right:20px; padding-left:20px; padding-top:20px; padding-bottom:20px;" id="days" class="align-items-center flex-column d-flex justify-content-center">{{ props.days }}&nbsp;&nbsp;DAYS</div>  
                                                 <div style="width: 200px !important; padding-right:20px; padding-left:20px; padding-top:20px; padding-bottom:20px;" id="hours" class="align-items-center flex-column d-flex justify-content-center">{{ props.hours }}&nbsp;&nbsp;HOURS</div>
@@ -205,17 +205,11 @@
                                                                         <div class="input-group-prepend">
                                                                             <div class="input-group-text"><i class="icon icon-account_balance float-left s-20 green-text " ></i></div>
                                                                         </div>
-                                                                        <select v-model="form.bank_name" required class="form-control r-1 light s-12">
-                                                                            <option value="">Select Bank</option>
-                                                                            <option value="Access Bank">Access Bank</option>
-                                                                            <option value="GTbank">GTbank</option>
-                                                                            <option value="Zenith Bank">Zenith Bank</option>
-                                                                            <option value="United Bank Of Africa">United Bank Of Africa</option>
-                                                                            <option value="First Bank">First Bank</option>
-                                                                            <option value="Union Bank">Union Bank</option>
-                                                                            <option value="Sterling Bank">Sterling Bank</option>
-                                                                            <option value="Keystone Bank">Keystone Bank</option>
-                                                                            <option value="Providus Bank">Providus Bank</option>														   
+                                                                        <select id="bank-select" v-model="form.bank_name" required class="form-control r-1 light s-12">
+                                                                            <option :value="null">Select Bank</option>
+                                                                            <option v-for="bank,i in banks" :value="bank.bank" :key="i" :selected="profile.bank_name == bank.bank">{{ bank.bank }}
+                                                                                
+                                                                            </option>														   
                                                                         </select>	   
                                                                     </div>
                                                                     <div class="input-group mb-3">
@@ -224,12 +218,12 @@
                                                                         </div>
                                                                         <input v-model="form.bank_account_number" required type="text" class="form-control r-1 light s-12" placeholder="Account No."> 
                                                                     </div>  
-                                                                    <div class="input-group ">
+                                                                    <!-- <div class="input-group ">
                                                                         <div class="input-group-prepend">
                                                                             <div class="input-group-text"><i class="icon icon-account_balance float-left s-20 green-text " ></i></div>
                                                                         </div>
-                                                                        <input v-model="form.bank_account_name" required type="text" class="form-control r-1 light s-12" placeholder="Account Name"> 
-                                                                    </div>
+                                                                        <input type="hidden" v-model="form.bank_account_name" required class="form-control r-1 light s-12" placeholder="Account Name"> 
+                                                                    </div> -->
                                                                     
                                                                     <div class="no-gutters">
                                                                         <div class="card-body text-center">
@@ -384,15 +378,20 @@
         data(){
             return {
                 form:{
-                    bank_account_name:'', //this.profile.id ? this.profile.bank_account_name : '',
-                    bank_account_number:'', //this.profile.id ? this.profile.bank_account_number : '',
-                    bank_name:'', //this.profile.id ? this.profile.bank_name : ''
+                    bank_account_name:null, //this.profile.id ? this.profile.bank_account_name : '',
+                    bank_account_number:null, //this.profile.id ? this.profile.bank_account_number : '',
+                    bank_name:null, //this.profile.id ? this.profile.bank_name : '',
+                    bank_code:null
                 },
                 payLink:null,
                 amount:null,
 
                 paySubmitting:false,
-                bankSubmitting:false
+                bankSubmitting:false,
+
+                banks:[],
+                bankCode:null,
+                bankName:null
             }
         },
 
@@ -404,7 +403,6 @@
 
             ...mapGetters('authStore',['authUser']),
             ...mapGetters('userStore',['profile']),
-            //...mapGetters('packageStore',['regPackage'])
 
             getTime(){
                 let userTime = new Date(this.authUser.created_at).getTime()
@@ -430,25 +428,69 @@
                 })
             })
 
+            this.fetchBanks().then(res=>{
+                if(res.status == 200){
+                    this.banks = res.data
+                }
+            })
+
             
         },
+
+        // watch:{
+        //     bankCode(val,oldVal){
+        //         console.log(oldVal)
+        //         this.form.bank_code = val
+        //     },
+        //     bankName(val,oldVal){
+        //         console.log(oldVal)
+        //         this.form.bank_name = val
+        //     }
+        // },
 
         methods:{
             ...mapActions('authStore',['getUser','logOut']),//getProfileDetails
             ...mapActions('userStore',['getProfileDetails','updateBankDetails']),
-            ...mapActions('paymentStore',['initiate','verify']),
+            ...mapActions('paymentStore',['initiate','verify','verifyBankDetails','fetchBanks']),
             ...mapActions('packageStore',['getPackage']),
 
             updateBank(){
                 var uuid = this.authUser.uuid;
                 let data = {uuid:uuid,data:this.form}
                 this.bankSubmitting = true
-                this.updateBankDetails(data).then(res=>{
-                    if(res.status==200){
-                        this.getProfileDetails(uuid)
+                let verifyData = {bank_name:this.form.bank_name,account_number:this.form.bank_account_number}
+                this.verifyBankDetails(verifyData).then(verRes=>{
+                    if(verRes.status==200){
+                        this.form.bank_code = verRes.data.data.bank_code
+                        this.form.bank_account_name = verRes.data.data.accountName
+                        this.updateBankDetails(data).then(res=>{
+                            if(res.status==200){
+                                this.getProfileDetails(uuid)
+                            }
+                            this.bankSubmitting = false
+                        })
                     }
-                    this.bankSubmitting = false
                 })
+            },
+
+            verifyBank(){
+                let verifyData = {bank_name:this.form.bank_name,bank_code:this.form.bank_code}
+                this.verifyBankDetails(verifyData)
+            },
+
+            setBankCode(){
+                var ele = document.getElementById('bank-select')
+                var val = ele.value
+                let bank_code = val.split('-')[1]
+                
+                this.form.bank_code = bank_code
+                
+                
+                //alert(this.form.bank_name)
+                ele.value = val.split('-')[0]
+                //ele.dispatchEvent(new Event('change'))
+                this.form.bank_name = val.split('-')[0]
+                this.$forceUpdate()
             },
 
             makePayment(){

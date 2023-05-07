@@ -1,3 +1,4 @@
+
 <template>
     <main>
         <div class="p-t-b-100 height-full bg-green" style="background-image: url('assets/img/bg-wall2.png');">
@@ -144,8 +145,10 @@
                                 </div> -->
                                 <div class="col-lg-12">
                                     <p class="text-center text-white">
-                                        <input required class="form-check-input" type="checkbox" value="true" id="cb1" style="margin-top: 0.5rem;" :style="{'accent-color': '#2E671A'}">Accept Our <a href="" class="font-weight-bold" target="blank" :style="{'text-decoration':'none'}" >Privacy Policy</a> and 
-                                        <a href="" class="font-weight-bold" target="blank" :style="{'text-decoration':'none'}">Terms</a>
+                                        <input v-b-modal.terms required class="form-check-input"  type="checkbox" value="true" id="cb1" style="margin-top: 0.5rem;" :style="{'accent-color': '#2E671A'}">
+                                        Accept Our 
+                                        <a v-b-modal.terms class="font-weight-bold" target="blank" :style="{'text-decoration':'none'}" >Terms</a> and 
+                                        <a href="https://delishcare.com/privacy" class="font-weight-bold" target="blank" :style="{'text-decoration':'none'}">Privacy Policy</a>
                                     </p>
                                     <span v-if="submitting" class="btn btn-success btn-lg btn-block">...</span>
                                     <input v-else type="submit" class="btn btn-success btn-lg btn-block" value="Register">
@@ -163,6 +166,119 @@
             </div>
         </div>
         <!-- #primary -->
+        <Modal modal-id="terms" modal-title="" modal-size="xl">
+            <!-- eslint-disable -->
+            <div class="body">
+                <header id="header" class="header-effect-shrink" data-plugin-options="{'stickyEnabled': true, 'stickyEffect': 'shrink', 'stickyEnableOnBoxed': true, 'stickyEnableOnMobile': true, 'stickyChangeLogo': true, 'stickyStartAt': 30, 'stickyHeaderContainerHeight': 70}">
+                    <div class="header-body">
+                        <div class="header-container container">
+                            <div class="header-row">
+                                <div class="header-column">
+                                    <div class="header-row">
+                                        <div class="header-logo">
+                                            <a href="https://delishcare.com">
+                                                <img alt="Porto" width="250px" height="auto" data-sticky-width="100%" data-sticky-height="48" src="https://delishcare.com/img/Delish1.png">
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </header>
+                <div role="main" class="main">
+                    <section class="page-header page-header-classic">
+                        <div class="container">
+                            <div class="row">
+                                
+                            </div>
+                            <div class="row">
+                                <div class="col p-static">
+                                    <h1 data-title-border>Terms and Conditions</h1>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    <div class="container py-2">
+                        <div class="row">
+                            <div class="col">
+                                <p>Thank you for choosing Delishcare. These terms and conditions outline the rules and regulations for the use of Delishcare's website located at https://delishcare.com/. By accessing this website, we assume you accept these terms and conditions in full. If you disagree with any part of these terms and conditions, do not use our website.</p>
+                                                            
+                                <h5 class="font-weight-bold">1. General Information</h5>
+                                <p>Delishcare is a website owned and operated by Delishcare Nigeria Limited, a company registered in Nigeria. Our platform offers online sales of health and wellness products as well as a compensation plan for registered members.</p>
+
+                                <h5 class="font-weight-bold">2. User Eligibility</h5>
+                                <p>You must be 18 years or older to use our website and purchase our products. By registering on our website, you confirm that you are of legal age to enter into a binding agreement with us. If you are registering on behalf of a company, you represent and warrant that you have the authority to bind the company to these terms and conditions.</p>
+                                
+                                <h5 class="font-weight-bold">3. Registration</h5>
+                                <p>To access the compensation plan and become a member, you must register on our website. You agree to provide accurate, complete, and up-to-date information during the registration process. You are solely responsible for maintaining the confidentiality of your account information and password. You agree to notify us immediately of any unauthorized use of your account or password.</p>
+                                
+                                <h5 class="font-weight-bold">4. Payment</h5>
+                                <p>All payments for products purchased on our website must be made online using a valid credit card, debit card, or any other payment method we may accept. We use a third-party payment processor to process your payment, and we do not store your payment details on our server.</p>
+                                
+                                <h5 class="font-weight-bold">5. Product Information</h5>
+                                <p>We make every effort to provide accurate and up-to-date information about our products. However, we do not guarantee that the product descriptions, images, or other content on our website are accurate, complete, or error-free. We reserve the right to modify the content of our website at any time without prior notice.</p>
+                                                            
+                                <h5 class="font-weight-bold">6. Intellectual Property</h5>
+                                <p>All content on our website, including text, images, graphics, logos, and software, is the property of Delishcare Nigeria Limited and is protected by Nigerian and international copyright laws. You may not reproduce, distribute, or transmit any content from our website without our prior written consent.</p>
+                                
+                                <h5 class="font-weight-bold">7. Compensation Plan</h5>
+                                <p>As a registered member, you are eligible to participate in our compensation plan. The details of the compensation plan are available on our website. By participating in our compensation plan, you agree to comply with all rules and regulations governing the plan.</p>
+                                
+                                <h5 class="font-weight-bold">8. Termination</h5>
+                                <p>AWe reserve the right to terminate your access to our website and our compensation plan at any time without prior notice. We may also terminate your account if we suspect that you have violated these terms and conditions or any applicable law.</p>
+                                
+                                <h5 class="font-weight-bold">9. Limitation of Liability</h5>
+                                <p>Delishcare Nigeria Limited shall not be liable for any direct, indirect, incidental, special, or consequential damages arising from your use of our website, including but not limited to damages for loss of profits, data, or other intangible losses. You agree to indemnify and hold us harmless from any claim or demand, including reasonable attorneys' fees, made by any third party due to or arising out of your breach of these terms and conditions.</p>
+                                
+                                <h5 class="font-weight-bold">10. Governing Law</h5>
+                                <p>These terms and conditions shall be governed by and construed in accordance with the laws of Nigeria. Any disputes arising from these terms and conditions shall be subject to the exclusive jurisdiction of the courts of Nigeria.</p>
+                                
+                                <h5 class="font-weight-bold">11. Changes to Terms and Conditions</h5>
+                                <p>We reserve the right to modify these terms and conditions at any time without prior notice. You are responsible for regularly reviewing these terms and conditions to ensure that you are aware of any changes. Your continued use of our website after any modifications indicate your acceptance of the modified terms and conditions.</p>
+                                
+                                <h5 class="font-weight-bold">Contact Us</h5>
+                                <p>If you have any questions or concerns about our Privacy Policy or our use of your personal information, please contact us at <b>support@delishcare.com.</b></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <footer id="footer">
+                    <div class="footer-copyright">					
+                        <div class="container py-2">						
+                            <div class="row py-4">							
+                                <div class="col-lg-2 d-flex align-items-center justify-content-center justify-content-lg-start mb-4 mb-lg-0">								
+                                    <a href="https://delishcare.com" class="logo pr-0 pr-lg-3">									
+                                        <img alt="Porto Website Template" src="https://delishcare.com/img/footer-img-white.png" class="opacity-5" height="33">								
+                                    </a>							
+                                </div>															
+                                <div class="col-lg-6 d-flex align-items-center justify-content-center justify-content-lg-start mb-3 mt-3 mb-lg-0">
+                                    <p>© Copyright 2023. Delishcare All Rights Reserved.</p>							
+                                </div>							
+                                <!-- <div class="col-lg-4 d-flex align-items-center justify-content-center justify-content-lg-end">								
+                                    <nav id="sub-menu">			
+                                        <ul>
+                                            <li>
+                                                <i class="fas fa-angle-right"></i>
+                                                <a href="https://delishcare.com/privacy" class="ml-1 text-decoration-none"> Policy</a>
+                                            </li>				
+                                            <li>
+                                                <i class="fas fa-angle-right"></i>
+                                                <a href="https://delishcare.com/terms" class="ml-1 text-decoration-none"> Terms</a>
+                                            </li>
+                                            <li>
+                                                <i class="fas fa-angle-right"></i>
+                                                <a href="https://delishcare.com/" class="ml-1 text-decoration-none"> Home</a>
+                                            </li>
+                                        </ul>
+                                    </nav>
+                                </div> -->
+                            </div>
+                        </div>
+                    </div>
+                </footer>
+		    </div>
+        </Modal>
     </main>
 </template>
 
@@ -178,9 +294,16 @@
 </style>
 
 <script>
+
 import {mapActions, mapState, mapGetters} from 'vuex'
+import Modal from '@/components/Modal.vue';
 export default {
+    /* eslint-disable */ 
     name:"user-register",
+    components:{
+        Modal
+    },
+
     data(){
         return{
             form:{

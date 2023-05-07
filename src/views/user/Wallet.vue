@@ -197,7 +197,11 @@
                                     <div class="card no-b">
                                         <div class="card-header bg-white">
                                             <h4 class="green-text"><strong class="font-weight-bold">Notification</strong></h4>
-                                            <small>We pay out at certain periods in a month</small>
+                                            <div v-if="settings.charge">
+                                                <small v-if="settings.withdrawal_charge_type=='percentage'">You will be charged {{ settings.charge }} % of your withdrawal amount</small>
+                                                <small class="mb-3">You will be charge ₦{{ settings.charge }} for your withdrawal.</small><br>
+                                                <b><i>Please note that these charges are bank charges from our third party providers</i></b>
+                                            </div>
                                         </div>
                                         <div class="collapse show text-center" id="invoiceCard">
                                             <div class="col-md-4">
@@ -226,16 +230,17 @@
                                                                 <tr>
                                                                     <th scope="col">S/N</th>
                                                                     <th scope="col">Amount <i class="icon icon-money-bag s-10"></i></th>
+                                                                    <th scope="col">Charge <i class="icon icon-money-bag s-10"></i></th>
                                                                     <th scope="col">Status <i class="icon icon-money-bag s-10"></i></th>
                                                                     <th scope="col">Date <i class="icon icon-date_range s-10"></i></th>
                                                                 </tr>
                                                                 </thead>
                                                                 <tbody>
                                                                     <tr v-if="loading">
-                                                                        <td colspan="4">
+                                                                        <td colspan="5">
                                                                             <b-skeleton-table
                                                                                 :rows="3"
-                                                                                :columns="3"
+                                                                                :columns="5"
                                                                                 :table-props="{ bordered: true, striped: true }"
                                                                             ></b-skeleton-table>
                                                                         </td>
@@ -243,16 +248,17 @@
 
                                                                     <template v-else>
                                                                         <tr v-if="userWithdrawals.length == 0">
-                                                                            <td colspan="4">There are no withdrawals</td>
+                                                                            <td colspan="5">There are no withdrawals</td>
                                                                         </tr>
                                                                         <tr v-else v-for="withdraw,i in userWithdrawals" :key="i">
                                                                             <td>{{ ++i }}</td>
                                                                             <td>₦{{ withdraw.amount?.toLocaleString('en-US') }}</td>
+                                                                            <td>₦{{ withdraw.fee?.toLocaleString('en-US') }}</td>
                                                                             <td>{{ withdraw.status }}</td>
                                                                             <td>{{ withdraw.created_at }}</td>
                                                                         </tr>
                                                                     </template>
-                                                                    <tr><th colspan="3">Total withdrawals (TW)</th><td>₦{{ userTotalWithdrawals?.toLocaleString('en-US') }}</td></tr>
+                                                                    <tr><th colspan="5">Total withdrawals (TW)</th><td>₦{{ userTotalWithdrawals?.toLocaleString('en-US') }}</td></tr>
                                                                 </tbody>
                                                             </table>
                                                         </div>
@@ -273,7 +279,8 @@
 </template>
 
 <script>
-    import { mapActions,mapState,mapGetters } from 'vuex';
+    import { notification } from '@/util/notification';
+import { mapActions,mapState,mapGetters } from 'vuex';
     export default{
         name:"user-wallet",
 
@@ -349,8 +356,16 @@
 
             processWithdrawal()
             {
+                if(!this.isNumeric(this.form.amount)){
+                    notification.warning('withdrawal amount is invalid')
+                    return
+                }
                 let data = {uuid:this.authUser.uuid,data:this.form}
                 this.initiate(data)
+            },
+
+            isNumeric(n){
+                return !isNaN(parseFloat(n)) && isFinite(n)
             }
         }
     }

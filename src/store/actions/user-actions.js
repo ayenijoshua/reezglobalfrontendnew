@@ -56,7 +56,7 @@ export default {
             const res = await api.user(uuid)
             
             if(res.status==200){
-                commit('user',res.data.data)
+                //commit('user',res.data.data)
             }else{
                 notification.error(res.message)
             }

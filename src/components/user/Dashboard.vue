@@ -60,7 +60,8 @@
                         </div>
                         <div class="mt-1 text-dark-heading text-green" >{{ equilibrumBonus }}</div>
                         <h6 class="counter-title font-weight-bold" style="color:#2E671A">Equilibrum (₦) </h6><br>
-                        <span class="badge text-white bg-green"><i class="icon icon-check" ></i>&nbsp;&nbsp;Eligible</span>
+                        <span v-if="equilibrumBonusEligible" class="badge text-white bg-green"><i class="icon icon-check" ></i>&nbsp;&nbsp;Eligible</span>
+                        <span v-else class="badge text-white bg-danger"><i class="icon icon-close" ></i>&nbsp;&nbsp;Not-Eligible</span>
                     </div>
                 </div>
                 <div class="col-lg-3">
@@ -70,7 +71,8 @@
                         </div>
                         <div class="mt-1 text-dark-heading text-green" >{{ loyaltyBonus }}</div>
                         <h6 class="counter-title font-weight-bold" style="color:#2E671A">Loyalty (₦)</h6><br>
-                        <span class="badge text-white bg-green"><i class="icon icon-check" ></i>&nbsp;&nbsp;Eligible</span>
+                        <span v-if="loyaltyBonusEligible" class="badge text-white bg-green"><i class="icon icon-check" ></i>&nbsp;&nbsp;Eligible</span>
+                        <span v-else class="badge text-white bg-red"><i class="icon icon-close" ></i>&nbsp;&nbsp;Not-Eligible</span>
                     </div>
                 </div>
                 <div class="col-lg-3">
@@ -310,7 +312,10 @@ export default{
             totalWorth:0,
             totalPv:0,
             productClaimStatus:'processing',
-            guestEmail:null
+            guestEmail:null,
+            equilibrumBonusEligible:false,
+            loyaltyBonusEligible:false,
+            userHasProfile:true
         }
     },
 
@@ -354,10 +359,30 @@ export default{
                 })
             }
         })
-    
+
         this.getSetting('unit_point_value');
         this.getProducts()
-        
+
+        this.countDirectDownlines(this.user.uuid).then(res=>{
+            if(res.status == 200){
+                if(res.data.data >= 2){
+                    this.equilibrumBonusEligible = true
+                }
+            }
+        })
+
+        this.getUplineDetails(this.user.uuid).then(res=>{
+            if(res.status == 200){
+                this.countDirectDownlines(res.data.data.uuid).then(res1=>{
+                    if(res1.status == 200){
+                        if(res1.data.data >= 2){
+                            this.loyaltyBonusEligible = true
+                        }
+                    }
+                })
+            }
+        })
+                
     },
 
     methods:{
@@ -366,7 +391,7 @@ export default{
         'getProfitPool','getGlobalProfit','getPlacementBonus','getTotalBonus','getWalletBalance']),
         ...mapActions('packageStore',['getPackage']),
         ...mapActions('authStore',['getUser']),
-        ...mapActions('userStore',['getTotalPVs','inviteGuest']),
+        ...mapActions('userStore',['getTotalPVs','inviteGuest','getUplineDetails','countDirectDownlines','getProfileDetails','getUser']),
         ...mapActions('settingStore',['getSetting']),
         ...mapActions('incentiveClaimStore',['getClaims','getCurrentIncentive']),
         ...mapActions('productStore',['getProducts']),

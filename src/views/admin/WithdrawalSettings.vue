@@ -107,19 +107,19 @@
                     </div>
                 </div>
 
-                <div class="com-md-6">
+                <div class="col-md-6">
                     <div class="card">
                         <div class="card-body" style="overflow-x:auto;">
-                            <form @submit.prevent="submit()">
-                                <div class="card no-b  no-r">
-                                    <div class="card-body no-gutters">
-                                        <div class="text-center mb-3"><img  src="/assets/img/equil.png" width="80px"  height="80px">
-                                        <h6 class="mt-1 s-8 font-weight-bold">Withdrawal Charge Settings</h6></div>
+                            <div class="card no-b  no-r">
+                                <div class="card-body no-gutters">
+                                    <div class="text-center mb-3"><img  src="/assets/img/cash-withdrawal.png" width="80px"  height="80px">
+                                    <h6 class="mt-1 s-8 font-weight-bold">Withdrawal Charge Settings</h6></div>
+                                    <form @submit.prevent="updateWithdrawalChagre()">
                                         <div class="form-row mb-3">
                                             <div class="col-md-12 mb-2">
                                                 <div class="input-group">
                                                     <div class="input-group-prepend">
-                                                        <div class="input-group-text"><i class="icon icon-phone float-left s-20 green-text " ></i></div>
+                                                        <div class="input-group-text"><i class="icon icon-money-3 float-left s-20 green-text " ></i></div>
                                                     </div>
                                                     <select v-model="withdrawalCharge.withdrawal_charge_type" class="form-control r-0 light s-12">
                                                         <template v-if="!settings.withdrawal_charge_type">
@@ -135,19 +135,27 @@
                                             <div class="col-md-12 mb-2">
                                                 <div class="input-group">
                                                     <div class="input-group-prepend">
-                                                        <div class="input-group-text"><i class="icon icon-email float-left s-20 green-text " ></i></div>
+                                                        <div class="input-group-text"><i class="icon icon-money-3 float-left s-20 green-text " ></i></div>
                                                     </div>
-                                                    <input v-model="withdrawalCharge.withdrawal_charge" class="form-control r-0 light s-12" required placeholder="Withdrawal Charge">
+                                                    <input v-model="withdrawalCharge.charge" class="form-control r-0 light s-12" required placeholder="Withdrawal Charge">
+                                                </div>
+                                            </div>
+                                            <div v-if="withdrawalCharge.withdrawal_charge_type=='percentage'" class="col-md-12 mb-2">
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <div class="input-group-text"><i class="icon icon-money float-left s-20 green-text " ></i></div>
+                                                    </div>
+                                                    <input v-model="withdrawalCharge.withdrawal_charge_cap" class="form-control r-0 light s-12" required placeholder="Withdrawal Charge">
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="form-row ml-1">
                                             <span v-if="submitting && withdrawalChargeSubmitting" class="btn btn-sm btn-success btn-lg">...</span>
-                                            <button v-else type="submit" disabled class="btn btn-sm btn-success btn-lg"><i class="icon-save mr-2"></i>Update Data</button>
+                                            <button v-else type="submit" class="btn btn-sm btn-success btn-lg"><i class="icon-save mr-2"></i>Update Data</button>
                                         </div>
-                                    </div>	
-                                </div>
-                            </form>
+                                    </form>   
+                                </div>	
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -193,6 +201,7 @@
 <script>
 import { mapActions, mapGetters, mapState } from 'vuex';
 import Modal from '@/components/Modal.vue';
+import { notification } from '@/util/notification';
     export default{
         name:"withdrawal-settings",
 
@@ -219,7 +228,8 @@ import Modal from '@/components/Modal.vue';
 
                 withdrawalCharge:{
                     withdrawal_charge_type:null,
-                    withdrawal_charge:null
+                    charge:null,
+                    withdrawal_charge_cap:null
                 }
 
             }
@@ -242,7 +252,7 @@ import Modal from '@/components/Modal.vue';
                         this.unitPV.unit_point_value = this.settings.unit_point_value
                         this.minWithdrawal.minimum_withdrawal = this.settings.minimum_withdrawal
                         this.maxWithdrawal.maximum_withdrawal = this.settings.maximum_withdrawal
-                        this.withdrawalCharge.withdrawal_charge = this.settings.withdrawal_charge
+                        this.withdrawalCharge.charge = this.settings.charge
                         this.withdrawalCharge.withdrawal_charge_type = this.settings.withdrawal_charge_type
                     }
                 })
@@ -250,7 +260,7 @@ import Modal from '@/components/Modal.vue';
                 this.unitPV.unit_point_value = this.settings.unit_point_value
                 this.minWithdrawal.minimum_withdrawal = this.settings.minimum_withdrawal
                 this.maxWithdrawal.maximum_withdrawal = this.settings.maximum_withdrawal
-                this.withdrawalCharge.withdrawal_charge = this.settings.withdrawal_charge
+                this.withdrawalCharge.charge = this.settings.charge
                 this.withdrawalCharge.withdrawal_charge_type = this.settings.withdrawal_charge_type
             }
 
@@ -266,6 +276,10 @@ import Modal from '@/components/Modal.vue';
             ...mapActions('paymentStore',['getWalletBalance']),
 
             updateUnitPV(){
+                if(!this.isNumeric(this.unitPV.unit_point_value)){
+                    notification.warning('unit point value is invalid')
+                    return
+                }
                 this.update(this.unitPV).then(res=>{
                     if(res.status == 200){
                         this.all()
@@ -274,6 +288,10 @@ import Modal from '@/components/Modal.vue';
             },
 
             updateMaxWithrawal(){
+                if(!this.isNumeric(this.maxWithdrawal.maximum_withdrawal)){
+                    notification.warning('maximum withdrawal is invalid')
+                    return
+                }
                 this.maxWithSubmitting = true
                 this.update(this.maxWithdrawal).then(res=>{
                     if(res.status == 200){
@@ -284,6 +302,10 @@ import Modal from '@/components/Modal.vue';
             },
 
             updateMinWithdrawal(){
+                if(!this.isNumeric(this.minWithdrawal.minimum_withdrawal)){
+                    notification.warning('minimum withdrawal is invalid')
+                    return
+                }
                 this.minWithSubmitting = true
                 this.update(this.minWithdrawal).then(res=>{
                     if(res.status == 200){
@@ -298,7 +320,20 @@ import Modal from '@/components/Modal.vue';
             },
 
             updateWithdrawalChagre(){
-                this.update(this.withdrawalCharge)
+                if(this.withdrawalCharge.charge && !this.isNumeric(this.withdrawalCharge.charge)){
+                    notification.warning("charge field is invalid")
+                    return
+                }
+                if(this.withdrawalCharge.withdrawal_charge_cap && !this.isNumeric(this.withdrawalCharge.withdrawal_charge_cap)){
+                    notification.warning("withdrawal charge cap field is invalid")
+                    return
+                }
+                this.withdrawalChargeSubmitting = true
+                this.update(this.withdrawalCharge).then(()=>this.withdrawalChargeSubmitting = false)
+            },
+
+            isNumeric(n){
+                return !isNaN(parseFloat(n)) && isFinite(n)
             }
             
         }

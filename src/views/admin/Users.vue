@@ -80,15 +80,15 @@
                                                             <i class="caret"></i>
                                                         </button>
                                                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="position:fixed">
-                                                            <a @click="setUser(user)" href="#" v-b-modal.user-dashboard class="dropdown-item text-green" ><i class="icon-barometer2"></i>&nbsp;&nbsp; Dashboard</a>
-                                                            <a @click="setUser(user)" v-b-modal.user-profile class="dropdown-item text-green" >
+                                                            <a v-if="usersType !== 'inactive'" @click="setUser(user)" href="#" v-b-modal.user-dashboard class="dropdown-item text-green" ><i class="icon-barometer2"></i>&nbsp;&nbsp; Dashboard</a>
+                                                            <a v-if="usersType !== 'inactive'" @click="setUser(user)" v-b-modal.user-profile class="dropdown-item text-green" >
                                                                 <i  class="icon-drivers-license-o"></i>&nbsp;&nbsp; Profile</a>
-                                                            <a @click="setUser(user)" v-b-modal.user-genealogy class="dropdown-item text-green" href="#"><i class="icon-sitemap"></i>&nbsp;&nbsp;Geneology</a>
-                                                            <a @click="setUser(user)" v-b-modal.user-wallet class="dropdown-item text-green" href="#"><i class="icon-account_balance_wallet"></i>&nbsp;&nbsp;Wallet</a>
-                                                            <a @click="setUser(user)" v-b-modal.user-bank-details class="dropdown-item text-green" href="#" data-toggle="modal" data-target="#popModal-1"><i class="icon-bank"></i>&nbsp;&nbsp;Enable Bank Account Change</a>	
-                                                            <a @click="setUser(user)" v-b-modal.user-password class="dropdown-item text-green" href="#" data-toggle="modal" data-target="#popModal-2"><i class="icon-lock"></i>&nbsp;&nbsp;Login Details Change</a>											
+                                                            <a v-if="usersType !== 'inactive'" @click="setUser(user)" v-b-modal.user-genealogy class="dropdown-item text-green" href="#"><i class="icon-sitemap"></i>&nbsp;&nbsp;Geneology</a>
+                                                            <a v-if="usersType !== 'inactive'" @click="setUser(user)" v-b-modal.user-wallet class="dropdown-item text-green" href="#"><i class="icon-account_balance_wallet"></i>&nbsp;&nbsp;Wallet</a>
+                                                            <a v-if="usersType !== 'inactive'" @click="setUser(user)" v-b-modal.user-bank-details class="dropdown-item text-green" href="#" data-toggle="modal" data-target="#popModal-1"><i class="icon-bank"></i>&nbsp;&nbsp;Enable Bank Account Change</a>	
+                                                            <a v-if="usersType !== 'inactive'" @click="setUser(user)" v-b-modal.user-password class="dropdown-item text-green" href="#" data-toggle="modal" data-target="#popModal-2"><i class="icon-lock"></i>&nbsp;&nbsp;Login Details Change</a>											
                                                             <a @click="setUser(user)" v-b-modal.send-message class="dropdown-item text-green" href="#" data-toggle="modal" data-target="#popModal-3"><i class="icon-mail-envelope-open6"></i>&nbsp;&nbsp;Send Message</a>
-                                                            <a @click="setUser(user)" v-b-modal.user-2fa class="dropdown-item text-green" data-toggle="modal" data-target="#popModal-4"><i class="icon-lock3"></i>&nbsp;&nbsp;Login 2FA</a> 
+                                                            <a v-if="usersType !== 'inactive'" @click="setUser(user)" v-b-modal.user-2fa class="dropdown-item text-green" data-toggle="modal" data-target="#popModal-4"><i class="icon-lock3"></i>&nbsp;&nbsp;Login 2FA</a> 
                                                         </div>
                                                     </div>
                                                 </td>
@@ -105,14 +105,21 @@
             </div>	
         </div>
         <Modal modal-id="user-profile" modal-title="" :modalSize="'xl'">
-            <template v-if="user==null">
+            <template v-if="user==null || loading">
                 <b-skeleton-table
                     :rows="3"
                     :columns="8"
                     :table-props="{ bordered: true, striped: true }"
                 ></b-skeleton-table>
             </template>
-            <Profile v-else :user="user"/>
+            <template v-else>
+                <div v-if="userIsActive">
+                    <Profile :user="user"/>
+                </div>
+                <div v-else class="alert alert-info">
+                    This user is Inactive
+                </div>
+            </template>
         </Modal>
         <Modal modal-id="user-genealogy" modal-title="" modal-size="xl">
             <template v-if="user==null">
@@ -122,7 +129,14 @@
                     :table-props="{ bordered: true, striped: true }"
                 ></b-skeleton-table>
             </template>
-            <Genealogy v-else :user="user"/>
+            <template v-else>
+                <div v-if="userIsActive">
+                    <Genealogy :user="user"/>
+                </div>
+                <div v-else class="alert alert-info">
+                    This user is Inactive
+                </div>
+            </template>
         </Modal>
         
         <Modal modal-id="user-bank-details" modal-title="" modal-size="md">
@@ -133,7 +147,14 @@
                     :table-props="{ bordered: true, striped: true }"
                 ></b-skeleton-table>
             </template>
-            <EditBankDetails v-else :user="user"/>
+            <template v-else>
+                <div v-if="userIsActive">
+                    <EditBankDetails :user="user"/>
+                </div>
+                <div v-else class="alert alert-info">
+                    This user is Inactive
+                </div>
+            </template>
         </Modal>
         <Modal modal-id="user-password" modal-title="" modal-size="lg">
             <template v-if="user==null">
@@ -143,7 +164,14 @@
                     :table-props="{ bordered: true, striped: true }"
                 ></b-skeleton-table>
             </template>
-            <EditPassword v-else :user="user"/>
+            <template v-else>
+                <div v-if="userIsActive">
+                    <EditPassword :user="user"/>
+                </div>
+                <div v-else class="alert alert-info">
+                    This user is Inactive
+                </div>
+            </template>
         </Modal>
         <Modal modal-id="user-2fa" modal-title="" modal-size="lg">
             <template v-if="user==null">
@@ -153,7 +181,14 @@
                     :table-props="{ bordered: true, striped: true }"
                 ></b-skeleton-table>
             </template>
-            <Toggle2fa v-else :user="user"/>
+            <template v-else>
+                <div v-if="userIsActive">
+                    <Toggle2fa :user="user"/>
+                </div>
+                <div v-else class="alert alert-info">
+                    This user is Inactive
+                </div>
+            </template>
         </Modal>
         <Modal modal-id="send-message" modal-title="" modal-size="lg">
             <template v-if="user==null">
@@ -173,17 +208,31 @@
                     :table-props="{ bordered: true, striped: true }"
                 ></b-skeleton-table>
             </template>
-            <Wallet v-else :user="user"/>
+            <template v-else>
+                <div v-if="userIsActive">
+                    <Wallet :user="user"/>
+                </div>
+                <div v-else class="alert alert-info">
+                    This user is Inactive
+                </div>
+            </template>
         </Modal>
         <Modal modal-id="user-dashboard" modal-title="" modal-size="xl">
-            <template v-if="user==null">
+            <template v-if="user==null || loading">
                 <b-skeleton-table
                     :rows="3"
                     :columns="8"
                     :table-props="{ bordered: true, striped: true }"
                 ></b-skeleton-table>
             </template>
-            <Dashboard v-else :user="user"/>
+            <template v-else>
+                <div v-if="userIsActive">
+                    <Dashboard :user="user"/>
+                </div>
+                <div v-else class="alert alert-info">
+                    This user is Inactive
+                </div>
+            </template>
         </Modal>
     </div>
 </template>
@@ -220,7 +269,8 @@
             user: null,
             usersLoading:false,
             searche:null,
-            usersType:'all'
+            usersType:'all',
+            userIsActive:false
         };
     },
     computed: {
@@ -238,10 +288,17 @@
         }
     },
     methods: {
-        ...mapActions("userStore", ["getUsers",'searchUsers']),
+        ...mapActions("userStore", ["getUsers",'searchUsers','getUser']),
 
         setUser(user) {
             this.user = user;
+            this.getUser(this.user.uuid).then(reslt=>{
+                if(reslt.status == 200){
+                    if(reslt.data.data.status){
+                        this.userIsActive = true
+                    }
+                }
+            })
         },
 
         imageURL(image){

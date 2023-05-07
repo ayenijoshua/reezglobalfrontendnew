@@ -217,7 +217,7 @@ import BasePaginator from '@/components/BasePaginator.vue';
 
         ...mapGetters('withdrawalStore',['withdrawals','totalWithdrawals']),
         ...mapGetters('userStore',['paidUsers','totalPaidUsers','sumPaidUsers',
-    'paidUserAction','paidUsersCurrentPage','paidUsersLastPage','paidUsersPerPage','paidUsersTotalPages'])
+                'paidUserAction','paidUsersCurrentPage','paidUsersLastPage','paidUsersPerPage','paidUsersTotalPages']),
     },
 
     created(){

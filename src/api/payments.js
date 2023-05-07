@@ -13,5 +13,13 @@ export default {
 
     walletBalance(){
         return http().get(`${endPoints.payments}/provider-wallet-balance`)
-    }
+    },
+
+    banks(){
+        return http().get(`${endPoints.payments}/banks`)
+    },
+
+    verifyBankDetails(data){
+        return http().post(`${endPoints.payments}/verify-bank-details`,data)
+    },
 }

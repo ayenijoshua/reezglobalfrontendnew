@@ -55,4 +55,38 @@ export default{
             LogError(commit,error,'loaded')
         }
     },
+
+    async fetchBanks({commit}){
+        try {
+            commit('loading',null,{root:true})
+            
+            const res = await api.banks()
+            if(res.status==200){
+                //commit('banks',res.data.data)
+            }else{
+                notification.error(res.data.message)
+            }
+            commit('loaded',null,{root:true})
+            return res
+        } catch (error) {
+            LogError(commit,error,'loaded')
+        }
+    },
+
+    async verifyBankDetails({commit},data){
+        try {
+            commit('submitting',null,{root:true})
+            
+            const res = await api.verifyBankDetails(data)
+            if(res.status==200){
+                //commit('banks',res.data.data)
+            }else{
+                notification.error(res.data.message)
+            }
+            commit('submitted',null,{root:true})
+            return res
+        } catch (error) {
+            LogError(commit,error,'submitted')
+        }
+    },
 }
