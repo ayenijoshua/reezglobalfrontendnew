@@ -311,7 +311,7 @@ export default{
             product_ids:[],
             totalWorth:0,
             totalPv:0,
-            productClaimStatus:'processing',
+            productClaimStatus:'Unclaimed',
             guestEmail:null,
             equilibrumBonusEligible:false,
             loyaltyBonusEligible:false,
@@ -361,7 +361,7 @@ export default{
         })
 
         this.getSetting('unit_point_value');
-        this.getProducts()
+        //this.getActiveProducts()
 
         this.countDirectDownlines(this.user.uuid).then(res=>{
             if(res.status == 200){
@@ -394,7 +394,7 @@ export default{
         ...mapActions('userStore',['getTotalPVs','inviteGuest','getUplineDetails','countDirectDownlines','getProfileDetails','getUser']),
         ...mapActions('settingStore',['getSetting']),
         ...mapActions('incentiveClaimStore',['getClaims','getCurrentIncentive']),
-        ...mapActions('productStore',['getProducts']),
+        ...mapActions('productStore',['getActiveProducts']),
         ...mapActions('productClaimStore',['claimProduct','getProductClaims']),
         
         getBonuses(uuid){

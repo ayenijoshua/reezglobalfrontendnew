@@ -21,5 +21,9 @@ export default {
 
     toggleStatus(id,data){
         return http().put(`${endPoints.products}/${id}/toggle-status`,data)
+    },
+
+    activeProducts(){
+        return http().get(`${endPoints.products}/active`)
     }
 }

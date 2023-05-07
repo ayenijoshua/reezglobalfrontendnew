@@ -73,4 +73,21 @@ export default {
             LogError(commit,err,'submitted')
         }
     },
+
+    async getActiveProducts({commit}){
+        var res;
+        try {
+            commit('loading',null,{root:true})
+            res = await api.activeProducts()
+            if(res.status==200){
+                commit('products',res.data.data)
+            }else{
+                toastr.warning(res.data.message)
+            }
+            commit('loaded',null,{root:true})
+            return res
+        } catch (err) {
+            LogError(commit,err,'loaded')
+        }
+    },
 }

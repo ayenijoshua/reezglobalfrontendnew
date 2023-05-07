@@ -145,7 +145,7 @@
                                                     <div class="input-group-prepend">
                                                         <div class="input-group-text"><i class="icon icon-money float-left s-20 green-text " ></i></div>
                                                     </div>
-                                                    <input v-model="withdrawalCharge.withdrawal_charge_cap" class="form-control r-0 light s-12" required placeholder="Withdrawal Charge">
+                                                    <input v-model="withdrawalCharge.withdrawal_charge_cap" class="form-control r-0 light s-12" required placeholder="Withdrawal Charge Cap">
                                                 </div>
                                             </div>
                                         </div>

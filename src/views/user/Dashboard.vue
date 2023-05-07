@@ -621,7 +621,7 @@ export default{
         
         if(this.products.length == 0){
             this.prodLoading = true
-            this.getProducts().then(()=>this.prodLoading = false)
+            this.getActiveProducts().then(()=>this.prodLoading = false)
         }
         
         
@@ -636,7 +636,7 @@ export default{
         ...mapActions('userStore',['getTotalPVs','inviteGuest','getUplineDetails','countDirectDownlines']),
         ...mapActions('settingStore',['getSetting','all']),
         ...mapActions('incentiveClaimStore',['getClaims','getCurrentIncentive','create']),
-        ...mapActions('productStore',['getProducts']),
+        ...mapActions('productStore',['getActiveProducts']),
         ...mapActions('productClaimStore',['claimProduct','getProductClaims']),
         
         getBonuses(uuid){
@@ -679,7 +679,6 @@ export default{
                 this.walletBalanceLoading = true
                 this.getWalletBalance(uuid).then(()=>this.walletBalanceLoading = false)
             }
-            
         },
 
         getDashboardData(authUser){

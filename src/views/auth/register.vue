@@ -309,7 +309,7 @@ export default {
             form:{
                 first_name: null,
                 last_name:null,
-                username:null,
+                username:'delishcare',
                 email: null,
                 password: null,
                 referrer:null,

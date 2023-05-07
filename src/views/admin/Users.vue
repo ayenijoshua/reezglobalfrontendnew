@@ -30,7 +30,7 @@
                             </div>
                             <div class=" mb-3" style="float:right">
                                 <form class="form-inline my-2 my-lg-0" @submit.prevent="search()">
-                                    <input v-model="searche" class="form-control float-left mr-sm-2" type="text" placeholder="" aria-label="Search">
+                                    <input v-model="searche" v-b-popover.hover.top="'first name/ last name/ username/ email/ package'" class="form-control float-left mr-sm-2" type="text" placeholder="" aria-label="Search">
                                     <span v-if="loading" class="btn btn-outline-success my-2 my-sm-0">...</span>
                                     <button v-else class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
                                 </form>
@@ -62,8 +62,13 @@
                                         <template v-else>
                                             <tr v-if="users.length == 0">
                                                 <td colspan="8"> 
-                                                    <span v-if="usersType=='all'">There are no users</span>
-                                                    <span v-else>There are no {{ usersType }} users</span>
+                                                    <template v-if="usersLoading">
+                                                        <span>..loading</span>
+                                                    </template>
+                                                    <template v-else>
+                                                        <span v-if="usersType=='all'">There are no users</span>
+                                                        <span v-else>There are no {{ usersType }} users</span>
+                                                    </template>
                                                 </td>
                                             </tr>
                                             <tr v-else v-for="user,i in users" :key="i">
@@ -105,7 +110,7 @@
             </div>	
         </div>
         <Modal modal-id="user-profile" modal-title="" :modalSize="'xl'">
-            <template v-if="user==null || loading">
+            <template v-if="user==null">
                 <b-skeleton-table
                     :rows="3"
                     :columns="8"
@@ -117,7 +122,8 @@
                     <Profile :user="user"/>
                 </div>
                 <div v-else class="alert alert-info">
-                    This user is Inactive
+                    <span v-if="userDataLoading">User data loading</span>
+                    <span v-else>This user is Inactive</span>
                 </div>
             </template>
         </Modal>
@@ -134,7 +140,8 @@
                     <Genealogy :user="user"/>
                 </div>
                 <div v-else class="alert alert-info">
-                    This user is Inactive
+                    <span v-if="userDataLoading">User data loading</span>
+                    <span v-else>This user is Inactive</span>
                 </div>
             </template>
         </Modal>
@@ -152,7 +159,8 @@
                     <EditBankDetails :user="user"/>
                 </div>
                 <div v-else class="alert alert-info">
-                    This user is Inactive
+                    <span v-if="userDataLoading">User data loading</span>
+                    <span v-else>This user is Inactive</span>
                 </div>
             </template>
         </Modal>
@@ -169,7 +177,8 @@
                     <EditPassword :user="user"/>
                 </div>
                 <div v-else class="alert alert-info">
-                    This user is Inactive
+                    <span v-if="userDataLoading">User data loading</span>
+                    <span v-else>This user is Inactive</span>
                 </div>
             </template>
         </Modal>
@@ -186,7 +195,8 @@
                     <Toggle2fa :user="user"/>
                 </div>
                 <div v-else class="alert alert-info">
-                    This user is Inactive
+                    <span v-if="userDataLoading">User data loading</span>
+                    <span v-else>This user is Inactive</span>
                 </div>
             </template>
         </Modal>
@@ -213,12 +223,13 @@
                     <Wallet :user="user"/>
                 </div>
                 <div v-else class="alert alert-info">
-                    This user is Inactive
+                    <span v-if="userDataLoading">User data loading</span>
+                    <span v-else>This user is Inactive</span>
                 </div>
             </template>
         </Modal>
         <Modal modal-id="user-dashboard" modal-title="" modal-size="xl">
-            <template v-if="user==null || loading">
+            <template v-if="user==null">
                 <b-skeleton-table
                     :rows="3"
                     :columns="8"
@@ -230,7 +241,8 @@
                     <Dashboard :user="user"/>
                 </div>
                 <div v-else class="alert alert-info">
-                    This user is Inactive
+                    <span v-if="userDataLoading">User data loading</span>
+                    <span v-else>This user is Inactive</span>
                 </div>
             </template>
         </Modal>
@@ -270,7 +282,8 @@
             usersLoading:false,
             searche:null,
             usersType:'all',
-            userIsActive:false
+            userIsActive:false,
+            userDataLoading:false
         };
     },
     computed: {
@@ -284,7 +297,7 @@
     created() {
         if (this.users.length == 0) {
             this.usersLoading = true
-            this.getUsers({page:null,type:null}).then(()=>this.usersLoading = false);
+            this.getUsers({page:null,type:this.usersType}).then(()=>this.usersLoading = false);
         }
     },
     methods: {
@@ -292,12 +305,14 @@
 
         setUser(user) {
             this.user = user;
+            this.userDataLoading = true
             this.getUser(this.user.uuid).then(reslt=>{
                 if(reslt.status == 200){
                     if(reslt.data.data.status){
                         this.userIsActive = true
                     }
                 }
+                this.userDataLoading = false
             })
         },
 
