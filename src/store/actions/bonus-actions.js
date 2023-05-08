@@ -202,7 +202,7 @@ export default {
     async getTotalLoyaltyBonus({commit},type=null){
         try {
             commit('loading',null,{root:true})
-            const res = await api.totalLoyaltyBonus()
+            const res = await api.totalLoyaltyBonus(type)
             if(res && res.status==200){
                 type=='count' ? commit('countLoyaltyBonus',res.data.data)
                 : commit('totalLoyaltyBonus',res.data.data)

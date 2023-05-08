@@ -354,7 +354,7 @@ import { mapActions, mapGetters, mapState } from 'vuex';
                 this.getSumClaimedProducts()
             }
             if(this.settings.id == undefined){
-                this.all().then((res)=>{
+                this.all().then((res)=>{ 
                     if(res.status == 200){
                         this.frontPageForm.home_page_message_subject = this.settings.home_page_message_subject
                         this.frontPageForm.home_page_message = this.settings.home_page_message
