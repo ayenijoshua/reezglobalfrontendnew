@@ -68,7 +68,6 @@
                                         </div>	
                                     </div>
                                     <br>
-
                                 </div>
                                 <div class="col-md-6">
                                     <div class="row my-3">
@@ -270,8 +269,10 @@
                                                                             <div class="input-group-prepend">
                                                                                 <div class="input-group-text"><i class="icon icon-account_balance float-left s-20 green-text " ></i></div>
                                                                             </div>
-                                                                            <input v-model="bank.bank_name" type="text" class="form-control r-0 light s-12"
-                                                                                placeholder="Bank Name">
+                                                                            <select id="bank-select" v-model="bank.bank_name" required class="form-control r-0 light s-12">
+                                                                                <option :value="null">Select Bank</option>
+                                                                                <option v-for="bank,i in banks" :value="bank.bank" :key="i" :selected="profile.bank_name == bank.bank">{{ bank.bank }}</option>														   
+                                                                            </select>
                                                                         </div>
                                                                     </div>
                                                                     <div class="form-row">
@@ -280,7 +281,7 @@
                                                                                 <div class="input-group-prepend">
                                                                                     <div class="input-group-text"><i class="icon icon-person float-left s-20 green-text " ></i></div>
                                                                                 </div>
-                                                                                <input v-model="bank.bank_account_name" type="text" class="form-control r-0 light s-12"
+                                                                                <input v-model="bank.bank_account_name" type="text" readonly class="form-control r-0 light s-12"
                                                                                     placeholder="Account Name">
                                                                             </div>
                                                                         </div>
@@ -289,7 +290,7 @@
                                                                                 <div class="input-group-prepend">
                                                                                     <div class="input-group-text"><i class="icon icon-address-card-o float-left s-20 green-text " ></i></div>
                                                                                 </div>
-                                                                                <input v-model="bank.bank_account_number" type="text" class="form-control r-0 light s-12"
+                                                                                <input v-model="bank.bank_account_number" required type="text" class="form-control r-0 light s-12"
                                                                                     placeholder="Account Number">
                                                                             </div>
                                                                         </div>
@@ -370,13 +371,16 @@
                     gender:''
                 },
                 bank:{
-                    bank_account_name:'',
-                    bank_account_number:'',
-                    bank_name:''
+                    bank_account_name:null,
+                    bank_account_number:null,
+                    bank_name:null,
+                    bank_code:null
                 },
 
                 profileLoading:false,
-                uplineLoading:true
+                uplineLoading:true,
+
+                banks:[]
             }
         },
 
@@ -405,6 +409,7 @@
 
             ...mapActions('authStore',['getUser']),
             ...mapActions('packageStore',['getPackage']),
+            ...mapActions('paymentStore',['verifyBankDetails','fetchBanks']),
 
             profileUpdate(){
                 let ele = document.getElementById('profile-form')
@@ -423,11 +428,18 @@
             },
 
             updateBank(){
-                this.updateBankDetails({uuid:this.authUser.uuid, data:this.bank}).then(res=>{
-                    if(res.status == 200){
-                        this.getProfileDetails(this.authUser.uuid)
+                let verifyData = {bank_name:this.bank.bank_name,account_number:this.bank.bank_account_number}
+                this.verifyBankDetails(verifyData).then(verRes=>{
+                    if(verRes.status==200){
+                        this.bank.bank_code = verRes.data.data.bank_code
+                        this.bank.bank_account_name = verRes.data.data.accountName
+                        this.updateBankDetails({uuid:this.authUser.uuid, data:this.bank}).then(res=>{
+                            if(res.status == 200){
+                                this.getProfileDetails(this.authUser.uuid)
+                            }
+                        })
                     }
-                })
+                });
             },
 
             profileData(res,reslt){
@@ -484,6 +496,12 @@
                 this.bank.bank_name = this.profile.bank_name
                 this.form.gender = this.profile.gender
             }
+
+            this.fetchBanks().then(res=>{
+                if(res.status == 200){
+                    this.banks = res.data
+                }
+            })
             
         },
 
