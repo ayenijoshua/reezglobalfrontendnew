@@ -56,11 +56,11 @@
                                                     <div class="">
                                                         <ul class="list-group list-group-flush">
                                                             <li class="list-group-item "><i class="icon icon-vcard float-left s-20 green-text border-right" ></i> <span class="float-right s-12 font-weight-medium green-text">{{ regPackage.name }}</span></li>
-                                                            <li class="list-group-item "><i class="icon icon-person float-left s-20 green-text border-right" ></i> <span class="float-right s-12 font-weight-medium green-text">{{ form.first_name }} {{ form.last_name }}</span></li>
-                                                            <li class="list-group-item"><i class="icon icon-phone2 float-left s-20 green-text border-right"></i> <span class="float-right s-12 font-weight-medium green-text">{{ form.phone }}</span></li>
-                                                            <li class="list-group-item"><i class="icon icon-mail-envelope-closed4 float-left s-20 green-text border-right"></i> <span class="float-right s-12 font-weight-medium green-text">{{ form.email }}</span></li>
+                                                            <li class="list-group-item "><i class="icon icon-person float-left s-20 green-text border-right" ></i> <span class="float-right s-12 font-weight-medium green-text">{{ authUser.first_name }} {{ authUser.last_name }}</span></li>
+                                                            <li class="list-group-item"><i class="icon icon-phone2 float-left s-20 green-text border-right"></i> <span class="float-right s-12 font-weight-medium green-text">{{ authUser.phone }}</span></li>
+                                                            <li class="list-group-item"><i class="icon icon-mail-envelope-closed4 float-left s-20 green-text border-right"></i> <span class="float-right s-12 font-weight-medium green-text">{{ authUser.email }}</span></li>
                                                             <li class="list-group-item"><i class="icon icon-account_box float-left s-20 green-text border-right"></i>  <span class="float-right s-12 font-weight-medium green-text">{{ authUser.username }}</span></li>
-                                                            <li class="list-group-item"><i class="icon icon-home float-left s-20 green-text border-right"></i> <span class="float-right s-12 font-weight-medium green-text text-right" style="width:130px">{{ form.address }}</span></li>
+                                                            <li class="list-group-item"><i class="icon icon-home float-left s-20 green-text border-right"></i> <span class="float-right s-12 font-weight-medium green-text text-right" style="width:130px">{{ profile.address }}</span></li>
                                                         </ul>
                                                     </div>
                                                 </template>
@@ -151,7 +151,7 @@
                                                                                 <div class="form-group col-12 m-0">
                                                                                     <div class="form-group m-0">
                                                                                         <div class="dropbox">
-                                                                                            <input v-b-popover.hover.top="'Drag your photo here or click to browse'" required type="file" title="profile photo" name="image" @change="filesChange($event.target.files);" class="form-control form-control-line input-file">
+                                                                                            <input v-b-popover.hover.top="'Drag your photo here or click to browse'" type="file" title="profile photo" name="image" @change="filesChange($event.target.files);" class="form-control form-control-line input-file">
                                                                                             <p id="img-preview" >
                                                                                                 Drag your photo here<br> or click to browse<br>
                                                                                                 <span style="font-size: 10px;">Image size should not exceed 500kB</span>
@@ -433,7 +433,7 @@
             profileData(res,reslt){
                 this.form.first_name = res.data.first_name
                 this.form.last_name = res.data.last_name
-                this.form.phone = reslt.phone || res.data.phone
+                this.form.phone = reslt.data.data.phone || res.data.phone
                 this.form.email = res.data.email
                 this.form.address = reslt.data.data.address
                 this.bank.bank_account_name = reslt.data.data.bank_account_name

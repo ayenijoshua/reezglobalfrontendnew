@@ -206,11 +206,14 @@
                                             </div>
                                             <div class="card-body  text-center">
                                                 <div v-if="settings.charge">
-                                                    <small v-if="settings.withdrawal_charge_type=='percentage'">You will be charged {{ settings.charge }} % of your withdrawal amount</small>
-                                                    <small class="mb-3">You will be charge ₦{{ settings.charge }} for your withdrawal.</small><br>
+                                                    <small v-if="settings.withdrawal_charge_type=='percentage'">You will be charged {{ settings.charge }}% of your withdrawal amount
+                                                        at a maximum of ₦{{ settings.withdrawal_charge_cap }}
+                                                    </small>
+                                                    <small v-else class="mb-3">You will be charge ₦{{ settings.charge }} for your withdrawal.</small><br>
                                                     <b><i>Please note that these charges are bank charges from our third party providers</i></b>
                                                 </div>
-                                                <small><br>  Minimum withdrawal is ₦{{ settings.minimum_withdrawal?.toLocaleString('en-US') }}.</small>
+                                                <small v-if="settings.minimum_withdrawal"><br>  Minimum withdrawal is ₦{{ settings.minimum_withdrawal?.toLocaleString('en-US') }}.</small>
+                                                <small v-if="settings.maximum_withdrawal"><br>  Maximum withdrawal is ₦{{ settings.maximum_withdrawal?.toLocaleString('en-US') }}.</small>
                                             </div>                                            
                                         </div>
                                     </div>
@@ -401,7 +404,11 @@ import { mapActions,mapState,mapGetters } from 'vuex';
                     return
                 }
                 let data = {uuid:this.authUser.uuid,data:this.form}
-                this.initiate(data)
+                this.initiate(data).then(res=>{
+                    if(res.status == 200){
+                        this.getUserPendingWithdrawals(this.authUser.uuid)
+                    }
+                })
             },
 
             isNumeric(n){

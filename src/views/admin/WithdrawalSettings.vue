@@ -43,7 +43,7 @@
                                                 <div class="input-group-prepend">
                                                     <div class="input-group-text"><i class="icon icon-money-3 float-left s-20 green-text " ></i></div>
                                                 </div>
-                                                <input v-model="minWithdrawal.minimum_withdrawal" required min="1" type="number" class="form-control r-0 light s-12" placeholder="Minimum Withdrawal Limit">
+                                                <input v-model="minWithdrawal.minimum_withdrawal" type="number" class="form-control r-0 light s-12" placeholder="Minimum Withdrawal Limit">
                                             </div>
                                         </div>
                                     </div>
@@ -73,7 +73,7 @@
                                                 <div class="input-group-prepend">
                                                     <div class="input-group-text"><i class="icon icon-money-3 float-left s-20 green-text " ></i></div>
                                                 </div>
-                                                <input v-model="maxWithdrawal.maximum_withdrawal" required min="1" type="number" class="form-control r-0 light s-12" placeholder="Maximum Withdrawal Limit">
+                                                <input v-model="maxWithdrawal.maximum_withdrawal" type="number" class="form-control r-0 light s-12" placeholder="Maximum Withdrawal Limit">
                                             </div>
                                         </div>
                                     </div>
@@ -288,7 +288,7 @@ import { notification } from '@/util/notification';
             },
 
             updateMaxWithrawal(){
-                if(!this.isNumeric(this.maxWithdrawal.maximum_withdrawal)){
+                if(this.maxWithdrawal.maximum_withdrawal && !this.isNumeric(this.maxWithdrawal.maximum_withdrawal)){
                     notification.warning('maximum withdrawal is invalid')
                     return
                 }
@@ -302,7 +302,7 @@ import { notification } from '@/util/notification';
             },
 
             updateMinWithdrawal(){
-                if(!this.isNumeric(this.minWithdrawal.minimum_withdrawal)){
+                if(this.minWithdrawal.minimum_withdrawal && !this.isNumeric(this.minWithdrawal.minimum_withdrawal)){
                     notification.warning('minimum withdrawal is invalid')
                     return
                 }
