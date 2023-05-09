@@ -415,6 +415,15 @@
         mounted(){
             this.getUser().then(res=>{
                 if(res.status==200){
+
+                    // this.getUserPaymentStatus(this.authUser.uuid).then(reslt=>{
+                    //     if(reslt.status == 200){
+                    //         if(reslt.data.data.status == 'approved'){
+                    //             vm.$router.push({name:'user-dashboard'})
+                    //         }
+                    //     }
+                    // })
+
                     this.getProfileDetails(res.data.uuid).then(reslt=>{
                         this.form.bank_account_name = reslt.data.data.bank_account_name
                         this.form.bank_account_number = reslt.data.data.bank_account_number
@@ -434,7 +443,6 @@
                 }
             })
 
-            
         },
 
         // watch:{
@@ -450,7 +458,7 @@
 
         methods:{
             ...mapActions('authStore',['getUser','logOut']),//getProfileDetails
-            ...mapActions('userStore',['getProfileDetails','updateBankDetails']),
+            ...mapActions('userStore',['getProfileDetails','updateBankDetails','getUserPaymentStatus']),
             ...mapActions('paymentStore',['initiate','verify','verifyBankDetails','fetchBanks']),
             ...mapActions('packageStore',['getPackage']),
 
@@ -478,20 +486,20 @@
                 this.verifyBankDetails(verifyData)
             },
 
-            setBankCode(){
-                var ele = document.getElementById('bank-select')
-                var val = ele.value
-                let bank_code = val.split('-')[1]
+            // setBankCode(){
+            //     var ele = document.getElementById('bank-select')
+            //     var val = ele.value
+            //     let bank_code = val.split('-')[1]
                 
-                this.form.bank_code = bank_code
+            //     this.form.bank_code = bank_code
                 
                 
-                //alert(this.form.bank_name)
-                ele.value = val.split('-')[0]
-                //ele.dispatchEvent(new Event('change'))
-                this.form.bank_name = val.split('-')[0]
-                this.$forceUpdate()
-            },
+            //     //alert(this.form.bank_name)
+            //     ele.value = val.split('-')[0]
+            //     //ele.dispatchEvent(new Event('change'))
+            //     this.form.bank_name = val.split('-')[0]
+            //     this.$forceUpdate()
+            // },
 
             makePayment(){
                 this.paySubmitting = true

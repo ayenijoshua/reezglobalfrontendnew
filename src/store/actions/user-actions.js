@@ -67,6 +67,24 @@ export default {
         }
     },
 
+    // async getUserPaymentStatus({commit},uuid){
+    //     try {
+    //         //alert()
+    //         commit('loading',null,{root:true})
+    //         const res = await api.user(uuid)
+            
+    //         if(res.status==200){
+    //             //commit('user',res.data.data)
+    //         }else{
+    //             notification.error(res.message)
+    //         }
+    //         commit('loaded',null,{root:true})
+    //         return res
+    //     } catch (error) {
+    //         LogError(commit,error,'loaded')
+    //     }
+    // },
+
     async getActiveUsers({commit}){
         try {
             commit('loading',null,{root:true})

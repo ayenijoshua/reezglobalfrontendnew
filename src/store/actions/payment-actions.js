@@ -10,7 +10,7 @@ export default{
             const res = await api.initiate(data)
             if(res.status==200){
                 //commit('walletAccount',res.data)
-               notification.success(res.data.message)
+               //notification.success(res.data.message)
             }else{
                 notification.error(res.data.message)
             }
