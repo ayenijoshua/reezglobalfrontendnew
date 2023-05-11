@@ -35,7 +35,7 @@
                                         <td>{{ ++i }}</td>
                                         <td>{{ pack.name }}</td>
                                         <td>{{ pack.point_value }}PV</td>
-                                        <td>₦ {{ pack.registration_value }}</td>
+                                        <td>₦ {{ pack.registration_value?.toLocaleString('en-US') }}</td>
                                         <td>
                                             <a @click="setPackage(pack)" v-b-modal.edit-package class="btn btn-sm btn-success text-white caret" href="#"><i class="icon-edit"></i></a>
                                         </td>

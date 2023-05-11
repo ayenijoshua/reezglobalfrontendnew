@@ -96,7 +96,7 @@
                                     <div id="timer" class="flex-wrap d-flex justify-content-center mt-3"  style="padding-top: 30px;">
                                         <VueCountdown v-if="!loading" :time="getTime">
                                             <template slot-scope="props">
-                                                <div style="width: 200px !important; padding-right:20px; padding-left:20px; padding-top:20px; padding-bottom:20px;" id="days" class="align-items-center flex-column d-flex justify-content-center">{{ props.days }}&nbsp;&nbsp;DAYS</div>  
+                                                <div style="width: 200px !important; padding-right:20px; padding-left:20px; padding-top:20px; padding-bottom:20px;" id="days" class="align-items-center flex-column d-flex justify-content-center">{{7 - props.days }}&nbsp;&nbsp;DAYS</div>  
                                                 <div style="width: 200px !important; padding-right:20px; padding-left:20px; padding-top:20px; padding-bottom:20px;" id="hours" class="align-items-center flex-column d-flex justify-content-center">{{ props.hours }}&nbsp;&nbsp;HOURS</div>
                                                 <div style="width: 200px !important; padding-right:20px; padding-left:20px; padding-top:20px; padding-bottom:20px;" id="minutes" class="align-items-center flex-column d-flex justify-content-center">{{ props.minutes }}&nbsp;&nbsp;MINUTES</div>
                                                 <div style="width: 200px !important; padding-right:20px; padding-left:20px; padding-top:20px; padding-bottom:20px;" id="seconds" class="align-items-center flex-column d-flex justify-content-center">{{ props.seconds }}&nbsp;&nbsp;SECONDS</div>
@@ -280,9 +280,6 @@
                         <div class="col-auto mr-2">
                             <button type="button" class="btn btn-sm btn-success px-4" @click="logOut()" data-dismiss="modal">Confirm</button>
                         </div>
-                        <div class="col-auto">
-                            <button type="button" class="btn btn-sm btn-light text-muted" data-dismiss="modal">Cancel</button>
-                        </div>
                     </div>
                 </div>
             </div>  
@@ -407,8 +404,9 @@
             getTime(){
                 let userTime = new Date(this.authUser.created_at).getTime()
                 let today = new Date().getTime()
+                //let set7Days = new Date(today + new Date().getDate() + 7).getTime()
                 let diff = today - userTime
-                return diff
+                return  diff
             }
         },
 

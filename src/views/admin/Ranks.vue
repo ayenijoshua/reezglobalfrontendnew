@@ -34,7 +34,7 @@
                                     <tr v-else v-for="pack,i in ranks" :key="i">
                                         <td>{{ ++i }}</td>
                                         <td>{{ pack.name }}</td>
-                                        <td>{{ pack.points }}PV</td>
+                                        <td>{{ pack.points?.toLocaleString('en-US') }}PV</td>
                                         <td>
                                             <span :class="['btn btn-small',pack.is_global_profit_eligible?'btn-success':'btn-danger']">{{ pack.is_global_profit_eligible?'Eligible':'Not-Eligible'}}</span>
                                         </td>

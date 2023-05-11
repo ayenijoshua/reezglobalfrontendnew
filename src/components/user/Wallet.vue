@@ -32,26 +32,30 @@
                                                     <table class="table table-bordered table-hover">
                                                         <thead>
                                                             <tr>
-                                                            <th scope="col">Welcome Bonus (TWB)</th>
+                                                            <th scope="col">Welcome Bonus (WB)</th>
                                                             <th scope="col">Total Referral Bonus (TRB)</th>
+                                                            <th scope="col">Total Placement Bonus (TPB)</th>
                                                             <th scope="col">Total Equilibrum Bonus (TEB)</th>
                                                             <th scope="col">Total Loyalty Bonus (TLB)</th>
                                                             <th scope="col">Profit Pool Bonus (PPB)</th>
                                                             <th scope="col">Global Pool Sharing (GPS)</th>
+                                                            <th scope="col">Total Bonus (TB)</th>
                                                             <th scope="col">Total withdrawals (TW)</th>
-                                                            <th scope="col">Wallet balance {WB - TW}</th>
+                                                            <th scope="col">Wallet balance {TB - TW}</th>
                                                             </tr>
                                                         </thead>
                                                         <tbody>
                                                             <tr>
-                                                            <td>₦{{ welcomeBonus }}</td>
-                                                            <td>₦{{ referralBonus }} </td>
-                                                            <td>₦{{ equilibrumBonus }}</td>
-                                                            <td>₦{{ loyaltyBonus }}</td>
-                                                            <td>₦{{ profitPool }}</td>
-                                                            <td>₦{{ globalProfit }}</td>
-                                                            <td>₦{{ userTotalWithdrawals }}</td>
-                                                            <td>₦{{ walletBalance }}</td>
+                                                                <td>₦{{ welcomeBonus?.toLocaleString('en-US') }}</td>
+                                                                <td>₦{{ referralBonus?.toLocaleString('en-US') }} </td>
+                                                                <td>₦{{ placementBonus?.toLocaleString('en-US') }} </td>
+                                                                <td>₦{{ equilibrumBonus?.toLocaleString('en-US') }}</td>
+                                                                <td>₦{{ loyaltyBonus?.toLocaleString('en-US') }}</td>
+                                                                <td>₦{{ profitPool?.toLocaleString('en-US') }}</td>
+                                                                <td>₦{{ globalProfit?.toLocaleString('en-US') }}</td>
+                                                                <td>₦{{ totalBonus?.toLocaleString('en-US') }}</td>
+                                                                <td>₦{{ userTotalWithdrawals?.toLocaleString('en-US') }}</td>
+                                                                <td>₦{{ walletBalance?.toLocaleString('en-US') }}</td>
                                                             </tr>
                                                         </tbody>
                                                     </table>
@@ -277,7 +281,7 @@
             ...mapGetters('bonusStore',['welcomeBonus',
                 'equilibrumBonus','loyaltyBonus','referralBonus',
                 'profitPool','profitPools','globalProfit',
-                'globalProfits','totalBonus','walletBalance']),
+                'globalProfits','totalBonus','walletBalance','placementBonus']),
             ...mapGetters('authStore',['authUser']),
             ...mapGetters('withdrawalStore',['userWithdrawals','userTotalWithdrawals']),
         },

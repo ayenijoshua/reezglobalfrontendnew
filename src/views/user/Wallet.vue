@@ -32,7 +32,7 @@
                                                     <table class="table table-bordered table-hover">
                                                         <thead>
                                                             <tr>
-                                                            <th scope="col">Welcome Bonus (TWB)</th>
+                                                            <th scope="col">Welcome Bonus (WB)</th>
                                                             <th scope="col">Total Referral Bonus (TRB)</th>
                                                             <th scope="col">Total Placement Bonus (TPB)</th>
                                                             <th scope="col">Total Equilibrum Bonus (TEB)</th>
@@ -41,7 +41,7 @@
                                                             <th scope="col">Global Pool Sharing (GPS)</th>
                                                             <th scope="col">Total Bonus (TB)</th>
                                                             <th scope="col">Total withdrawals (TW)</th>
-                                                            <th scope="col">Wallet balance TB - TW}</th>
+                                                            <th scope="col">Wallet balance (TB - TW)</th>
                                                             </tr>
                                                         </thead>
                                                         <tbody>

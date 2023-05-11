@@ -37,9 +37,9 @@
                                     <tr v-else v-for="ince,i in incentives" :key="i">
                                         <td>{{ ++i }}</td>
                                         <td>{{ ince.name }}</td>
-                                        <td>{{ ince.points }}</td>
+                                        <td>{{ ince.points?.toLocaleString('en-US') }}</td>
                                         <td>{{ ince.incentive }}</td>
-                                        <td>₦{{ ince.worth }}</td>
+                                        <td>₦{{ ince.worth?.toLocaleString('en-US') }}</td>
                                         <td>
                                             <img v-if="ince.file_path" class="gift" :src="imageURL+'/'+ince.file_path" style="width:100px" >
                                         </td>

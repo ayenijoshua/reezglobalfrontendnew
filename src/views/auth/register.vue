@@ -53,7 +53,7 @@
 
                                 <div class="col-lg-6">
                                     <div class="form-group has-icon green-text"><i class="icon-sitemap"></i>
-                                        <input required v-model="form.referrer" v-b-popover.hover.top="'If your upline has exceeded two direct registrations, place him/her in the sponsor field'" type="text" class="form-control form-control-lg no-b"
+                                        <input required value="delishcare" v-model="form.referrer" v-b-popover.hover.top="'If your upline has exceeded two direct registrations, place him/her in the sponsor field'" title="Upline" type="text" class="form-control form-control-lg no-b"
                                             placeholder="Upline">
                                     </div>
                                 </div>
@@ -309,10 +309,10 @@ export default {
             form:{
                 first_name: null,
                 last_name:null,
-                username:'delishcare',
+                username:null,
                 email: null,
                 password: null,
-                referrer:null,
+                referrer:'delishcare',
                 phone: null,
                 package_id:null,
                 placer:null
@@ -337,6 +337,10 @@ export default {
        const params = new URL(window.location).searchParams
        this.form.referrer = params.get('ref') ? params.get('ref') : null
        this.form.placer = params.get('placer') ? params.get('placer') : null
+
+       if(!this.form.referrer){
+            this.form.referrer = 'delishcare'
+       }
     },
 
     methods:{

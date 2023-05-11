@@ -2,7 +2,7 @@
     <div class="card border-0 justify-content-center">
         <div class="card-body border rounded"> 
             <div class="text-center image border p-4 rounded">
-                <img class="user_avatar" src="/assets/img/dummy/u2a.png" alt="User Image" style="width:90px">
+                <img class="user_avatar" :src="imageURL" alt="User Image" style="width:90px">
                 <h6 class="font-weight-bold text-green mt-2">{{ user.first_name }} {{ user.last_name }}</h6>
                 <small class="">Full Name</small>
             </div>
@@ -36,7 +36,7 @@
 </template>
 
 <script>
-    import { mapActions,mapState } from 'vuex';  
+    import { mapActions,mapState,mapGetters } from 'vuex';  
     export default{
         name:'send-message',
         props:{
@@ -58,11 +58,22 @@
         computed:{
             ...mapState({
                 submitting:state=>state.submitting
-            })
+            }),
+
+            ...mapGetters('userStore',['profile']),
+
+            imageURL(){
+                let img = this.profile?.photo_path
+               return img ? process.env.VUE_APP_IMAGE_PATH+'/'+img : '/assets/img/mock-image.jpeg'
+            },
+        },
+
+        created(){
+            this.getProfileDetails(this.user.uuid)
         },
 
         methods:{
-            ...mapActions('userStore',['sendMessage']),
+            ...mapActions('userStore',['sendMessage','getProfileDetails']),
 
             send(){
                 this.sendMessage({uuid:this.user.uuid,data:this.form})

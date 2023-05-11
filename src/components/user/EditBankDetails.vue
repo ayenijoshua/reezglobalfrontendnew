@@ -11,7 +11,10 @@
                             <div class="input-group-prepend">
                                 <div class="input-group-text"><i class="icon icon-account_balance float-left s-20 green-text " ></i></div>
                             </div>
-                            <input v-model="form.bank_name" type="text" class="form-control r-0 light s-12" required placeholder="Bank Name">
+                            <select id="bank-select" v-model="form.bank_name" required class="form-control r-0 light s-12">
+                                <option :value="null">Select Bank</option>
+                                <option v-for="bank,i in banks" :value="bank.bank" :key="i" :selected="profile.bank_name == bank.bank">{{ bank.bank }}</option>														   
+                            </select>
                         </div>
                     </div>
                     <div class="form-row">
@@ -20,7 +23,7 @@
                                 <div class="input-group-prepend">
                                     <div class="input-group-text"><i class="icon icon-person float-left s-20 green-text " ></i></div>
                                 </div>
-                                <input v-model="form.bank_account_name" type="text" class="form-control r-0 light s-12" required placeholder="Account Name">
+                                <input v-model="form.bank_account_name" readonly type="text" class="form-control r-0 light s-12" required placeholder="Account Name">
                             </div>
                         </div>
                         <div class="form-group col-6 m-0">
@@ -63,7 +66,7 @@
                 <div class="card-body" >
                     <div class="d-flex align-items-center">
                         <div class="avatar avatar-xl mr-4 ">
-                            <img class="user_avatar" src="/assets/img/dummy/u14.jpg" alt="User Image">
+                            <img class="user_avatar" :src="imageURL" alt="User Image">
                         </div>
                         <div>
                             <span class="text-white" id="d1" style="font-size:10px" >Account Name</span>
@@ -98,10 +101,12 @@ export default{
             form:{
                 bank_account_name:null,
                 bank_account_number:null,
-                bank_name:null
+                bank_name:null,
+                bank_code:null
             },
             bank_editable:false,
-            userHasProfile:true
+            userHasProfile:true,
+            banks:[]
         }
     },
 
@@ -110,7 +115,12 @@ export default{
             loading:state=>state.loading,
             submitting:state=>state.submitting
         }),
-        ...mapGetters('userStore',['profile'])
+        ...mapGetters('userStore',['profile']),
+
+        imageURL(){
+            let img = this.profile?.photo_path
+            return img ? process.env.VUE_APP_IMAGE_PATH+'/'+img : '/assets/img/mock-image.jpeg'
+        },
     },
 
     mounted(){
@@ -127,13 +137,31 @@ export default{
                 }
             }
         })
+
+        this.fetchBanks().then(res=>{
+            if(res.status == 200){
+                this.banks = res.data
+            }
+        })
     },
 
     methods:{
         ...mapActions('userStore',['getProfileDetails','updateBankDetails','setBankEditable']),
+        ...mapActions('paymentStore',['verifyBankDetails','fetchBanks']),
 
         profileUpdate(){
-            this.updateBankDetails({uuid:this.user.uuid,data:this.form})
+            let verifyData = {bank_name:this.form.bank_name,account_number:this.form.bank_account_number}
+            this.verifyBankDetails(verifyData).then(verRes=>{
+                if(verRes.status==200){
+                    this.form.bank_code = verRes.data.data.bank_code
+                    this.form.bank_account_name = verRes.data.data.accountName
+                    this.updateBankDetails({uuid:this.user.uuid,data:this.form}).then(res=>{
+                        if(res.status == 200){
+                            this.getProfileDetails(this.user.uuid)
+                        }
+                    })
+                }
+            });
         },
 
         setEditable(){

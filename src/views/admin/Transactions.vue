@@ -58,6 +58,7 @@
                                                                 <th>S/N</th>
                                                                 <th>Username</th>
                                                                 <th>Amount</th>
+                                                                <th>Charge</th>
                                                                 <th>Status</th>
                                                                 <th>Payout Date</th>
                                                             </tr>
@@ -67,7 +68,7 @@
                                                                 <td colspan="5">
                                                                     <b-skeleton-table
                                                                         :rows="3"
-                                                                        :columns="5"
+                                                                        :columns="6"
                                                                         :table-props="{ bordered: true, striped: true }"
                                                                     ></b-skeleton-table>
                                                                 </td>
@@ -84,6 +85,7 @@
                                                                     <td>{{ ++i }}</td>
                                                                     <td>{{ withdraw.username }}</td>
                                                                     <td>₦{{ withdraw.amount?.toLocaleString('en-US') }}</td>
+                                                                    <td>₦{{ withdraw.fee?.toLocaleString('en-US') }}</td>
                                                                     <td>{{ withdraw.status }}</td>
                                                                     <td>{{ withdraw.created_at }}</td>
                                                                 </tr>

@@ -12,7 +12,7 @@
                                 </div>
                                 <div class="ml-auto">
                                     <h6 class="mt-0 mb-1 font-weight-bold text-white">Registration Package</h6>
-                                    <div class="mt-1 text-dark-heading text-white float-right" >{{ regPackage.name }} - {{ regPackage.vip }} </div>
+                                    <div class="mt-1 text-dark-heading text-white float-right" >{{ regPackage.name }} </div>
                                 </div>
                             </div>
                         </div>
@@ -27,7 +27,7 @@
                                 </div>
                                 <div class="ml-auto">
                                     <h6 class="mt-0 mb-1 font-weight-bold text-white" >Welcome Bonus</h6>
-                                    <div class="mt-1 text-dark-heading text-white float-right" >₦  {{ welcomeBonus }}</div>
+                                    <div class="mt-1 text-dark-heading text-white float-right" >₦  {{ welcomeBonus?.toLocaleString('en-US') }}</div>
                                     
                                 </div>
                             </div>
@@ -44,7 +44,7 @@
                                 </div>
                                 <div class="ml-auto">
                                     <h6 class="mt-0 mb-1 font-weight-bold text-white" >Referral Bonus</h6>
-                                    <div class="mt-1 text-dark-heading text-white float-right" >₦  {{ referralBonus }}</div>
+                                    <div class="mt-1 text-dark-heading text-white float-right" >₦  {{ (referralBonus + placementBonus)?.toLocaleString('en-US') }}</div>
                                 </div>
                             </div>
                         </div>
@@ -58,7 +58,7 @@
                         <div class="float-right">
                             <img src="/assets/img/equil.png" alt="Generic placeholder image" width="60px" height="60px">
                         </div>
-                        <div class="mt-1 text-dark-heading text-green" >{{ equilibrumBonus }}</div>
+                        <div class="mt-1 text-dark-heading text-green" >{{ equilibrumBonus?.toLocaleString('en-US') }}</div>
                         <h6 class="counter-title font-weight-bold" style="color:#2E671A">Equilibrum (₦) </h6><br>
                         <span v-if="equilibrumBonusEligible" class="badge text-white bg-green"><i class="icon icon-check" ></i>&nbsp;&nbsp;Eligible</span>
                         <span v-else class="badge text-white bg-danger"><i class="icon icon-close" ></i>&nbsp;&nbsp;Not-Eligible</span>
@@ -69,7 +69,7 @@
                         <div class="float-right">
                             <img src="/assets/img/bonus.png" alt="Generic placeholder image" width="60px" height="60px">
                         </div>
-                        <div class="mt-1 text-dark-heading text-green" >{{ loyaltyBonus }}</div>
+                        <div class="mt-1 text-dark-heading text-green" >{{ loyaltyBonus?.toLocaleString('en-US') }}</div>
                         <h6 class="counter-title font-weight-bold" style="color:#2E671A">Loyalty (₦)</h6><br>
                         <span v-if="loyaltyBonusEligible" class="badge text-white bg-green"><i class="icon icon-check" ></i>&nbsp;&nbsp;Eligible</span>
                         <span v-else class="badge text-white bg-red"><i class="icon icon-close" ></i>&nbsp;&nbsp;Not-Eligible</span>
@@ -80,7 +80,7 @@
                         <div class="float-right">
                             <img  src="/assets/img/bars.png" alt="Generic placeholder image" width="60px" height="60px">
                         </div>
-                        <div class="mt-1 text-dark-heading text-green" >{{ profitPool }}</div>
+                        <div class="mt-1 text-dark-heading text-green" >{{ profitPool?.toLocaleString('en-US') }}</div>
                         <h6 class="counter-title font-weight-bold" style="color:#2E671A">Profit Pool (₦) </h6><br>
                         <span v-if="profitPoolEligible" class="badge text-white bg-green"><i class="icon icon-check"></i>&nbsp;&nbsp;Eligible</span>
                         <span v-else class="badge text-white bg-red"><i class="icon icon-close" ></i>&nbsp;&nbsp;Not Eligible</span>
@@ -91,7 +91,7 @@
                         <div class="float-right">
                             <img  src="/assets/img/salary_white.png" alt="Generic placeholder image" width="60px" height="60px">
                         </div>
-                        <div class="mt-1 text-dark-heading text-white" >{{ globalProfit }}</div>
+                        <div class="mt-1 text-dark-heading text-white" >{{ globalProfit?.toLocaleString('en-US') }}</div>
                         <h6 class="counter-title font-weight-bold">Global Profit (₦)</h6><br>
                         <span v-if="globalProfitEligible" class="badge text-white bg-green"><i class="icon icon-check"></i>&nbsp;&nbsp;Eligible</span>
                         <span v-else class="badge text-white bg-red"><i class="icon icon-close" ></i>&nbsp;&nbsp;Not Eligible</span>
@@ -106,7 +106,7 @@
                             <img  src="/assets/img/companywallet.png">
                         </div>
                         <h6 class="mt-0text-white" >Total Wallet Earned</h6>
-                        <div class="text-dark-heading font-weight-bold text-white" >₦<span class="s-36">{{ walletBalance }}</span></div>
+                        <div class="text-dark-heading font-weight-bold text-white" >₦<span class="s-36">{{ walletBalance?.toLocaleString('en-US') }}</span></div>
                     </div>
                 </div>
             </div>
@@ -117,7 +117,7 @@
                             <div class="float-up text-center">
                                 <img  src="/assets/img/pv1.png">
                             </div>
-                            <div class="sc-counter font-weight-bold s-36 text-center" style="color:#2E671A">{{ totalPV }}</div>
+                            <div class="sc-counter font-weight-bold s-36 text-center" style="color:#2E671A">{{ totalPV?.toLocaleString('en-US') }}</div>
                             <h6 class="counter-title text-center font-weight-bold" style="color:#2E671A">Cumulated Point Value (CPV)</h6>
                         </div>
                     </div>
@@ -157,10 +157,10 @@
                                                 <div class="col-md-6">
                                                     <div class="card-body pt-0 mt-5">
                                                         <h6 class="mt-0 green-text" >Cash Equivalent</h6>
-                                                        <div class="text-dark-heading font-weight-bold green-text" >₦<span class="s-36">{{ currentIncentive.worth }}</span></div>
+                                                        <div class="text-dark-heading font-weight-bold green-text" >₦<span class="s-36">{{ currentIncentive.worth?.toLocaleString('en-US') }}</span></div>
                                                         <hr>
                                                         <h6 class="mt-0 green-text" >Cumulated Point Value (CPV)</h6>
-                                                        <div class="text-dark-heading font-weight-bold green-text"><span class="s-36">{{ currentIncentive.points }}PV</span></div>
+                                                        <div class="text-dark-heading font-weight-bold green-text"><span class="s-36">{{ currentIncentive.points?.toLocaleString('en-US') }}PV</span></div>
                                                         <hr>
                                                         <h6 class="mt-0 green-text" >Incentive</h6>
                                                         <div class="text-dark-heading font-weight-bold green-text" ><span class="s-36">{{ currentIncentive.incentive }}</span></div>									
@@ -191,6 +191,8 @@
                                         <tr>
                                             <th scope="col">S/N</th>
                                             <th scope="col">Incentive Claimed</th>
+                                            <th scope="col">Worth</th>
+                                            <th scope="col">Status</th>
                                             <th scope="col">PV Level</th>
                                             <th scope="col">Date</th>
                                         </tr>
@@ -212,7 +214,9 @@
                                             <tr v-else v-for="claim,i in claims" :key="i">
                                                 <th scope="row">{{ i++ }}</th>
                                                 <td>{{ claim.incentive }}</td>
-                                                <td>{{ claim.points }} PV</td>
+                                                <td>{{ claim.worth?.toLocaleString('en-US')}}</td>
+                                                <td>{{ claim.status }}</td>
+                                                <td>{{ claim.points?.toLocaleString('en-US') }} PV</td>
                                                 <td>{{ claim.date }} </td>
                                             </tr>
                                         </template>
@@ -275,7 +279,7 @@
                                             <h6 class="font-weight-bold text-green s-12" style="margin: 0em; padding: 0em;">Total Product Cost </h6>											
                                         </div>	
                                         <div class="mb-2 mt-5 ml-auto mr-3">
-                                            <h6 class="font-weight-bold text-green s-12" style="margin: 0em; padding: 0em;">₦{{ totalWorth }} </h6>											
+                                            <h6 class="font-weight-bold text-green s-12" style="margin: 0em; padding: 0em;">₦{{ totalWorth?.toLocaleString('en-US') }} </h6>											
                                         </div>
                                     </div>
 
@@ -326,7 +330,7 @@ export default{
         }),
         
         ...mapGetters('bonusStore',['welcomeBonus',
-        'equilibrumBonus','loyaltyBonus','referralBonus',
+        'equilibrumBonus','loyaltyBonus','referralBonus','placementBonus',
         'profitPool','globalProfit','totalBonus','walletBalance']),
 
         ...mapGetters('packageStore',['regPackage']),

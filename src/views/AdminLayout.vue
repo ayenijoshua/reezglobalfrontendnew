@@ -13,7 +13,7 @@
                     <div class="admin-panel p-3 light mb-2">
                         <div>
                             <div class="float-left image">
-                                <img class="user_avatar" src="/assets/img/dummy/u2a.png" alt="User Image">
+                                <img class="user_avatar" src="/assets/img/mock-image.jpeg" alt="User Image">
                             </div>
                             <div class="float-left info">
                                 <h6 class="font-weight-light mt-2 mb-1" style="color:#2E671A">Admin</h6>
