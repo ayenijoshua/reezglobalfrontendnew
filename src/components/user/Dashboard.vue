@@ -151,7 +151,7 @@
                                                 <p class="alert alert-info">You are yet to qualify for an incentive</p>
                                             </div>
                                             <template v-else>
-                                                <div class="col-md-6">
+                                                <div class="col-md-6" id="yourContainer">
                                                     <img class="gift" src="/assets/img/phone.png">
                                                 </div>
                                                 <div class="col-md-6">
@@ -199,10 +199,10 @@
                                     </thead>
                                     <tbody>
                                         <tr v-if="loading">
-                                            <td colspan="4">
+                                            <td colspan="6">
                                                 <b-skeleton-table
                                                     :rows="5"
-                                                    :columns="5"
+                                                    :columns="6"
                                                     :table-props="{ bordered: true, striped: true }"
                                                 ></b-skeleton-table>
                                             </td>
@@ -212,7 +212,7 @@
                                                 <td colspan="4">There are no claimed incentives</td>
                                             </tr>
                                             <tr v-else v-for="claim,i in claims" :key="i">
-                                                <th scope="row">{{ i++ }}</th>
+                                                <th scope="row">{{ ++i }}</th>
                                                 <td>{{ claim.incentive }}</td>
                                                 <td>{{ claim.worth?.toLocaleString('en-US')}}</td>
                                                 <td>{{ claim.status }}</td>
