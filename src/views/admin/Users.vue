@@ -102,7 +102,7 @@
                                     </tbody>
                                 </table>
                                 <br>
-                                <BasePaginator v-if="userAction" :action="userAction" :current_page="usersCurrentPage" :last_page="usersLastPage" :total_pages="usersTotalPages" :per_page="usersPerPage"></BasePaginator>
+                                <BasePaginator v-if="userAction" :action="userAction" :current_page="usersCurrentPage" :last_page="usersLastPage" :total_pages="usersTotalPages" :per_page="usersPerPage" :type="usersType"></BasePaginator>
                             </div>
                         </div>
                     </div>

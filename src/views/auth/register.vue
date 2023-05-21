@@ -252,9 +252,9 @@
                                         <img alt="Porto Website Template" src="https://delishcare.com/img/footer-img-white.png" class="opacity-5" height="33">								
                                     </a>							
                                 </div>															
-                                <div class="col-lg-6 d-flex align-items-center justify-content-center justify-content-lg-start mb-3 mt-3 mb-lg-0">
-                                    <p>© Copyright 2023. Delishcare All Rights Reserved.</p>							
-                                </div>							
+                                <!-- <div class="col-auto text-center">
+                                    <p class="text-center">© Copyright 2023. Delishcare All Rights Reserved.</p>							
+                                </div>							 -->
                                 <!-- <div class="col-lg-4 d-flex align-items-center justify-content-center justify-content-lg-end">								
                                     <nav id="sub-menu">			
                                         <ul>
@@ -276,8 +276,15 @@
                             </div>
                         </div>
                     </div>
+                    <div class="col-auto text-center">
+                        <p class="text-center">© Copyright 2023. Delishcare All Rights Reserved.</p>							
+                    </div>
+                    <div class="col-auto mr-2 text-center">
+                        <button type="button" class="btn btn-lg btn-success px-4" @click="closeModal()" data-dismiss="modal">Click to accepted the Terms and Conditions</button>
+                    </div>
                 </footer>
 		    </div>
+            
         </Modal>
     </main>
 </template>
@@ -290,6 +297,10 @@
         position: relative;
         z-index: 2;
         font-size: 20px;
+    }
+
+    #terms .close{
+        display: none !important;
     }
 </style>
 
@@ -368,7 +379,10 @@ export default {
             }else{
                 pass.type = 'password'
             }
-            
+        },
+
+        closeModal(){
+            this.$bvModal.hide('terms')
         }
     }
 };

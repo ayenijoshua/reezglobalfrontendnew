@@ -9,6 +9,12 @@
               <a @click="prevPage" class="page-link">« previous</a>
           </li>
 
+          <template v-if="total_pages > per_page">
+            <li v-for="i of totalList" :key="i" :class="[i == current_page?'active':'','page-item']">
+              <a @click="nextPage(i)" class="page-link" >{{i}}</a>
+            </li>
+          </template>
+
           <li v-if="(last_page !== current_page)" class="page-item">
               <a @click="nextPage" class="page-link" >next »</a>
           </li>
@@ -47,7 +53,7 @@
         type:Object,
         required:false
       },
-      usersType:{
+      type:{
         type:String,
         defafult:'all',
       }
@@ -55,13 +61,21 @@
 
     computed:{
       totalList(){
-        return Math.floor((this.total_pages*this.per_page)/this.per_page) 
+        let div = this.total_pages/this.per_page
+        let rem = this.total_pages % this.per_page
+        let list = rem == 0 ? div : div + 1
+        return Math.floor(list) //Math.floor((this.total_pages*this.per_page)/this.per_page) 
       }
+    },
+
+    created(){
+      //console.log('curr-page',this.current_page)
+      //console.log('')
     },
 
     methods: {
       firstPage() {
-        this.$store.dispatch(this.action, {page:this.setParameter(1),type:this.usersType}).then(() => {
+        this.$store.dispatch(this.action, {page:this.setParameter(1),type:this.type}).then(() => {
           // this.$router.push({
           //   path: this.path,
           //   query: { page: 1 },
@@ -69,15 +83,16 @@
         });
       },
       prevPage() {
-        this.$store.dispatch(this.action, {page:this.setParameter(this.current_page - 1),type:this.usersType}).then(() => {
+        this.$store.dispatch(this.action, {page:this.setParameter(this.current_page - 1),type:this.type}).then(() => {
           // this.$router.push({
           //   path: this.path,
           //   query: { page: this.current_page - 1 },
           // });
         });
       },
-      nextPage() {
-        this.$store.dispatch(this.action, {page:this.setParameter(this.current_page + 1),type:this.usersType} ).then(() => {
+      nextPage(pageNum=null) {
+        //if(pageNum==this.current_page){return}
+        this.$store.dispatch(this.action, {page:this.setParameter(pageNum || this.current_page + 1),type:this.type} ).then(() => {
           // this.$router.push({
           //   path: this.path,
           //   query: { page: this.current_page + 1 },
@@ -85,7 +100,7 @@
         });
       },
       lastPage() {
-        this.$store.dispatch(this.action, {page:this.setParameter(this.last_page),type:this.usersType}).then(() => {
+        this.$store.dispatch(this.action, {page:this.setParameter(this.last_page),type:this.type}).then(() => {
           // this.$router.push({
           //   path: this.path,
           //   query: { page: this.last_page },

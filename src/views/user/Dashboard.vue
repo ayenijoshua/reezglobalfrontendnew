@@ -640,42 +640,42 @@ export default{
         ...mapActions('productClaimStore',['claimProduct','getProductClaims']),
         
         getBonuses(uuid){
-            if(!this.welcomeBonus){
+            if(this.welcomeBonus==null){
                 this.welcomeBonusLoading = true
                 this.getWelcomeBonus(uuid).then(()=>this.welcomeBonusLoading = false)
             }
-            if(!this.equilibrumBonus){
+            if(this.equilibrumBonus==null){
                 this.equilibrumBonusLoading = true
                 this.getEquilibrumBonus(uuid).then(()=>this.equilibrumBonusLoading = false)
             }
-            if(!this.loyaltyBonus){
+            if(this.loyaltyBonus==null){
                 this.loyaltyBonusLoading = true
                 this.getLoyaltyBonus(uuid).then(()=>this.loyaltyBonusLoading = false)
             }
-            if(!this.referralBonus){
+            if(this.referralBonus==null){
                 this.referralBonusLoading = true
                 this.getReferralBonus(uuid).then(()=>this.referralBonusLoading = false)
             }
-            if(!this.placementBonus){
+            if(this.placementBonus==null){
                 this.getPlacementBonus(uuid)
             }
-            if(!this.totalBonus){
+            if(this.totalBonus==null){
                 this.totalBonusLoading = true
                 this.getTotalBonus(uuid).then(()=>this.totalBonusLoading = false)
             }
-            if(!this.totalPV){
+            if(this.totalPV==null){
                 this.totalPVLoading = true
                 this.getTotalPVs(uuid).then(()=>this.totalPVLoading=false)
             }
-            if(!this.profitPool){
+            if(this.profitPool==null){
                 this.profitPoolLoading = true
                 this.getProfitPool(uuid).then(()=>this.profitPoolLoading = false)
             }
-            if(!this.globalProfit){
+            if(this.globalProfit==null){
                 this.globalProfitLoading = true
                 this.getGlobalProfit(uuid).then(()=>this.globalProfitLoading = false)
             }
-            if(!this.walletBalance){
+            if(this.walletBalance==null){
                 this.walletBalanceLoading = true
                 this.getWalletBalance(uuid).then(()=>this.walletBalanceLoading = false)
             }

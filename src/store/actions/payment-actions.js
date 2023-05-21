@@ -24,11 +24,13 @@ export default{
     async verify({commit},data){
         try {
             commit('submitting',null,{root:true})
-            console.log(data)
+            //console.log(data)
             const res = await api.verify(data)
             if(res.status==200){
-                commit('transactionStore/addUserWalletTransaction',res.data.data,{root:true})
-               notification.success(res.data.message)
+                //commit('transactionStore/addUserWalletTransaction',res.data.data,{root:true})
+                res.data.success == true || res.data.success == 'true'
+                ? notification.success(res.data.message)
+                : notification.warning(res.data.message)
             }else{
                 notification.error(res.data.message)
             }

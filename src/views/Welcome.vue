@@ -93,7 +93,7 @@
                             <div class="text-center mt-3">
                             <small class="text-green mt-4 mb-3">kindly be reminded that there is a <span class="font-weight-bold">7-day time limit</span> for completing your registration,so please finish the remaining part as soon as possible to avoid missing out.</small>
                                 <div class="text-center mt-3">
-                                    <div id="timer" class="flex-wrap d-flex justify-content-center mt-3"  style="padding-top: 30px;">
+                                    <div id="" class="timer flex-wrap d-flex justify-content-center mt-3"  style="padding-top: 30px;">
                                         <VueCountdown v-if="!loading" :time="getTime">
                                             <template slot-scope="props">
                                                 <div style="width: 200px !important; padding-right:20px; padding-left:20px; padding-top:20px; padding-bottom:20px;" id="days" class="align-items-center flex-column d-flex justify-content-center">{{7 - props.days }}&nbsp;&nbsp;DAYS</div>  
@@ -207,7 +207,7 @@
                                                                         </div>
                                                                         <select id="bank-select" v-model="form.bank_name" required class="form-control r-1 light s-12">
                                                                             <option :value="null">Select Bank</option>
-                                                                            <option v-for="bank,i in banks" :value="bank.bank" :key="i" :selected="profile.bank_name == bank.bank">{{ bank.bank }}
+                                                                            <option v-for="bank,i in banks" :value="bank.bank" :key="i" :selected="profile?.bank_name == bank.bank">{{ bank.bank }}
                                                                                 
                                                                             </option>														   
                                                                         </select>	   
@@ -231,8 +231,9 @@
                                                                             <h1 class="font-weight-bold text-green" style="margin: 0em; padding: 0em;">{{ form.bank_account_name }}</h1>
                                                                         </div> 	
                                                                     </div>
-                                                                    <span v-if="submitting && bankSubmitting" class="btn btn-success btn-lg btn-block">...</span>
-                                                                    <button v-else type="submit" class="btn btn-sm btn-success btn-lg"><i class="icon-save mr-2"></i>Confirm Details</button>
+                                                                    <span v-if="bankSubmitting && submitting" class="btn btn-success btn-sm btn-block">...</span>
+                                                                    <span v-else-if="loading" class="btn btn-success btn-sm btn-block">...</span>
+                                                                    <button v-else type="submit" class="btn btn-sm btn-success btn-sm"><i class="icon-save mr-2"></i>Confirm Details</button>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -253,6 +254,7 @@
                                     <img  src="/assets/img/cards.png" width="300px">
                                     <h6 class="font-weight-bold" style="color:#2E671A;">Proceed To Payment<br><small>Kindly complete your registration as a partner by proceeding with your package payment.</small></h6>
                                     <span v-if="submitting && paySubmitting" class="btn btn-sm btn-success mb-3 mt-2 btn-lg">...</span>
+                                    <span v-else-if="loading " class=""></span>
                                     <a v-else @click="makePayment()" class="btn btn-sm btn-success mb-3 mt-2 btn-lg"><i class="icon icon-credit-card"></i>Pay Now</a>
                                 </div>
                             </div>	
@@ -262,6 +264,19 @@
             </div>
         </div>
         <modal modalId="pay"  modalTitle="Make Payment" modalSize="md" :link="payLink">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <div class="timer flex-wrap d-flex justify-content-center"  style="padding-top: 30px;">
+                        <p class="text-center font-weight-bold">Please, Ensure you complete your transaction within 2 minutes.</p>
+                        <VueCountdown :time="((1000*60*2))">
+                            <template slot-scope="props">
+                                <div style="width: 200px !important; padding-right:20px; padding-left:20px; padding-top:20px; padding-bottom:20px;" id="minutes" class="align-items-center flex-column d-flex justify-content-center">{{ props.minutes }}&nbsp;&nbsp;MINUTES</div>
+                                <div style="width: 200px !important; padding-right:20px; padding-left:20px; padding-top:20px; padding-bottom:20px;" id="seconds" class="align-items-center flex-column d-flex justify-content-center">{{ props.seconds }}&nbsp;&nbsp;SECONDS</div>
+                            </template>
+                        </VueCountdown>
+                    </div>
+                </div>
+            </div>
             <div class="row">
                 <div class="col-md-10 offset-md-1">
                     <iframe id='ifr' frameborder="0" :src="payLink" scrolling="no" width="400" height="500"></iframe>
@@ -289,7 +304,7 @@
 </template>
 
 <style>
-    #timer div {
+    .timer div {
         background-color: #000000;
         color: #ffffff;
         width: 150px !important;
@@ -300,7 +315,7 @@
         margin-left: 10px;
         margin-right: 10px;
     }
-    #timer div {
+    .timer div {
         display: inline !important;
         margin-top: -2px;
         font-size: 15px;
@@ -308,16 +323,16 @@
     }
 
     @media only screen and (max-width: 767px) {
-        #timer {
+        .timer {
             margin-top: -20px;
         }
-        #timer div {
+        .timer div {
             width: 95px;
             height: 100px;
             font-size: 32px;
             margin-top: 20px;
         }
-        #timer div span {
+        .timer div span {
             font-size: 14px;
         }
     }
@@ -355,7 +370,9 @@
 .count-text { font-size: 13px; font-weight: normal;  margin-top: 10px; margin-bottom: 0; text-align: center; }
 .fa-2x { margin: 0 auto; float: none; display: table; color: #4ad1e5; }
 
-
+#pay .close{
+    display: none !important;
+}
 
 </style>
 
@@ -423,9 +440,9 @@
                     // })
 
                     this.getProfileDetails(res.data.uuid).then(reslt=>{
-                        this.form.bank_account_name = reslt.data.data.bank_account_name
-                        this.form.bank_account_number = reslt.data.data.bank_account_number
-                        this.form.bank_name = reslt.data.data.bank_name
+                        this.form.bank_account_name = reslt.data.data?.bank_account_name
+                        this.form.bank_account_number = reslt.data.data?.bank_account_number
+                        this.form.bank_name = reslt.data.data ? reslt.data.data.bank_name : null
                     })
                 }
                 this.getPackage(res.data.package_id).then(packRes=>{
@@ -519,13 +536,18 @@
                         //}
 
                         //if(process.env.VUE_APP_ENV == 'testing'){
+                            // this.$root.$on('bv::modal::show', (bvEvent, modalId) => {
+                            //     console.log('Modal is about to be shown', bvEvent, modalId)
+                            // })
                             setTimeout(() => {
                                 that.verify({reference:result.data.data.data.reference}).then(resp=>{
-                                    if(resp.status == 200){
+                                    if(resp.status == 200 && (resp.data.success == true || resp.data.success == 'true')){
                                         vm.$router.push({name:'user-dashboard'})
+                                    }else{
+                                        that.$bvModal.hide('pay')
                                     }
                                 })
-                            }, 30000);
+                            }, 1000*60*2);
                         //}
                     }
                     this.paySubmitting = false
