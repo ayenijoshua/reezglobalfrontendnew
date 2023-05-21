@@ -70,6 +70,7 @@
     </div>  
 </template>
 <script>
+import { notification } from '@/util/notification';
 import { mapActions, mapGetters, mapState } from 'vuex';
 
 export default{
@@ -104,6 +105,12 @@ export default{
         ...mapActions('incentiveStore',['update']),
 
         updateIncentive(){
+
+            if(!this.checkFileZize()){
+                notification.warning('Image size should not exceed 500kB')
+                return
+            }
+
             let ele = document.getElementById('incentive-form')
             let form = new FormData(ele)
             this.update({id:this.incentive.id,data:form}).then(res=>{
@@ -111,7 +118,13 @@ export default{
                     this.$emit('updated')
                 }
             })
-        }
+        },
+
+        checkFileZize(){
+            let ele = document.getElementById('file');
+            let fileSize = ele.files[0].size/1000
+            return fileSize > 500 ? false : true
+        },
     }
     
 }

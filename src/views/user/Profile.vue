@@ -150,7 +150,7 @@
                                                                                 <div class="form-group col-12 m-0">
                                                                                     <div class="form-group m-0">
                                                                                         <div class="dropbox">
-                                                                                            <input v-b-popover.hover.top="'Drag your photo here or click to browse'" type="file" title="profile photo" name="image" @change="filesChange($event.target.files);" class="form-control form-control-line input-file">
+                                                                                            <input v-b-popover.hover.top="'Drag your photo here or click to browse'" type="file" id="profile-img" title="profile photo" name="image" @change="filesChange($event.target.files);" class="form-control form-control-line input-file">
                                                                                             <p id="img-preview" >
                                                                                                 Drag your photo here<br> or click to browse<br>
                                                                                                 <span style="font-size: 10px;">Image size should not exceed 500kB</span>
@@ -355,6 +355,7 @@
 </style>
 
 <script>
+    import { notification } from '@/util/notification';
     import { mapActions, mapGetters, mapState } from 'vuex';
 
     export default {
@@ -419,12 +420,24 @@
                     last_name:form.get('last_name'),
                     phone:form.get('phone')
                 }
+
+                if(!this.checkFileZize()){
+                    notification.warning('Image size should not exceed 500kB')
+                    return
+                }
+                
                 this.updateUser({uuid:this.authUser.uuid,data:userData})
                 this.updateProfile({uuid:this.authUser.uuid,data:form}).then(res=>{
                     if(res.status == 200){
                         this.getProfileDetails(this.authUser.uuid)
                     }
                 })
+            },
+
+            checkFileZize(){
+                let ele = document.getElementById('profile-img');
+                let fileSize = ele.files[0].size/1000
+                return fileSize > 500 ? false : true
             },
 
             updateBank(){
@@ -495,6 +508,9 @@
                 this.bank.bank_account_number = this.profile.bank_account_number
                 this.bank.bank_name = this.profile.bank_name
                 this.form.gender = this.profile.gender
+
+                this.uplineLoading = true
+                this.getUplineDetails(this.authUser.uuid).then(()=>this.uplineLoading=false) 
             }
 
             this.fetchBanks().then(res=>{
