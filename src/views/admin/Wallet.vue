@@ -8,7 +8,7 @@
                             <img  src="/assets/img/wallet1.png">
                         </div>
                         <small class="mt-0text-white" >Total Company Wallet</small>
-                        <p class="text-dark-heading font-weight-bold text-white">₦<span style="font-size:32px">{{ companyWalletBalance }}</span></p>
+                        <p class="text-dark-heading font-weight-bold text-white">₦<span style="font-size:32px">{{ companyWalletBalance?.toLocaleString('en-US') }}</span></p>
                     </div>
                     <div class="row my-3">
                         <div class="col-md-12">

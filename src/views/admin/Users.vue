@@ -85,14 +85,14 @@
                                                             <i class="caret"></i>
                                                         </button>
                                                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="position:fixed">
-                                                            <a v-if="usersType !== 'inactive'" @click="setUser(user)" href="#" v-b-modal.user-dashboard class="dropdown-item text-green" ><i class="icon-barometer2"></i>&nbsp;&nbsp; Dashboard</a>
+                                                            <a v-if="usersType !== 'inactive'" @click="setUser(user)" v-b-modal.user-dashboard class="dropdown-item text-green" ><i class="icon-barometer2"></i>&nbsp;&nbsp; Dashboard</a>
                                                             <a v-if="usersType !== 'inactive'" @click="setUser(user)" v-b-modal.user-profile class="dropdown-item text-green" >
                                                                 <i  class="icon-drivers-license-o"></i>&nbsp;&nbsp; Profile</a>
-                                                            <a v-if="usersType !== 'inactive'" @click="setUser(user)" v-b-modal.user-genealogy class="dropdown-item text-green" href="#"><i class="icon-sitemap"></i>&nbsp;&nbsp;Geneology</a>
-                                                            <a v-if="usersType !== 'inactive'" @click="setUser(user)" v-b-modal.user-wallet class="dropdown-item text-green" href="#"><i class="icon-account_balance_wallet"></i>&nbsp;&nbsp;Wallet</a>
-                                                            <a v-if="usersType !== 'inactive'" @click="setUser(user)" v-b-modal.user-bank-details class="dropdown-item text-green" href="#" data-toggle="modal" data-target="#popModal-1"><i class="icon-bank"></i>&nbsp;&nbsp;Enable Bank Account Change</a>	
-                                                            <a v-if="usersType !== 'inactive'" @click="setUser(user)" v-b-modal.user-password class="dropdown-item text-green" href="#" data-toggle="modal" data-target="#popModal-2"><i class="icon-lock"></i>&nbsp;&nbsp;Login Details Change</a>											
-                                                            <a @click="setUser(user)" v-b-modal.send-message class="dropdown-item text-green" href="#" data-toggle="modal" data-target="#popModal-3"><i class="icon-mail-envelope-open6"></i>&nbsp;&nbsp;Send Message</a>
+                                                            <a v-if="usersType !== 'inactive'" @click="setUser(user)" v-b-modal.user-genealogy class="dropdown-item text-green" ><i class="icon-sitemap"></i>&nbsp;&nbsp;Geneology</a>
+                                                            <a v-if="usersType !== 'inactive'" @click="setUser(user)" v-b-modal.user-wallet class="dropdown-item text-green" ><i class="icon-account_balance_wallet"></i>&nbsp;&nbsp;Wallet</a>
+                                                            <a v-if="usersType !== 'inactive'" @click="setUser(user)" v-b-modal.user-bank-details class="dropdown-item text-green" data-toggle="modal" data-target="#popModal-1"><i class="icon-bank"></i>&nbsp;&nbsp;Enable Bank Account Change</a>	
+                                                            <a v-if="usersType !== 'inactive'" @click="setUser(user)" v-b-modal.user-password class="dropdown-item text-green" data-toggle="modal" data-target="#popModal-2"><i class="icon-lock"></i>&nbsp;&nbsp;Login Details Change</a>											
+                                                            <a @click="setUser(user)" v-b-modal.send-message class="dropdown-item text-green" data-toggle="modal" data-target="#popModal-3"><i class="icon-mail-envelope-open6"></i>&nbsp;&nbsp;Send Message</a>
                                                             <a v-if="usersType !== 'inactive'" @click="setUser(user)" v-b-modal.user-2fa class="dropdown-item text-green" data-toggle="modal" data-target="#popModal-4"><i class="icon-lock3"></i>&nbsp;&nbsp;Login 2FA</a> 
                                                         </div>
                                                     </div>
