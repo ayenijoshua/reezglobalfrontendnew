@@ -8,7 +8,7 @@
                             <img class="mr-3  r-3" src="/assets/img/shopping-cart.png"  width="70px" height="70px">
                         </div>
                         <small class="mt-0text-white" >Registration Products Requests</small>
-                        <p class="text-dark-heading font-weight-bold text-white"><span style="font-size:32px">{{ productClaims.length }}</span></p>
+                        <p class="text-dark-heading font-weight-bold text-white"><span style="font-size:32px">{{ claims.length }}</span></p>
                     </div>
                 </div>
             </div>
@@ -40,14 +40,14 @@
                                     </td>
                                 </tr>
                                 <template v-else>
-                                    <tr v-if="productClaims.length == 0">
+                                    <tr v-if="claims.length == 0">
                                         <td colspan="7">
                                             <div class="alert alert status">
                                                 There are no product claims
                                             </div>
                                         </td>
                                     </tr>
-                                    <tr v-else v-for="prod,i in productClaims" :key="i">
+                                    <tr v-else v-for="prod,i in claims" :key="i">
                                         <td>{{ ++i }}</td>
                                         <td>{{ prod.first_name }} {{ prod.last_name }}</td>
                                         <td>{{ prod.username }}</td>
@@ -104,7 +104,8 @@ import ProductClaimDetails from '@/components/admin/ProductClaimDetails.vue';
         data(){
             return{
                 user_uuid:null,
-                requestLoading:false
+                requestLoading:false,
+                claims:[]
             }
         },
 
@@ -125,12 +126,13 @@ import ProductClaimDetails from '@/components/admin/ProductClaimDetails.vue';
                 this.all().then((res)=>{
                     this.requestLoading = false
                     if(res.status == 200){
-                        var flags = [], len = this.productClaims.length, i;
-                        for(i=0; i<len; i++){
-                            if(flags[this.productClaims[i].user_uuid]){
+                        var flags = [], i;
+                        for(i=0; i<this.productClaims.length; i++){
+                            if(flags[this.productClaims[i].username]){
                                 this.productClaims.splice(i,1)
                             }else{
-                                flags[this.productClaims[i].user_uuid] = true;
+                                flags[this.productClaims[i].username] = true;
+                                this.claims.push(this.productClaims[i])
                             }
                         }
                     }  
@@ -143,18 +145,40 @@ import ProductClaimDetails from '@/components/admin/ProductClaimDetails.vue';
 
             accept(id){
                 //if(confirm("Are you sure to approve this request")){
-                    this.approve(id)
+                    this.approve(id).then(()=>{
+                        this.filterClaims()
+                    })
                 //}
             },
 
             reject(id){
                 //if(confirm("Are you sure to reject this request")){
-                    this.decline(id)
+                    this.decline(id).then(()=>{
+                        this.filterClaims()
+                    })
                 //}
             },
 
             setUser(uuid){
                 this.user_uuid = uuid
+            },
+
+            filterClaims(){
+                this.all().then((res)=>{
+                    //this.requestLoading = false
+                    if(res.status == 200){
+                        this.claims = []
+                        var flags = [], i;
+                        for(i=0; i<this.productClaims.length; i++){
+                            if(flags[this.productClaims[i].username]){
+                                this.productClaims.splice(i,1)
+                            }else{
+                                flags[this.productClaims[i].username] = true;
+                                this.claims.push(this.productClaims[i])
+                            }
+                        }
+                    }  
+                })
             }
 
         }

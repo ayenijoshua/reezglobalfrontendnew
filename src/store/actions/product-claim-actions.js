@@ -49,6 +49,7 @@ export default {
                 toastr.warning(res.data.message)
             }
             commit('submitted',null,{root:true})
+            return res
         } catch (err) {
             LogError(commit,err,'submitted')
         }
@@ -65,6 +66,7 @@ export default {
                 toastr.warning(res.data.message)
             }
             commit('submitted',null,{root:true})
+            return res
         } catch (err) {
             LogError(commit,err,'submitted')
         }
