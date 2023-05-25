@@ -6,7 +6,7 @@
               <a class="page-link" rel="first" @click="firstPage">first</a>
           </li> -->
           <li v-if="(current_page-1 > 0)" class="page-item ">
-              <a @click="prevPage" class="page-link">« previous</a>
+              <a @click="prevPage()" class="page-link">« previous</a>
           </li>
 
           <template v-if="total_pages > per_page">
@@ -16,7 +16,7 @@
           </template>
 
           <li v-if="(last_page !== current_page)" class="page-item">
-              <a @click="nextPage" class="page-link" >next »</a>
+              <a @click="nextPage()" class="page-link" >next »</a>
           </li>
           <!-- <li v-if="(last_page == current_page)" class="page-item">
               <a @click="lastPage" class="page-link" >last</a>
