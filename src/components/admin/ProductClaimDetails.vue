@@ -61,7 +61,7 @@ import { mapActions, mapGetters, mapState } from 'vuex';
         },
 
         created(){
-            this.getProductClaims(this.uuid).then(res=>{
+            this.getProductClaims({uuid:this.uuid,processing:true}).then(res=>{
                 if( res.status == 200){
                     this.userProductClaims.forEach(ele=>{
                         //console.log(ele.worth)

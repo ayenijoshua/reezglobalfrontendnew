@@ -92,7 +92,7 @@
       },
       nextPage(pageNum=null) {
         //if(pageNum==this.current_page){return}
-        this.$store.dispatch(this.action, {page:this.setParameter(pageNum || this.current_page + 1),type:this.type} ).then(() => {
+        this.$store.dispatch(this.action, {page:this.setParameter(pageNum !== null ? pageNum : (this.current_page + 1)),type:this.type} ).then(() => {
           // this.$router.push({
           //   path: this.path,
           //   query: { page: this.current_page + 1 },

@@ -353,7 +353,7 @@ export default{
         }
         this.getCurrentIncentive(this.user.uuid)
         this.getClaims(this.user.uuid)
-        this.getProductClaims(this.user.uuid).then(res=>{
+        this.getProductClaims({uuid:this.user.uuid,processing:false}).then(res=>{
             if( res.status == 200){
                 this.userProductClaims.forEach(ele=>{
                     console.log(ele.worth)

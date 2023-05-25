@@ -72,11 +72,11 @@ export default {
         }
     },
 
-    async getProductClaims({commit},uuid){
+    async getProductClaims({commit},{uuid,processing=false}){
         var res;
         try {
             commit('loading',null,{root:true})
-            res = await api.claims(uuid)
+            res = await api.claims(uuid,processing)
             if(res.status==200){
                 //notification.success("Incentive approved successfully")
                 commit('userProductClaims',res.data.data)

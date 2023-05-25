@@ -19,8 +19,8 @@ export default {
         return http().put(`${endPoints.productClaims}/${uuid}/decline`)
     },
 
-    claims(uuid){
-        return http().get(`${endPoints.productClaims}/${uuid}/claims`);
+    claims(uuid,processing){
+        return http().get(`${endPoints.productClaims}/${uuid}/claims?processing=${processing}`);
     },
 
     totalProductSold(){

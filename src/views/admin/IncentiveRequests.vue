@@ -64,8 +64,8 @@
                                                 <i class="caret"></i>
                                                 </button>
                                                 <div class="dropdown-menu " aria-labelledby="dropdownMenuButton" style="position:fixed">
-                                                    <a class="dropdown-item text-green" href="#"  ><i class="icon-check-circle"></i>&nbsp;&nbsp; Approve</a>
-                                                    <a class="dropdown-item text-green" href="#" ><i class="icon-times-circle"></i>&nbsp;&nbsp; Decline</a>	
+                                                    <a class="dropdown-item text-green" @click="accept(claim.id)" style="cursor: pointer;"><i class="icon-check-circle"></i>&nbsp;&nbsp; Approve</a>
+                                                    <a class="dropdown-item text-green" @click="reject(claim.id)" style="cursor: pointer;"><i class="icon-times-circle"></i>&nbsp;&nbsp; Decline</a>	
                                                 </div>
                                             </div>													
                                         </td>
@@ -113,11 +113,19 @@ import { mapActions, mapGetters, mapState } from 'vuex';
             ...mapActions('incentiveClaimStore',['all','approve','decline']),
 
             accept(id){
-                this.approve(id)
+                this.approve(id).then(res=>{
+                    if(res.status==200){
+                        this.all()
+                    }
+                })
             },
 
             reject(id){
-                this.decline(id)
+                this.decline(id).then(res=>{
+                    if(res.status==200){
+                        this.all()
+                    }
+                })
             }
         }
     }

@@ -270,12 +270,12 @@
                                         <div class="col-md-12">
                                             <form @submit.prevent="inviteFriend()">
                                                 <div class="form-row">
-                                                    <div class="col-md-6 mb-3">
+                                                    <div class="col-md-12 mb-3">
                                                         <input type="email" required v-model="inviteForm.email" class="form-control" id="validationDefault03" placeholder="Recipients Email Address">
                                                     </div>
-                                                    <div class="col-md-6 mb-3">
+                                                    <!-- <div class="col-md-6 mb-3">
                                                         <input type="text" title="Referrer" v-b-popover.hover.top="'Enter a referrer if you already have 2 downlines '" v-model="inviteForm.referrer" class="form-control" id="validationDefault03" placeholder="Referrer ID *">
-                                                    </div>
+                                                    </div> -->
                                                 </div>
                                                 <span v-if="submitting" class="btn btn-success">...</span>
                                                 <button v-else class="btn btn-success" type="submit">Invite a Friend</button>
@@ -465,7 +465,7 @@
                         </div>
                         <div class="float-left">
                             <div class="card-body">
-                                <template v-if="loading && prodClaimLoading">
+                                <template v-if="prodClaimLoading">
                                     <b-skeleton-table
                                         :rows="3"
                                         :columns="3"
@@ -492,7 +492,7 @@
                                             <h6 class="font-weight-bold text-green s-12" style="margin: 0em; padding: 0em;">Total Point Value </h6>											
                                         </div>	
                                         <div class="mb-2 mt-2 ml-auto mr-3">
-                                            <h6 class="font-weight-bold text-green s-12" style="margin: 0em; padding: 0em;">{{ totalPv }} PV</h6>											
+                                            <h6 class="font-weight-bold text-green s-12" style="margin: 0em; padding: 0em;">{{ totalPv?.toFixed(2) }} PV</h6>											
                                         </div>
                                     </div> 	
                                     <div class="row column-row border-bottom">
@@ -500,7 +500,7 @@
                                             <h6 class="font-weight-bold text-green s-12" style="margin: 0em; padding: 0em;">Total Product Cost </h6>											
                                         </div>	
                                         <div class="mb-2 mt-5 ml-auto mr-3">
-                                            <h6 class="font-weight-bold text-green s-12" style="margin: 0em; padding: 0em;">₦{{ totalWorth }} </h6>											
+                                            <h6 class="font-weight-bold text-green s-12" style="margin: 0em; padding: 0em;">₦{{ totalWorth?.toLocaleString('en-US') }} </h6>											
                                         </div>
                                     </div>
 
@@ -706,7 +706,7 @@ export default{
             
             if(this.userProductClaims.length == 0){
                 this.prodClaimLoading = true
-                this.getProductClaims(authUser.uuid).then(res=>{
+                this.getProductClaims({uuid:authUser.uuid, processing:false}).then(res=>{
                     if( res.status == 200){
                         this.userProductClaims.forEach(ele=>{
                             this.totalWorth = this.totalWorth + ele.worth
