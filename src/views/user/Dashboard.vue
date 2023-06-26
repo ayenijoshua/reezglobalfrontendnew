@@ -205,7 +205,10 @@
                                         </template>
                                         <template v-else>
                                             <div v-if="currentIncentive == null" class="col-md-12">
-                                                <p class="alert alert-info">You are yet to qualify for an incentive</p>
+                                                <div class="text-dark-heading font-weight-bold green-text">
+                                                    <img class="img-fluid" :src="'/img/badges/'+currentRankBadge" style="{width:'20%', height:'auto'}" />
+                                                </div>
+                                                <!-- <p class="alert alert-info">You are yet to qualify for an incentive</p> -->
                                             </div>
                                             <template v-else>
                                                 <div class="col-md-6" id="yourContainer">
@@ -213,8 +216,11 @@
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="card-body pt-0 mt-5">
-                                                        <h6 class="mt-0 green-text" >Cash Equivalent</h6>
-                                                        <div class="text-dark-heading font-weight-bold green-text" >₦<span class="s-36">{{ currentIncentive.worth?.toLocaleString('en-US') }}</span></div>
+                                                        <!-- <h6 class="mt-0 green-text" >Cash Equivalent</h6>
+                                                        <div class="text-dark-heading font-weight-bold green-text" >₦<span class="s-36">{{ currentIncentive.worth?.toLocaleString('en-US') }}</span></div> -->
+                                                        <div class="text-dark-heading font-weight-bold green-text">
+                                                            <img class="img-fluid" :src="'/img/badges/'+currentRankBadge" style="{width:'30%', height:'auto'}" />
+                                                        </div>
                                                         <hr>
                                                         <h6 class="mt-0 green-text" >Cumulated Point Value (CPV)</h6>
                                                         <div class="text-dark-heading font-weight-bold green-text"><span class="s-36">{{ currentIncentive.points?.toLocaleString('en-US') }}PV</span></div>
@@ -341,7 +347,7 @@
                                         <tr>
                                             <th scope="col">S/N</th>
                                             <th scope="col">Incentive Claimed</th>
-                                            <th scope="col">Worth</th>
+                                            <!-- <th scope="col">Worth</th> -->
                                             <th scope="col">Status</th>
                                             <th scope="col">PV Level</th>
                                             <th scope="col">Date</th>
@@ -349,22 +355,22 @@
                                     </thead>
                                     <tbody>
                                         <tr v-if="loading && incClaimLoading">
-                                            <td colspan="6">
+                                            <td colspan="5">
                                                 <b-skeleton-table
                                                     :rows="5"
-                                                    :columns="6"
+                                                    :columns="5"
                                                     :table-props="{ bordered: true, striped: true }"
                                                 ></b-skeleton-table>
                                             </td>
                                         </tr>
                                         <template v-else>
                                             <tr v-if="claims.length == 0">
-                                                <td colspan="6">There are no claimed incentives</td>
+                                                <td colspan="5">There are no claimed incentives</td>
                                             </tr>
                                             <tr v-else v-for="claim,i in claims" :key="i">
                                                 <th scope="row">{{ ++i }}</th>
                                                 <td>{{ claim.incentive }}</td>
-                                                <td>{{ claim.worth?.toLocaleString('en-US')}}</td>
+                                                <!-- <td>{{ claim.worth?.toLocaleString('en-US')}}</td> -->
                                                 <td>{{ claim.status }}</td>
                                                 <td>{{ claim.points }} PV</td>
                                                 <td>{{ claim.created_at }} </td>
@@ -403,16 +409,17 @@
                                                             <th scope="col">S/N</th>
                                                             <th scope="col">Products</th>
                                                             <th scope="col">PV</th>
-                                                            <th scope="col">Worth</th>
-                                                            <th scope="col">Select</th>
+                                                            <!-- <th scope="col">Worth</th> -->
+                                                            <th scope="col">Qty</th>
+                                                            <!-- <th scope="col">Select</th> -->
                                                         </tr>
                                                     </thead>
                                                     <tbody>
                                                         <tr v-if="loading && prodLoading">
-                                                            <td colspan="5">
+                                                            <td colspan="4">
                                                                 <b-skeleton-table
                                                                     :rows="3"
-                                                                    :columns="5"
+                                                                    :columns="4"
                                                                     :table-props="{ bordered: true, striped: true }"
                                                                 ></b-skeleton-table>
                                                             </td>
@@ -422,16 +429,21 @@
                                                                 <td colspan="4">There are no products</td>
                                                             </tr>
                                                             <template v-else>
-                                                                <tr v-for="product,i in products" :key="i">
+                                                                <tr v-for="produc,i in products" :key="i">
                                                                     <td>{{ ++i }}</td>
-                                                                    <td>{{ product.name }}</td>
-                                                                    <td>{{ product.points }}</td>
-                                                                    <td>₦{{ product.worth }}</td>
+                                                                    <td>{{ produc.name }}</td>
+                                                                    <td>{{ produc.points }}</td>
+                                                                    <!-- <td>₦{{ produc.worth }}</td> -->
                                                                     <td>
-                                                                        <div class="form-check">
-                                                                            <input name="product_ids[]" :key="i" class="form-check-input" type="checkbox" :value="product.id" id="cb1" :style="{'accent-color': '#2E671A'}">
+                                                                        <div class="">
+                                                                            <input :key="i" @change="(e)=>logClaim(e,produc.id)" class="form-control" type="number" min="1">
                                                                         </div>
                                                                     </td>
+                                                                    <!-- <td>
+                                                                        <div class="form-check">
+                                                                            <input v-model="product_ids" class="form-check-input" type="checkbox" :value="{id:product.id,qty:2}" id="cb1" :style="{'accent-color': '#2E671A'}">
+                                                                        </div>
+                                                                    </td> -->
                                                                 </tr>
                                                                 <div class="m-3">	
                                                                     <span v-if="submitting" class="btn btn-sm btn-success">...</span>								
@@ -483,7 +495,7 @@
                                             <img src="/assets/img/shop1.png" width="30px" height="30px">
                                         </div>  
                                         <div class="mb-2 mt-2">
-                                            <h6 class="font-weight-bold text-green s-12" style="margin: 0em; padding: 0em;">{{ userClaim.name }} <br><small> ₦{{ userClaim.worth }} | {{userClaim.points}}PV</small></h6>	
+                                            <h6 class="font-weight-bold text-green s-12" style="margin: 0em; padding: 0em;">{{ userClaim.name }} <br><small> {{userClaim.points}}PV | Qty:{{ userClaim.product_qty }}</small></h6>	
                                         </div>	
                                     </div>
 
@@ -495,14 +507,14 @@
                                             <h6 class="font-weight-bold text-green s-12" style="margin: 0em; padding: 0em;">{{ totalPv?.toFixed(2) }} PV</h6>											
                                         </div>
                                     </div> 	
-                                    <div class="row column-row border-bottom">
+                                    <!-- <div class="row column-row border-bottom">
                                         <div class="mb-2 mt-5 ml-3">
                                             <h6 class="font-weight-bold text-green s-12" style="margin: 0em; padding: 0em;">Total Product Cost </h6>											
                                         </div>	
                                         <div class="mb-2 mt-5 ml-auto mr-3">
                                             <h6 class="font-weight-bold text-green s-12" style="margin: 0em; padding: 0em;">₦{{ totalWorth?.toLocaleString('en-US') }} </h6>											
                                         </div>
-                                    </div>
+                                    </div> -->
 
                                     <div class="mt-3">									
                                         <button type="button" disabled :class="['btn btn-small', productClaimStatus=='processing'?'btn-warning':productClaimStatus=='approved'?'btn-success':'btn-danger']">
@@ -542,6 +554,7 @@ export default{
             equilibrumBonusEligible:false,
             loyaltyBonusEligible:false,
             product_ids:[],
+            cartProducts:[],
             totalWorth:0,
             totalPv:0,
             productClaimStatus:'Unclaimed',
@@ -602,6 +615,7 @@ export default{
         ...mapGetters('incentiveClaimStore',['claims','currentIncentive']),
         ...mapGetters('productStore',['products']),
         ...mapGetters('productClaimStore',['userProductClaims']),
+        ...mapGetters('rankStore',['currentRankBadge']),
     },
 
     created(){
@@ -612,6 +626,10 @@ export default{
             })
         }else{
             this.getDashboardData(this.authUser)
+        }
+
+        if(this.currentRankBadge==null){
+            this.getCurrentRankBadge()
         }
 
         if(this.settings.id == undefined){
@@ -628,6 +646,18 @@ export default{
     },
 
     methods:{
+        logClaim(e,id){
+            let data = {qty:e.target.value,id:id}
+            //qty = e.target.value
+           let index = this.cartProducts.findIndex(ele=>ele.id == id)
+           if(index !== -1){
+            this.cartProducts[index].qty = data.qty
+           }else{
+            this.cartProducts.push(data)
+           }
+            
+            //console.log(this.cartProducts)
+        },
         ...mapActions('bonusStore',['getWelcomeBonus',
         'getEquilibrumBonus','getLoyaltyBonus','getReferralBonus',
         'getProfitPool','getGlobalProfit','getPlacementBonus','getTotalBonus','getWalletBalance']),
@@ -638,6 +668,7 @@ export default{
         ...mapActions('incentiveClaimStore',['getClaims','getCurrentIncentive','create']),
         ...mapActions('productStore',['getActiveProducts']),
         ...mapActions('productClaimStore',['claimProduct','getProductClaims']),
+        ...mapActions('rankStore',['getCurrentRankBadge']),
         
         getBonuses(uuid){
             if(this.welcomeBonus==null){
@@ -710,7 +741,7 @@ export default{
                     if( res.status == 200){
                         this.userProductClaims.forEach(ele=>{
                             this.totalWorth = this.totalWorth + ele.worth
-                            this.totalPv = this.totalPv + ele.points
+                            this.totalPv = this.totalPv + (ele.points * ele.product_qty)
                             this.productClaimStatus = ele.status
                         })
                     }
@@ -768,15 +799,16 @@ export default{
 
         productClaim()
         {
-            let form = document.getElementById('product-claim-form')
-            let formData = new FormData(form)
+            //let form = document.getElementById('product-claim-form')
+            let formData = {products:this.cartProducts}
             this.claimProduct({uuid:this.authUser.uuid,data:formData}).then(res=>{
                 if(res && res.status == 200){
                     this.userProductClaims.forEach(ele=>{
                         this.totalWorth = this.totalWorth + ele.worth
-                        this.totalPv = this.totalPv + ele.points
+                        this.totalPv = this.totalPv + (ele.points * ele.product_qty)
                         this.productClaimStatus = ele.status
                     })
+                    this.cartProducts = []
                 }
             })
         },

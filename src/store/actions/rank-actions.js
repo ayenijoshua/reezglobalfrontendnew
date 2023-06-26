@@ -51,4 +51,22 @@ export default {
             LogError(commit,err,'submitted')
         }
     },
+
+    async getCurrentRankBadge({commit}){
+        var res;
+        try {
+            commit('loading',null,{root:true})
+            res = await api.currentRankBadge()
+            if(res.status==200){
+                commit('currentRankBadge',res.data.data)
+                //notification.success("Rank updated successfully")
+            }else{
+                toastr.warning(res.data.message)
+            }
+            commit('loaded',null,{root:true})
+            return res
+        } catch (err) {
+            LogError(commit,err,'loaded')
+        }
+    },
 }

@@ -8,7 +8,8 @@ export default{
     state(){
         return{
             ranks:[],
-            rank:{}
+            rank:{},
+            currentRankBadge:null
         }
     },
     actions:{

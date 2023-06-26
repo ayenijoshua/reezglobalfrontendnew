@@ -7,7 +7,7 @@
                         <img src="/assets/img/shop1.png" width="30px" height="30px">
                     </div>  
                     <div class="mb-2 mt-2">
-                        <h6 class="font-weight-bold text-green s-12" style="margin: 0em; padding: 0em;">{{ userClaim.name }} <br><small> ₦{{ userClaim.worth?.toLocaleString('en-US') }} | {{userClaim.points?.toFixed(2)}}PV</small></h6>	
+                        <h6 class="font-weight-bold text-green s-12" style="margin: 0em; padding: 0em;">{{ userClaim.name }} <br><small> ₦{{ userClaim.worth?.toLocaleString('en-US') }} | {{userClaim.points?.toFixed(2)}}PV | Qty:{{userClaim.product_qty}}</small></h6>	
                     </div>	
                 </div>
 
@@ -65,8 +65,8 @@ import { mapActions, mapGetters, mapState } from 'vuex';
                 if( res.status == 200){
                     this.userProductClaims.forEach(ele=>{
                         //console.log(ele.worth)
-                        this.totalWorth = this.totalWorth + ele.worth
-                        this.totalPv = this.totalPv + ele.points
+                        this.totalWorth = this.totalWorth + (ele.worth * ele.product_qty)
+                        this.totalPv = this.totalPv + (ele.points * ele.product_qty)
                         this.status = ele.status
                     })
                 }

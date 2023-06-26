@@ -7,5 +7,9 @@ export default {
 
     rank(state){
         return state.rank
+    },
+
+    currentRankBadge(state){
+        return state.currentRankBadge
     }
 }
