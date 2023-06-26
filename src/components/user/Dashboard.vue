@@ -148,10 +148,10 @@
                                         </template>
                                         <template v-else>
                                             <div v-if="currentIncentive == null" class="col-md-12">
-                                                <div class="text-dark-heading font-weight-bold green-text">
+                                                <div v-if="currentRankBadge !== ''" class="text-dark-heading font-weight-bold green-text">
                                                     <img class="img-flui" :src="'/img/badges/'+currentRankBadge" style="{width:'20%', height:'auto'}" />
                                                 </div>
-                                                <!-- <p class="alert alert-info">You are yet to qualify for an incentive</p> -->
+                                                <p v-else class="alert alert-info">You are yet to qualify for an incentive</p>
                                             </div>
                                             <template v-else>
                                                 <div class="col-md-6" id="yourContainer">
