@@ -52,11 +52,11 @@ export default {
         }
     },
 
-    async getCurrentRankBadge({commit}){
+    async getCurrentRankBadge({commit},id){
         var res;
         try {
             commit('loading',null,{root:true})
-            res = await api.currentRankBadge()
+            res = await api.currentRankBadge(id)
             if(res.status==200){
                 commit('currentRankBadge',res.data.data)
                 //notification.success("Rank updated successfully")

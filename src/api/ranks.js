@@ -19,7 +19,7 @@ export default {
         return http().get(`${endPoints.ranks}/${id}`)
     },
 
-    currentRankBadge(){
-        return http().get(`${endPoints.ranks}/current-rank-badge`)
+    currentRankBadge(id){
+        return http().get(`${endPoints.ranks}/current-rank-badge/${id}`)
     }
 }

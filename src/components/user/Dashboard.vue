@@ -148,7 +148,10 @@
                                         </template>
                                         <template v-else>
                                             <div v-if="currentIncentive == null" class="col-md-12">
-                                                <p class="alert alert-info">You are yet to qualify for an incentive</p>
+                                                <div class="text-dark-heading font-weight-bold green-text">
+                                                    <img class="img-flui" :src="'/img/badges/'+currentRankBadge" style="{width:'20%', height:'auto'}" />
+                                                </div>
+                                                <!-- <p class="alert alert-info">You are yet to qualify for an incentive</p> -->
                                             </div>
                                             <template v-else>
                                                 <div class="col-md-6" id="yourContainer">
@@ -156,8 +159,11 @@
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="card-body pt-0 mt-5">
-                                                        <h6 class="mt-0 green-text" >Cash Equivalent</h6>
-                                                        <div class="text-dark-heading font-weight-bold green-text" >₦<span class="s-36">{{ currentIncentive.worth?.toLocaleString('en-US') }}</span></div>
+                                                        <!-- <h6 class="mt-0 green-text" >Cash Equivalent</h6>
+                                                        <div class="text-dark-heading font-weight-bold green-text" >₦<span class="s-36">{{ currentIncentive.worth?.toLocaleString('en-US') }}</span></div> -->
+                                                        <div class="text-dark-heading font-weight-bold green-text">
+                                                            <img class="img-fluid" :src="'/img/badges/'+currentRankBadge" :style="{width:'30%', height:'30%'}" />
+                                                        </div>
                                                         <hr>
                                                         <h6 class="mt-0 green-text" >Cumulated Point Value (CPV)</h6>
                                                         <div class="text-dark-heading font-weight-bold green-text"><span class="s-36">{{ currentIncentive.points?.toLocaleString('en-US') }}PV</span></div>
@@ -340,6 +346,7 @@ export default{
         ...mapGetters('incentiveClaimStore',['claims','currentIncentive']),
         ...mapGetters('productStore',['products']),
         ...mapGetters('productClaimStore',['userProductClaims']),
+        ...mapGetters('rankStore',['currentRankBadge'])
     },
 
     created(){
@@ -386,6 +393,8 @@ export default{
                 })
             }
         })
+
+        this.getCurrentRankBadge(this.user.rank_id)
                 
     },
 
@@ -400,6 +409,7 @@ export default{
         ...mapActions('incentiveClaimStore',['getClaims','getCurrentIncentive']),
         ...mapActions('productStore',['getActiveProducts']),
         ...mapActions('productClaimStore',['claimProduct','getProductClaims']),
+        ...mapActions('rankStore',['getCurrentRankBadge']),
         
         getBonuses(uuid){
             this.getWelcomeBonus(uuid)

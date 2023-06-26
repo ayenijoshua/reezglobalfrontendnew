@@ -206,7 +206,7 @@
                                         <template v-else>
                                             <div v-if="currentIncentive == null" class="col-md-12">
                                                 <div class="text-dark-heading font-weight-bold green-text">
-                                                    <img class="img-fluid" :src="'/img/badges/'+currentRankBadge" style="{width:'20%', height:'auto'}" />
+                                                    <img class="img-fluid" :src="'/img/badges/'+currentRankBadge" :style="{width:'30%', height:'30%'}" />
                                                 </div>
                                                 <!-- <p class="alert alert-info">You are yet to qualify for an incentive</p> -->
                                             </div>
@@ -219,7 +219,7 @@
                                                         <!-- <h6 class="mt-0 green-text" >Cash Equivalent</h6>
                                                         <div class="text-dark-heading font-weight-bold green-text" >₦<span class="s-36">{{ currentIncentive.worth?.toLocaleString('en-US') }}</span></div> -->
                                                         <div class="text-dark-heading font-weight-bold green-text">
-                                                            <img class="img-fluid" :src="'/img/badges/'+currentRankBadge" style="{width:'30%', height:'auto'}" />
+                                                            <img class="img-fluid" :src="'/img/badges/'+currentRankBadge" :style="{width:'30%', height:'30%'}" />
                                                         </div>
                                                         <hr>
                                                         <h6 class="mt-0 green-text" >Cumulated Point Value (CPV)</h6>
@@ -621,15 +621,16 @@ export default{
     created(){
         if(this.authUser.uuid == undefined){
             this.getUser().then(res=>{
-
+                this.getCurrentRankBadge(res.data.rank_id)
                 this.getDashboardData(res.data)
             })
         }else{
+            this.getCurrentRankBadge(this.authUser.rank_id)
             this.getDashboardData(this.authUser)
         }
 
         if(this.currentRankBadge==null){
-            this.getCurrentRankBadge()
+            this.getCurrentRankBadge(this.authUser.rank_id)
         }
 
         if(this.settings.id == undefined){
