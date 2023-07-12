@@ -151,7 +151,7 @@
                                         <a href="https://delishcare.com/privacy" class="font-weight-bold" target="blank" :style="{'text-decoration':'none'}">Privacy Policy</a>
                                     </p>
                                     <span v-if="submitting" class="btn btn-success btn-lg btn-block">...</span>
-                                    <input v-else disabled type="submit" class="btn btn-success btn-lg btn-block" value="Register">
+                                    <!-- <input v-else disabled type="submit" class="btn btn-success btn-lg btn-block" value="Register"> -->
                                     <div class="text-center">
                                         <img class="img-responsive text-center" src="assets/img/or.png" style= "max-width:250px; padding-top:30px; padding-bottom:10px;" alt=""> 
                                         <p class="forget-pass text-white text-center">Do You have an account already? 
