@@ -436,7 +436,7 @@
                                                                     <!-- <td>₦{{ produc.worth }}</td> -->
                                                                     <td>
                                                                         <div class="">
-                                                                            <input :key="i" @change="(e)=>logClaim(e,produc.id)" class="form-control" type="number" min="1">
+                                                                            <input :key="i" @change="(e)=>logClaim(e,produc.id,produc.points)" class="form-control" type="number" min="1">
                                                                         </div>
                                                                     </td>
                                                                     <!-- <td>
@@ -444,6 +444,11 @@
                                                                             <input v-model="product_ids" class="form-check-input" type="checkbox" :value="{id:product.id,qty:2}" id="cb1" :style="{'accent-color': '#2E671A'}">
                                                                         </div>
                                                                     </td> -->
+                                                                </tr>
+                                                                <tr>
+                                                                    <td colspan="4" align="right">
+                                                                        <b>Total Point Value : {{ cartTotalPoints }}PV</b>
+                                                                    </td>
                                                                 </tr>
                                                                 <div class="m-3">	
                                                                     <span v-if="submitting" class="btn btn-sm btn-success">...</span>								
@@ -559,6 +564,8 @@ export default{
             totalPv:0,
             productClaimStatus:'Unclaimed',
             guestEmail:null,
+            cartPoints:{},
+            cartTotalPoints:0,
 
             form:{
                 rank_id:null,
@@ -647,9 +654,14 @@ export default{
     },
 
     methods:{
-        logClaim(e,id){
+        logClaim(e,id,points){
             let data = {qty:e.target.value,id:id}
             //qty = e.target.value
+            let pv = data.qty * points
+            this.cartPoints = {...this.cartPoints,[data.id]:pv}
+            let pvs = Object.values(this.cartPoints)
+            let sum = pvs.reduce((res,val)=>res+val)
+            this.cartTotalPoints = sum
            let index = this.cartProducts.findIndex(ele=>ele.id == id)
            if(index !== -1){
             this.cartProducts[index].qty = data.qty
