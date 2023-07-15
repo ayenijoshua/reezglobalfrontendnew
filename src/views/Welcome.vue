@@ -216,7 +216,7 @@
                                                                         <div class="input-group-prepend">
                                                                             <div class="input-group-text"><i class="icon icon-account_balance float-left s-20 green-text " ></i></div>
                                                                         </div>
-                                                                        <input v-model="form.bank_account_number" required type="text" class="form-control r-1 light s-12" placeholder="Account No."> 
+                                                                        <input v-model="form.bank_account_number" required type="text" min="10" class="form-control r-1 light s-12" placeholder="Account No."> 
                                                                     </div>  
                                                                     <!-- <div class="input-group ">
                                                                         <div class="input-group-prepend">
