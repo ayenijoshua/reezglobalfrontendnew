@@ -29,7 +29,7 @@
 
                                     <div class="col-lg-12">
                                         <span v-if="submitting && logSubmitting" class="btn btn-success btn-lg btn-block">...</span>
-                                        <input disabled v-else type="submit" class="btn btn-success btn-lg btn-block" value="Login"/>
+                                        <input v-else type="submit" class="btn btn-success btn-lg btn-block" value="Login"/>
                                     </div>
                                     
                                 </div>
