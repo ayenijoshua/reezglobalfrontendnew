@@ -17,12 +17,12 @@
                                                 ></b-skeleton-table>
                                             </template>
                                             <template v-else>
-                                                <div v-if="directDownlines.length==0" class="card bg-white mb-3" >
-                                                    <div class="card bg-white mb-3">
-                                                        <div class="card-header bg-white">
-                                                            <h6 class="green-text"><strong class="font-weight-bold">Direct Downlines</strong></h6>
+                                                <div v-if="directDownlines.length==0" class="card shadow  mb-3" style="background-color: transparent" >
+                                                    <div class="card  mb-3" style="background-color: transparent">
+                                                        <div class="card-header " style="background-color: #2E671A">
+                                                            <h6 class="text-white"><strong class="font-weight-bold">Direct Downlines</strong></h6>
                                                         </div>
-                                                        <div class="card-body text-center">
+                                                        <div class="card-body text-center ">
                                                             <div class="alert alert-info">
                                                                 <p>There are no direct downlines</p>
                                                             </div>
@@ -30,20 +30,20 @@
                                                     </div>
                                                 </div>
                                                 <template v-else>
-                                                    <div v-for="dirDown,i in directDownlines" class="card bg-white mb-3" :key="i" >
-                                                        <div class="card-header bg-white">
-                                                            <h6 class="green-text"><strong class="font-weight-bold">Referral-{{ dirDown.username }} | Direct Downline</strong></h6>
+                                                    <div v-for="dirDown,i in directDownlines" class="card mb-3" :key="i" style="background-color: transparent; border: 2px solid #2E671A !important;" >
+                                                        <div class="card-header" style="background-color: transparent; border: 2px solid #2E671A !important;">
+                                                            <h6 class="text-white"><strong class="font-weight-bold">Referral-{{ dirDown.username }} | Direct Downline</strong></h6>
                                                         </div>
-                                                        <div class="card-body text-center">
+                                                        <div class="card-body text-center" style="background-color: transparent; border: 2px solid #1b4f72 !important;">
                                                             <div class="avatar avatar-xl mb-3 ">
                                                                 <img class="user_avatar" :src="imageURL(dirDown.photo_path)" alt="User Image">
                                                             </div>
                                                             <div class="">
                                                                 <ul class="list-group list-group-flush" >
-                                                                    <li class="list-group-item"><i class="icon icon-vcard float-left s-20 green-text border-right" ></i> <span class="float-right s-12 font-weight-medium green-text">{{ dirDown.package }}</span></li>
-                                                                    <li class="list-group-item" ><i class="icon icon-person float-left s-20 green-text border-right" ></i> <span class="float-right s-12 font-weight-medium green-text ">{{ dirDown.name }}</span></li>
-                                                                    <li class="list-group-item"  ><i class="icon icon-mail-envelope-closed4 green-text float-left s-20  border-right"></i> <span class="float-right s-12 font-weight-medium green-text">{{ dirDown.email }}</span></li>
-                                                                    <li class="list-group-item" ><i class="icon icon-account_box float-left s-20 green-text border-right"></i>  <span class="float-right s-12 font-weight-medium green-text">{{ dirDown.username }}</span></li>
+                                                                    <li class="list-group-item"><i class="icon icon-vcard float-left s-20 text-green border-right" ></i> <span class="float-right s-12 font-weight-medium text-green">{{ dirDown.package }}</span></li>
+                                                                    <li class="list-group-item" ><i class="icon icon-person float-left s-20 text-green border-right" ></i> <span class="float-right s-12 font-weight-medium text-green ">{{ dirDown.name }}</span></li>
+                                                                    <li class="list-group-item"  ><i class="icon icon-mail-envelope-closed4 text-green float-left s-20  border-right"></i> <span class="float-right s-12 font-weight-medium text-green">{{ dirDown.email }}</span></li>
+                                                                    <li class="list-group-item" ><i class="icon icon-account_box float-left s-20 text-green border-right"></i>  <span class="float-right s-12 font-weight-medium text-green">{{ dirDown.username }}</span></li>
                                                                 </ul>
                                                             </div>
                                                         </div>
@@ -53,20 +53,20 @@
                                         </div>
                                         <!-- bar charts group -->
                                         <div class="col-md-8">
-                                            <div class="card">
-                                                <div class="card-header bg-white">
-                                                    <h6 class="green-text"><strong class="font-weight-bold">Downlines</strong></h6>
+                                            <div class="card shadow" style="background-color: transparent">
+                                                <div class="card-header" style="background-color: #2E671A">
+                                                    <h6 class="text-white"><strong class="font-weight-bold">Downlines</strong></h6>
                                                 </div>
                                                 <div class="card-body" style="overflow-x:auto;">
-                                                    <table id="example2" class="table table-bordered table-hover data-tables"
+                                                    <table id="example2" class="table table-hover data-tables"
                                                     data-options='{ "paging": false; "searching":false}'>
                                                     <thead>
                                                         <tr>
-                                                        <th scope="col">S/N</th>
-                                                        <th scope="col">Full Name</th>
-                                                        <th scope="col">User Name</th>
-                                                        <th scope="col">Package</th>
-                                                        <th scope="col">Direct Downlines</th>
+                                                        <th class="font-weight-bold" scope="col">S/N</th>
+                                                        <th class="font-weight-bold" scope="col">Full Name</th>
+                                                        <th class="font-weight-bold" scope="col">User Name</th>
+                                                        <th class="font-weight-bold" scope="col">Package</th>
+                                                        <th class="font-weight-bold" scope="col">Direct Downlines</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -108,6 +108,8 @@
         </div>
     </div>
 </template>
+
+
 
 <script>
 import { mapActions, mapGetters, mapState } from 'vuex';

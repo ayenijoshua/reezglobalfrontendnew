@@ -6,10 +6,10 @@
                     <div class="row justify-content-between">
                         <ul class="nav nav-material nav-material-white responsive-tab" id="v-pills-tab" role="tablist">
                             <li>
-                                <a class="nav-link active border-right" id="v-pills-home-tab" data-toggle="pill"  href="#v-pills-home" role="tab" aria-controls="v-pills-home"><i class="icon icon-vcard" ></i>My Profile</a>
+                                <a class="nav-link active border-right" id="v-pills-home-tab" data-toggle="pill"  href="#v-pills-home" role="tab" aria-controls="v-pills-home"><i class="icon icon-vcard text-green" ></i><span class="font-weight-bold text-green">My Profile</span></a>
                             </li>
                             <li>
-                                <a class="nav-link" id="v-pills-payments-tab" data-toggle="pill" href="#v-pills-payments" role="tab" aria-controls="v-pills-payments" aria-selected="false"><i class="icon icon-bank "></i>Bank Details</a>
+                                <a class="nav-link" id="v-pills-payments-tab" data-toggle="pill" href="#v-pills-payments" role="tab" aria-controls="v-pills-payments" aria-selected="false"><i class="icon icon-bank text-green"></i><span class="font-weight-bold text-green">Bank Details</span></a>
                             </li>
                         </ul>
                     </div>
@@ -22,9 +22,9 @@
                             <div class="row">
                                 <div class="col-md-3">
                                     <div class=" my-3" >
-                                        <div class="card" >
-                                            <div class="card-header bg-white">
-                                                <h6 class="green-text"><strong class="font-weight-bold">Profile Details</strong></h6>
+                                        <div class="card shadow" style="background-color: transparent" >
+                                            <div class="card-header" style="background-color:#2E671A">
+                                                <h6 class="text-white"><strong class="font-weight-bold">Profile Details</strong></h6>
                                             </div>
                                             <div class="card-body text-center ">
                                                 <template v-if="loading && profileLoading">
@@ -53,14 +53,15 @@
                                                             </label> -->
                                                         </div>
                                                     </div>
-                                                    <div class="">
-                                                        <ul class="list-group list-group-flush">
-                                                            <li class="list-group-item "><i class="icon icon-vcard float-left s-20 green-text border-right" ></i> <span class="float-right s-12 font-weight-medium green-text">{{ regPackage.name }}</span></li>
-                                                            <li class="list-group-item "><i class="icon icon-person float-left s-20 green-text border-right" ></i> <span class="float-right s-12 font-weight-medium green-text">{{ authUser.first_name }} {{ authUser.last_name }}</span></li>
-                                                            <li class="list-group-item"><i class="icon icon-phone2 float-left s-20 green-text border-right"></i> <span class="float-right s-12 font-weight-medium green-text">{{ authUser.phone }}</span></li>
-                                                            <li class="list-group-item"><i class="icon icon-mail-envelope-closed4 float-left s-20 green-text border-right"></i> <span class="float-right s-12 font-weight-medium green-text">{{ authUser.email }}</span></li>
-                                                            <li class="list-group-item"><i class="icon icon-account_box float-left s-20 green-text border-right"></i>  <span class="float-right s-12 font-weight-medium green-text">{{ authUser.username }}</span></li>
-                                                            <li class="list-group-item"><i class="icon icon-home float-left s-20 green-text border-right"></i> <span class="float-right s-12 font-weight-medium green-text text-right" style="width:130px">{{ profile.address }}</span></li>
+                                                    <br>
+                                                    <div class="" style="background-color:#ecf0f1" >
+                                                        <ul class="list-group list-group-flush" style="background-color:#ecf0f1">
+                                                            <li class="list-group-item border-bottom"><i class="icon icon-vcard float-left s-20 text-blue border-right" ></i> <span class="float-right s-12 font-weight-medium text-green">{{ regPackage.name }}</span></li>
+                                                            <li class="list-group-item border-bottom"><i class="icon icon-person float-left s-20 text-blue border-right" ></i> <span class="float-right s-12 font-weight-medium text-green">{{ authUser.first_name }} {{ authUser.last_name }}</span></li>
+                                                            <li class="list-group-item border-bottom"><i class="icon icon-phone2 float-left s-20 text-blue border-right"></i> <span class="float-right s-12 font-weight-medium text-green">{{ authUser.phone }}</span></li>
+                                                            <li class="list-group-item border-bottom"><i class="icon icon-mail-envelope-closed4 float-left s-20 text-blue border-right"></i> <span class="float-right s-12 font-weight-medium text-green">{{ authUser.email }}</span></li>
+                                                            <li class="list-group-item border-bottom"><i class="icon icon-account_box float-left s-20 text-blue border-right"></i>  <span class="float-right s-12 font-weight-medium text-green">{{ authUser.username }}</span></li>
+                                                            <li class="list-group-item"><i class="icon icon-home float-left s-20 text-blue border-right"></i> <span class="float-right s-12 font-weight-medium text-blue text-right" style="width:130px">{{ profile.address }}</span></li>
                                                         </ul>
                                                     </div>
                                                 </template>
@@ -73,11 +74,11 @@
                                     <div class="row my-3">
                                         <!-- bar charts group -->
                                         <div class="col-md-12">
-                                            <div class="card">
-                                                <div class="card-header bg-white">
-                                                    <h6 class="green-text"><strong class="font-weight-bold">Edit Profile</strong></h6>
+                                            <div class="card shadow" style="background-color: transparent">
+                                                <div class="card-header" style="background-color:#2E671A">
+                                                    <h6 class="text-white"><strong class="font-weight-bold">Edit Profile</strong></h6>
                                                 </div>
-                                                <div class="card-body">
+                                                <div class="card-body" >
                                                     <template v-if="loading && profileLoading">
                                                         <b-card>
                                                             <b-skeleton width="85%"></b-skeleton>
@@ -87,7 +88,7 @@
                                                     </template>
                                                     <template v-else>
                                                         <form id="profile-form" @submit.prevent="profileUpdate()">
-                                                            <div class="card no-b no-r">
+                                                            <div class="card no-b no-r" style="background-color: transparent">
                                                                 <div class="card-body">
                                                                     <div class="form-row">
                                                                         <div class="col-md-12">
@@ -95,17 +96,17 @@
                                                                                 <div class="form-group col-6 m-0">
                                                                                     <div class="input-group mb-2 mr-sm-2 mb-3">
                                                                                         <div class="input-group-prepend">
-                                                                                            <div class="input-group-text"><i class="icon icon-person float-left s-20 green-text " ></i></div>
+                                                                                            <div class="input-group-text" style="background-color: #2E671A; border: 2px solid #2E671A;"><i class="icon icon-person float-left s-20 text-white " ></i></div>
                                                                                         </div>
-                                                                                        <input name="first_name" :value="form.first_name" type="text" class="form-control r-0 light s-12" placeholder="First Name">
+                                                                                        <input name="first_name" :value="form.first_name" type="text" class="form-control r-0 light s-12" placeholder="First Name" style="background-color: transparent; border: 2px solid #2E671A;">
                                                                                     </div>
                                                                                 </div>
                                                                                 <div class="form-group col-6 m-0">
                                                                                     <div class="input-group mb-2 mr-sm-2 mb-3">
                                                                                         <div class="input-group-prepend">
-                                                                                            <div class="input-group-text"><i class="icon icon-person float-left s-20 green-text " ></i></div>
+                                                                                            <div class="input-group-text" style="background-color: #2E671A; border: 2px solid #2E671A;"><i class="icon icon-person float-left s-20 text-white " ></i></div>
                                                                                         </div>
-                                                                                        <input name="last_name" :value="form.last_name" type="text" class="form-control r-0 light s-12" placeholder="Last Name">
+                                                                                        <input name="last_name" :value="form.last_name" type="text" class="form-control r-0 light s-12" placeholder="Last Name" style="background-color: transparent; border: 2px solid #2E671A;">
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
@@ -114,19 +115,19 @@
                                                                                 <div class="form-group col-6 m-0">
                                                                                     <div class="input-group mb-2 mr-sm-2">
                                                                                         <div class="input-group-prepend">
-                                                                                            <div class="input-group-text"><i class="icon icon-phone float-left s-20 green-text " ></i></div>
+                                                                                            <div class="input-group-text" style="background-color: #2E671A; border: 2px solid #2E671A;"><i class="icon icon-phone float-left s-20 text-white" ></i></div>
                                                                                         </div>
                                                                                         <input name="phone" :value="form.phone" type="text" class="form-control r-0 light s-12"
-                                                                                            placeholder="Phone Number">
+                                                                                            placeholder="Phone Number" style="background-color: transparent; border: 2px solid #2E671A;">
                                                                                     </div>
                                                                                 </div>
                                                                                 <div class="form-group col-6 m-0">
                                                                                     <div class="input-group mb-2 mr-sm-2">
                                                                                         <div class="input-group-prepend">
-                                                                                            <div class="input-group-text"><i class="icon icon-mail-envelope-closed4 float-left s-20 green-text"></i></div>
+                                                                                            <div class="input-group-text" style="background-color: #2E671A; border: 2px solid #2E671A;"><i class="icon icon-mail-envelope-closed4 float-left s-20 text-white"></i></div>
                                                                                         </div>
                                                                                         <input type="text" name="email" readonly :value="form.email" class="form-control r-0 light s-12"
-                                                                                            placeholder="Email Address">
+                                                                                            placeholder="Email Address" style="background-color: transparent; border: 2px solid #2E671A;">
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
@@ -136,9 +137,9 @@
                                                                                     <div class="form-group m-0">
                                                                                         <div class="input-group  mr-sm-2 mb-3">
                                                                                             <div class="input-group-prepend">
-                                                                                                <div class="input-group-text"><i class="icon icon-person float-left s-20 green-text " ></i></div>
+                                                                                                <div class="input-group-text" style="background-color: #2E671A; border: 2px solid #2E671A;"><i class="icon icon-person float-left s-20 text-white" ></i></div>
                                                                                             </div>
-                                                                                            <select name="gender" class="form-control r-0 light s-12">
+                                                                                            <select name="gender" class="form-control r-0 light s-12" style="background-color: transparent; border: 2px solid #2E671A;">
                                                                                                 <option value="" :selected="!profile.gender">Select gender</option>
                                                                                                 <option value="male" :selected="profile.gender=='male'">Male</option>
                                                                                                 <option value="female" :selected="profile.gender=='female'">Female</option>
@@ -149,8 +150,8 @@
 
                                                                                 <div class="form-group col-12 m-0">
                                                                                     <div class="form-group m-0">
-                                                                                        <div class="dropbox">
-                                                                                            <input v-b-popover.hover.top="'Drag your photo here or click to browse'" type="file" id="profile-img" title="profile photo" name="image" @change="filesChange($event.target.files);" class="form-control form-control-line input-file">
+                                                                                        <div class="dropbox" style="background-color: transparent; border: 2px solid #2E671A;">
+                                                                                            <input v-b-popover.hover.top="'Drag your photo here or click to browse'" type="file" id="profile-img" title="profile photo" name="image" @change="filesChange($event.target.files);" class="form-control form-control-line input-file" style="background-color: transparent; border: 2px solid #2E671A;">
                                                                                             <p id="img-preview" >
                                                                                                 Drag your photo here<br> or click to browse<br>
                                                                                                 <span style="font-size: 10px;">Image size should not exceed 500kB</span>
@@ -165,7 +166,7 @@
                                                                             </div>
                                                                             <div class="form-group m-0">
                                                                                 <textarea name="address" :value="profile.address" rows="5" type="text" class="form-control r-0 light s-12" id="address"
-                                                                                placeholder="Residential Address"></textarea>
+                                                                                placeholder="Residential Address" style="background-color: transparent; border: 2px solid #2E671A;"></textarea>
                                                                             </div>	
                                                                         </div>
                                                                     </div>
@@ -185,8 +186,8 @@
                                 </div>
                                 <div class="col-md-3">
                                     <div class=" my-3" >
-                                        <div class="card" style="background-color:#2E671A;" >
-                                            <div class="card-header">
+                                        <div class="card shadow" style="background-color: transparent" >
+                                            <div class="card-header" style="background-color:#2E671A">
                                                 <h6 class="text-white"><strong class="font-weight-bold">Upline Details</strong></h6>
                                             </div>
                                             <div class="card-body text-center">
@@ -203,10 +204,10 @@
                                                     </div>
                                                     <div class="">
                                                         <ul class="list-group list-group-flush" >
-                                                            <li class="list-group-item border-bottom"  style="background-color:#2E671A;"><i class="icon icon-vcard float-left s-20 text-white border-right" ></i> <span class="float-right s-12 font-weight-medium text-white">{{ uplineDetails.package }}</span></li>
-                                                            <li class="list-group-item border-bottom"  style="background-color:#2E671A;"><i class="icon icon-person float-left s-20 text-white border-right" ></i> <span class="float-right s-22 font-weight-medium text-white ">{{ uplineDetails.first_name }} {{ uplineDetails.last_name }}</span></li>
-                                                            <li class="list-group-item border-bottom"  style="background-color:#2E671A;"><i class="icon icon-mail-envelope-closed4 text-white float-left s-20  border-right"></i> <span class="float-right s-12 font-weight-medium text-white">{{ uplineDetails.email }}</span></li>
-                                                            <li class="list-group-item"  style="background-color:#2E671A;"><i class="icon icon-account_box float-left s-20 text-white border-right"></i>  <span class="float-right s-12 font-weight-medium text-white">{{ uplineDetails.username }}</span></li>
+                                                            <li class="list-group-item border-bottom" style="background-color:#1b4f72;" ><i class="icon icon-vcard float-left s-20 text-white border-right" ></i> <span class="float-right s-12 font-weight-bold text-white">{{ uplineDetails.package }}</span></li>
+                                                            <li class="list-group-item border-bottom" style="background-color:#1b4f72;" ><i class="icon icon-person float-left s-20 text-white border-right" ></i> <span class="float-right s-22 font-weight-bold text-white ">{{ uplineDetails.first_name }} {{ uplineDetails.last_name }}</span></li>
+                                                            <li class="list-group-item border-bottom" style="background-color:#1b4f72;" ><i class="icon icon-mail-envelope-closed4 text-white float-left s-20  border-right"></i> <span class="float-right s-12 font-weight-bold text-white">{{ uplineDetails.email }}</span></li>
+                                                            <li class="list-group-item" style="background-color:#1b4f72;" ><i class="icon icon-account_box float-left s-20 text-white border-right"></i>  <span class="float-right s-12 font-weight-bold text-white">{{ uplineDetails.username }}</span></li>
                                                         </ul>
                                                     </div>
                                                 </template>
@@ -215,107 +216,178 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="tab-pane fade" id="v-pills-payments" role="tabpanel" aria-labelledby="v-pills-payments-tab">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="card no-b">
-                                        <div class="card-header bg-white text-green">
-                                            <h4 class="card-title green-text"><strong class="font-weight-bold">Bank Account Details</strong></h4>
-                                        </div>
-                                        <div class="collapse show" id="invoiceCard">
-                                            <div class="card-body p-0">
-                                                <div class="card no-b  no-r">
-                                                    <div class="card-body">
-                                                        <div class="form-row">
-                                                            <div class="col-md-4">
-                                                                <div class="card mr-3 " style="background-color: #2E671A" >
-                                                                    <div class="row column-row">
-                                                                        <div class="mt-3 ml-5" >
-                                                                            <img src="/assets/img/personal-banking.png" class="bg-transparent" style="max-width:80px;">	 
-                                                                        </div>
-                                                                        <div class="mt-4 ml-auto" style="padding-right:40px" >
-                                                                            <span class="border-left mr-2"></span>
-                                                                            <span class="text-white float-right" id="d1" style="font-size:10px" >Widthrawal Account Details</span>
-                                                                        </div> 
-                                                                    </div>
-                                                                    <div class="card-body" >
-                                                                        <div class="d-flex align-items-center">
-                                                                            <div class="avatar avatar-xl mr-4 ">
-                                                                                <img class="user_avatar" :src="imageURL" alt="User Image">
-                                                                            </div>
-                                                                            <div>
-                                                                                <span class="text-white" id="d1" style="font-size:10px" >Account Name</span>
-                                                                                <h6 class="font-weight-bold text-white" id="d1">{{ bank.bank_account_name }}</h6>
-                                                                                <span class="text-white" id="d1" style="font-size:10px" >Account Number</span>
-                                                                                <h6 class="font-weight-bold text-white" id="d1">{{ bank.bank_account_number }}</h6>
-                                                                                <span class="text-white" id="d1" style="font-size:10px" >Bank Name</span>
-                                                                                <h6 class="font-weight-bold text-white" id="d1">{{ bank.bank_name }}</h6>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <span class="border-right"></span>
-                                                            <div class="col-md-4 mr-4 ml-4">
-                                                                <div class="mt-4 ml-auto mb-3" style="padding-right:20px" >
-                                                                    <span class="green-text float-right font-weight-bold" id="d1" style="font-size:12px">
-                                                                        <i class="icon icon-edit"></i>&nbsp;&nbsp;Edit Account Details
-                                                                    </span>
-                                                                </div><br><br>
-                                                                <form @submit.prevent="updateBank()"> 
-                                                                    <div class="form-group m-0">
-                                                                        <div class="input-group mb-2 mr-sm-2 mb-3">
-                                                                            <div class="input-group-prepend">
-                                                                                <div class="input-group-text"><i class="icon icon-account_balance float-left s-20 green-text " ></i></div>
-                                                                            </div>
-                                                                            <select id="bank-select" v-model="bank.bank_name" required class="form-control r-0 light s-12">
-                                                                                <option :value="null">Select Bank</option>
-                                                                                <option v-for="bank,i in banks" :value="bank.bank" :key="i" :selected="profile.bank_name == bank.bank">{{ bank.bank }}</option>														   
-                                                                            </select>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="form-row">
-                                                                        <div class="form-group col-6 m-0">
-                                                                            <div class="input-group mb-2 mr-sm-2 mb-3">
-                                                                                <div class="input-group-prepend">
-                                                                                    <div class="input-group-text"><i class="icon icon-person float-left s-20 green-text " ></i></div>
-                                                                                </div>
-                                                                                <input v-model="bank.bank_account_name" type="text" readonly class="form-control r-0 light s-12"
-                                                                                    placeholder="Account Name">
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="form-group col-6 m-0">
-                                                                            <div class="input-group mb-2 mr-sm-2 mb-3">
-                                                                                <div class="input-group-prepend">
-                                                                                    <div class="input-group-text"><i class="icon icon-address-card-o float-left s-20 green-text " ></i></div>
-                                                                                </div>
-                                                                                <input v-model="bank.bank_account_number" required type="text" class="form-control r-0 light s-12"
-                                                                                    placeholder="Account Number">
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="float-left mt-3">
-                                                                        <span v-if="submitting" class="btn btn-sm btn-success">...</span>
-                                                                        <button v-else type="submit" v-show="profile.bank_editable" class="btn btn-sm btn-success"><i class="icon-save mr-2"></i>Update Data</button>
-                                                                    </div>
-                                                                </form>
-                                                            </div>
-                                                            <span class="border-right"></span>
-                                                            <div class="col-md-3">
-                                                                <div class="float-center">
-                                                                    <img class="img-responsive" src="/assets/img/online-banking.png"> 
-                                                                </div>
-                                                            </div>
+                            <div class="row row-eq-height my-3" style="padding-top:40px">
+                                <div class="col-md-8 col-sm-8">
+                                    <div class="card mb-3 shadow1" style="background-color:transparent;">
+                                        <div class="card-body">
+                                            <p class="font-weight-bold">Select the Registration Package you would like to upgrade to. You pay the difference.</p>
+                                            <div class="form">            
+                                                <div class="form-group m-0">
+                                                    <div class="input-group mb-2 mr-sm-2 mb-3">              
+                                                        <div class="input-group-prepend">
+                                                            <div class="input-group-text" style="background-color: #2E671A; border: 2px solid #2E671A;"><i class="icon-user-plus float-left s-20 text-white" ></i></div>
                                                         </div>
+                                                        <select id="select" class="form-control r-0 light s-12 shadow1" style="background-color: transparent" readonly>
+                                                            <option style="background-color: transparent" >Select Stockist Package</option>
+                                                            <option style="background-color: transparent" >Starter</option>
+                                                            <option style="background-color: transparent" selected>Booster</option>
+                                                            <option style="background-color: transparent">Member</option>
+                                                            <option style="background-color: transparent">Standard</option>	
+                                                            <option style="background-color: transparent">Premium</option>
+                                                            <option style="background-color: transparent">Advanced</option>													   
+                                                        </select>
                                                     </div>
-                                                <br>
-                                                </div>        
+                                                </div>
+
                                             </div>
+                                            <button type="submit" class="btn btn-sm btn-success btn-lg mr-3"><i class="icon-save mr-2"></i>Confirm Selection</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 col-sm-4">
+                                    <div class="card mb-3 shadow1" style="background-color:#2E671A;">
+                                        <div class="card-body">
+                                            <div class="d-flex justify-content-center">
+                                                <div class="text-center">  <img  src="/assets/img/upgrade_member1.png" width="auto" height="130px"></div>
+                                                <div class="card-body text-center">
+                                                    <span class="text-white" id="d1" style="font-size:10px">Registration Package</span>
+                                                    <h6 class="font-weight-bold text-white" id="d1">Booster</h6>
+                                                    <span class="text-white" id="d1" style="font-size:10px">Package Price</span>
+                                                    <h6 class="font-weight-bold text-white" id="d1">₦10,000</h6>
+                                                    
+                                                </div>
+
+                                            </div>
+
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                            
+                            <div class="row mt-5 mb-5">
+                                <div class="col-md-6">
+                                    <div class="card  mb-3 shadow1" style="background-color: #2E671A">                       
+                                        <div class="d-flex flex-wrap justify-content-center">
+                                            <div class="text-center mt-5 mb-5" style="padding-bottom:10px; padding-top: 20px">
+                                                <img  src="/assets/img/pay_options1.png" width="300px">
+                                                <h6 class="font-weight-bold text-white" >Proceed To Payment<br><small>Kindly complete your  Product Purchase by clicking the button Below</small></h6>
+                                                <a class="btn btn-sm btn-custom mb-3 mt-2 btn-lg"><i class="icon icon-credit-card"></i>Pay Now</a>
+                                            </div>
+                                        </div>	   
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="card mr-3 shadow1 " style="background-color: transparent">
+                                        <div class="d-flex flex-wrap justify-content-center">
+                                            <div class="text-center">
+                                                <img class=" mt-3" src="/assets/img/wallet4a.png" width="auto" height="150px">
+                                                <h1 class="font-weight-bold text-blue" style="margin: 0em; padding: 0em;">₦345,902</h1>
+                                                <small class=" font-weight-bold s-10 text-blue" style="margin: 0em; padding: 0em;" >Current Wallet Available Balance</small><br>
+                                                <a class="btn btn-sm btn-success mb-3 mt-2 btn-lg"><i class="icon icon-credit-card"></i>Pay with Wallet</a>
+                                            </div>    
+                                        </div>    
+                                    </div>
+                                </div>              
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="v-pills-payments" role="tabpanel" aria-labelledby="v-pills-payments-tab">
+                            <div class="row row-eq-height">
+                                <div class="col-md-4 h-100">
+                                    <div class="card shadow rounded h-100" style="background-color: #2E671A;">
+                                        <div class="card-body d-flex flex-column justify-content-between">
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <div>
+                                                    <span class="text-white float-left font-weight-bold mr-3" id="d1" style="font-size:12px">Withdrawal Account Details</span>
+                                                    <span class="border-right mr-2" style="border-right: 1px solid #ecf0f1 !important;"></span>
+                                                </div>
+                                                <div><img src="/assets/img/chip.png" width="auto" height="50px"></div>
+                                            </div>
+                                            <div class="d-flex align-items-center mt-3">
+                                                <div class="ml-2">
+                                                    <span class="text-white font-weight-bold" id="d1" style="font-size:10px">Account Name</span>
+                                                    <h6 class="font-weight-bold text-white" id="d1">Simon Jacob</h6>
+                                                    <span class="text-white font-weight-bold" id="d1" style="font-size:10px">Account Number</span>
+                                                    <h6 class="font-weight-bold text-white" id="d1">013459001</h6>
+                                                    <span class="text-white font-weight-bold" id="d1" style="font-size:10px">Bank Name</span>
+                                                    <h6 class="font-weight-bold text-white" id="d1">Guarantee Trust Bank</h6>
+                                                </div>
+                                                <div class="avatar avatar-xl mr-4 ml-auto mr-4">
+                                                    <img class="user_avatar" :src="imageURL" alt="User Image">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-5 h-100">
+                                    <div class="card shadow rounded h-100" style="background-color: transparent;">
+                                        <div class="card-body d-flex flex-column justify-content-between">
+                                            <div class="d-flex justify-content-center">
+                                                <div class="text-center">
+                                                    <div class="mt-4 mb-3" style="padding-right:20px;">
+                                                        <span class="text-blue float-right font-weight-bold" id="d1" style="font-size:12px">
+                                                            <i class="icon icon-edit"></i>&nbsp;&nbsp;Edit Account Details
+                                                        </span>
+                                                    </div><br><br>
+                                                    <form @submit.prevent="updateBank()">
+                                                        <div class="form-group m-0">
+                                                            <div class="input-group mb-2 mr-sm-2 mb-3">
+                                                                <div class="input-group-prepend">
+                                                                    <div class="input-group-text" style="background-color: #2E671A; border: 2px solid #2E671A;">
+                                                                        <i class="icon icon-account_balance float-left s-20 text-white"></i>
+                                                                    </div>
+                                                                </div>
+                                                                <select id="bank-select" v-model="bank.bank_name" required class="form-control r-0 light s-12" style="background-color: transparent; border: 2px solid #1b4f72;">
+                                                                    <option :value="null">Select Bank</option>
+                                                                    <option v-for="bank,i in banks" :value="bank.bank" :key="i" :selected="profile.bank_name == bank.bank">{{ bank.bank }}</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-row">
+                                                            <div class="form-group col-6 m-0">
+                                                                <div class="input-group mb-2 mr-sm-2 mb-3">
+                                                                    <div class="input-group-prepend">
+                                                                        <div class="input-group-text" style="background-color: #2E671A; border: 2px solid #2E671A;">
+                                                                            <i class="icon icon-person float-left s-20 text-white"></i>
+                                                                        </div>
+                                                                    </div>
+                                                                    <input v-model="bank.bank_account_name" type="text" readonly class="form-control r-0 light s-12" placeholder="Account Name" style="background-color: transparent; border: 2px solid #2E671A;">
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group col-6 m-0">
+                                                                <div class="input-group mb-2 mr-sm-2 mb-3">
+                                                                    <div class="input-group-prepend">
+                                                                        <div class="input-group-text" style="background-color: #2E671A; border: 2px solid #2E671A;">
+                                                                            <i class="icon icon-address-card-o float-left s-20 text-white"></i>
+                                                                        </div>
+                                                                    </div>
+                                                                    <input v-model="bank.bank_account_number" required type="text" class="form-control r-0 light s-12" placeholder="Account Number" style="background-color: transparent; border: 2px solid #2E671A;">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="float-left mt-3">
+                                                            <span v-if="submitting" class="btn btn-sm btn-success">...</span>
+                                                            <button v-else type="submit" v-show="profile.bank_editable" class="btn btn-sm btn-success"><i class="icon-save mr-2"></i>Update Data</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3 h-100">
+                                    <div class="card shadow rounded h-100" style="background-color:#2E671A;">
+                                        <div class="card-body d-flex justify-content-center align-items-center">
+                                            <img class="img-responsive" src="/assets/img/bankinghall1a.png" style="width:200px; height:auto;">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+
                         </div>
                         <br>                    
                     </div>
@@ -325,7 +397,53 @@
     </div>
 </template>
 
-<style>
+<style scoped>
+.nav-material>li>a::after {
+    content: "";
+    background: #f6f6f2;
+    height: 3px;
+    position: absolute;
+    width: 100%;
+    left: 0;
+    bottom: 0;
+    transition: all 250ms ease 0s;
+    transform: scale(0);
+}
+
+.nav-material.nav-material-white>li .nav-link.active[data-v-c8765c42] {
+    border-color: #2E671A;
+}
+
+.btn-custom {
+    background-color: #ffffff !important; /* White background */
+    color: #2E671A !important; /* Text and icon color */
+    border: 2px solid #2E671A; /* Border matching the text color */
+    font-weight: bold; /* Optional: Make the text bold */
+    padding: 10px 20px; /* Adjust padding for better spacing */
+    border-radius: 5px; /* Optional: Add slight rounding to the corners */
+    text-align: center; /* Center text */
+    text-decoration: none; /* Remove underline */
+    transition: all 0.3s ease; /* Smooth hover effect */
+}
+
+.btn-custom:hover {
+    background-color: transparent !important; /* Transparent background */
+    color: #ffffff !important; /* White text and icon */
+    border: 2px solid #ffffff !important; /* White outline */
+}
+
+.btn-custom i {
+    transition: all 0.3s ease; /* Smooth transition for the icon */
+}
+
+.btn-custom:hover i {
+    color: #ffffff !important; /* White icon on hover */
+}
+
+
+.nav-material.nav-material-white>li .nav-link.active {
+    border-color: #2E671A;
+}
   .dropbox {
     outline: 2px dashed green; /* the dash box */
     background: white;
@@ -352,6 +470,17 @@
     text-align: center;
     padding: 50px 0;
   }
+  .user_avatar {
+    width: 80px;
+    border: 1px solid #eee;
+    background: #2E671A;
+    padding: 5px;
+    border-radius: 50%;
+}
+
+li > a:hover .icon {
+    color: #2E671A !important;
+}
 </style>
 
 <script>

@@ -3,7 +3,7 @@
         <div class="animated">				
             <div class="row my-3">
                 <div class="col-md-6">
-                    <div class="card">
+                    <div class="card shadow1">
                         <div class="card-body" style="overflow-x:auto;">
                         <form @submit.prevent="updateEquilibrumBonus()">
                             <input type="hidden" name="_token" value="6BwLvKulnhkAcUn3BgPaQHev2ZNKme6XDhncAZzL">									
@@ -11,14 +11,14 @@
                                 <div class="card-body no-gutters">
                                     <div class="text-center mb-3"><img  src="/assets/img/equil.png" width="80px"  height="80px">
                                     <h5 class="s-36 font-weight-bold mt-2 text-green">₦ {{ settings.equillibrum_bonus?.toLocaleString('en-US') }}</h5>
-                                    <h6 class="mt-1 s-8 font-weight-bold">OFFICIAL EQUILIBRIUM BONUS<br><small> Edit preferred equilibrium bonus</small></h6></div>
+                                    <h6 class="mt-1 s-8 font-weight-bold">OFFICIAL MATCHING BONUS<br><small> Edit preferred bonus</small></h6></div>
                                     <div class="form-row mb-3">
                                         <div class="col-md-12">
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
-                                                    <div class="input-group-text"><i class="icon icon-money-3 float-left s-20 green-text " ></i></div>
+                                                    <div class="input-group-text"><i class="icon icon-money-3 float-left s-20 text-white" ></i></div>
                                                 </div>
-                                                <input v-model="equilibrumBonus.equillibrum_bonus" type="number" min="1" class="form-control r-0 light s-12" required placeholder="Equilibrium Bonus">
+                                                <input v-model="equilibrumBonus.equillibrum_bonus" type="number" min="1" class="form-control r-0 light s-12" style="background-color:#ecf0f1; border: 1px solid #2E671A" required placeholder="Equilibrium Bonus">
                                             </div>
                                         </div>
                                     </div>
@@ -33,21 +33,21 @@
                     </div>
                 </div>
                 <div class="col-md-6">
-                    <div class="card">
+                    <div class="card shadow1">
                         <div class="card-body" style="overflow-x:auto;">
                         <form @submit.prevent="updateLoyaltyBonus()">
                             <div class="card no-b  no-r">
                                 <div class="card-body no-gutters">
                                     <div class="text-center mb-3"><img  src="/assets/img/bonus.png" width="80px"  height="80px">
                                     <h5 class="s-36 font-weight-bold mt-2 text-green">{{ settings.loyalty_bonus_percentage }}%</h5>
-                                    <h6 class="mt-1 s-8 font-weight-bold">OFFICIAL LOYALTY BONUS<br><small> Edit preferred loyalty bonus</small></h6></div>
+                                    <h6 class="mt-1 s-8 font-weight-bold">OFFICIAL REPURCHASE BONUS<br><small> Edit preferred bonus</small></h6></div>
                                     <div class="form-row mb-3">
                                         <div class="col-md-12">
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
-                                                    <div class="input-group-text"><i class="icon icon-money-3 float-left s-20 green-text " ></i></div>
+                                                    <div class="input-group-text" style="border: 1px solid #2E671A"><i class="icon icon-money-3 float-left s-20 text-white" ></i></div>
                                                 </div>
-                                                <input v-model="loyaltyBonus.loyalty_bonus_percentage" required type="" class="form-control r-0 light s-12" placeholder="Loyalty Bonus">
+                                                <input v-model="loyaltyBonus.loyalty_bonus_percentage" required type="" class="form-control r-0 light s-12" style="background-color:#ecf0f1; border: 1px solid #2E671A" placeholder="Repurchase Bonus">
                                             </div>
                                         </div>
                                     </div>
@@ -65,24 +65,126 @@
 
             <div class="row my-3">
                 <div class="col-md-6">
-                    <div class="card">
+                    <div class="card shadow1">
                         <div class="card-body" style="overflow-x:auto;">
                         <form @submit.prevent="updateWelcomeBonus()">									
                             <div class="card no-b  no-r">
                                 <div class="card-body no-gutters">
-                                    <div class="text-center mb-3"><img  src="/assets/img/hand-shake.png" width="80px"  height="80px">
-                                    <h5 class="s-36 font-weight-bold mt-2 text-green">{{ settings.welcome_bonus_percentage }}%</h5>
-                                    <h6 class="mt-1 s-8 font-weight-bold">OFFICIAL WELCOME BONUS PERCENTAGE<br><small> Edit preferred welcome bonus percentage</small></h6></div>
+                                    <div class="text-center mb-3"><img  src="/assets/img/shopping-cart.png" width="80px"  height="80px">
+                                    
+                                    <h6 class="mt-1 s-8 font-weight-bold">OFFICIAL UNILEVEL PERCENTAGE<br><small> Edit preferred percentage</small></h6></div>
                                     <div class="form-row mb-3">
                                         <div class="col-md-12">
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
-                                                    <div class="input-group-text"><i class="icon icon-handshake-o float-left s-20 green-text " ></i></div>
+                                                    <div class="input-group-text"><i class="icon-shopping_cart float-left s-20 text-white" ></i></div>
                                                 </div>
-                                                <input v-model="welcomeBonus.welcome_bonus_percentage" required type="" class="form-control r-0 light s-12" placeholder="Welcome Bonus Percentage">
+                                                <input required type="" class="form-control r-0 light s-12" placeholder="1st generation" style="background-color:#ecf0f1; border: 1px solid #2E671A" >
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="form-row mb-3">
+                                        <div class="col-md-12">
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text"><i class="icon-shopping_cart float-left s-20 text-white" ></i></div>
+                                                </div>
+                                                <input required type="" class="form-control r-0 light s-12" placeholder="2nd generation" style="background-color:#ecf0f1; border: 1px solid #2E671A" >
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-row mb-3">
+                                        <div class="col-md-12">
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text"><i class="icon-shopping_cart float-left s-20 text-white" ></i></div>
+                                                </div>
+                                                <input required type="" class="form-control r-0 light s-12" placeholder="3rd generation" style="background-color:#ecf0f1; border: 1px solid #2E671A" >
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-row mb-3">
+                                        <div class="col-md-12">
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text"><i class="icon-shopping_cart float-left s-20 text-white" ></i></div>
+                                                </div>
+                                                <input required type="" class="form-control r-0 light s-12" placeholder="4th generation" style="background-color:#ecf0f1; border: 1px solid #2E671A" >
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-row mb-3">
+                                        <div class="col-md-12">
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text"><i class="icon-shopping_cart float-left s-20 text-white" ></i></div>
+                                                </div>
+                                                <input required type="" class="form-control r-0 light s-12" placeholder="5th generation" style="background-color:#ecf0f1; border: 1px solid #2E671A" >
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-row mb-3">
+                                        <div class="col-md-12">
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text"><i class="icon-shopping_cart float-left s-20 text-white" ></i></div>
+                                                </div>
+                                                <input required type="" class="form-control r-0 light s-12" placeholder="6th generation" style="background-color:#ecf0f1; border: 1px solid #2E671A" >
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-row mb-3">
+                                        <div class="col-md-12">
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text"><i class="icon-shopping_cart float-left s-20 text-white" ></i></div>
+                                                </div>
+                                                <input required type="" class="form-control r-0 light s-12" placeholder="7th generation" style="background-color:#ecf0f1; border: 1px solid #2E671A" >
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-row mb-3">
+                                        <div class="col-md-12">
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text"><i class="icon-shopping_cart float-left s-20 text-white" ></i></div>
+                                                </div>
+                                                <input required type="" class="form-control r-0 light s-12" placeholder="8th generation" style="background-color:#ecf0f1; border: 1px solid #2E671A" >
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-row mb-3">
+                                        <div class="col-md-12">
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text"><i class="icon-shopping_cart float-left s-20 text-white" ></i></div>
+                                                </div>
+                                                <input required type="" class="form-control r-0 light s-12" placeholder="9th generation" style="background-color:#ecf0f1; border: 1px solid #2E671A" >
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-row mb-3">
+                                        <div class="col-md-12">
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text"><i class="icon-shopping_cart float-left s-20 text-white" ></i></div>
+                                                </div>
+                                                <input required type="" class="form-control r-0 light s-12" placeholder="10th generation" style="background-color:#ecf0f1; border: 1px solid #2E671A" >
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-row mb-3">
+                                        <div class="col-md-12">
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text"><i class="icon-shopping_cart float-left s-20 text-white" ></i></div>
+                                                </div>
+                                                <input required type="" class="form-control r-0 light s-12" placeholder="1st generation" style="background-color:#ecf0f1; border: 1px solid #2E671A" >
+                                            </div>
+                                        </div>
+                                    </div>
+
+
                                     <div class="form-row ml-1">
                                         <span v-if="submitting && welcomeBonusSubmitting" class="btn btn-sm btn-success btn-lg">...</span>
                                         <button  v-else type="submit" class="btn btn-sm btn-success btn-lg"><i class="icon-save mr-2"></i>Update Data</button>
@@ -95,7 +197,7 @@
                 </div>
 
                 <div class="col-md-6">
-                    <div class="card">
+                    <div class="card shadow1">
                         <div class="card-body" style="overflow-x:auto;">
                         <form @submit.prevent="updatePlacementBonus()">
                             <input type="hidden" name="_token" value="6BwLvKulnhkAcUn3BgPaQHev2ZNKme6XDhncAZzL">									
@@ -108,9 +210,9 @@
                                         <div class="col-md-12">
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
-                                                    <div class="input-group-text"><i class="icon icon-handshake-o float-left s-20 green-text " ></i></div>
+                                                    <div class="input-group-text"><i class="icon icon-handshake-o float-left s-20 text-white" ></i></div>
                                                 </div>
-                                                <input v-model="placementBonus.placement_bonus_percentage" required  type="" class="form-control r-0 light s-12" placeholder="Placement Bonus Percentage">
+                                                <input v-model="placementBonus.placement_bonus_percentage" required  type="" class="form-control r-0 light s-12" placeholder="Placement Bonus Percentage"  style="background-color:#ecf0f1; border: 1px solid #2E671A">
                                             </div>
                                         </div>
                                     </div>

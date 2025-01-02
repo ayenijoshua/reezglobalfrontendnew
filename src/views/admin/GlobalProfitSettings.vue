@@ -1,23 +1,23 @@
 <template>
     <div>
         <div class="animated">
-            <div class="row my-3">
-                <div class="col-md-6">
-                    <div class="card">
-                        <div class="card-body" style="overflow-x:auto;">
+            <div class="d-flex justify-content-center mt-5 pb-4"> 
+                <div class="col-md-7 col-sm-12"> 
+                    <div class="card shadow1" style="background-color:transparent">
+                        <div class="card-body" style="overflow-x:auto;background-color:transparent">
                         <form @submit.prevent="updateFirstPercentage()">
-                            <div class="card no-b  no-r">
-                                <div class="card-body no-gutters">
+                            <div class="card no-b  no-r" style="background-color:transparent">
+                                <div class="card-body no-gutters" style="background-color:transparent">
                                     <div class="text-center mb-3"><img  src="/assets/img/investors.png" width="80px"  height="80px">
                                     <h5 class="s-36 font-weight-bold mt-2 text-green">{{ settings.global_profit_first_percentage }}%</h5>
-                                    <h6 class="mt-1 s-8 font-weight-bold">Global Profit first Percentage<br><small> Edit first percentage</small></h6></div>
+                                    <h6 class="mt-1 s-8 font-weight-bold">Global Profit Percentage<br><small> Edit percentage</small></h6></div>
                                     <div class="form-row mb-3">
                                         <div class="col-md-12">
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
-                                                    <div class="input-group-text"><i class="icon icon-money-3 float-left s-20 green-text " ></i></div>
+                                                    <div class="input-group-text"><i class="icon icon-money-3 float-left s-20 text-white " ></i></div>
                                                 </div>
-                                                <input v-model="globalFirstPerc.global_profit_first_percentage" type="" class="form-control r-0 light s-12" placeholder="First percentage" required>
+                                                <input v-model="globalFirstPerc.global_profit_first_percentage" type="" class="form-control r-0 light s-12" placeholder="First percentage" style="background-color: #ecf0f1; border: 1px solid #2E671A" required>
                                             </div>
                                         </div>
                                     </div>
@@ -31,44 +31,15 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6">
-                    <div class="card">
-                        <div class="card-body" style="overflow-x:auto;">
-                        <form @submit.prevent="updateSecondPercentage()">
-                            <div class="card no-b  no-r">
-                                <div class="card-body no-gutters">
-                                    <div class="text-center mb-3"><img  src="/assets/img/investors.png" width="80px"  height="80px">
-                                    <h5 class="s-36 font-weight-bold mt-2 text-green">{{ settings.global_profit_second_percentage }}%</h5>
-                                    <h6 class="mt-1 s-8 font-weight-bold">Global Profit Second Percentage<br><small> Edit profit second percentage</small></h6></div>
-                                    <div class="form-row mb-3">
-                                        <div class="col-md-12">
-                                            <div class="input-group">
-                                                <div class="input-group-prepend">
-                                                    <div class="input-group-text"><i class="icon icon-money-3 float-left s-20 green-text " ></i></div>
-                                                </div>
-                                                <input required v-model="globalSecondPerc.global_profit_second_percentage" type="" class="form-control r-0 light s-12" placeholder="First Profit PRecentage">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-row ml-1">
-                                        <span class="btn btn-sm btn-success btn-lg" v-if="submitting && secondPercSubmitting">...</span>
-                                        <button v-else type="submit" class="btn btn-sm btn-success btn-lg"><i class="icon-save mr-2"></i>Update Data</button>
-                                    </div>
-                                </div>	
-                            </div>
-                        </form>
-                        </div>
-                    </div>
-                </div>
             </div>
 
             <div class="row my-3">
                 <div class="col-md-6">
-                    <div class="card">
-                        <div class="card-body" style="overflow-x:auto;">
+                    <div class="card shadow1" style="background-color:transparent">
+                        <div class="card-body" style="overflow-x:auto;background-color:transparent">
                         <form @submit.prevent="updateShareMonth()">
                             <input type="hidden" name="_token" value="6BwLvKulnhkAcUn3BgPaQHev2ZNKme6XDhncAZzL">									
-                            <div class="card no-b  no-r">
+                            <div class="card no-b  no-r" style="background-color:transparent">
                                 <div class="card-body no-gutters">
                                     <div class="text-center mb-3"><img  src="/assets/img/calendar.png" width="80px"  height="80px">
                                     <h5 class="s-36 font-weight-bold mt-2 text-green">{{ settings.next_global_profit_share_month }}</h5>
@@ -77,10 +48,10 @@
                                         <div class="col-md-12">
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
-                                                    <div class="input-group-text"><i class="icon icon-calendar float-left s-20 green-text " ></i></div>
+                                                    <div class="input-group-text"><i class="icon icon-calendar float-left s-20 text-white " ></i></div>
                                                 </div>
                                                 <input required v-model="globalShareMonth.next_global_profit_share_month" type="number" min="1" max="12" class="form-control r-0 light s-12" placeholder="Profit share month"
-                                                v-b-popover.hover.top="'Use numeric value for month. e.g 1 for January, 10 for October'" title="Global Profit Month">
+                                                v-b-popover.hover.top="'Use numeric value for month. e.g 1 for January, 10 for October'" title="Global Profit Month" style="background-color: #ecf0f1; border: 1px solid #2E671A">
                                             </div>
                                         </div>
                                     </div>
@@ -95,10 +66,10 @@
                     </div>
                 </div>
                 <div class="col-md-6">
-                    <div class="card">
-                        <div class="card-body" style="overflow-x:auto;">
+                    <div class="card shadow1" style="background-color:transparent">
+                        <div class="card-body" style="overflow-x:auto;background-color:transparent">
                         <form @submit.prevent="updateShareDay()">
-                            <div class="card no-b no-r">
+                            <div class="card no-b no-r" style="background-color:transparent">
                                 <div class="card-body no-gutters">
                                     <div class="text-center mb-3"><img  src="/assets/img/calendar.png" width="80px"  height="80px">
                                     <h5 class="s-36 font-weight-bold mt-2 text-green">{{ settings.next_global_profit_share_day }}</h5>
@@ -107,9 +78,9 @@
                                         <div class="col-md-12">
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
-                                                    <div class="input-group-text"><i class="icon icon-calendar float-left s-20 green-text " ></i></div>
+                                                    <div class="input-group-text"><i class="icon icon-calendar float-left s-20 text-white " ></i></div>
                                                 </div>
-                                                <input v-model="globalShareDay.next_global_profit_share_day" type="number" min="1" max="31" class="form-control r-0 light s-12" placeholder="Profit Share day" required>
+                                                <input v-model="globalShareDay.next_global_profit_share_day" type="number" min="1" max="31" class="form-control r-0 light s-12" placeholder="Profit Share day" style="background-color: #ecf0f1; border: 1px solid #2E671A" required>
                                             </div>
                                         </div>
                                     </div>

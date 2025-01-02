@@ -3,7 +3,7 @@
         <div class="">	
             <div class="navbar navbar-expand d-flex navbar-dark justify-content-between bd-navbar blue accent-3 shadow">
                 <div class="relative">
-                    <img src="/assets/img/deli_logo.png" alt="" style="width: 200px;">
+                    <img src="/assets/img/logo2b.png" alt="" style="width: 200px;">
                 </div>
                 <!--Top Menu Start -->
                 <div class="navbar-custom-menu">
@@ -57,30 +57,30 @@
                     <div class="row mb-3">
                         <div class="col-md-12">
                             <div class="text-center mt-3">
-                                <img src="/assets/img/success.png" alt="" width="100px" height="100px">
-                                <h6 class="font-weight-bold mt-2" style="color:#2E671A;">Thanks for registering!<br><small>We're thrilled to have you as a partner.</small></h6>
+                                <img src="/assets/img/welcome-back.png" alt="" width="150px" height="auto">
+                                <h6 class="font-weight-bold mt-2" style="color:#353935;">Thanks for registering!<br><small>We're thrilled to have you as a partner.</small></h6>
                             </div>
                         </div>
                     </div>	
 
                     <div class="d-flex justify-content-center">		
                         <div class="col-md-7">
-                            <div class="card r-1">
+                            <div class="card r-1 shadow1" style="background-color: transparent">
                                 <div class="card-body">
                                     <div class="d-flex justify-content-center">
                                         <div class="p-3">
                                             <p>
                                                 <template v-if="loading">...</template>
                                                 <template v-else>
-                                                    Dear<span class="font-weight-bold"> {{ authUser.first_name }} {{ authUser.last_name }},</span>
+                                                    <span class="font-weight-bold">Dear {{ authUser.first_name }} {{ authUser.last_name }},</span>
                                                 </template>
                                             </p>
-                                            <p>We would like to take a moment to express our heartfelt gratitude to you for registering with DelishCare - the leading network marketing program that offers 7 ways to earn, amazing incentives, and top-quality health products.</p>
-                                            <p>Your decision to join our community has not only shown your trust in us but also your commitment to living a healthier and happier life. We are confident that with DelishCare, you will not only be able to achieve your personal health goals but also create a sustainable income stream.</p>
-                                            <p>As a DelishCare partner, you are part of a dynamic team that is dedicated to bringing positive change to people's lives. We are committed to providing you with the best support and resources to help you succeed in your journey towards financial freedom and personal wellness.</p>
-                                            <p>Once again, we thank you for choosing DelishCare, and we look forward to a fruitful and exciting journey together.</p>
-                                            <p>Best Regards,</p>
-                                            <p class="font-weight-bold"><img src="/assets/img/signature1.png" width="150px" alt=""><br>The DelishCare Team.</p>
+                                            <p class="font-weight-bold ">We want to take a moment to extend our heartfelt gratitude for registering with <b>Reez Global</b> – the premier network marketing program offering seven earning opportunities, incredible incentives, and high-quality health products.</p>
+                                            <p class="font-weight-bold ">Your decision to join our community reflects both your trust in us and your commitment to a healthier, happier life. With <b>Reez Global</b>, we’re confident that you’ll not only reach your personal wellness goals but also establish a sustainable income stream.</p>
+                                            <p class="font-weight-bold ">As a <b>Reez Global partner</b>, you’re now part of a dynamic team dedicated to making a positive impact in people's lives. We’re committed to providing you with top-notch support and resources to help you succeed on your path to financial freedom and personal wellness.</p>
+                                            <p class="font-weight-bold ">Once again, thank you for choosing <b>Reez Global</b>. We look forward to an exciting and rewarding journey together.</p>
+                                            <p class="font-weight-bold ">Best Regards,</p>
+                                            <p class="font-weight-bold ">The Star Twins Team.</p>
                                         </div>
                                     </div>
                                 </div>
@@ -91,15 +91,15 @@
                     <div class="row mt-2">
                         <div class="col-md-12">
                             <div class="text-center mt-3">
-                            <small class="text-green mt-4 mb-3">kindly be reminded that there is a <span class="font-weight-bold">7-day time limit</span> for completing your registration,so please finish the remaining part as soon as possible to avoid missing out.</small>
+                                <small class=" mt-4 mb-3">kindly be reminded that there is a <span class="font-weight-bold">7-day time limit</span> for completing your registration,so please finish the remaining part as soon as possible to avoid missing out.</small>
                                 <div class="text-center mt-3">
                                     <div id="" class="timer flex-wrap d-flex justify-content-center mt-3"  style="padding-top: 30px;">
                                         <VueCountdown v-if="!loading" :time="getTime">
                                             <template slot-scope="props">
-                                                <div style="width: 200px !important; padding-right:20px; padding-left:20px; padding-top:20px; padding-bottom:20px;" id="days" class="align-items-center flex-column d-flex justify-content-center">{{7 - props.days }}&nbsp;&nbsp;DAYS</div>  
-                                                <div style="width: 200px !important; padding-right:20px; padding-left:20px; padding-top:20px; padding-bottom:20px;" id="hours" class="align-items-center flex-column d-flex justify-content-center">{{ props.hours }}&nbsp;&nbsp;HOURS</div>
-                                                <div style="width: 200px !important; padding-right:20px; padding-left:20px; padding-top:20px; padding-bottom:20px;" id="minutes" class="align-items-center flex-column d-flex justify-content-center">{{ props.minutes }}&nbsp;&nbsp;MINUTES</div>
-                                                <div style="width: 200px !important; padding-right:20px; padding-left:20px; padding-top:20px; padding-bottom:20px;" id="seconds" class="align-items-center flex-column d-flex justify-content-center">{{ props.seconds }}&nbsp;&nbsp;SECONDS</div>
+                                                <div style="width: 200px !important; padding-right:20px; padding-left:20px; padding-top:20px; padding-bottom:20px; background-color: #353935" id="days" class="align-items-center flex-column d-flex justify-content-center shadow1 text-white">{{7 - props.days }}&nbsp;&nbsp;DAYS</div>  
+                                                <div style="width: 200px !important; padding-right:20px; padding-left:20px; padding-top:20px; padding-bottom:20px; background-color: #353935"  id="hours" class="align-items-center flex-column d-flex justify-content-center shadow1 text-white">{{ props.hours }}&nbsp;&nbsp;HOURS</div>
+                                                <div style="width: 200px !important; padding-right:20px; padding-left:20px; padding-top:20px; padding-bottom:20px; background-color: #353935" id="minutes" class="align-items-center flex-column d-flex justify-content-center shadow1 text-white">{{ props.minutes }}&nbsp;&nbsp;MINUTES</div>
+                                                <div style="width: 200px !important; padding-right:20px; padding-left:20px; padding-top:20px; padding-bottom:20px; background-color: #353935" id="seconds" class="align-items-center flex-column d-flex justify-content-center shadow1 text-white">{{ props.seconds }}&nbsp;&nbsp;SECONDS</div>
                                             </template>
                                             <!---<template slot-scope="props">Time Remaining：{{ props.days }} days, {{ props.hours }} hours, {{ props.minutes }} minutes, {{ props.seconds }} seconds.</template>-->
                                         </VueCountdown>
@@ -189,34 +189,34 @@
                     <div class="row mb-3">
                         <div class="col-md-12">
                             <div class="text-center mt-5">
-                                <h6 class="font-weight-bold" style="color:#2E671A;">Account Details<br><small>Enter a valid account details for your withdrawals.</small></h6>
+                                <h6 class="font-weight-bold" style="color:#353935;">Account Details<br><small>Enter a valid account details for your withdrawals.</small></h6>
                             </div>
                             <div class="d-flex flex-wrap justify-content-center mt-2">
                                 <div class="col-md-5">
-                                    <div class="card">
+                                    <div class="card shadow1" style="background-color: transparent" >
                                         <div class="card-body" style="overflow-x:auto;">
                                             <form @submit.prevent="updateBank()">
-                                                <div class="card no-b  no-r">
+                                                <div class="card no-b rounded" style="background-color: transparent">
                                                     <div class="card-body no-gutters">
-                                                        <div class="text-center mb-3"><img  src="/assets/img/bank.jpeg" width="300px"  height="auto">
+                                                        <div class="text-center mb-3"><img class="mb-3" src="/assets/img/bankinghall2.png" width="200px"  height="auto">
                                                             <div class="form-row mb-3">
                                                                 <div class="col-md-12">
                                                                     <div class="input-group mb-3">
                                                                         <div class="input-group-prepend">
-                                                                            <div class="input-group-text"><i class="icon icon-account_balance float-left s-20 green-text " ></i></div>
+                                                                            <div class="input-group-text" style="background-color: #2E671A"><i class="icon icon-account_balance float-left s-20 text-white" ></i></div>
                                                                         </div>
-                                                                        <select id="bank-select" v-model="form.bank_name" required class="form-control r-1 light s-12">
-                                                                            <option :value="null">Select Bank</option>
-                                                                            <option v-for="bank,i in banks" :value="bank.bank" :key="i" :selected="profile?.bank_name == bank.bank">{{ bank.bank }}
+                                                                        <select id="bank-select" v-model="form.bank_name" required class="form-control r-1 light s-5" style="background-color:transparent; ; border: 2px solid #2E671A;">
+                                                                            <option :value="null" style="background-color: #ded8c7;">Select Bank</option>
+                                                                            <option v-for="bank,i in banks" :value="bank.bank" :key="i" :selected="profile?.bank_name == bank.bank" style="background-color: #ded8c7">{{ bank.bank }}
                                                                                 
                                                                             </option>														   
                                                                         </select>	   
                                                                     </div>
                                                                     <div class="input-group mb-3">
-                                                                        <div class="input-group-prepend">
-                                                                            <div class="input-group-text"><i class="icon icon-account_balance float-left s-20 green-text " ></i></div>
+                                                                        <div class="input-group-prepend" >
+                                                                            <div class="input-group-text" style="background-color: #2E671A"><i class="icon icon-account_balance float-left s-20 text-white " ></i></div>
                                                                         </div>
-                                                                        <input v-model="form.bank_account_number" required type="text" min="10" class="form-control r-1 light s-12" placeholder="Account No."> 
+                                                                        <input v-model="form.bank_account_number" required type="text" min="10" class="form-control r-1 light s-12" placeholder="Account No." style="background-color:transparent; ; border: 2px solid #2E671A;"> 
                                                                     </div>  
                                                                     <!-- <div class="input-group ">
                                                                         <div class="input-group-prepend">
@@ -251,7 +251,7 @@
                         <div class="col-md-12">
                             <div class="d-flex flex-wrap justify-content-center mt-2">
                                 <div class="text-center mt-5">
-                                    <img  src="/assets/img/cards.png" width="300px">
+                                    <img  src="/assets/img/pay_options.png" width="300px">
                                     <h6 class="font-weight-bold" style="color:#2E671A;">Proceed To Payment<br><small>Kindly complete your registration as a partner by proceeding with your package payment.</small></h6>
                                     <span v-if="submitting && paySubmitting" class="btn btn-sm btn-success mb-3 mt-2 btn-lg">...</span>
                                     <span v-else-if="loading " class=""></span>
@@ -259,7 +259,7 @@
                                 </div>
                             </div>	
                         </div>
-                    </div>	
+                    </div>	     
                 </div>	
             </div>
         </div>
@@ -284,24 +284,56 @@
             </div>
         </modal>
 
-        <modal :modalId="'logOut'" :modalSize="'md'" :modalTitle="''">
-            <div class="card border-0 p-sm-3 p-2 justify-content-center">
-                <div class="card-header pb-0 bg-white border-0 mb-2">
-                <h6 ><span class="font-weight-bold"> Are you sure you want to signout ?</span>
-                    <br><small>Confirm this is not a mistake.</small></h6>
-                </div>
-                <div class="card-body px-sm-4 mb-2 pt-1 pb-0"> 
-                    <div class="row justify-content-end no-gutters">
-                        <div class="col-auto mr-2">
-                            <button type="button" class="btn btn-sm btn-success px-4" @click="logOut()" data-dismiss="modal">Confirm</button>
-                        </div>
+        <modal :modalId="'logOut'" :modalSize="'md'" :modalTitle="''" class="modal fade">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="d-flex justify-content-center align-items-center mt-3" > <!-- Added styling and classes -->
+                        <img  src="/assets/img/exit.png" width="auto" height="100px">
                     </div>
-                </div>
-            </div>  
-         </modal>
+                    <div class="ibox-content modalContent text-center" id="modalContent">
+                        <span class="font-weight-bold">Are you sure you want to log out?</span><br>
+                        <small>Confirm this is not a mistake.</small>
+                    </div>
+                    <div class="modal-footer d-flex justify-content-center">
+                        <button type="button" class="btn btn-sm btn-success px-4" @click="logOut()" data-dismiss="modal">Confirm</button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div>
+        </modal>
     </div>
     
 </template>
+
+<style>
+/* Override the modal's background colors */
+.modal-dialog {
+    background-color: #ecf0f1 !important;
+}
+
+.modal-content {
+    background-color: #ecf0f1 !important;
+    border: none; /* Remove borders if any */
+}
+
+.modal-body,
+.modal-footer {
+    background-color: #ecf0f1 !important;
+    color: #333; /* Adjust text color if necessary */
+}
+
+.modal-footer {
+    border-top: none;
+    padding-bottom: 20px; /* Additional spacing if needed */
+}
+
+/* Optional: Adjust button color for consistency */
+.modal-footer .btn {
+    background-color: #2E671A; /* Button color */
+    color: white;
+}
+
+
+</style>
 
 <style>
     .timer div {
@@ -373,6 +405,7 @@
 #pay .close{
     display: none !important;
 }
+
 
 </style>
 
@@ -476,6 +509,7 @@
             ...mapActions('userStore',['getProfileDetails','updateBankDetails','getUserPaymentStatus']),
             ...mapActions('paymentStore',['initiate','verify','verifyBankDetails','fetchBanks']),
             ...mapActions('packageStore',['getPackage']),
+            
 
             updateBank(){
                 var uuid = this.authUser.uuid;
@@ -554,5 +588,6 @@
                 })
             },
         }
+
     }
 </script>

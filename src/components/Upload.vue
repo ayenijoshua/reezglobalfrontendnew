@@ -79,62 +79,59 @@
 </style>
 
 <script>
-import {mapState} from 'vuex'
-//import toastr from 'toastr';
+import { mapState } from 'vuex';
+
 export default {
-    
+    name: 'FileUpload', // Use a multi-word component name to fix linting error
     data() {
         return {
             uploadedFiles: [],
             uploadError: null,
             currentStatus: null,
             uploadFieldName: 'photos',
-        }
+        };
     },
-    computed:{
+    computed: {
         ...mapState({
-            processing:state=>state.processing
+            processing: (state) => state.processing,
         }),
     },
-
     mounted() {
-        this.reset();
+        this.reset(); // Reset form state on mount
     },
-
-    methods:{
-
-        //...mapActions('userStore',['uploadPop']),
-
+    methods: {
         reset() {
-            // reset form to initial state
-            
+            // Clear form and reset the uploaded files array
+            this.uploadedFiles = [];
+            this.uploadError = null;
+            this.currentStatus = null;
         },
-
-        // save(formData) {
-        //     this.uploadPop({data:formData,cb:()=>{
-        //         this.$emit('reg-submitted')
-        //     }})
-        //     .catch(err => {
-        //         console.log(err);
-        //         if (err.response && err.response.status === 422) {
-        //             this.errors = err.response.data.errors;
-        //             toastr.error(err.response.data.message)
-        //         }else{
-        //             toastr.error("An error occured")
-        //         }
-        //         this.$store.commit('processed',null,{root:true})
-        //     });
-        // },
-
         filesChange(fieldName, fileList) {
-            // handle file changes
-            
-            const form = document.getElementById('pop-form');
-            const formData = new FormData(form);
+            if (!fileList.length) return; // Exit if no files are selected
 
-            if (!fileList.length) return;
-            //this.save(formData);
-        }
-    }
-}
+            // Create a FormData object and append the file
+            const formData = new FormData();
+            formData.append(fieldName, fileList[0]); // Append the first file
+
+            this.uploadedFiles = Array.from(fileList); // Store the uploaded files for display
+
+            console.log('Uploading file:', fileList[0]);
+
+            // Save logic (uncomment to use)
+            // this.save(formData);
+        },
+        save(formData) {
+            // Example API call for saving the file
+            this.$store.dispatch('uploadPop', { data: formData })
+                .then(() => {
+                    this.currentStatus = 'File uploaded successfully.';
+                    this.$emit('upload-success'); // Emit an event on success
+                })
+                .catch((error) => {
+                    console.error('Upload failed:', error);
+                    this.uploadError = 'An error occurred during upload.';
+                });
+        },
+    },
+};
 </script>

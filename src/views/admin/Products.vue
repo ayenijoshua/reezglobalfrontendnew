@@ -2,7 +2,7 @@
     <div class="animated">
         <div class="row my-5">
             <div class="col-lg-12">
-                <div class="counter-box p-40 text-white shadow2 r-5" style="background-color: #2E671A">
+                <div class="counter-box p-40 text-white shadow1 r-5" style="background-color: #2E671A">
                     <div class="float-right">
                         <img  src="/assets/img/shop1.png" width="80px" height="80px">
                     </div>
@@ -14,8 +14,8 @@
 				
         <div class="row my-5">
             <div class="col-md-12">
-                <div class="card border">
-                    <div class="card-body p-4">
+                <div class="card shadow1" style="border: 1px solid #2E671A !important;">
+                    <div class="card-body p-4" >
                         <form @submit.prevent="create()">
                             <div class="row column-row"> 
                                 <div class="col-md-2 ml-3 mt-3">
@@ -24,26 +24,46 @@
                                 
                                 <div class="col-md-3">
                                     <div class="input-group mt-3 mb-3">
-                                        <div class="input-group-prepend">
-                                            <div class="input-group-text"><i class="icon icon-add_shopping_cart float-left s-20 green-text " ></i></div>
+                                        <div class="input-group-prepend" >
+                                            <div class="input-group-text" style="background-color: #2E671A; border:1px solid #2E671A !important" ><i class="icon icon-add_shopping_cart float-left s-20 text-white"></i></div>
                                         </div>
-                                        <input v-model="form.name" required type="text" class="form-control r-0 light s-12" placeholder="Product Name">
+                                        <input v-model="form.name" required type="text" class="form-control r-0 light s-12" placeholder="Product Name" style="background-color: #ecf0f1; border:1px solid #2E671A !important">
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="input-group mt-3 mb-3">
+                                        <div class="input-group-prepend" >
+                                            <div class="input-group-text" style="background-color: #2E671A; border:1px solid #2E671A !important" ><i class="icon icon-add_shopping_cart float-left s-20 text-white"></i></div>
+                                        </div>
+                                        <input v-model="form.name" required type="text" class="form-control r-0 light s-12" placeholder="Product PV" style="background-color: #ecf0f1; border:1px solid #2E671A !important">
                                     </div>
                                 </div>
                                 <div class="col-md-3">
                                     <div class="input-group mt-3 mb-3">
                                         <div class="input-group-prepend">
-                                            <div class="input-group-text"><i class="icon icon-sitemap float-left s-20 green-text " ></i></div>
+                                            <div class="input-group-text" style="background-color: #2E671A; border:1px solid #2E671A !important" ><i class="icon icon-tag3 float-left s-20 text-white " ></i></div>
                                         </div>
-                                        <input v-model="form.points" required type="text" class="form-control r-0 light s-12" placeholder="Product PV">
+                                        <input v-model="form.worth" required type="text" class="form-control r-0 light s-12" placeholder="Price" style="background-color: #ecf0f1; border:1px solid #2E671A !important">
                                     </div>
                                 </div>
-                                <div class="col-md-3">
-                                    <div class="input-group mt-3 mb-3">
-                                        <div class="input-group-prepend">
-                                            <div class="input-group-text"><i class="icon icon-tag3 float-left s-20 green-text " ></i></div>
-                                        </div>
-                                        <input v-model="form.worth" required type="text" class="form-control r-0 light s-12" placeholder="Price">
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12 mb-3">
+                                    <div class="form-group m-0">
+                                        <textarea name="description" value="" rows="5" type="text" class="form-control r-0 light s-12" id="address"
+                                        placeholder="Product Description" style="background-color: #ecf0f1; border: 2px solid #2E671A;"></textarea>
+                                    </div>	
+                                </div>
+                                <div class="col-md-12 mt-3 mb-3">
+                                    <div class="form-group m-0">
+                                        <div class="dropbox" style="background-color: #ecf0f1; border: 2px solid #2E671A;">
+                                            <input v-b-popover.hover.top="'Drag your photo here or click to browse'" type="file" id="profile-img" title="profile photo" name="image"  class="form-control form-control-line input-file" style="background-color: #ecf0f1; border: 2px solid #2E671A;">
+                                            <p id="img-preview" >
+                                                Drag your photo here<br> or click to browse<br>
+                                                <span style="font-size: 10px;">Image size should not exceed 500kB</span>
+                                            </p>      
+                                        </div>                             
+                                        <!-- <input type="file" name="image" title="profile photo" class="form-control r-0 light s-12" placeholder="Profile photo"> -->
                                     </div>
                                 </div>
                             </div>
@@ -59,13 +79,13 @@
 
         <div class="row my-3">
             <div class="col-md-12">
-                <div class="card border">
-                    <div class="card-header white">
+                <div class="card border shadow1" style="border: 1px solid #2E671A !important;">
+                    <div class="card-header" style="background-color: #2E671A">
                         <div class="row justify-content-end">
                             <div class="col">
                                 <ul class="nav nav-tabs card-header-tabs nav-material">
                                     <li class="nav-item">
-                                        <a class="nav-link text-green" id="w1-tab1" data-toggle="tab" >REGISTRATION PRODUCT SELECTION</a>
+                                        <a class="nav-link text-white font-weight-bold" id="w1-tab1" data-toggle="tab" >COMPANY PRODUCTS</a>
                                     </li>	
                                 </ul>
                             </div>
@@ -76,16 +96,19 @@
                             <div class="card no-b no-r">
                                 <div class="card-body">
                                     <div class="form-row" style="overflow-x:auto;">
-                                        <table class="table table-bordered">
+                                        <table class="table table-bordered equal-width-table">
                                             <thead>
                                                 <tr>
                                                     <th scope="col">S/N</th>
                                                     <th scope="col">Products</th>
+                                                    <th scope="col">Products Description</th>
+                                                    <th scope="col" >Products Image</th>
                                                     <th scope="col">PV</th>
                                                     <th scope="col">Worth</th>
                                                     <th scope="col">Status</th>
                                                     <th scope="col">Edit</th>
                                                     <th scope="col">Enable/Disable</th>
+                                                    <th scope="col">Action</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -107,6 +130,8 @@
                                                     <tr v-else v-for="prod,i in products" :key="i">
                                                         <td>{{ ++i }}</td>
                                                         <td>{{ prod.name }}</td>
+                                                        <td >Great medicinal product. 100% herbal and organic. Great for treating high-blood pressure, fertility issues and more.....</td>
+                                                        <td ><img src="/assets/img/shop2.png" width="100px" height="100px"></td>
                                                         <td>{{ prod.points }}</td>
                                                         <td>₦{{ prod.worth?.toLocaleString('en-US') }}</td>
                                                         <td>
@@ -126,6 +151,8 @@
                                                                 </div>
                                                             </div>
                                                         </td>
+                                                        <td><button type="button" class="btn-small btn-danger rounded">
+                                                            <i class="icon-times mr-2"></i>Delete Product</button>  </td>
                                                     </tr>
                                                 </template>															  
                                             </tbody>
@@ -151,6 +178,30 @@
         </Modal>
     </div>	
 </template>
+
+<style>
+.equal-width-table th,
+.equal-width-table td {
+    width: 10%; /* Each column will take up 10% of the table's width */
+    text-align: center; /* Optional: Center align content */
+    vertical-align: middle; /* Optional: Vertically center align content */
+}
+/* Hover effect: Ensure all parts change */
+.dropdown-menu .dropdown-item:hover {
+    background-color: #2E671A !important; /* Background on hover */
+    color: white !important; /* Text color on hover */
+}
+
+/* Ensure icons also change color on hover */
+.dropdown-menu .dropdown-item:hover i {
+    color: white !important;
+}
+
+/* Add smooth transitions */
+.dropdown-menu .dropdown-item {
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+</style>
 <script>
     import { mapActions, mapGetters, mapState } from 'vuex';
     import Modal from '@/components/Modal.vue';

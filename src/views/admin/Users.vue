@@ -3,36 +3,37 @@
         <div class="animated">
             <div class="row mb-5">
                 <div class="col-md-12">
-                    <div class="card mb-3">
-                        <div class="card-header white">
+                    <div class="card shadow1 mb-3" style="">
+                        <div class="card-header" style="background-color: #2E671A;">
                             <div class="row justify-content-end">
                                 <div class="col">
                                     <ul class="nav nav-tabs card-header-tabs nav-material">
                                         <li class="nav-item">
-                                            <a class="nav-link text-green" id="w1-tab1" data-toggle="tab" >MEMBERS INFORMATION</a>
+                                            <a class="nav-link text-white font-weight-bold" id="w1-tab1" data-toggle="tab" >MEMBERS INFORMATION</a>
                                         </li>
                                     </ul>
                                 </div>
                             </div>
                         </div>
-                        <div class="card-body ">
+                        <div class="card-body" style="background-color: #ecf0f1">
                             <div class=" mb-3" style="float:left">
                                 <div class="dropdown">
                                     <button class="btn btn-sm btn-success dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         <i class="caret"></i>{{usersType.charAt(0).toUpperCase() + usersType.slice(1) }} Users
                                     </button>
-                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="position:fixed">
-                                        <button @click="loadUsers('all')" class="dropdown-item text-green"> All Users</button>
-                                        <button @click="loadUsers('active')" class="dropdown-item text-green"> Active Users</button>
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="position:fixed; background-color: #ecf0f1;">
+                                        <button @click="loadUsers('all')" class="dropdown-item text-green"> All Members</button>
+                                        <button @click="loadUsers('active')" class="dropdown-item text-green"> Active Members</button>
                                         <button @click="loadUsers('inactive')" class="dropdown-item text-green">Inactive Users</button>
+                                        <button class="dropdown-item text-green">Stockists</button>
                                     </div>
                                 </div>
                             </div>
                             <div class=" mb-3" style="float:right">
                                 <form class="form-inline my-2 my-lg-0" @submit.prevent="search()">
-                                    <input v-model="searche" v-b-popover.hover.top="'first name/ last name/ username/ email/ package'" class="form-control float-left mr-sm-2" type="text" placeholder="" aria-label="Search">
-                                    <span v-if="loading" class="btn btn-outline-success my-2 my-sm-0">...</span>
-                                    <button v-else class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                                    <input v-model="searche" v-b-popover.hover.top="'first name/ last name/ username/ email/ package'" class="form-control float-left mr-sm-2" type="text" placeholder="" aria-label="Search" style="background-color: #ecf0f1; border: 2px solid #2E671A;">
+                                    <span v-if="loading" class="btn btn-success my-2 my-sm-0">...</span>
+                                    <button v-else class="btn btn-success my-2 my-sm-0" type="submit">Search</button>
                                 </form>
                             </div>
                             <div class="table-responsive">
@@ -46,7 +47,10 @@
                                             <th scope="col">Username</th>
                                             <th scope="col">Package</th>
                                             <th scope="col">Date of Reg.</th>
-                                            <th scope="col">Action</th>
+                                            <th scope="col">Action</th>                                        
+                                            <th scope="col">Stockist Package</th>
+                                            <th scope="col">Stockist Status</th>
+                                            <th scope="col">Stockist Date of Reg.</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -73,7 +77,7 @@
                                             </tr>
                                             <tr v-else v-for="user,i in users" :key="i">
                                                 <td>{{ (usersPerPage * (usersCurrentPage - 1)) + ( ++i) }}</td>
-                                                <td> <img :src="imageURL(user.photo_path)" :style="{'width': '50px'}" class="img-responsive"/></td>
+                                                <td> <img :src="imageURL(user.photo_path)" :style="{'width': '50px'}" class="user_avatar img-responsive"/></td>
                                                 <td>{{ user.first_name }} {{ user.last_name }}</td>
                                                 <td>{{ user.email }}</td>
                                                 <td>{{ user.username }}</td>
@@ -84,25 +88,68 @@
                                                         <button class="btn btn-sm btn-success dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                             <i class="caret"></i>
                                                         </button>
-                                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="position:fixed">
+                                                        <div class="dropdown-menu"  style="background-color: #ecf0f1">
                                                             <a v-if="usersType !== 'inactive'" @click="setUser(user)" v-b-modal.user-dashboard class="dropdown-item text-green" ><i class="icon-barometer2"></i>&nbsp;&nbsp; Dashboard</a>
                                                             <a v-if="usersType !== 'inactive'" @click="setUser(user)" v-b-modal.user-profile class="dropdown-item text-green" >
                                                                 <i  class="icon-drivers-license-o"></i>&nbsp;&nbsp; Profile</a>
                                                             <a v-if="usersType !== 'inactive'" @click="setUser(user)" v-b-modal.user-genealogy class="dropdown-item text-green" ><i class="icon-sitemap"></i>&nbsp;&nbsp;Geneology</a>
                                                             <a v-if="usersType !== 'inactive'" @click="setUser(user)" v-b-modal.user-wallet class="dropdown-item text-green" ><i class="icon-account_balance_wallet"></i>&nbsp;&nbsp;Wallet</a>
+                                                            <a class="dropdown-item text-green" ><i class="icon-shopping-cart"></i>&nbsp;&nbsp;Repurchase</a>
                                                             <a v-if="usersType !== 'inactive'" @click="setUser(user)" v-b-modal.user-bank-details class="dropdown-item text-green" data-toggle="modal" data-target="#popModal-1"><i class="icon-bank"></i>&nbsp;&nbsp;Enable Bank Account Change</a>	
                                                             <a v-if="usersType !== 'inactive'" @click="setUser(user)" v-b-modal.user-password class="dropdown-item text-green" data-toggle="modal" data-target="#popModal-2"><i class="icon-lock"></i>&nbsp;&nbsp;Login Details Change</a>											
                                                             <a @click="setUser(user)" v-b-modal.send-message class="dropdown-item text-green" data-toggle="modal" data-target="#popModal-3"><i class="icon-mail-envelope-open6"></i>&nbsp;&nbsp;Send Message</a>
-                                                            <a v-if="usersType !== 'inactive'" @click="setUser(user)" v-b-modal.user-2fa class="dropdown-item text-green" data-toggle="modal" data-target="#popModal-4"><i class="icon-lock3"></i>&nbsp;&nbsp;Login 2FA</a> 
+                                                            
                                                         </div>
                                                     </div>
                                                 </td>
+                                                <td><span class="font-weight-bold" >Mobile</span></td>
+                                                <td>
+                                                    <div class="dropdown">
+                                                        <button class="btn btn-sm btn-success dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                            <i class="caret"></i> Active
+                                                        </button>
+                                                        <div class="dropdown-menu" style="background-color: #ecf0f1">
+                                                            <a class="dropdown-item text-green" ><i class="icon-account_box"></i>&nbsp;&nbsp; Stockist Profile</a>
+                                                            <a class="dropdown-item text-green" ><i class="icon-shopping-cart"></i>&nbsp;&nbsp; Stockist Purchase</a>
+                                                            <a class="dropdown-item text-green" ><i class="icon-clipboard-list"></i>&nbsp;&nbsp; Stockist Record</a>
+                                                            <a class="dropdown-item text-green" ><i class="icon-payment"></i>&nbsp;&nbsp; Order History</a>
+                                                            
+                                                        </div>
+                                                    </div>
+                                                </td>
+
+                                                <td>{{ user.created_at }}</td>
                                             </tr>
                                         </template>
                                     </tbody>
                                 </table>
                                 <br>
                                 <BasePaginator v-if="userAction" :action="userAction" :current_page="usersCurrentPage" :last_page="usersLastPage" :total_pages="usersTotalPages" :per_page="usersPerPage" :type="usersType"></BasePaginator>
+                            </div>
+                            <div class="container">
+                                <ul class="pagination">
+                                    <li>
+                                    <a href="#">Prev</a>
+                                    </li>
+                                    <li class="active">
+                                    <a href="#">1</a>
+                                    </li>
+                                    <li >
+                                    <a href="#">2</a>
+                                    </li>
+                                    <li>
+                                    <a href="#">3</a>
+                                    </li>
+                                    <li>
+                                    <a href="#">4</a>
+                                    </li>
+                                    <li>
+                                    <a href="#">5</a>
+                                    </li>
+                                    <li>
+                                    <a href="#">Next</a>
+                                    </li>
+                                </ul>
                             </div>
                         </div>
                     </div>
@@ -248,6 +295,117 @@
         </Modal>
     </div>
 </template>
+
+<style scoped>
+.container {
+
+display: flex;
+align-items: center;
+justify-content: center;
+}
+.container .pagination {
+position: relative;
+height: 50px;
+background: rgba(255, 255, 255, 0.05);
+box-shadow: 5px 5px 30px rgba(0, 0, 0, 0.3);
+display: flex;
+align-items: center;
+justify-content: center;
+backdrop-filter: blur(3px);
+border-radius: 2px;
+}
+.container .pagination li {
+list-style-type: none;
+display: inline-block;
+}
+.container .pagination li a {
+position: relative;
+padding: 10px 15px;
+text-decoration: none;
+color: #2E671A;
+font-weight: 500;
+}
+.container .pagination li a:hover,
+.container .pagination li.active a {
+background: #2E671A;
+color: #ecf0f1;
+
+}
+.card {
+    margin-bottom: 250px !important; /* Increase bottom margin to give room */
+    position: relative; /* Ensure dropdowns are positioned correctly */
+}
+
+.border {
+    border-left: 1px solid #2E671A !important;
+}
+
+.border-left-green {
+    border-left: 1px solid #2E671A !important;
+}
+
+/* Dropdown Menu Styling */
+.dropdown-menu {
+    position: absolute !important; /* Make sure the dropdown is positioned absolutely */
+    top: auto; /* Allow it to adjust position */
+    left: auto; /* Allow it to adjust position */
+    z-index: 1050; /* Ensure it appears above other elements */
+    background-color: #ecf0f1; /* Your dropdown background color */
+    border: 1px solid #2E671A; /* Match your design style */
+    padding: 0.5rem 0; /* Adjust padding */
+}
+
+/* Ensure dropdown is not clipped by the table */
+.table-responsive {
+    overflow-x: visible !important;
+}
+
+/* Dropdown Menu Styling */
+.dropdown-menu {
+    position: absolute !important; /* Ensure absolute positioning */
+    top: auto; /* Adjust position */
+    left: auto; /* Adjust position */
+    z-index: 1050; /* Place it above other elements */
+    background-color: #ecf0f1; /* Background color */
+    border: 1px solid #2E671A; /* Match your design */
+    padding: 0.5rem 0; /* Adjust padding */
+}
+
+/* Prevent dropdown clipping */
+.table-responsive {
+    overflow-x: visible !important;
+}
+
+/* Default text and icon styles */
+.dropdown-menu .dropdown-item {
+    color: #2E671A !important; /* Ensure default text color */
+    font-weight: bold;
+    display: flex; /* Align icon and text together */
+    align-items: center;
+    gap: 8px; /* Space between icon and text */
+    padding: 10px 15px; /* Adjust padding for spacing */
+}
+
+/* Hover effect: Ensure all parts change */
+.dropdown-menu .dropdown-item:hover {
+    background-color: #2E671A !important; /* Background on hover */
+    color: white !important; /* Text color on hover */
+}
+
+/* Ensure icons also change color on hover */
+.dropdown-menu .dropdown-item:hover i {
+    color: white !important;
+}
+
+/* Add smooth transitions */
+.dropdown-menu .dropdown-item {
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+
+
+
+</style>
 
 <script>
     import { mapActions, mapGetters, mapState } from 'vuex';

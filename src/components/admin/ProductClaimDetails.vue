@@ -1,13 +1,13 @@
 <template>
-    <div class="card border-0 justify-content-center">
-        <div class="card-body rounded"> 
+    <div class="card border-0 justify-content-center" style="background-color: #ecf0f1">
+        <div class="card-body rounded" style="background-color: #ecf0f1"> 
             <div class="float-center">
                 <div v-for="userClaim,i in userProductClaims" :key="i" class="row column-row border-bottom">
                     <div class="mt-2 ml-3" style="padding-right:15px">
                         <img src="/assets/img/shop1.png" width="30px" height="30px">
                     </div>  
                     <div class="mb-2 mt-2">
-                        <h6 class="font-weight-bold text-green s-12" style="margin: 0em; padding: 0em;">{{ userClaim.name }} <br><small> ₦{{ userClaim.worth?.toLocaleString('en-US') }} | {{userClaim.points?.toFixed(2)}}PV | Qty:{{userClaim.product_qty}}</small></h6>	
+                        <h6 class="font-weight-bold text-green s-12" style="margin: 0em; padding: 0em;">{{ userClaim.name }} <br><small class="font-weight-bold"> ₦{{ userClaim.worth?.toLocaleString('en-US') }} | {{userClaim.points?.toFixed(2)}}PV | Qty:{{userClaim.product_qty}}</small></h6>	
                     </div>	
                 </div>
 
@@ -31,7 +31,11 @@
         </div>
     </div> 
 </template>
-
+<style scoped>
+.border-bottom {
+    border-bottom: 1px solid #2E671A !important;
+}
+</style>
 <script>
 import { mapActions, mapGetters, mapState } from 'vuex';
 

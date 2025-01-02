@@ -3,17 +3,17 @@
         <div class="animated">
             <div class="row mb-5">
                 <div class="col-md-12">
-                    <div class="counter-box p-40 text-white shadow2 r-5" style="background-color: #2E671A">
+                    <div class="counter-box p-40 text-white shadow1 r-5" style="background-color: #2E671A">
                         <div class="float-right">
                             <img  src="/assets/img/wallet1.png">
                         </div>
                         <small class="mt-0text-white" >Total Company Wallet</small>
                         <p class="text-dark-heading font-weight-bold text-white">₦<span style="font-size:32px">{{ companyWalletBalance?.toLocaleString('en-US') }}</span></p>
                     </div>
-                    <div class="row my-3">
+                    <!-- <div class="row my-3">
                         <div class="col-md-12">
-                            <div class="card">
-                                <div class="card-header bg-white">
+                            <div class="card shadow1">
+                                <div class="card-header">
                                     <h4 class="green-text"><strong class="font-weight-bold">System Net Balance</strong></h4>
                                 </div>
                                 <div class="card-body" style="overflow-x:auto;">
@@ -34,61 +34,7 @@
                         </div>
                     </div>
 
-                        <div class="d-sm-flex align-items-center justify-content-between border-bottom mt-5 ">
-                                <h6 class="s-12 text-green"><img  class="ml-2 mb-1" src="/assets/img/sales_perform.png" style="width:20px;height:18px">&nbsp;<strong>Products Sales Statistics</strong></h6>
-                    </div>
                     <div class="row my-3">
-                        <div class="col-lg-12">
-                            <div class="counter-box p-40 text-white shadow2 r-5 flex-wrap" style="background-color: #ffff">
-                                <div class="float-right">
-                                    <img src="/assets/img/accounts.png">
-                                </div>
-                                <small class="mt-0 ml-2"><span style="color:#2E671A!important;">Total Registration Products Amount</span></small>
-                                <p class="text-dark-heading font-weight-bold " style="color:#2E671A!important;">₦<span style="color:#2E671A!important;font-size:32px">{{ sumClaimedProducts?.toLocaleString('en-US') }}</span></p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row column-row">
-                        <div class="col-md-6">
-                            <div class="card" style="background-color: #2E671A" >
-                                <div class="card-body">
-                                    <div class="d-flex align-items-center flex-row flex-wrap">
-                                        <div class="mr-3">
-                                            <img class="mr-3 r-3" src="/assets/img/shopping-cart.png" alt="Generic placeholder image" width="70px" height="70px">
-                                        </div>
-                                        <div class="ml-auto">
-                                            <div class="d-flex flex-row mt-4 mb-4 ml-4">
-                                                <div  style="padding-right:20px">
-                                                    <h6 class="mt-0 mb-1 font-weight-bold text-white" >Products Sold</h6>
-                                                    <div class="mt-1 text-dark-heading text-white float-right" >{{ totalProductSold?.toLocaleString('en-US') }}</div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>	
-                        <div class="col-md-6">
-                            <div class="card" style="background-color: #2E671A" >
-                                <div class="card-body" >
-                                    <div class="d-flex align-items-center flex-row flex-wrap">
-                                        <div class="mr-3">
-                                            <img class="mr-3 r-3" src="/assets/img/pv1.png" alt="Generic placeholder image" width="70px" height="70px">
-                                        </div>
-                                        <div class="ml-auto">
-                                            <div class="d-flex flex-row mt-4 mb-4 ml-4">
-                                                <div  style="padding-left:20px">
-                                                    <h6 class="mt-0 mb-1 font-weight-bold text-white" >Total Products PV</h6>
-                                                    <div class="mt-1 text-dark-heading text-white float-right">{{ totalProductPV?.toLocaleString('en-US') }} PV</div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>	
-                    <!-- <div class="row my-3">
                         <div class="col-md-12">
                             <div class="card">
                                 <div class="card-header bg-white">
@@ -333,7 +279,70 @@
                         </div>
                     </div> -->
                 </div>
-            </div>				
+            </div>
+            
+            <div class="row mb-5">
+                <div class="col-md-4 ">
+                    <div class="card shadow1">
+                        <div class="card-body" >
+                            <div class="d-flex align-items-center flex-row flex-wrap">
+                                <div class="row column-row ml-1 ">
+                                    <img class="mr-3  r-3" src="/assets/img/profit_pool.png" alt="Generic placeholder image" width="70px" height="70px">
+                                    <h6 class="mt-4 mb-1 font-weight-bold text-green" >Total Company Wallet<br> <small class="text-green">Total Amount</small></h6>	
+                                </div>
+                                <div class="ml-auto">
+                                    <div class="d-flex flex-row mt-4 mb-4 ml-4">
+                                        <div class="border-left" style="padding-left:20px; border-left: 1px solid #2E671A !important;">
+                                            <p class="font-weight-bold text-green">(TRP)</p>
+                                            <div class="mt-1 text-dark-heading text-green float-left"  >₦ {{ totalCompanyWallet?.toLocaleString('en-US') }}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 ">
+                    <div class="card shadow1">
+                        <div class="card-body" >
+                            <div class="d-flex align-items-center flex-row flex-wrap">
+                                <div class="row column-row ml-1 ">
+                                    <img class="mr-3  r-3" src="/assets/img/profit_pool.png" alt="Generic placeholder image" width="70px" height="70px">
+                                    <h6 class="mt-4 mb-1 font-weight-bold text-green" >Total Withdrawals<br> <small class="text-green">Total Amount</small></h6>	
+                                </div>
+                                <div class="ml-auto">
+                                    <div class="d-flex flex-row mt-4 mb-4 ml-4">
+                                        <div class="border-left" style="padding-left:20px; border-left: 1px solid #2E671A !important;">
+                                            <p class="font-weight-bold text-green">(TW)</p>
+                                            <div class="mt-1 text-dark-heading text-green float-left"  >₦ {{ totalWithdrawals?.toLocaleString('en-US') }}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 ">
+                    <div class="card shadow1">
+                        <div class="card-body" >
+                            <div class="d-flex align-items-center flex-row flex-wrap">
+                                <div class="row column-row ml-1 ">
+                                    <img class="mr-3  r-3" src="/assets/img/profit_pool.png" alt="Generic placeholder image" width="70px" height="70px">
+                                    <h6 class="mt-4 mb-1 font-weight-bold text-green" >	Company Wallet Balance<br> <small class="text-green">Total Amount</small></h6>	
+                                </div>
+                                <div class="ml-auto">
+                                    <div class="d-flex flex-row mt-4 mb-4 ml-4">
+                                        <div class="border-left" style="padding-left:20px; border-left: 1px solid #2E671A !important;">
+                                            <p class="font-weight-bold text-green"> (TRP - TW)</p>
+                                            <div class="mt-1 text-dark-heading text-green float-left"  >₦ {{ companyWalletBalance?.toLocaleString('en-US') }}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </template>

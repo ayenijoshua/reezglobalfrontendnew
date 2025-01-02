@@ -3,9 +3,9 @@
         <div class="animated">				
             <div class="row my-3">
                 <div class="col-md-12">
-                    <div class="card">
-                        <div class="card-header bg-white">
-                            <h6 class="green-text"><strong class="font-weight-bold">OFFICIAL POINT VALUE RATE</strong></h6>
+                    <div class="card shadow1" style="background-color:transparent">
+                        <div class="card-header" style="background-color:#2E671A">
+                            <h6 class="text-white"><strong class="font-weight-bold">OFFICIAL POINT VALUE RATE</strong></h6>
                         </div>
                         <div class="card-body" style="overflow-x:auto;">
                             <table class="table table-bordered table-hover">
@@ -29,10 +29,10 @@
 
             <div class="row my-3">
                 <div class="col-md-6">
-                    <div class="card">
+                    <div class="card shadow1" style="background-color:transparent">
                         <div class="card-body" style="overflow-x:auto;">
                         <form @submit.prevent="updateMinWithdrawal()">
-                            <div class="card no-b  no-r">
+                            <div class="card no-b  no-r" style="background-color:transparent">
                                 <div class="card-body no-gutters">
                                     <div class="text-center mb-3"><img  src="/assets/img/cash-withdrawal.png" width="80px"  height="80px">
                                     <h5 class="s-36 font-weight-bold mt-2 text-green">₦ {{ settings.minimum_withdrawal?.toLocaleString('en-US') }}</h5>
@@ -41,9 +41,9 @@
                                         <div class="col-md-12">
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
-                                                    <div class="input-group-text"><i class="icon icon-money-3 float-left s-20 green-text " ></i></div>
+                                                    <div class="input-group-text"><i class="icon icon-money-3 float-left s-20 text-white " ></i></div>
                                                 </div>
-                                                <input v-model="minWithdrawal.minimum_withdrawal" type="number" class="form-control r-0 light s-12" placeholder="Minimum Withdrawal Limit">
+                                                <input v-model="minWithdrawal.minimum_withdrawal" type="number" class="form-control r-0 light s-12" placeholder="Minimum Withdrawal Limit"  style="background-color:#ecf0f1; border: 1px solid #2E671A">
                                             </div>
                                         </div>
                                     </div>
@@ -59,10 +59,10 @@
                 </div>
 
                 <div class="col-md-6">
-                    <div class="card">
+                    <div class="card shadow1" style="background-color:transparent">
                         <div class="card-body" style="overflow-x:auto;">
                         <form @submit.prevent="updateMaxWithrawal()">
-                            <div class="card no-b  no-r">
+                            <div class="card no-b  no-r" style="background-color:transparent">
                                 <div class="card-body no-gutters">
                                     <div class="text-center mb-3"><img  src="/assets/img/cash-withdrawal.png" width="80px"  height="80px">
                                     <h5 class="s-36 font-weight-bold mt-2 text-green">₦ {{ settings.maximum_withdrawal?.toLocaleString('en-US')}}</h5>
@@ -71,9 +71,9 @@
                                         <div class="col-md-12">
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
-                                                    <div class="input-group-text"><i class="icon icon-money-3 float-left s-20 green-text " ></i></div>
+                                                    <div class="input-group-text"><i class="icon icon-money-3 float-left s-20 text-white" ></i></div>
                                                 </div>
-                                                <input v-model="maxWithdrawal.maximum_withdrawal" type="number" class="form-control r-0 light s-12" placeholder="Maximum Withdrawal Limit">
+                                                <input v-model="maxWithdrawal.maximum_withdrawal" type="number" class="form-control r-0 light s-12" placeholder="Maximum Withdrawal Limit"  style="background-color:#ecf0f1; border: 1px solid #2E671A">
                                             </div>
                                         </div>
                                     </div>
@@ -91,9 +91,9 @@
 
             <div class="row my-3">
                 <div class="col-md-6">
-                    <div class="card">
+                    <div class="card shadow1" style="background-color:transparent">
                         <div class="card-body" style="overflow-x:auto;">
-                            <div class="card no-b  no-r">
+                            <div class="card no-b  no-r" style="background-color:transparent">
                                 <div class="card-body no-gutters">
                                     <div class="text-center mb-3"><img  src="/assets/img/wallet1.png" width="80px"  height="80px">
                                     <h5 class="s-36 font-weight-bold mt-2 text-green">₦ {{ availableBalance?.toLocaleString('en-US') }}</h5>
@@ -108,9 +108,9 @@
                 </div>
 
                 <div class="col-md-6">
-                    <div class="card">
+                    <div class="card shadow1" style="background-color:transparent">
                         <div class="card-body" style="overflow-x:auto;">
-                            <div class="card no-b  no-r">
+                            <div class="card no-b  no-r" style="background-color:transparent">
                                 <div class="card-body no-gutters">
                                     <div class="text-center mb-3"><img  src="/assets/img/cash-withdrawal.png" width="80px"  height="80px">
                                     <h6 class="mt-1 s-8 font-weight-bold">Withdrawal Charge Settings</h6></div>
@@ -119,9 +119,9 @@
                                             <div class="col-md-12 mb-2">
                                                 <div class="input-group">
                                                     <div class="input-group-prepend">
-                                                        <div class="input-group-text"><i class="icon icon-money-3 float-left s-20 green-text " ></i></div>
+                                                        <div class="input-group-text"><i class="icon icon-money-3 float-left s-20 text-white" ></i></div>
                                                     </div>
-                                                    <select v-model="withdrawalCharge.withdrawal_charge_type" class="form-control r-0 light s-12">
+                                                    <select v-model="withdrawalCharge.withdrawal_charge_type" class="form-control r-0 light s-12"  style="background-color:#ecf0f1; border: 1px solid #2E671A">
                                                         <template v-if="!settings.withdrawal_charge_type">
                                                             <option :value="null">Select charge type</option>
                                                         </template>
@@ -135,9 +135,9 @@
                                             <div class="col-md-12 mb-2">
                                                 <div class="input-group">
                                                     <div class="input-group-prepend">
-                                                        <div class="input-group-text"><i class="icon icon-money-3 float-left s-20 green-text " ></i></div>
+                                                        <div class="input-group-text"><i class="icon icon-money-3 float-left s-20 text-white " ></i></div>
                                                     </div>
-                                                    <input v-model="withdrawalCharge.charge" class="form-control r-0 light s-12" required placeholder="Withdrawal Charge">
+                                                    <input v-model="withdrawalCharge.charge" class="form-control r-0 light s-12" required placeholder="Withdrawal Charge"  style="background-color:#ecf0f1; border: 1px solid #2E671A" >
                                                 </div>
                                             </div>
                                             <div v-if="withdrawalCharge.withdrawal_charge_type=='percentage'" class="col-md-12 mb-2">
@@ -160,6 +160,124 @@
                     </div>
                 </div>
             </div>
+
+            <div class="d-flex justify-content-center mt-5 mb-5"> <!-- Centering wrapper added -->
+                <div class="col-md-6 col-sm-12"> 
+                    <div class="card no-b shadow 1" style="background-color: transparent;">
+                        <div class="card-body">
+                            <div class="text-center mb-3"><img  src="/assets/img/calendar.png" width="80px"  height="80px">
+                                <p class="text-blue s-12 font-weight-bold">Automated Payment is Set Currently on</p>
+                                <h5 class="font-weight-bold text-green">Weekly Automated Payout Settings</h5>
+                            </div>
+                        </div>     
+                    </div>       
+                </div>
+            </div>  
+
+            <div class="d-flex justify-content-center mt-5 mb-5"> <!-- Centering wrapper added -->
+                <div class="col-md-6 col-sm-12"> 
+                    <div class="card no-b shadow 1" style="background-color: transparent;">
+                        <div class="card-body">
+                            <span class="text-center text-blue s-12 font-weight-bold">Select Payout Type</span>
+                            <div class="form-group m-0">                       
+                                <div class="input-group mb-2 mr-sm-2 mb-3">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text" style="background-color: #2E671A; border: 2px solid #2E671A;"><i class="icon icon-date_range float-left s-20 text-white" ></i></div>
+                                    </div>
+                                    <select required v-model="selectedOrderType" class="form-control r-0 light s-12" style="background-color: transparent; border: 2px solid #1b4f72;">
+                                        <option >Weekly Automated Payout</option>
+                                        <option >Monthly Automated Payout</option>														   
+                                    </select>
+                                </div>
+                            </div>
+                        </div>     
+                    </div>       
+                </div>
+            </div> 
+
+
+
+            <div  v-if="selectedOrderType === 'Weekly Automated Payout'"  class="d-flex justify-content-center mt-5 mb-5"> <!-- Centering wrapper added -->
+                <div class="col-md-6 col-sm-12"> 
+                    <div class="card shadow1" style="background-color:transparent">
+                        <div class="card-body" style="overflow-x:auto;">
+                            <div class="card no-b  no-r" style="background-color:transparent">
+                                <div class="card-body no-gutters">
+                                    <div class="text-center mb-3"><img  src="/assets/img/calendar.png" width="80px"  height="80px">
+                                    <h6 class="mt-1 s-8 font-weight-bold">Weekly Automated Payout Settings</h6></div>
+                                    <form >
+                                        <div class="form-row mb-3">
+                                            <div class="col-md-12 mb-2">
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <div class="input-group-text"><i class="icon icon-date_range float-left s-20 text-white" ></i></div>
+                                                    </div>
+                                                    <select class="form-control r-0 light s-12"  style="background-color:#ecf0f1; border: 1px solid #2E671A">                                                       
+                                                        <option>Select Day of the week</option>
+                                                        <option >Monday</option>
+                                                        <option>Tuesday</option>
+                                                        <option>Wednesday</option>
+                                                        <option>Thursday</option>
+                                                        <option>Friday</option>                                
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-row ml-1">
+                                            <span v-if="submitting && withdrawalChargeSubmitting" class="btn btn-sm btn-success btn-lg">...</span>
+                                            <button v-else type="submit" class="btn btn-sm btn-success btn-lg"><i class="icon-save mr-2"></i>Update Data</button>
+                                        </div>
+                                    </form>   
+                                </div>	
+                            </div>
+                        </div>
+                    </div>       
+                </div>
+            </div> 
+
+            <div v-if="selectedOrderType === 'Monthly Automated Payout'" class="d-flex justify-content-center mt-5 mb-5"> <!-- Centering wrapper added -->
+                <div class="col-md-6 col-sm-12"> 
+                    <div class="card shadow1" style="background-color:transparent">
+                        <div class="card-body" style="overflow-x:auto;">
+                            <div class="card no-b  no-r" style="background-color:transparent">
+                                <div class="card-body no-gutters">
+                                    <div class="text-center mb-3"><img  src="/assets/img/calendar.png" width="80px"  height="80px">
+                                    <h6 class="mt-1 s-8 font-weight-bold">Monthly Automated Payout Settings</h6></div>
+                                    <form >
+                                        <div class="form-row mb-3">
+                                            <div class="col-md-12 mb-2">
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <div class="input-group-text"><i class="icon icon-date_range float-left s-20 text-white" ></i></div>
+                                                    </div>
+                                                    <select class="form-control r-0 light s-12"  style="background-color:#ecf0f1; border: 1px solid #2E671A">                                                       
+                                                        <option>Select Day of the Month</option>
+                                                        <option >20th</option>
+                                                        <option>21st</option>
+                                                        <option>22nd</option>
+                                                        <option>23rd</option>
+                                                        <option>24th</option>
+                                                        <option>25th</option> 
+                                                        <option>26th</option> 
+                                                        <option>27th</option>
+                                                        <option>28th</option>
+                                                        <option>29th</option>
+                                                        <option>30th</option>                              
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-row ml-1">
+                                            <span v-if="submitting && withdrawalChargeSubmitting" class="btn btn-sm btn-success btn-lg">...</span>
+                                            <button v-else type="submit" class="btn btn-sm btn-success btn-lg"><i class="icon-save mr-2"></i>Update Data</button>
+                                        </div>
+                                    </form>   
+                                </div>	
+                            </div>
+                        </div>
+                    </div>       
+                </div>
+            </div> 
         </div>
 
         <Modal modal-id="edit-pv" modal-title="Edit unit PV">
@@ -174,15 +292,15 @@
                                     <div class="col-md-12">
                                         <div class="input-group mb-2 mr-sm-2 mb-3">
                                             <div class="input-group-prepend">
-                                                <div class="input-group-text"><i class="icon icon-sitemap float-left s-20 green-text" ></i></div>
+                                                <div class="input-group-text"><i class="icon icon-sitemap float-left s-20 text-white" ></i></div>
                                             </div>
-                                            <input  disabled value="1 PV" type="text" class="form-control r-0 light s-12" placeholder="Point Value">
+                                            <input  disabled value="1 PV" type="text" class="form-control r-0 light s-12" placeholder="Point Value"  style="background-color:#ecf0f1; border: 1px solid #2E671A" >
                                         </div>
                                         <div class="input-group">
                                             <div class="input-group-prepend">
-                                                <div class="input-group-text"><i class="icon icon-exchange float-left s-20 green-text " ></i></div>
+                                                <div class="input-group-text"><i class="icon icon-exchange float-left s-20 text-white" ></i></div>
                                             </div>
-                                            <input v-model="unitPV.unit_point_value" required min="1" type="text" class="form-control r-0 light s-12" placeholder="Exchange Amount">
+                                            <input v-model="unitPV.unit_point_value" required min="1" type="text" class="form-control r-0 light s-12" placeholder="Exchange Amount"  style="background-color:#ecf0f1; border: 1px solid #2E671A">
                                         </div>
                                     </div>
                                 </div>
@@ -211,6 +329,8 @@ import { notification } from '@/util/notification';
 
         data(){
             return{
+                selectedOrderType: "", // Tracks the selected value
+
                 unitPV:{
                     unit_point_value:null,
                 },
@@ -234,6 +354,8 @@ import { notification } from '@/util/notification';
 
             }
         },
+
+        
 
         computed:{
             ...mapState({

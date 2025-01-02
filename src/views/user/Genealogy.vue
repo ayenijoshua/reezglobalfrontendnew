@@ -10,10 +10,10 @@
                                     <div class="row my-3">
                                         <!-- bar charts group -->
                                         <div class="col-md-12">
-                                            <div class="card">
-                                                <div class="card-header bg-white">
-                                                    <h4 class="green-text"><strong class="font-weight-bold"><i class="icon icon-sitemap mr-2" ></i>Network Structure</strong></h4>
-                                                    <small>View tree structure of your direct downlines</small>
+                                            <div class="card shadow1" style="background-color: transparent">
+                                                <div class="card-header"  style="background-color: #2E671A">
+                                                    <h4 class="text-white"><strong class="font-weight-bold"><i class="icon icon-sitemap mr-2" ></i>Network Structure</strong></h4>
+                                                    <small class="text-white">View tree structure of your direct downlines</small>
                                                 </div>
                                                 <template v-if="loading">
                                                     <b-skeleton-table
@@ -23,7 +23,7 @@
                                                     ></b-skeleton-table>
                                                 </template>
                                                 <div v-else class="card-body">
-                                                    <organization-chart :datasource="genealogy" :pan='true'></organization-chart>
+                                                    <organization-chart :datasource="genealogy" :pan='true' ></organization-chart>
                                                 </div>
                                             </div>
                                         </div>
@@ -39,14 +39,14 @@
     </div>
 </template>
 <style>
-    .orgchart .node .title{
-        background-color:rgb(46,103,26) !important
-    }
+.orgchart .node .title {
+    background-color: rgb(46, 103, 26) !important;
+}
     .orgchart .node .lines .rightLine{
-        border-right:rgb(46,103,26) !important
+        border-right:#2E671A !important
     }
     .orgchart .node .lines .leftLine{
-        border-left:rgb(46,103,26) !important
+        border-left:#2E671A !important
     }
     .orgchart .node .content {
         -webkit-box-sizing: border-box;
@@ -55,7 +55,7 @@
         height: 20px;
         font-size: 11px;
         line-height: 18px;
-        border: 1px solid rgb(46,103,26);
+        border: 1px solid #2E671A;
         border-radius: 0 0 4px 4px;
         text-align: center;
         background-color: #fff;
@@ -76,15 +76,17 @@
         -moz-user-select: none;
         -ms-user-select: none;
         user-select: none;
-        background-image: -webkit-gradient(linear,left top,right top,color-stop(10%,rgba(200,0,0,.15)),color-stop(0,transparent)),-webkit-gradient(linear,left top,left bottom,color-stop(10%,rgba(200,0,0,.15)),color-stop(0,transparent));
-        background-image: linear-gradient(90deg,rgb(255,255,255) 10%,transparent 0),linear-gradient(rgb(255,255,255) 10%,transparent 0);
+        background-image: -webkit-gradient(linear,left top,right top,color-stop(10%,#1b4f72),color-stop(0,transparent)),-webkit-gradient(linear,left top,left bottom,color-stop(10%,rgba(200,0,0,.15)),color-stop(0,transparent));
+        background-image: 
+        linear-gradient(90deg, #ecf0f1 10%, transparent 0), 
+        linear-gradient(#ecf0f1 10%, transparent 0) !important;
         background-size: 10px 10px;
         border: 0px dashed transparent;
         padding: 20px;
     }
 
     .orgchart .lines .downLine {
-    background-color: rgb(46,103,26);
+    background-color: #2E671A;
     margin: 0 auto;
     height: 20px;
     width: 2px;
@@ -92,19 +94,19 @@
 }
 
 .orgchart .lines .rightLine {
-    border-right: 1px solid rgb(46,103,26);
+    border-right: 1px solid #2E671A;
     float: none;
     border-radius: 0;
 }
 
 .orgchart .lines .leftLine {
-    border-left: 1px solid rgb(46,103,26);
+    border-left: 1px solid #2E671A;
     float: none;
     border-radius: 0;
 }
 
 .orgchart .lines .topLine {
-    border-top: 2px solid rgba(46,103,26);
+    border-top: 2px solid #2E671A;
 }
 </style>
 <script>

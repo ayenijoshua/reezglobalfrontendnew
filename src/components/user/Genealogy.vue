@@ -40,14 +40,14 @@
 </template>
 
 <style>
-    .orgchart .node .title{
-        background-color:rgb(46,103,26) !important
-    }
+.orgchart .node .title {
+    background-color: rgb(46, 103, 26) !important;
+}
     .orgchart .node .lines .rightLine{
-        border-right:rgb(46,103,26) !important
+        border-right:#2E671A !important
     }
     .orgchart .node .lines .leftLine{
-        border-left:rgb(46,103,26) !important
+        border-left:#2E671A !important
     }
     .orgchart .node .content {
         -webkit-box-sizing: border-box;
@@ -56,7 +56,7 @@
         height: 20px;
         font-size: 11px;
         line-height: 18px;
-        border: 1px solid rgb(46,103,26);
+        border: 1px solid #2E671A;
         border-radius: 0 0 4px 4px;
         text-align: center;
         background-color: #fff;

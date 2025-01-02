@@ -1,154 +1,174 @@
 <template>
     <div>
         <div class="">
-            <div class="row mb-5">
+            <div class="row row-eq-height my-3 mt-3">
                 <div class="col-md-4">
-                    <b-card v-if="packageLoading && loading">
-                        <b-skeleton width="85%"></b-skeleton>
-                        <b-skeleton width="55%"></b-skeleton>
-                        <b-skeleton width="70%"></b-skeleton>
-                    </b-card>
-                    <div v-else class="card" style="background-color: #2E671A">
-                        <div class="card-body" >
-                            <div class="d-flex align-items-center">
-                                <div class="mr-3">
-                                    <img class="mr-3  r-3" src="/assets/img/membership.png"
-                                        alt="Generic placeholder image" width="70px" height="70px">
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12">
+                            <b-card v-if="packageLoading && loading">
+                                <b-skeleton width="85%"></b-skeleton>
+                                <b-skeleton width="55%"></b-skeleton>
+                                <b-skeleton width="70%"></b-skeleton>
+                            </b-card>
+                            <div v-else class="card no-b mb-3  text-white shadow1" style="background-color:#be4025">
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div><h6 class="mt-0 mb-1 font-weight-bold">Registration Package</h6></div>
+                                        <div><span class="text-success blink">Activated</span></div>
+                                    </div>
+                                    <div class="text-center">
+                                        <div class="s-18 my-3 font-weight-lighter"><img class="mr-3  r-3" src="/assets/img/package2.png"
+                                        alt="Generic placeholder image" width="70px" height="70px"><br><small class="font-weight-bold mr-3">{{ regPackage.name }} </small></div>
+                                        
+                                    </div>
+
                                 </div>
-                                <div class="ml-auto">
-                                    <h6 class="mt-0 mb-1 font-weight-bold text-white">Registration Package</h6>
-                                    <div class="mt-1 text-dark-heading text-white float-right">{{ regPackage.name }} </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 col-sm-6">
+                            <b-card v-if="referralBonusLoading && loading">
+                                <b-skeleton width="85%"></b-skeleton>
+                                <b-skeleton width="55%"></b-skeleton>
+                                <b-skeleton width="70%"></b-skeleton>
+                            </b-card>
+                            <div v-else class="card no-b mb-3 shadow1" style="background-color:#ecf0f1">
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div><h6 class="mt-0 mb-1 font-weight-bold text-black">Referral Bonus</h6></div>
+                                    </div>
+                                    <div class="text-center">
+                                        <div class="s-18 my-3 font-weight-lighter"><img class="mr-3  r-3" src="/assets/img/referral2.png"
+                                        alt="Generic placeholder image" width="70px" height="70px"><br><small class="font-weight-bold mr-3">₦  {{ (referralBonus + placementBonus)?.toLocaleString('en-US') }}</small></div>
+                                        
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-sm-6">
+                            <div class="card no-b mb-3 shadow1" style="background-color:#ecf0f1">
+                                <div class="card-body">
+                                   <div class="d-flex justify-content-between align-items-center">
+                                        <div><h6 class="mt-0 mb-1 font-weight-bold text-black">Matching Bonus</h6></div>
+                                    </div>
+                                    <div class="text-center">
+                                        <div class="s-18 my-3 font-weight-lighter"><img class="mr-3  r-3" src="/assets/img/matching1.png"
+                                        alt="Generic placeholder image" width="70px" height="70px"><br><small class="font-weight-bold mr-3">₦ 56,103</small></div>                           
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4">
-                    <b-card v-if="welcomeBonusLoading && loading">
-                        <b-skeleton width="85%"></b-skeleton>
-                        <b-skeleton width="55%"></b-skeleton>
-                        <b-skeleton width="70%"></b-skeleton>
-                    </b-card>
-                    <div v-else class="card" style="background-color: #2E671A" >
-                        <div class="card-body" >
-                            <div class="d-flex align-items-center">
-                                <div class="mr-3">
-                                    <img class="mr-3  r-3" src="/assets/img/hand-shake.png" alt="Generic placeholder image" width="70px" height="70px">
-                                </div>
-                                <div class="ml-auto">
-                                    <h6 class="mt-0 mb-1 font-weight-bold text-white" >Welcome Bonus</h6>
-                                    <div class="mt-1 text-dark-heading text-white float-right" >₦  {{ welcomeBonus?.toLocaleString('en-US') }}</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <b-card v-if="referralBonusLoading && loading">
-                        <b-skeleton width="85%"></b-skeleton>
-                        <b-skeleton width="55%"></b-skeleton>
-                        <b-skeleton width="70%"></b-skeleton>
-                    </b-card>
-                    <div v-else class="card" style="background-color: #2E671A" >
-                        <div class="card-body" >
-                            <div class="d-flex align-items-center">
-                                <div class="mr-3">
-                                    <img class="mr-3  r-3" src="/assets/img/referral.png"
-                                        alt="Generic placeholder image" width="70px" height="70px">
-                                </div>
-                                <div class="ml-auto">
-                                    <h6 class="mt-0 mb-1 font-weight-bold text-white" >Referral Bonus</h6>
-                                    <div class="mt-1 text-dark-heading text-white float-right" >₦  {{ (referralBonus + placementBonus)?.toLocaleString('en-US') }}</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>	
-            </div>	
-            <!--States-->
-            <div class="row my-5">
-                <div class="col-lg-3">
-                    <b-card v-if="equilibrumBonusLoading && loading">
-                        <b-skeleton width="85%"></b-skeleton>
-                        <b-skeleton width="55%"></b-skeleton>
-                        <b-skeleton width="70%"></b-skeleton>
-                    </b-card>
-                    <div v-else class="counter-box p-40 white shadow2 r-5">
-                        <div class="float-right">
-                            <img src="/assets/img/equil.png" alt="Generic placeholder image" width="60px" height="60px">
-                        </div>
-                        <div class="mt-1 text-dark-heading text-green" >{{ equilibrumBonus?.toLocaleString('en-US') }}</div>
-                        <h6 class="counter-title font-weight-bold" style="color:#2E671A">Equilibrum (₦) </h6><br>
-                        <span v-if="equilibrumBonusEligible" class="badge text-white bg-green"><i class="icon icon-check" ></i>&nbsp;&nbsp;Eligible</span>
-                        <span v-else class="badge text-white bg-danger"><i class="icon icon-close" ></i>&nbsp;&nbsp;Not-Eligible</span>
-                    </div>
-                </div>
-                <div class="col-lg-3">
-                    <b-card v-if="loyaltyBonusLoading && loading">
-                        <b-skeleton width="85%"></b-skeleton>
-                        <b-skeleton width="55%"></b-skeleton>
-                        <b-skeleton width="70%"></b-skeleton>
-                    </b-card>
-                    <div v-else class="counter-box p-40 white shadow2 r-5">
-                        <div class="float-right">
-                            <img src="/assets/img/bonus.png" alt="Generic placeholder image" width="60px" height="60px">
-                        </div>
-                        <div class="mt-1 text-dark-heading text-green" >{{ loyaltyBonus?.toLocaleString('en-Us') }}</div>
-                        <h6 class="counter-title font-weight-bold" style="color:#2E671A">Loyalty (₦)</h6><br>
-                        <span v-if="loyaltyBonusEligible" class="badge text-white bg-green"><i class="icon icon-check" ></i>&nbsp;&nbsp;Eligible</span>
-                        <span v-else class="badge text-white bg-red"><i class="icon icon-close" ></i>&nbsp;&nbsp;Not-Eligible</span>
-                    </div>
-                </div>
-                <div class="col-lg-3">
-                    <b-card v-if="profitPoolLoading && loading">
-                        <b-skeleton width="85%"></b-skeleton>
-                        <b-skeleton width="55%"></b-skeleton>
-                        <b-skeleton width="70%"></b-skeleton>
-                    </b-card>
-                    <div v-else class="counter-box p-40 white shadow2 r-5">
-                        <div class="float-right">
-                            <img  src="/assets/img/bars.png" alt="Generic placeholder image" width="60px" height="60px">
-                        </div>
-                        <div class="mt-1 text-dark-heading text-green" >{{ profitPool?.toLocaleString('en-US') }}</div>
-                        <h6 class="counter-title font-weight-bold" style="color:#2E671A">Profit Pool (₦) </h6><br>
-                        <span v-if="profitPoolEligible" class="badge text-white bg-green"><i class="icon icon-check"></i>&nbsp;&nbsp;Eligible</span>
-                        <span v-else class="badge text-white bg-red"><i class="icon icon-close" ></i>&nbsp;&nbsp;Not Eligible</span>
-                    </div>
-                </div>
-                <div class="col-lg-3">
-                    <b-card v-if="globalProfitLoading && loading">
-                        <b-skeleton width="85%"></b-skeleton>
-                        <b-skeleton width="55%"></b-skeleton>
-                        <b-skeleton width="70%"></b-skeleton>
-                    </b-card>
-                    <div v-else class="counter-box p-40  text-white shadow2 r-5" style="background-color: #2E671A">
-                        <div class="float-right">
-                            <img  src="/assets/img/salary_white.png" alt="Generic placeholder image" width="60px" height="60px">
-                        </div>
-                        <div class="mt-1 text-dark-heading text-white" >{{ globalProfit?.toLocaleString('en-US') }}</div>
-                        <h6 class="counter-title font-weight-bold">Global Profit (₦)</h6><br>
-                        <span v-if="globalProfitEligible" class="badge text-white bg-green"><i class="icon icon-check"></i>&nbsp;&nbsp;Eligible</span>
-                        <span v-else class="badge text-white bg-red"><i class="icon icon-close" ></i>&nbsp;&nbsp;Not Eligible</span>
-                    </div>
-                </div>
-            </div>
-            <!--States-->
-            <div class="row my-5">
-                <div class="col-lg-12">
+               <div class="col-md-4">
                     <b-card v-if="walletBalanceLoading && loading">
                         <b-skeleton width="85%"></b-skeleton>
                         <b-skeleton width="55%"></b-skeleton>
                         <b-skeleton width="70%"></b-skeleton>
                     </b-card>
-                    <div v-else class="counter-box p-40 text-white shadow2 r-5" style="background-color: #2E671A">
-                        <div class="float-right">
-                            <img  src="/assets/img/companywallet.png">
+                <div v-else class="card no-b p-2 shadow1" style="background-color:#2E671A;">
+                    <div class="card-body">
+                        <div class="text-center">
+                            <div class="mt-3">
+                                <h6 class="mt-0 mb-1 font-weight-bold text-white">Total Wallet Earned</h6>
+                            </div>
+                            <div class="s-18 my-3 font-weight-lighter mt-2">
+                                <img class="mr-3  r-3" src="/assets/img/wallet2a.png"
+                                alt="Generic placeholder image" width="250px" height="250px">
+                                <br><small class="font-weight-bold mr-3 text-white">₦ {{ totalBonus?.toLocaleString('en-US') }}</small>
+                            </div>
+
                         </div>
-                        <h6 class="mt-0text-white" >Total Wallet Earned</h6>
-                        <div class="text-dark-heading font-weight-bold text-white" >₦<span class="s-36">{{ totalBonus?.toLocaleString('en-US') }}</span></div>
+                   </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="row">
+                        <div class="col-md-6 col-sm-6">
+                            <div class="card no-b mb-3 shadow1" style="background-color:#ecf0f1">
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div><h6 class="mt-0 mb-1 font-weight-bold text-black">Repurchase Bonus</h6></div>
+                                    </div>
+                                    <div class="text-center">
+                                        <div class="s-18 my-3 font-weight-lighter"><img class="mr-3  r-3" src="/assets/img/repurchase1.png"
+                                        alt="Generic placeholder image" width="70px" height="70px"><br><small class="font-weight-bold mr-3">₦ 56,103</small></div>                           
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-sm-6">
+                            <div class="card no-b mb-3 shadow1" style="background-color:#ecf0f1">
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div><h6 class="mt-0 mb-1 font-weight-bold text-black">Unilevel Bonus</h6></div>
+                                    </div>
+                                    <div class="text-center">
+                                        <div class="s-18 my-3 font-weight-lighter"><img class="mr-3  r-3" src="/assets/img/unilevel1.png"
+                                        alt="Generic placeholder image" width="70px" height="70px"><br><small class="font-weight-bold mr-3">₦ 12,276</small></div>                           
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 col-sm-6">
+                        <div class="card no-b mb-3 shadow1" style="background-color:#ecf0f1">
+                            <div class="card-body" >
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div><h6 class="mt-0 mb-1 font-weight-bold text-black">Upgrade Bonus</h6></div>
+                                </div>
+                                <div class="text-center">
+                                    <div class="s-18 my-3 font-weight-lighter"><img class="mr-3  r-3" src="/assets/img/upgrade.png"
+                                    alt="Generic placeholder image" width="70px" height="70px"><br><small class="font-weight-bold mr-3">₦ 8,017</small></div>                           
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-6">
+                        <div class="card no-b mb-3 shadow1" style="background-color:#ecf0f1">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div><h6 class="mt-0 mb-1 font-weight-bold text-black">Signee Bonus</h6></div>
+                                </div>
+                                <div class="text-center">
+                                    <div class="s-18 my-3 font-weight-lighter"><img class="mr-3  r-3" src="/assets/img/retailer.png"
+                                    alt="Generic placeholder image" width="70px" height="70px"><br><small class="font-weight-bold mr-3">₦ 0</small></div>                           
+                                </div>
+
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-12">
+                <b-card v-if="globalProfitLoading && loading">
+                    <b-skeleton width="85%"></b-skeleton>
+                    <b-skeleton width="55%"></b-skeleton>
+                    <b-skeleton width="70%"></b-skeleton>
+                </b-card>
+                <div v-else class="counter-box p-40  text-white shadow1 r-5" style="background-color:#2E671A;">
+                    <div class="float-right">
+                        <img  src="/assets/img/salary1.png" alt="Generic placeholder image" width="70px" height="70px">
+                    </div>
+                    <div class="mt-1 text-dark-heading text-white" ></div>
+                    <h6 class="counter-title font-weight-bold">Global Profit (₦) {{ globalProfit?.toLocaleString('en-US') }}</h6><br>
+                    <span v-if="globalProfitEligible" class="badge text-white bg-green"><i class="icon icon-check"></i>&nbsp;&nbsp;Qualified</span>
+                    <span v-else class="badge text-white bg-red"><i class="icon icon-close" ></i>&nbsp;&nbsp;Not Qualified</span>
+                </div>
+            </div>
+        </div>
+
+
+
             <div class="d-flex row row-eq-height my-3">
                 <div class="col-md-4">
                     <b-card v-if="totalPVLoading && loading">
@@ -156,16 +176,16 @@
                         <b-skeleton width="55%"></b-skeleton>
                         <b-skeleton width="70%"></b-skeleton>
                     </b-card>
-                    <div v-else class="card">
+                    <div v-else class="card shadow1" style="background-color: transparent">
                         <div class="card-body ">
                             <div class="float-up text-center">
-                                <img  src="/assets/img/pv1.png">
+                                <img  src="/assets/img/cpv1.png" style="width:200px; height: auto">
                             </div>
                             <div class="sc-counter font-weight-bold s-36 text-center" style="color:#2E671A">{{ totalPV?.toLocaleString('en-US') }}</div>
                             <h6 class="counter-title text-center font-weight-bold" style="color:#2E671A">Cumulated Point Value (CPV)</h6>
                         </div>
                     </div>
-                    <div class="card mt-3 mb-3">
+                    <div class="card no-b shadow1 mt-3 mb-3 rounded">
                         <div class="text-white lighten-2" style="background-color:#2E671A">
                             <div class="pt-5 pb-2 pl-5 pr-5">
                                 <div class="float-up text-left text-center">
@@ -179,19 +199,9 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-8">
-                    <div class="card">
-                        <div class="card-header white">
-                            <div class="row justify-content-end">
-                                <div class="col">
-                                    <ul class="nav nav-tabs card-header-tabs nav-material">
-                                        <li class="nav-item">
-                                            <a class="nav-link active show" id="w1-tab1" data-toggle="tab" href="#v-pills-w1-tab1">Incentives</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
+                <div class="col-md-8" >
+                    <div class="card shadow1" style="background-color: transparent">
+
                         <div class="card-body no-p">
                             <div class="tab-content">
                                 <div class="tab-pane show active" id="v-pills-w1-tab1" role="tabpanel" aria-labelledby="v-pills-w1-tab1">
@@ -212,7 +222,7 @@
                                             </div>
                                             <template v-else>
                                                 <div class="col-md-6" id="yourContainer">
-                                                    <img class="gift" :src="imageURL+'/'+currentIncentive.file_path">
+                                                    <img class="gift" :src="imageURL+'/'+currentIncentive.file_path">                                                   
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="card-body pt-0 mt-5">
@@ -257,18 +267,7 @@
             
             <div class="d-flex row row-eq-height my-3">
                 <div class="col-md-6">
-                    <div class="card">
-                        <div class="card-header white">
-                            <div class="row justify-content-end">
-                                <div class="col">
-                                    <ul class="nav nav-tabs card-header-tabs nav-material">
-                                        <li class="nav-item">
-                                            <a class="nav-link text-green" id="w1-tab1" data-toggle="tab" >REFERRAL</a>
-                                        </li>	
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="card shadow1" style="background-color: transparent">
                         <div class="card-body no-p">
                             <div class="tab-content">
                                 <div class="tab-pane show active" id="v-pills-w1-tab1" role="tabpanel" aria-labelledby="v-pills-w1-tab1">
@@ -277,7 +276,7 @@
                                             <form @submit.prevent="inviteFriend()">
                                                 <div class="form-row">
                                                     <div class="col-md-12 mb-3">
-                                                        <input type="email" required v-model="inviteForm.email" class="form-control" id="validationDefault03" placeholder="Recipients Email Address">
+                                                        <input type="email" required v-model="inviteForm.email" class="form-control" id="validationDefault03" placeholder="Recipients Email Address" style="background-color: transparent; border: 2px solid #1b4f72;">
                                                     </div>
                                                     <!-- <div class="col-md-6 mb-3">
                                                         <input type="text" title="Referrer" v-b-popover.hover.top="'Enter a referrer if you already have 2 downlines '" v-model="inviteForm.referrer" class="form-control" id="validationDefault03" placeholder="Referrer ID *">
@@ -290,10 +289,10 @@
 
                                             <div class="form-row text-center">
                                                 <div class="col-md-12 mb-3">
-                                                    <h3 class="font-weight-bold s-14 text-center">Click to copy your referral link</h3>
+                                                    <h3 class="font-weight-bold s-14 text-center" style="color:#1b4f72">Click to copy your referral link</h3>
                                                 </div>	
                                                 <div class="col-md-8 mb-3">
-                                                    <input type="text" class="form-control" :value="referrerLink" id="referrallink" readonly >
+                                                    <input type="text" class="form-control" :value="referrerLink" id="referrallink" style="background-color: transparent; border: 2px solid #1b4f72;" readonly  >
                                                 </div>
                                                 <div class="col-md-4 mb-3">
                                                         <input type="button" class="btn btn-success" @click="myFunction()" value="Copy Referral Link" id="button">
@@ -308,13 +307,13 @@
                 </div>
                 
                 <div class="col-md-6">
-                    <div class="card">
-                        <div class="card-header white">
+                    <div class="card shadow1" style="background-color: transparent">
+                        <div class="card-header" style="background-color:#2E671A">
                             <div class="row justify-content-end">
                                 <div class="col">
                                     <ul class="nav nav-tabs card-header-tabs nav-material">
                                         <li class="nav-item">
-                                            <a class="nav-link text-green" id="w1-tab1" data-toggle="tab" >GENERAL MESSAGE</a>
+                                            <a class="nav-link text-white font-weight-bold" id="w1-tab1" data-toggle="tab" >GENERAL MESSAGE</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -326,7 +325,7 @@
                                     <div class="row p-3">
                                         <div class="col-md-12 text-center">
                                             <h3 class="font-weight-bold s-14 text-center">{{ settings.general_message_subject }}</h3>
-                                            <span class="font-weight-lighter ">{{ settings.general_message }}</span>
+                                            <span class="font-weight-bold ">{{ settings.general_message }}</span>
                                         </div>
                                     </div>
                                 </div>
@@ -338,19 +337,19 @@
 
             <div class="row">
                 <div class="col-md-12">
-                    <div class="card mb-3">
-                        <div class="card-header white text-green">CLAIMED INCENTIVES</div>
+                    <div class="card shadow1 mb-3" style="background-color: transparent">
+                        <div class="card-header text-white font-weight-bold" style="background-color:#2E671A">CLAIMED INCENTIVES</div>
                         <div class="card-body ">
                             <div class="table-responsive">
-                                <table id="example2" class="table table-bordered table-hover data-tables" data-options='{ "paging": false; "searching":false}'>
-                                    <thead>
+                                <table id="example2" class="table table-bordered table-hover data-tables" data-options='{ "paging": false; "searching":false}' style="border: 2px solid #2E671A !important;">
+                                    <thead >
                                         <tr>
-                                            <th scope="col">S/N</th>
-                                            <th scope="col">Incentive Claimed</th>
+                                            <th class="font-weight-bold" scope="col">S/N</th>
+                                            <th class="font-weight-bold" scope="col">Incentive Claimed</th>
                                             <!-- <th scope="col">Worth</th> -->
-                                            <th scope="col">Status</th>
-                                            <th scope="col">PV Level</th>
-                                            <th scope="col">Date</th>
+                                            <th class="font-weight-bold" scope="col">Status</th>
+                                            <th class="font-weight-bold" scope="col">PV Level</th>
+                                            <th class="font-weight-bold" scope="col">Date</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -383,35 +382,36 @@
                     </div>
                 </div>				
             </div>
-            <div class="row">		
+            <!---<div class="row">		
                 <div class="col-md-8">
-                    <div class="card no-b">
-                        <div class="card-header white">
+                    <div class="card shadow1 " style="background-color: transparent">
+                        <div class="card-header" >
                             <div class="row justify-content-end">
                                 <div class="col">
                                     <ul class="nav nav-tabs card-header-tabs nav-material">
                                         <li class="nav-item">
-                                            <a class="nav-link text-green" id="w1-tab1" data-toggle="tab">REGISTRATION PRODUCT SELECTION</a>
+                                            <a class="nav-link text-green font-weight-bold" id="w1-tab1" data-toggle="tab">REGISTRATION PRODUCT SELECTION</a>
                                         </li>	
                                     </ul>
                                 </div>
                             </div>
                         </div>
                         <div class="collapse show">
-                            <div class="card-body p-0"> 
-                                <div class="card no-b  no-r">
-                                    <div class="card-body">
+                            <div class="card-body p-0" > 
+                                <div class="card  no-r" style="background-color: transparent">
+                                    <div class="card-body" >
                                         <form id="product-claim-form" @submit.prevent="productClaim()">
                                             <div class="form-row" style="overflow-x:auto;">
-                                                <table class="table table-bordered">
+                                                <table class="table table-bordered" >
                                                     <thead>
                                                         <tr>
                                                             <th scope="col">S/N</th>
                                                             <th scope="col">Products</th>
+                                                            <th scope="col">Price</th>
                                                             <th scope="col">PV</th>
-                                                            <!-- <th scope="col">Worth</th> -->
+                                                            <th scope="col">Worth</th> 
                                                             <th scope="col">Qty</th>
-                                                            <!-- <th scope="col">Select</th> -->
+                                                             <th scope="col">Select</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -432,23 +432,19 @@
                                                                 <tr v-for="produc,i in products" :key="i">
                                                                     <td>{{ ++i }}</td>
                                                                     <td>{{ produc.name }}</td>
+                                                                    <td>₦ 12,700</td>
                                                                     <td>{{ produc.points }}</td>
-                                                                    <!-- <td>₦{{ produc.worth }}</td> -->
+                                                                     <td>₦{{ produc.worth }}</td> 
                                                                     <td>
                                                                         <div class="">
-                                                                            <input :key="i" @change="(e)=>logClaim(e,produc.id,produc.points)" class="form-control" type="number" min="1">
+                                                                            <input :key="i" @change="(e)=>logClaim(e,produc.id,produc.points)" class="form-control" type="number" min="1"  style="background-color: #ded8c7; border: 2px solid #2E671A;">
                                                                         </div>
                                                                     </td>
-                                                                    <!-- <td>
+                                                                    <!<td>
                                                                         <div class="form-check">
                                                                             <input v-model="product_ids" class="form-check-input" type="checkbox" :value="{id:product.id,qty:2}" id="cb1" :style="{'accent-color': '#2E671A'}">
                                                                         </div>
-                                                                    </td> -->
-                                                                </tr>
-                                                                <tr>
-                                                                    <td colspan="4" align="right">
-                                                                        <b>Total Point Value : {{ cartTotalPoints }}PV</b>
-                                                                    </td>
+                                                                    </td> 
                                                                 </tr>
                                                                 <div class="m-3">	
                                                                     <span v-if="submitting" class="btn btn-sm btn-success">...</span>								
@@ -468,13 +464,13 @@
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <div class="card no-b mb-3">
-                        <div class="card-header white">
+                    <div class="card shadow1 mb-3" style="background-color: transparent">
+                        <div class="card-header ">
                             <div class="row justify-content-end">
                                 <div class="col">
                                     <ul class="nav nav-tabs card-header-tabs nav-material">
                                         <li class="nav-item">
-                                            <a class="nav-link text-green" id="w1-tab1" data-toggle="tab" >TOTAL SELECTION</a>
+                                            <a class="nav-link text-green font-weight-bold" id="w1-tab1" data-toggle="tab" >TOTAL SELECTION</a>
                                         </li>	
                                     </ul>
                                 </div>
@@ -497,7 +493,7 @@
                                     </div>
                                     <div v-else v-for="userClaim,i in userProductClaims" :key="i" class="row column-row border-bottom">
                                         <div class="mt-2 ml-3" style="padding-right:15px">
-                                            <img src="/assets/img/shop1.png" width="30px" height="30px">
+                                            <img src="/assets/img/shop2.png" width="30px" height="30px">
                                         </div>  
                                         <div class="mb-2 mt-2">
                                             <h6 class="font-weight-bold text-green s-12" style="margin: 0em; padding: 0em;">{{ userClaim.name }} <br><small> {{userClaim.points}}PV | Qty:{{ userClaim.product_qty }}</small></h6>	
@@ -511,15 +507,23 @@
                                         <div class="mb-2 mt-2 ml-auto mr-3">
                                             <h6 class="font-weight-bold text-green s-12" style="margin: 0em; padding: 0em;">{{ totalPv?.toFixed(2) }} PV</h6>											
                                         </div>
-                                    </div> 	
-                                    <!-- <div class="row column-row border-bottom">
+                                    </div>
+                                    <div class="row column-row border-bottom">
+                                        <div class="mb-2 mt-2 ml-3">
+                                            <h6 class="font-weight-bold text-green s-12" style="margin: 0em; padding: 0em;">Total Price </h6>											
+                                        </div>
+                                        <div class="mb-2 mt-2 ml-auto mr-3">
+                                            <h6 class="font-weight-bold float-right text-green s-12">₦12,700 </h6>
+                                        </div> 	
+                                    </div>     
+                                    <div class="row column-row border-bottom">
                                         <div class="mb-2 mt-5 ml-3">
                                             <h6 class="font-weight-bold text-green s-12" style="margin: 0em; padding: 0em;">Total Product Cost </h6>											
                                         </div>	
                                         <div class="mb-2 mt-5 ml-auto mr-3">
                                             <h6 class="font-weight-bold text-green s-12" style="margin: 0em; padding: 0em;">₦{{ totalWorth?.toLocaleString('en-US') }} </h6>											
                                         </div>
-                                    </div> -->
+                                    </div>
 
                                     <div class="mt-3">									
                                         <button type="button" disabled :class="['btn btn-small', productClaimStatus=='processing'?'btn-warning':productClaimStatus=='approved'?'btn-success':'btn-danger']">
@@ -530,12 +534,12 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div>--->
         </div>
     </div>
 </template>
 
-<style>
+<style scoped>
     #yourContainer {
         width: 500px;
         height: 170px;
@@ -544,6 +548,9 @@
     #yourContainer img {
         max-width: 100%;
         max-height: 100%;
+    }
+    .border-bottom {
+    border-bottom: 1px solid #f6f6f2 !important;
     }
 </style>
 

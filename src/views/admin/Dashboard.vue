@@ -2,8 +2,8 @@
     <div>
         <div class="animated">
             <div class="row mb-5">
-                <div class="col-md-6">
-                    <div class="card" style="background-color: #2E671A" >
+                <div class="col-md-12">
+                    <div class="card shadow-lg" style="background-color: #2E671A" >
                         <div class="card-body" >
                             <div class="d-flex align-items-center flex-row flex-wrap">
                                 <div class="mr-3">
@@ -12,7 +12,7 @@
                                 <div class="ml-auto">
                                     <div class="d-flex flex-row mt-4 mb-4 ml-4">
                                         <div class="border-right" style="padding-right:20px">
-                                            <h6 class="mt-0 mb-1 font-weight-bold text-white" >Total Registrations</h6>
+                                            <h6 class="mt-0 mb-1 font-weight-bold text-white" >Total Registrations QTY</h6>
                                             <div class="mt-1 text-dark-heading text-white float-right" >{{ totalRegistrations?.toLocaleString('en-US') }}</div>
                                         </div>
                                         <div style="padding-left:20px">
@@ -24,9 +24,73 @@
                             </div>
                         </div>
                     </div>
+                </div>	
+            </div>
+            <div class="row mb-5">
+                <div class="col-md-4 ">
+                    <div class="card shadow1">
+                        <div class="card-body" >
+                            <div class="d-flex align-items-center flex-row flex-wrap">
+                                <div class="row column-row ml-1 ">
+                                    <img class="mr-3  r-3" src="/assets/img/equil-green.png" alt="Generic placeholder image" width="70px" height="70px">
+                                    <h6 class="mt-4 mb-1 font-weight-bold text-green" >Registration Products Pick-up<br> <small class="text-green">Total No. of Products pick-up</small></h6>
+                                </div>
+                                <div class="ml-auto">
+                                    <div class="d-flex flex-row mt-4 mb-4 ml-4">
+                                        <div style="padding-right:20px">
+                                            <p class="font-weight-bold green-text"><i class="icon icon-cart-plus" ></i>&nbsp;&nbsp;QTY</p>
+                                            <div class="mt-1 text-dark-heading text-green float-right font-weight-bold" >{{ countEquilibrumBonus?.toLocaleString('en-US') }}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-md-6">
-                    <div class="card" style="background-color: #2E671A" >
+                <div class="col-md-4 ">
+                    <div class="card shadow1">
+                        <div class="card-body" >
+                            <div class="d-flex align-items-center flex-row flex-wrap">
+                                <div class="row column-row ml-1 ">
+                                    <img class="mr-3  r-3" src="/assets/img/equil-green.png" alt="Generic placeholder image" width="70px" height="70px">
+                                    <h6 class="mt-4 mb-1 font-weight-bold text-green" >Upgrade Products Pick-up<br> <small class="text-green">Total No. of Products pick-up</small></h6>
+                                </div>
+                                <div class="ml-auto">
+                                    <div class="d-flex flex-row mt-4 mb-4 ml-4">
+                                        <div style="padding-right:20px">
+                                            <p class="font-weight-bold green-text"><i class="icon icon-cart-plus" ></i>&nbsp;&nbsp;QTY</p>
+                                            <div class="mt-1 text-dark-heading text-green float-right font-weight-bold" >{{ countEquilibrumBonus?.toLocaleString('en-US') }}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card shadow1">
+                        <div class="card-body" >
+                            <div class="d-flex align-items-center flex-row flex-wrap">
+                                <div class="row column-row ml-1 ">
+                                    <img class="mr-3  r-3" src="/assets/img/loyalty-green.png" alt="Generic placeholder image" width="70px" height="70px">
+                                    <h6 class="mt-4 mb-1 font-weight-bold text-green" >Repurchase Products Pick-up<br> <small class="text-green">Total No. of Products pick-up</small></h6>
+                                </div>
+                                <div class="ml-auto">
+                                    <div class="d-flex flex-row mt-4 mb-4 ml-4">
+                                        <div style="padding-right:20px">
+                                            <p class="font-weight-bold green-text"><i class="icon icon-cart-plus" ></i>&nbsp;&nbsp;QTY</p>
+                                            <div class="mt-1 text-dark-heading text-green float-right font-weight-bold" >{{ countLoyaltyBonus?.toLocaleString('en-US') }}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-5">
+                <div class="col-md-12">
+                    <div class="card shadow1" style="background-color: #2E671A" >
                         <div class="card-body" >
                             <div class="d-flex align-items-center flex-row flex-wrap">
                                 <div class="mr-3">
@@ -35,7 +99,7 @@
                                 <div class="ml-auto">
                                     <div class="d-flex flex-row mt-4 mb-4 ml-4">
                                         <div class="border-right" style="padding-right:20px">
-                                            <h6 class="mt-0 mb-1 font-weight-bold text-white" >Products Sold</h6>
+                                            <h6 class="mt-0 mb-1 font-weight-bold text-white" >Products Sold QTY</h6>
                                             <div class="mt-1 text-dark-heading text-white float-right" >{{ totalProductSold?.toLocaleString('en-US') }}</div>
                                         </div>
                                         <div  style="padding-left:20px">
@@ -48,22 +112,55 @@
                         </div>
                     </div>
                 </div>
-            </div>	
+            </div>    
+
+            <div class="row my-5">
+                <div class="col-lg-12">
+                    <div class="counter-box p-40 text-white shadow1 r-5 flex-wrap" style="background-color: #ffff">
+                        <div class="float-right">
+                            <img src="/assets/img/accounts.png">
+                        </div>
+                        <div class="ml-auto">
+                            <div class="d-flex flex-row mt-4 mb-4 ml-4">
+                                <div class="border-right" style="padding-right:20px; border-right: 1px solid #2E671A !important;">
+                                    <small class="mt-0 ml-2"><span style="color:#2E671A!important;">Total Registration Products Pick-up Amount</span></small>
+                                    <p class="text-dark-heading font-weight-bold " style="color:#2E671A!important;">₦<span style="color:#2E671A!important;font-size:32px">{{ sumClaimedProducts?.toLocaleString('en-US') }}</span></p>
+                                </div>
+                                <div class="border-right" style="padding-left:20px;padding-right:20px; border-right: 1px solid #2E671A !important;">
+                                    <small class="mt-0 ml-2"><span style="color:#2E671A!important;">Total Repurchase Products Pick-up Amount </span></small><!----Work on this-->
+                                    <p class="text-dark-heading font-weight-bold " style="color:#2E671A!important;">₦<span style="color:#2E671A!important;font-size:32px">{{ totalProfitPoolBonus?.toLocaleString('en-US') }}</span></p>
+                                </div>
+                                <div style="padding-left:20px">
+                                    <small class="mt-0 ml-2"><span style="color:#2E671A!important;">Total Upgrade Products Pick-up Amount </span></small><!----Work on this-->
+                                    <p class="text-dark-heading font-weight-bold " style="color:#2E671A!important;">₦<span style="color:#2E671A!important;font-size:32px">{{ totalProfitPoolBonus?.toLocaleString('en-US') }}</span></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div> 
+                </div>
+            </div>
+
+
+
+
+
+
+
             <div class="row mb-5">
                 <div class="col-md-6 ">
-                    <div class="card">
+                    <div class="card shadow1">
                         <div class="card-body" >
                             <div class="d-flex align-items-center flex-row flex-wrap">
                                 <div class="row column-row ml-1 ">
                                     <img class="mr-3  r-3" src="/assets/img/equil-green.png" alt="Generic placeholder image" width="70px" height="70px">
-                                    <h6 class="mt-4 mb-1 font-weight-bold text-green" >Equilibrum Bonus<br> <small class="text-green">Status Counts</small></h6>
+                                    <h6 class="mt-4 mb-1 font-weight-bold text-green" >Matching Bonus<br> <small class="text-green">Status Counts</small></h6>
                                 </div>
                                 <div class="ml-auto">
                                     <div class="d-flex flex-row mt-4 mb-4 ml-4">
-                                        <div class="border-right" style="padding-right:20px">
+                                        <!---<div class="border-right" style="padding-right:20px; border-right: 1px solid #2E671A !important;">
                                             <p><span class="badge text-white bg-green mr-1"><i class="icon icon-check" ></i>&nbsp;&nbsp;Eligible</span></p>
                                             <div class="mt-1 text-dark-heading text-green float-right" >{{ countEquilibrumBonus?.toLocaleString('en-US') }}</div>
-                                        </div>
+                                        </div>-->
                                         <div  style="padding-left:20px">
                                             <p class="font-weight-bold text-green">Total Earned</p>
                                             <div class="mt-1 text-dark-heading text-green float-left"  >₦{{ totalEquilibrumBonus?.toLocaleString('en-US') }}</div>
@@ -75,19 +172,19 @@
                     </div>
                 </div>
                 <div class="col-md-6">
-                    <div class="card">
+                    <div class="card shadow1">
                         <div class="card-body" >
                             <div class="d-flex align-items-center flex-row flex-wrap">
                                 <div class="row column-row ml-1 ">
                                     <img class="mr-3  r-3" src="/assets/img/loyalty-green.png" alt="Generic placeholder image" width="70px" height="70px">
-                                    <h6 class="mt-4 mb-1 font-weight-bold text-green" >Loyalty Bonus<br> <small class="text-green">Status Counts</small></h6>
+                                    <h6 class="mt-4 mb-1 font-weight-bold text-green" >Repurchase Bonus<br> <small class="text-green">Status Counts</small></h6>
                                 </div>
                                 <div class="ml-auto">
                                     <div class="d-flex flex-row mt-4 mb-4 ml-4">
-                                        <div class="border-right" style="padding-right:20px">
+                                       <!--- <div class="border-right" style="padding-right:20px; border-right: 1px solid #2E671A !important;">
                                             <p><span class="badge text-white bg-green mr-1"><i class="icon icon-check" ></i>&nbsp;&nbsp;Eligible</span></p>
                                             <div class="mt-1 text-dark-heading text-green float-right" >{{ countLoyaltyBonus?.toLocaleString('en-US') }}</div>
-                                        </div>
+                                        </div>-->
                                         <div  style="padding-left:20px">
                                             <p class="font-weight-bold text-green">Total Earned</p>
                                             <div class="mt-1 text-dark-heading text-green float-left"  >₦{{ totalLoyaltyBonus?.toLocaleString('en-US') }}</div>
@@ -102,19 +199,19 @@
 				
             <div class="row mb-5">
                 <div class="col-md-6 ">
-                    <div class="card">
+                    <div class="card shadow1">
                         <div class="card-body" >
                             <div class="d-flex align-items-center flex-row flex-wrap">
                                 <div class="row column-row ml-1 ">
                                     <img class="mr-3  r-3" src="/assets/img/profit_pool.png" alt="Generic placeholder image" width="70px" height="70px">
-                                    <h6 class="mt-4 mb-1 font-weight-bold text-green" >Profit Pool Bonus<br> <small class="text-green">Eligibility Status Counts</small></h6>	
+                                    <h6 class="mt-4 mb-1 font-weight-bold text-green" >Unilevel Bonus<br> <small class="text-green">Eligibility Status Counts</small></h6>	
                                 </div>
                                 <div class="ml-auto">
                                     <div class="d-flex flex-row mt-4 mb-4 ml-4">
-                                        <div class="border-right" style="padding-right:20px">
+                                        <!---<div class="border-right" style="padding-right:20px; border-right: 1px solid #2E671A !important;">
                                             <p><span class="badge text-white bg-green mr-1"><i class="icon icon-check" ></i>&nbsp;&nbsp;Eligible</span></p>
                                             <div class="mt-1 text-dark-heading text-green float-right" >{{ countProfitPoolBonus?.toLocaleString('en-US') }}</div>
-                                        </div>
+                                        </div>-->
                                         <div style="padding-left:20px">
                                             <p class="font-weight-bold text-green">Total Earned</p>
                                             <div class="mt-1 text-dark-heading text-green float-left"  >₦{{ totalProfitPoolBonus?.toLocaleString('en-US') }}</div>
@@ -126,7 +223,7 @@
                     </div>
                 </div>
                 <div class="col-md-6">
-                    <div class="card">
+                    <div class="card shadow1">
                         <div class="card-body" >
                             <div class="d-flex align-items-center flex-row flex-wrap">
                                 <div class="row column-row ml-1 ">
@@ -135,7 +232,7 @@
                                 </div>
                                 <div class="ml-auto">
                                     <div class="d-flex flex-row mt-4 mb-4 ml-4">
-                                        <div class="border-right" style="padding-right:20px">
+                                        <div class="border-right" style="padding-right:20px; border-right: 1px solid #2E671A !important;">
                                             <p><span class="badge text-white bg-green mr-1"><i class="icon icon-check" ></i>&nbsp;&nbsp;Eligible</span></p>
                                             <div class="mt-1 text-dark-heading text-green float-right" >{{ countGlobalProfitBonus?.toLocaleString('en-US') }}</div>
                                         </div>
@@ -152,21 +249,10 @@
             </div>				
 				<!--States-->
 
-            <div class="row my-5">
-                <div class="col-lg-12">
-                    <div class="counter-box p-40 text-white shadow2 r-5 flex-wrap" style="background-color: #ffff">
-                        <div class="float-right">
-                            <img src="/assets/img/accounts.png">
-                        </div>
-                        <small class="mt-0 ml-2"><span style="color:#2E671A!important;">Total Registration Products Amount</span></small>
-                        <p class="text-dark-heading font-weight-bold " style="color:#2E671A!important;">₦<span style="color:#2E671A!important;font-size:32px">{{ sumClaimedProducts?.toLocaleString('en-US') }}</span></p>
-                    </div>
-                </div>
-            </div>
 				<!--States-->
             <div class="row my-5">
                 <div class="col-lg-12">
-                    <div class="counter-box p-40 text-white shadow2 r-5" style="background-color: #2E671A">
+                    <div class="counter-box p-40 text-white shadow1 r-5" style="background-color: #2E671A">
                         <div class="float-right">
                             <img src="/assets/img/wallet1.png">
                         </div>
@@ -177,13 +263,13 @@
             </div>
             <div class="d-flex row row-eq-height my-3">
                 <div class="col-md-6 rounded mb-3">
-                    <div class="card">
-                        <div class="card-header white">
+                    <div class="card shadow1">
+                        <div class="card-header" style="background-color: #2E671A;">
                             <div class="row justify-content-end">
                                 <div class="col">
-                                    <ul class="nav nav-tabs card-header-tabs nav-material">
+                                    <ul class="nav nav-tabs card-header-tabs nav-material" >
                                         <li class="nav-item">
-                                            <a class="nav-link text-green" id="w1-tab1" data-toggle="tab" >Front Page Notification</a>
+                                            <a class="nav-link text-white font-weight-bold" id="w1-tab1" data-toggle="tab" >Front Page Notification</a>
                                         </li>	
                                     </ul>
                                 </div>
@@ -197,12 +283,12 @@
                                                 <form @submit.prevent="updateFrontPage()">
                                                 <div class="form-row">
                                                     <div class="col-md-12 mb-3">
-                                                        <input v-model="frontPageForm.home_page_message_subject" type="text" class="form-control" placeholder="Subject" required>
+                                                        <input v-model="frontPageForm.home_page_message_subject" type="text" class="form-control" placeholder="Subject" style="background-color: transparent; border: 2px solid #2E671A;" required>
                                                     </div>
                                                 </div>
                                                 <div class="form-row">
                                                     <div class="col-md-12 mb-3">
-                                                        <textarea v-model="frontPageForm.home_page_message" type="text" class="form-control" placeholder="Message" required></textarea>
+                                                        <textarea v-model="frontPageForm.home_page_message" type="text" class="form-control" placeholder="Message" style="background-color: transparent; border: 2px solid #2E671A;" required></textarea>
                                                     </div>
                                                 </div>
                                                 <div class="form-row">
@@ -233,13 +319,13 @@
                 </div>
                 
                 <div class="col-md-6 rounded">
-                    <div class="card">
-                        <div class="card-header white">
+                    <div class="card shadow1">
+                        <div class="card-header" style="background-color: #2E671A;">
                             <div class="row justify-content-end">
                                 <div class="col">
                                     <ul class="nav nav-tabs card-header-tabs nav-material">
                                         <li class="nav-item">
-                                            <a class="nav-link text-green" id="w1-tab1" data-toggle="tab" >Send General Message</a>
+                                            <a class="nav-link text-white font-weight-bold" id="w1-tab1" data-toggle="tab" >Send General Message</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -253,12 +339,12 @@
                                                 <form @submit.prevent="updateGeneralMessage()">
                                                 <div class="form-row">
                                                     <div class="col-md-12 mb-3">
-                                                        <input v-model="generalMessageForm.general_message_subject" type="text" class="form-control" placeholder="Subject" required>
+                                                        <input v-model="generalMessageForm.general_message_subject" type="text" class="form-control" placeholder="Subject" style="background-color: transparent; border: 2px solid #2E671A;" required>
                                                     </div>
                                                 </div>
                                                 <div class="form-row">
                                                     <div class="col-md-12 mb-3">
-                                                        <textarea v-model="generalMessageForm.general_message" type="text" class="form-control" placeholder="Message" required></textarea>
+                                                        <textarea v-model="generalMessageForm.general_message" type="text" class="form-control" placeholder="Message" style="background-color: transparent; border: 2px solid #2E671A;" required></textarea>
                                                     </div>
                                                 </div>
                                                 <span v-if="submitting && genMsgSubmitting" class="btn btn-success">...</span>
@@ -275,6 +361,12 @@
         </div>
     </div>
 </template>
+
+<style>
+.border-left-green {
+    border-left: 1px solid #2E671A !important;
+}
+</style>
 
 <script>
 //import settings from '@/api/settings';

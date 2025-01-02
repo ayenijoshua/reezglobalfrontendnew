@@ -3,7 +3,7 @@
         <div class="animated">
             <div class="row my-5">
                 <div class="col-lg-12">
-                    <div class="counter-box p-40 text-white shadow2 r-5" style="background-color: #2E671A">
+                    <div class="counter-box p-40 text-white shadow1 r-5" style="background-color: #2E671A">
                         <div class="float-right">
                             <img class="mr-3  r-3" src="/assets/img/shopping-cart.png"  width="70px" height="70px">
                         </div>
@@ -16,7 +16,7 @@
             <div class="row my-3">
                 <div class="col-md-12">
                     <div class="card">
-                        <div class="card-header bg-white">
+                        <div class="card-header">
                             <h6 class="green-text"><strong class="font-weight-bold">OFFICIAL PRODUCTS REQUESTS</strong></h6>
                         </div>
                         <div class="card-body" style="overflow-x:auto;">
@@ -88,6 +88,69 @@
         </Modal>
     </div>
 </template>
+
+<style>
+/* Dropdown Menu Styling */
+.dropdown-menu {
+    position: absolute !important; /* Make sure the dropdown is positioned absolutely */
+    top: auto; /* Allow it to adjust position */
+    left: auto; /* Allow it to adjust position */
+    z-index: 1050; /* Ensure it appears above other elements */
+    background-color: #ecf0f1; /* Your dropdown background color */
+    border: 1px solid #2E671A; /* Match your design style */
+    padding: 0.5rem 0; /* Adjust padding */
+}
+
+/* Ensure dropdown is not clipped by the table */
+.table-responsive {
+    overflow-x: visible !important;
+}
+
+/* Dropdown Menu Styling */
+.dropdown-menu {
+    position: absolute !important; /* Ensure absolute positioning */
+    top: auto; /* Adjust position */
+    left: auto; /* Adjust position */
+    z-index: 1050; /* Place it above other elements */
+    background-color: #ecf0f1; /* Background color */
+    border: 1px solid #2E671A; /* Match your design */
+    padding: 0.5rem 0; /* Adjust padding */
+}
+
+/* Prevent dropdown clipping */
+.table-responsive {
+    overflow-x: visible !important;
+}
+
+/* Default text and icon styles */
+.dropdown-menu .dropdown-item {
+    color: #2E671A !important; /* Ensure default text color */
+    font-weight: bold;
+    display: flex; /* Align icon and text together */
+    align-items: center;
+    gap: 8px; /* Space between icon and text */
+    padding: 10px 15px; /* Adjust padding for spacing */
+}
+
+/* Hover effect: Ensure all parts change */
+.dropdown-menu .dropdown-item:hover {
+    background-color: #2E671A !important; /* Background on hover */
+    color: white !important; /* Text color on hover */
+}
+
+/* Ensure icons also change color on hover */
+.dropdown-menu .dropdown-item:hover i {
+    color: white !important;
+}
+
+/* Add smooth transitions */
+.dropdown-menu .dropdown-item {
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+</style>
+
+
+
 <script>
 import { mapActions, mapGetters, mapState } from 'vuex';
 import Modal from '@/components/Modal.vue';

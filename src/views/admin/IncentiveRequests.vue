@@ -3,7 +3,7 @@
         <div class="animated">
             <div class="row my-5">
                 <div class="col-lg-12">
-                    <div class="counter-box p-40 text-white shadow2 r-5" style="background-color: #2E671A">
+                    <div class="counter-box p-40 text-white shadow1 r-5" style="background-color: #2E671A">
                         <div class="float-right">
                             <img class="mr-3  r-3" src="/assets/img/incentive.png"  width="70px" height="70px">
                         </div>
@@ -15,9 +15,9 @@
 
             <div class="row my-3">
                 <div class="col-md-12">
-                    <div class="card">
-                        <div class="card-header bg-white">
-                            <h6 class="green-text"><strong class="font-weight-bold">OFFICIAL INCENTIVE REQUESTS</strong></h6>
+                    <div class="card shadow1">
+                        <div class="card-header" style="background-color:#2E671A;">
+                            <h6 class="text-white"><strong class="font-weight-bold">OFFICIAL INCENTIVE REQUESTS</strong></h6>
                         </div>
                         <div class="card-body" style="overflow-x:auto;">
                             <table class="table table-bordered table-hover">

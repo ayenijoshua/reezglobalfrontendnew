@@ -7,7 +7,6 @@ import Transactions from '@/views/admin/Transactions'
 import Incentives from '@/views/admin/Incentives'
 import IncentiveRequests from '@/views/admin/IncentiveRequests'
 import Packages from '@/views/admin/Packages'
-import ProductRequests from '@/views/admin/ProductRequests'
 import Products from '@/views/admin/Products'
 // import serviceProviders from '@/views/admin/serviceProvider'
 // import productServices from '@/views/admin/productServices'
@@ -18,6 +17,9 @@ import ReferralBonusSettings from '@/views/admin/ReferralBonusSettings'
 import WithdrawalSettings from '@/views/admin/WithdrawalSettings'
 import CompanyDetails from '@/views/admin/CompanyDetails'
 import Ranks from '@/views/admin/Ranks'
+import CreateStockistPackage from '@/views/admin/CreateStockistPackage'
+import UpgradeSettings from '@/views/admin/UpgradeSettings'
+import UnilevelSettings from '@/views/admin/UnilevelSettings'
 
 export default [
     {
@@ -100,6 +102,37 @@ export default [
                 requiresAuth:true
             },
           },
+
+          {
+            path: 'create-stockist-package',
+            name: 'create-stockist-package',
+            component: CreateStockistPackage,
+            meta: {
+                isAdmin: true,
+                requiresAuth: true
+            },
+          },
+
+          {
+            path: 'upgrade-settings',
+            name: 'upgrade-settings',
+            component: UpgradeSettings,
+            meta: {
+                isAdmin: true,
+                requiresAuth: true
+            },
+          },
+
+          {
+            path: 'unilevel-settings',
+            name: 'unilevel-settings',
+            component: UnilevelSettings,
+            meta: {
+                isAdmin: true,
+                requiresAuth: true
+            },
+          },
+
           {
             path:'products',
             name:'products',
@@ -109,15 +142,7 @@ export default [
                 requiresAuth:true
             },
           },
-          {
-            path:'product-requests',
-            name:'product-requests',
-            component:ProductRequests,
-            meta:{
-                isAdmin:true,
-                requiresAuth:true
-            },
-          },
+
           {
             path:'incentive-requests',
             name:'incentive-requests',
