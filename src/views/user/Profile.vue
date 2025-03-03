@@ -68,7 +68,7 @@
                                             </div>
                                         </div>	
                                     </div>
-                                    <br>
+                                    <br/>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="row my-3">
@@ -384,10 +384,6 @@
                                     </div>
                                 </div>
                             </div>
-
-
-
-
                         </div>
                         <br>                    
                     </div>
@@ -550,7 +546,7 @@ li > a:hover .icon {
                     phone:form.get('phone')
                 }
 
-                if(!this.checkFileZize()){
+                if(this.checkFileZize() == false){
                     notification.warning('Image size should not exceed 500kB')
                     return
                 }
@@ -565,6 +561,9 @@ li > a:hover .icon {
 
             checkFileZize(){
                 let ele = document.getElementById('profile-img');
+                if(ele.files !== 'array'){
+                    return null
+                }
                 let fileSize = ele.files[0].size/1000
                 return fileSize > 500 ? false : true
             },
