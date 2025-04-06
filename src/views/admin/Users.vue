@@ -25,7 +25,7 @@
                                         <button @click="loadUsers('all')" class="dropdown-item text-green"> All Members</button>
                                         <button @click="loadUsers('active')" class="dropdown-item text-green"> Active Members</button>
                                         <button @click="loadUsers('inactive')" class="dropdown-item text-green">Inactive Users</button>
-                                        <button class="dropdown-item text-green">Stockists</button>
+                                        <button @click="loadUsers('stockist')" class="dropdown-item text-green">Stockists</button>
                                     </div>
                                 </div>
                             </div>
@@ -55,7 +55,7 @@
                                     </thead>
                                     <tbody>
                                         <tr v-if="loading && usersLoading">
-                                            <td colspan="8">
+                                            <td colspan="11">
                                                 <b-skeleton-table
                                                     :rows="3"
                                                     :columns="8"
@@ -75,82 +75,56 @@
                                                     </template>
                                                 </td>
                                             </tr>
-                                            <tr v-else v-for="user,i in users" :key="i">
-                                                <td>{{ (usersPerPage * (usersCurrentPage - 1)) + ( ++i) }}</td>
-                                                <td> <img :src="imageURL(user.photo_path)" :style="{'width': '50px'}" class="user_avatar img-responsive"/></td>
-                                                <td>{{ user.first_name }} {{ user.last_name }}</td>
-                                                <td>{{ user.email }}</td>
-                                                <td>{{ user.username }}</td>
-                                                <td>{{ user.name }}</td>
-                                                <td>{{ user.created_at }}</td>
-                                                <td>
-                                                    <div class="dropdown">
-                                                        <button class="btn btn-sm btn-success dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                            <i class="caret"></i>
-                                                        </button>
-                                                        <div class="dropdown-menu"  style="background-color: #ecf0f1">
-                                                            <a v-if="usersType !== 'inactive'" @click="setUser(user)" v-b-modal.user-dashboard class="dropdown-item text-green" ><i class="icon-barometer2"></i>&nbsp;&nbsp; Dashboard</a>
-                                                            <a v-if="usersType !== 'inactive'" @click="setUser(user)" v-b-modal.user-profile class="dropdown-item text-green" >
-                                                                <i  class="icon-drivers-license-o"></i>&nbsp;&nbsp; Profile</a>
-                                                            <a v-if="usersType !== 'inactive'" @click="setUser(user)" v-b-modal.user-genealogy class="dropdown-item text-green" ><i class="icon-sitemap"></i>&nbsp;&nbsp;Geneology</a>
-                                                            <a v-if="usersType !== 'inactive'" @click="setUser(user)" v-b-modal.user-wallet class="dropdown-item text-green" ><i class="icon-account_balance_wallet"></i>&nbsp;&nbsp;Wallet</a>
-                                                            <a class="dropdown-item text-green" ><i class="icon-shopping-cart"></i>&nbsp;&nbsp;Repurchase</a>
-                                                            <a v-if="usersType !== 'inactive'" @click="setUser(user)" v-b-modal.user-bank-details class="dropdown-item text-green" data-toggle="modal" data-target="#popModal-1"><i class="icon-bank"></i>&nbsp;&nbsp;Enable Bank Account Change</a>	
-                                                            <a v-if="usersType !== 'inactive'" @click="setUser(user)" v-b-modal.user-password class="dropdown-item text-green" data-toggle="modal" data-target="#popModal-2"><i class="icon-lock"></i>&nbsp;&nbsp;Login Details Change</a>											
-                                                            <a @click="setUser(user)" v-b-modal.send-message class="dropdown-item text-green" data-toggle="modal" data-target="#popModal-3"><i class="icon-mail-envelope-open6"></i>&nbsp;&nbsp;Send Message</a>
-                                                            
+                                            <template v-else>
+                                                <tr v-for="user,i in users" :key="i">
+                                                    <td>{{ (usersPerPage * (usersCurrentPage - 1)) + ( ++i) }}</td>
+                                                    <td> <img :src="imageURL(user.photo_path)" :style="{'width': '50px'}" class="user_avatar img-responsive"/></td>
+                                                    <td>{{ user.first_name }} {{ user.last_name }}</td>
+                                                    <td>{{ user.email }}</td>
+                                                    <td>{{ user.username }}</td>
+                                                    <td>{{ user.package_name }}</td>
+                                                    <td>{{ user.created_at }}</td>
+                                                    <td>
+                                                        <div class="dropdown">
+                                                            <button class="btn btn-sm btn-success dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                <i class="caret"></i>
+                                                            </button>
+                                                            <div class="dropdown-menu"  style="background-color: #ecf0f1">
+                                                                <a v-if="usersType !== 'inactive'" @click="setUser(user)" v-b-modal.user-dashboard class="dropdown-item text-green" ><i class="icon-barometer2"></i>&nbsp;&nbsp; Dashboard</a>
+                                                                <a v-if="usersType !== 'inactive'" @click="setUser(user)" v-b-modal.user-profile class="dropdown-item text-green" >
+                                                                    <i class="icon-drivers-license-o"></i>&nbsp;&nbsp; Profile</a>
+                                                                <a v-if="usersType !== 'inactive'" @click="setUser(user)" v-b-modal.user-genealogy class="dropdown-item text-green" ><i class="icon-sitemap"></i>&nbsp;&nbsp;Geneology</a>
+                                                                <a v-if="usersType !== 'inactive'" @click="setUser(user)" v-b-modal.user-wallet class="dropdown-item text-green" ><i class="icon-account_balance_wallet"></i>&nbsp;&nbsp;Wallet</a>
+                                                                <a v-if="usersType !== 'inactive'" @click="setUser(user)" v-b-modal.user-order-history class="dropdown-item text-green" ><i class="icon-shopping-cart"></i>&nbsp;&nbsp;Repurchase History</a>
+                                                                <a v-if="usersType !== 'inactive'" @click="setUser(user)" v-b-modal.user-bank-details class="dropdown-item text-green" data-toggle="modal" data-target="#popModal-1"><i class="icon-bank"></i>&nbsp;&nbsp;Enable Bank Account Change</a>	
+                                                                <a v-if="usersType !== 'inactive'" @click="setUser(user)" v-b-modal.user-password class="dropdown-item text-green" data-toggle="modal" data-target="#popModal-2"><i class="icon-lock"></i>&nbsp;&nbsp;Login Details Change</a>											
+                                                                <a @click="setUser(user)" v-b-modal.send-message class="dropdown-item text-green" data-toggle="modal" data-target="#popModal-3"><i class="icon-mail-envelope-open6"></i>&nbsp;&nbsp;Send Message</a>
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                </td>
-                                                <td><span class="font-weight-bold" >Mobile</span></td>
-                                                <td>
-                                                    <div class="dropdown">
-                                                        <button class="btn btn-sm btn-success dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                            <i class="caret"></i> Active
-                                                        </button>
-                                                        <div class="dropdown-menu" style="background-color: #ecf0f1">
-                                                            <a class="dropdown-item text-green" ><i class="icon-account_box"></i>&nbsp;&nbsp; Stockist Profile</a>
-                                                            <a class="dropdown-item text-green" ><i class="icon-shopping-cart"></i>&nbsp;&nbsp; Stockist Purchase</a>
-                                                            <a class="dropdown-item text-green" ><i class="icon-clipboard-list"></i>&nbsp;&nbsp; Stockist Record</a>
-                                                            <a class="dropdown-item text-green" ><i class="icon-payment"></i>&nbsp;&nbsp; Order History</a>
-                                                            
+                                                    </td>
+                                                    <td><span class="font-weight-bold">{{ user.stockist_package_name }}</span></td>
+                                                    <td>
+                                                        <div class="dropdown">
+                                                            <button class="btn btn-sm btn-success dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                <i class="caret"></i> Active
+                                                            </button>
+                                                            <div class="dropdown-menu" style="background-color: #ecf0f1">
+                                                                <a v-if="usersType !== 'inactive'" @click="setUser(user)" v-b-modal.stockist-profile class="dropdown-item text-green" ><i class="icon-account_box"></i>&nbsp;&nbsp; Stockist Profile</a>
+                                                                <a v-if="usersType !== 'inactive'" @click="setUser(user)" v-b-modal.stockist-record class="dropdown-item text-green" ><i class="icon-clipboard-list"></i>&nbsp;&nbsp; Stockist Record</a>
+                                                                <a v-if="usersType !== 'inactive'" @click="setUser(user)" v-b-modal.stockist-processed-orders class="dropdown-item text-green" ><i class="icon-payment"></i>&nbsp;&nbsp; Processed Orders</a>
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                </td>
-
-                                                <td>{{ user.created_at }}</td>
-                                            </tr>
+                                                    </td>
+                                                    <td>{{ user.stockist_created_at }}</td>
+                                                </tr>
+                                            </template>
                                         </template>
                                     </tbody>
                                 </table>
                                 <br>
                                 <BasePaginator v-if="userAction" :action="userAction" :current_page="usersCurrentPage" :last_page="usersLastPage" :total_pages="usersTotalPages" :per_page="usersPerPage" :type="usersType"></BasePaginator>
                             </div>
-                            <div class="container">
-                                <ul class="pagination">
-                                    <li>
-                                    <a href="#">Prev</a>
-                                    </li>
-                                    <li class="active">
-                                    <a href="#">1</a>
-                                    </li>
-                                    <li >
-                                    <a href="#">2</a>
-                                    </li>
-                                    <li>
-                                    <a href="#">3</a>
-                                    </li>
-                                    <li>
-                                    <a href="#">4</a>
-                                    </li>
-                                    <li>
-                                    <a href="#">5</a>
-                                    </li>
-                                    <li>
-                                    <a href="#">Next</a>
-                                    </li>
-                                </ul>
-                            </div>
+                            
                         </div>
                     </div>
                 </div>				
@@ -293,118 +267,189 @@
                 </div>
             </template>
         </Modal>
+        <Modal modal-id="user-order-history" modal-title="User Repurchase History" modal-size="xl">
+            <template v-if="user==null">
+                <b-skeleton-table
+                    :rows="3"
+                    :columns="8"
+                    :table-props="{ bordered: true, striped: true }"
+                ></b-skeleton-table>
+            </template>
+            <template v-else>
+                <div v-if="userIsActive">
+                    <UserOrderHistory :user="user"/>
+                </div>
+                <div v-else class="alert alert-info">
+                    <span v-if="userDataLoading">User data loading</span>
+                    <span v-else>This user is Inactive</span>
+                </div>
+            </template>
+        </Modal>
+
+        <Modal modal-id="stockist-profile" modal-title="Stockist Profile" modal-size="md">
+            <template v-if="user==null">
+                <b-skeleton-table
+                    :rows="3"
+                    :columns="8"
+                    :table-props="{ bordered: true, striped: true }"
+                ></b-skeleton-table>
+            </template>
+            <template v-else>
+                <div v-if="userIsActive">
+                    <StockistProfile :user="user"/>
+                </div>
+                <div v-else class="alert alert-info">
+                    <span v-if="userDataLoading">User data loading</span>
+                    <span v-else>This user is Inactive</span>
+                </div>
+            </template>
+        </Modal>
+
+        <Modal modal-id="stockist-record" modal-title="Stockist Record" modal-size="xl">
+            <template v-if="user==null">
+                <b-skeleton-table
+                    :rows="3"
+                    :columns="8"
+                    :table-props="{ bordered: true, striped: true }"
+                ></b-skeleton-table>
+            </template>
+            <template v-else>
+                <div v-if="userIsActive">
+                    <StockistRecord :user="user"/>
+                </div>
+                <div v-else class="alert alert-info">
+                    <span v-if="userDataLoading">User data loading</span>
+                    <span v-else>This user is Inactive</span>
+                </div>
+            </template>
+        </Modal>
+
+        <Modal modal-id="stockist-processed-orders" modal-title="Stockist Processed Orders" modal-size="xl">
+            <template v-if="user==null">
+                <b-skeleton-table
+                    :rows="3"
+                    :columns="8"
+                    :table-props="{ bordered: true, striped: true }"
+                ></b-skeleton-table>
+            </template>
+            <template v-else>
+                <div v-if="userIsActive">
+                    <StockistProcessedOrders :user="user"/>
+                </div>
+                <div v-else class="alert alert-info">
+                    <span v-if="userDataLoading">User data loading</span>
+                    <span v-else>This user is Inactive</span>
+                </div>
+            </template>
+        </Modal>
     </div>
 </template>
 
 <style scoped>
-.container {
+    .container {
 
-display: flex;
-align-items: center;
-justify-content: center;
-}
-.container .pagination {
-position: relative;
-height: 50px;
-background: rgba(255, 255, 255, 0.05);
-box-shadow: 5px 5px 30px rgba(0, 0, 0, 0.3);
-display: flex;
-align-items: center;
-justify-content: center;
-backdrop-filter: blur(3px);
-border-radius: 2px;
-}
-.container .pagination li {
-list-style-type: none;
-display: inline-block;
-}
-.container .pagination li a {
-position: relative;
-padding: 10px 15px;
-text-decoration: none;
-color: #2E671A;
-font-weight: 500;
-}
-.container .pagination li a:hover,
-.container .pagination li.active a {
-background: #2E671A;
-color: #ecf0f1;
-
-}
-.card {
-    margin-bottom: 250px !important; /* Increase bottom margin to give room */
-    position: relative; /* Ensure dropdowns are positioned correctly */
-}
-
-.border {
-    border-left: 1px solid #2E671A !important;
-}
-
-.border-left-green {
-    border-left: 1px solid #2E671A !important;
-}
-
-/* Dropdown Menu Styling */
-.dropdown-menu {
-    position: absolute !important; /* Make sure the dropdown is positioned absolutely */
-    top: auto; /* Allow it to adjust position */
-    left: auto; /* Allow it to adjust position */
-    z-index: 1050; /* Ensure it appears above other elements */
-    background-color: #ecf0f1; /* Your dropdown background color */
-    border: 1px solid #2E671A; /* Match your design style */
-    padding: 0.5rem 0; /* Adjust padding */
-}
-
-/* Ensure dropdown is not clipped by the table */
-.table-responsive {
-    overflow-x: visible !important;
-}
-
-/* Dropdown Menu Styling */
-.dropdown-menu {
-    position: absolute !important; /* Ensure absolute positioning */
-    top: auto; /* Adjust position */
-    left: auto; /* Adjust position */
-    z-index: 1050; /* Place it above other elements */
-    background-color: #ecf0f1; /* Background color */
-    border: 1px solid #2E671A; /* Match your design */
-    padding: 0.5rem 0; /* Adjust padding */
-}
-
-/* Prevent dropdown clipping */
-.table-responsive {
-    overflow-x: visible !important;
-}
-
-/* Default text and icon styles */
-.dropdown-menu .dropdown-item {
-    color: #2E671A !important; /* Ensure default text color */
-    font-weight: bold;
-    display: flex; /* Align icon and text together */
+    display: flex;
     align-items: center;
-    gap: 8px; /* Space between icon and text */
-    padding: 10px 15px; /* Adjust padding for spacing */
-}
+    justify-content: center;
+    }
+    .container .pagination {
+    position: relative;
+    height: 50px;
+    background: rgba(255, 255, 255, 0.05);
+    box-shadow: 5px 5px 30px rgba(0, 0, 0, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(3px);
+    border-radius: 2px;
+    }
+    .container .pagination li {
+    list-style-type: none;
+    display: inline-block;
+    }
+    .container .pagination li a {
+    position: relative;
+    padding: 10px 15px;
+    text-decoration: none;
+    color: #2E671A;
+    font-weight: 500;
+    }
+    .container .pagination li a:hover,
+    .container .pagination li.active a {
+    background: #2E671A;
+    color: #ecf0f1;
 
-/* Hover effect: Ensure all parts change */
-.dropdown-menu .dropdown-item:hover {
-    background-color: #2E671A !important; /* Background on hover */
-    color: white !important; /* Text color on hover */
-}
+    }
+    .card {
+        margin-bottom: 250px !important; /* Increase bottom margin to give room */
+        position: relative; /* Ensure dropdowns are positioned correctly */
+    }
 
-/* Ensure icons also change color on hover */
-.dropdown-menu .dropdown-item:hover i {
-    color: white !important;
-}
+    .border {
+        border-left: 1px solid #2E671A !important;
+    }
 
-/* Add smooth transitions */
-.dropdown-menu .dropdown-item {
-    transition: background-color 0.3s ease, color 0.3s ease;
-}
+    .border-left-green {
+        border-left: 1px solid #2E671A !important;
+    }
 
+    /* Dropdown Menu Styling */
+    .dropdown-menu {
+        position: absolute !important; /* Make sure the dropdown is positioned absolutely */
+        top: auto; /* Allow it to adjust position */
+        left: auto; /* Allow it to adjust position */
+        z-index: 1050; /* Ensure it appears above other elements */
+        background-color: #ecf0f1; /* Your dropdown background color */
+        border: 1px solid #2E671A; /* Match your design style */
+        padding: 0.5rem 0; /* Adjust padding */
+    }
 
+    /* Ensure dropdown is not clipped by the table */
+    .table-responsive {
+        overflow-x: visible !important;
+    }
 
+    /* Dropdown Menu Styling */
+    .dropdown-menu {
+        position: absolute !important; /* Ensure absolute positioning */
+        top: auto; /* Adjust position */
+        left: auto; /* Adjust position */
+        z-index: 1050; /* Place it above other elements */
+        background-color: #ecf0f1; /* Background color */
+        border: 1px solid #2E671A; /* Match your design */
+        padding: 0.5rem 0; /* Adjust padding */
+    }
 
+    /* Prevent dropdown clipping */
+    .table-responsive {
+        overflow-x: visible !important;
+    }
+
+    /* Default text and icon styles */
+    .dropdown-menu .dropdown-item {
+        color: #2E671A !important; /* Ensure default text color */
+        font-weight: bold;
+        display: flex; /* Align icon and text together */
+        align-items: center;
+        gap: 8px; /* Space between icon and text */
+        padding: 10px 15px; /* Adjust padding for spacing */
+    }
+
+    /* Hover effect: Ensure all parts change */
+    .dropdown-menu .dropdown-item:hover {
+        background-color: #2E671A !important; /* Background on hover */
+        color: white !important; /* Text color on hover */
+    }
+
+    /* Ensure icons also change color on hover */
+    .dropdown-menu .dropdown-item:hover i {
+        color: white !important;
+    }
+
+    /* Add smooth transitions */
+    .dropdown-menu .dropdown-item {
+        transition: background-color 0.3s ease, color 0.3s ease;
+    }
 </style>
 
 <script>
@@ -419,6 +464,13 @@ color: #ecf0f1;
     import SendMessage from '@/components/user/SendMessage.vue';
     import Wallet from '@/components/user/Wallet.vue';
     import BasePaginator from '@/components/BasePaginator.vue';
+    import UserOrderHistory from '@/components/user/UserOrderHistory.vue';
+    import StockistProfile from '@/components/user/StockistProfile.vue';
+    import StockistProcessedOrders from '@/components/user/StockistProcessedOrders.vue';
+    import StockistRecord from '@/components/user/StockistRecord.vue';
+    //import UserOrderHistory from '@/components/user/UserOrderHistory.vue';
+    
+
 
     export default{
     name: "admin-users",
@@ -432,7 +484,11 @@ color: #ecf0f1;
         SendMessage,
         Wallet,
         Dashboard,
-        BasePaginator
+        BasePaginator,
+        UserOrderHistory,
+        StockistProcessedOrders,
+        StockistProfile,
+        StockistRecord,
     },
     data() {
         return {

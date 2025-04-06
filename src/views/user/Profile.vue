@@ -221,44 +221,50 @@
                                     <div class="card mb-3 shadow1" style="background-color:transparent;">
                                         <div class="card-body">
                                             <p class="font-weight-bold">Select the Registration Package you would like to upgrade to. You pay the difference.</p>
-                                            <div class="form">            
-                                                <div class="form-group m-0">
+                                            <div class="form"> 
+                                                <template v-if="regPackages.length==0">
+                                                    <b-card>
+                                                        <b-skeleton width="85%"></b-skeleton>
+                                                        <b-skeleton width="55%"></b-skeleton>
+                                                        <b-skeleton width="70%"></b-skeleton>
+                                                    </b-card>
+                                                </template>           
+                                                <div v-else class="form-group m-0">
                                                     <div class="input-group mb-2 mr-sm-2 mb-3">              
                                                         <div class="input-group-prepend">
                                                             <div class="input-group-text" style="background-color: #2E671A; border: 2px solid #2E671A;"><i class="icon-user-plus float-left s-20 text-white" ></i></div>
                                                         </div>
-                                                        <select id="select" class="form-control r-0 light s-12 shadow1" style="background-color: transparent" readonly>
-                                                            <option style="background-color: transparent" >Select Stockist Package</option>
-                                                            <option style="background-color: transparent" >Starter</option>
-                                                            <option style="background-color: transparent" selected>Booster</option>
-                                                            <option style="background-color: transparent">Member</option>
-                                                            <option style="background-color: transparent">Standard</option>	
-                                                            <option style="background-color: transparent">Premium</option>
-                                                            <option style="background-color: transparent">Advanced</option>													   
+                                                        <select id="select" v-model="upgradeForm.package_id" @change="getPackageDifference" class="form-control r-0 light s-12 shadow1" style="background-color: transparent" readonly>
+                                                            <option style="background-color: transparent" value="">Select Stockist Package</option>
+                                                            <option v-for="reg,i in regPackages" :key="i" :value="reg.id">{{ reg.name }}</option>											   
                                                         </select>
                                                     </div>
                                                 </div>
-
                                             </div>
                                             <button type="submit" class="btn btn-sm btn-success btn-lg mr-3"><i class="icon-save mr-2"></i>Confirm Selection</button>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-4 col-sm-4">
-                                    <div class="card mb-3 shadow1" style="background-color:#2E671A;">
-                                        <div class="card-body">
+                                    <div class="card mb-3 shadow1" >
+                                        <template v-if="upgradeData.package_difference == undefined">
+                                            <b-card>
+                                                <b-skeleton width="85%"></b-skeleton>
+                                                <b-skeleton width="55%"></b-skeleton>
+                                                <b-skeleton width="70%"></b-skeleton>
+                                            </b-card>
+                                            <h6 class="text-center">Select a package to view upgrade data.</h6>
+                                        </template>  
+                                        <div v-else class="card-body" style="background-color:#2E671A;">
                                             <div class="d-flex justify-content-center">
                                                 <div class="text-center">  <img  src="/assets/img/upgrade_member1.png" width="auto" height="130px"></div>
                                                 <div class="card-body text-center">
                                                     <span class="text-white" id="d1" style="font-size:10px">Registration Package</span>
-                                                    <h6 class="font-weight-bold text-white" id="d1">Booster</h6>
+                                                    <h6 class="font-weight-bold text-white" id="d1">{{ upgradeData.package_name }}</h6>
                                                     <span class="text-white" id="d1" style="font-size:10px">Package Price</span>
-                                                    <h6 class="font-weight-bold text-white" id="d1">₦10,000</h6>
-                                                    
+                                                    <h6 class="font-weight-bold text-white" id="d1">₦{{ upgradeData.package_difference.toLocaleString('en-US') }}</h6>
                                                 </div>
-
                                             </div>
-
                                         </div>
                                     </div>
                                 </div>
@@ -271,7 +277,8 @@
                                             <div class="text-center mt-5 mb-5" style="padding-bottom:10px; padding-top: 20px">
                                                 <img  src="/assets/img/pay_options1.png" width="300px">
                                                 <h6 class="font-weight-bold text-white" >Proceed To Payment<br><small>Kindly complete your  Product Purchase by clicking the button Below</small></h6>
-                                                <a class="btn btn-sm btn-custom mb-3 mt-2 btn-lg"><i class="icon icon-credit-card"></i>Pay Now</a>
+                                                <a v-if="paySubmitting==true" @click="makePayment" class="btn btn-sm btn-custom mb-3 mt-2 btn-lg"><i class="icon icon-credit-card"></i>...Processing</a>
+                                                <a v-else @click="makePayment" class="btn btn-sm btn-custom mb-3 mt-2 btn-lg"><i class="icon icon-credit-card"></i>Pay Now</a>
                                             </div>
                                         </div>	   
                                     </div>
@@ -390,6 +397,27 @@
                 </div>
             </div>
         </div>
+
+        <modal modalId="pay"  modalTitle="Make Payment" modalSize="md" :link="payLink">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <div class="timer flex-wrap d-flex justify-content-center"  style="padding-top: 30px;">
+                        <p class="text-center font-weight-bold">Please, Ensure you complete your transaction within 2 minutes.</p>
+                        <VueCountdown :time="((gatewayTimeout))">
+                            <template slot-scope="props">
+                                <div style="width: 200px !important; padding-right:20px; padding-left:20px; padding-top:20px; padding-bottom:20px;" id="minutes" class="align-items-center flex-column d-flex justify-content-center">{{ props.minutes }}&nbsp;&nbsp;MINUTES</div>
+                                <div style="width: 200px !important; padding-right:20px; padding-left:20px; padding-top:20px; padding-bottom:20px;" id="seconds" class="align-items-center flex-column d-flex justify-content-center">{{ props.seconds }}&nbsp;&nbsp;SECONDS</div>
+                            </template>
+                        </VueCountdown>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-10 offset-md-1">
+                    <iframe id='ifr' frameborder="0" :src="payLink" scrolling="no" width="400" height="500"></iframe>
+                </div>
+            </div>
+        </modal>
     </div>
 </template>
 
@@ -482,9 +510,15 @@ li > a:hover .icon {
 <script>
     import { notification } from '@/util/notification';
     import { mapActions, mapGetters, mapState } from 'vuex';
+    import modal from '@/components/Modal.vue'
+    import VueCountdown from '@chenfengyuan/vue-countdown';
 
     export default {
         name:"user-profile",
+        components:{
+        modal,
+        VueCountdown
+    },
 
         data(){
             return {
@@ -506,7 +540,14 @@ li > a:hover .icon {
                 profileLoading:false,
                 uplineLoading:true,
 
-                banks:[]
+                banks:[],
+                upgradeForm:{
+                    package_id:''
+                },
+                upgradeData:{},
+                paySubmitting:false,
+                gatewayTimeout:1000*60*0.5,
+                payLink:null
             }
         },
 
@@ -518,7 +559,7 @@ li > a:hover .icon {
 
             ...mapGetters('authStore',['authUser']),
             ...mapGetters('userStore',['profile','uplineDetails']),
-            ...mapGetters('packageStore',['regPackage']),
+            ...mapGetters('packageStore',['regPackage','regPackages']),
 
             imageURL(){
                 let img = this.profile?.photo_path
@@ -531,11 +572,11 @@ li > a:hover .icon {
         },
 
         methods:{
-            ...mapActions('userStore',['getProfileDetails','updateProfile','updateUser','getUplineDetails','updateBankDetails']),
+            ...mapActions('userStore',['getProfileDetails','updateProfile','updateUser','getUplineDetails','updateBankDetails','fetchUpgradeData']),
 
             ...mapActions('authStore',['getUser']),
-            ...mapActions('packageStore',['getPackage']),
-            ...mapActions('paymentStore',['verifyBankDetails','fetchBanks']),
+            ...mapActions('packageStore',['getPackage','all']),
+            ...mapActions('paymentStore',['verifyBankDetails','fetchBanks','verify','initiatePayment']),
 
             profileUpdate(){
                 let ele = document.getElementById('profile-form')
@@ -605,7 +646,76 @@ li > a:hover .icon {
                         prev.innerHTML = '<img style="width: 100px !important; height:100px !important;" src="'+this.result+'"/>'
                     })
                 }
-            }
+            },
+
+            getPackageDifference(){
+                this.fetchUpgradeData(this.upgradeForm.package_id).then((res)=>{
+                    console.log('pac-diff',res.data.data)
+                    this.upgradeData = res.data.data
+                })
+            },
+
+            makePayment(){
+                if(this.upgradeData.package_difference == undefined){
+                    notification.warning("Select a package for upgrade")
+                    return
+                }
+                this.paySubmitting = true
+                let data = {
+                    amount:this.upgradeData.package_difference,
+                    description:"Package Upgrade",
+                    txn_source:"member_package_payment",
+                    is_upgrade:1,
+                    meta_data:this.upgradeForm.package_id
+                    //stockist_id:this.stockist.id,
+                    //total_price:this.cartTotalPrice,
+                    //total_quantity:this.cartTotalQty,
+                    //total_points:this.cartTotalPoints,
+                    //products:this.cartProducts
+                    }
+
+                this.initiatePay(data)
+            },
+
+
+            initiatePay(data){
+                var that = this
+                this.initiatePayment(data).then(res=>{
+                    console.log(res)
+                    var result = res
+                    if(res.status == 200){
+                        //if(that.productService.name == 'paystack'){
+                            that.payLink = res.data.data.data.authorization_url
+                            that.$bvModal.show('pay')
+                            
+                            setTimeout(() => {
+                                that.verify({reference:result.data.data.data.reference}).then(resp=>{
+                                    if(resp.status == 200 && (resp.data.success == true || resp.data.success == 'true')){
+                                        //vm.$router.push({name:'user-dashboard'})
+                                        notification.success("Payment Verified successfully")
+                                        that.$bvModal.hide('pay')
+                                        this.paySubmitting = false
+                                    }else{
+                                        notification.info("Unable to verify payment")
+                                        that.$bvModal.hide('pay')
+                                        this.paySubmitting = false
+                                    }
+                                }).catch(function(err) {
+                                    console.log("Some specific work failed", err);
+                                    that.$bvModal.hide('pay')
+                                    this.paySubmitting = false
+                                });
+                            }, this.gatewayTimeout);
+                        //}
+                    }
+                    this.paySubmitting = false
+                }).catch(function(err) {
+                    //notification
+                    console.log("Error initating payment", err);
+                    that.$bvModal.hide('pay')
+                    this.paySubmitting = false
+                });
+            },
         },
 
        created(){
@@ -646,6 +756,8 @@ li > a:hover .icon {
                     this.banks = res.data
                 }
             })
+
+            this.all()
             
         },
 

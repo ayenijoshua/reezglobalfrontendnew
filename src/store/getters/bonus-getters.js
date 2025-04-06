@@ -83,5 +83,9 @@ export default{
 
     totalCompanyWallet(state){
         return state.totalCompanyWallet
+    },
+
+    bonusStats(state){
+        return state.bonusStats
     }
 }

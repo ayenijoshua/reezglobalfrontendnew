@@ -16,7 +16,7 @@
             <div class="col-md-12">
                 <div class="card shadow1" style="border: 1px solid #2E671A !important;">
                     <div class="card-body p-4" >
-                        <form @submit.prevent="create()">
+                        <form id="create-product-form" @submit.prevent="create()">
                             <div class="row column-row"> 
                                 <div class="col-md-2 ml-3 mt-3">
                                     <p class="green-text s-12 font-weight-bold">Add Product</p>
@@ -27,7 +27,7 @@
                                         <div class="input-group-prepend" >
                                             <div class="input-group-text" style="background-color: #2E671A; border:1px solid #2E671A !important" ><i class="icon icon-add_shopping_cart float-left s-20 text-white"></i></div>
                                         </div>
-                                        <input v-model="form.name" required type="text" class="form-control r-0 light s-12" placeholder="Product Name" style="background-color: #ecf0f1; border:1px solid #2E671A !important">
+                                        <input v-model="form.name" name="name" required type="text" class="form-control r-0 light s-12" placeholder="Product Name" style="background-color: #ecf0f1; border:1px solid #2E671A !important">
                                     </div>
                                 </div>
                                 <div class="col-md-3">
@@ -35,7 +35,7 @@
                                         <div class="input-group-prepend" >
                                             <div class="input-group-text" style="background-color: #2E671A; border:1px solid #2E671A !important" ><i class="icon icon-add_shopping_cart float-left s-20 text-white"></i></div>
                                         </div>
-                                        <input v-model="form.name" required type="text" class="form-control r-0 light s-12" placeholder="Product PV" style="background-color: #ecf0f1; border:1px solid #2E671A !important">
+                                        <input v-model="form.points" name="points" required type="text" class="form-control r-0 light s-12" placeholder="Product PV" style="background-color: #ecf0f1; border:1px solid #2E671A !important">
                                     </div>
                                 </div>
                                 <div class="col-md-3">
@@ -43,7 +43,7 @@
                                         <div class="input-group-prepend">
                                             <div class="input-group-text" style="background-color: #2E671A; border:1px solid #2E671A !important" ><i class="icon icon-tag3 float-left s-20 text-white " ></i></div>
                                         </div>
-                                        <input v-model="form.worth" required type="text" class="form-control r-0 light s-12" placeholder="Price" style="background-color: #ecf0f1; border:1px solid #2E671A !important">
+                                        <input v-model="form.worth" name="worth" required type="text" class="form-control r-0 light s-12" placeholder="Price" style="background-color: #ecf0f1; border:1px solid #2E671A !important">
                                     </div>
                                 </div>
                             </div>
@@ -57,9 +57,9 @@
                                 <div class="col-md-12 mt-3 mb-3">
                                     <div class="form-group m-0">
                                         <div class="dropbox" style="background-color: #ecf0f1; border: 2px solid #2E671A;">
-                                            <input v-b-popover.hover.top="'Drag your photo here or click to browse'" type="file" id="profile-img" title="profile photo" name="image"  class="form-control form-control-line input-file" style="background-color: #ecf0f1; border: 2px solid #2E671A;">
+                                            <input v-b-popover.hover.top="'Drag your photo here or click to browse'" type="file" id="profile-img" title="profile photo" name="image" @change="filesChange($event.target.files);"  class="form-control form-control-line input-file" style="background-color: #ecf0f1; border: 2px solid #2E671A;">
                                             <p id="img-preview" >
-                                                Drag your photo here<br> or click to browse<br>
+                                                Drag an image here<br> or click to browse<br>
                                                 <span style="font-size: 10px;">Image size should not exceed 500kB</span>
                                             </p>      
                                         </div>                             
@@ -108,7 +108,7 @@
                                                     <th scope="col">Status</th>
                                                     <th scope="col">Edit</th>
                                                     <th scope="col">Enable/Disable</th>
-                                                    <th scope="col">Action</th>
+                                                    
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -127,33 +127,34 @@
                                                             <div class="alert alert-info">There are no products</div>
                                                         </td>
                                                     </tr>
-                                                    <tr v-else v-for="prod,i in products" :key="i">
-                                                        <td>{{ ++i }}</td>
-                                                        <td>{{ prod.name }}</td>
-                                                        <td >Great medicinal product. 100% herbal and organic. Great for treating high-blood pressure, fertility issues and more.....</td>
-                                                        <td ><img src="/assets/img/shop2.png" width="100px" height="100px"></td>
-                                                        <td>{{ prod.points }}</td>
-                                                        <td>₦{{ prod.worth?.toLocaleString('en-US') }}</td>
-                                                        <td>
-                                                            <span v-if="prod.is_active">Enabled</span>
-                                                            <span v-else>Disabled</span>
-                                                        <td>
-                                                            <a @click="setProduct(prod)" v-b-modal.edit-product class="btn btn-sm btn-success text-white caret" href="#"><i class="icon-edit"></i></a>	
-                                                        </td>
-                                                        <td>
-                                                            <div class="dropdown"> 
-                                                                <button class="btn btn-sm btn-success  dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                                <i class="caret"></i>
-                                                                </button>
-                                                                <div class="dropdown-menu " aria-labelledby="dropdownMenuButton" style="position:fixed">
-                                                                    <button @click="enable(prod.id)" class="dropdown-item text-green" ><i class="icon-check-circle"></i>&nbsp;&nbsp; Enable</button>
-                                                                    <button @click="disable(prod.id)" class="dropdown-item text-green"><i class="icon-times-circle"></i>&nbsp;&nbsp; Disable</button>	
+                                                    <template v-else>
+                                                        <tr  v-for="prod,i in products" :key="i">
+                                                            <td>{{ ++i }}</td>
+                                                            <td>{{ prod.name }}</td>
+                                                            <td>{{ prod.description }}</td>
+                                                            <td ><img :src="imageURL+'/'+prod.image" width="100px" height="100px"></td>
+                                                            <td>{{ prod.points }}</td>
+                                                            <td>₦{{ prod.worth?.toLocaleString('en-US') }}</td>
+                                                            <td>
+                                                                <span v-if="prod.is_active">Enabled</span>
+                                                                <span v-else>Disabled</span>
+                                                            </td>
+                                                            <td>
+                                                                <a @click="setProduct(prod)" v-b-modal.edit-product class="btn btn-sm btn-success text-white caret" href="#"><i class="icon-edit"></i></a>	
+                                                            </td>
+                                                            <td>
+                                                                <div class="dropdown"> 
+                                                                    <button class="btn btn-sm btn-success  dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                    <i class="caret"></i>
+                                                                    </button>
+                                                                    <div class="dropdown-menu " aria-labelledby="dropdownMenuButton" style="position:fixed">
+                                                                        <button @click="enable(prod.id)" class="dropdown-item text-green" ><i class="icon-check-circle"></i>&nbsp;&nbsp; Enable</button>
+                                                                        <button @click="disable(prod.id)" class="dropdown-item text-green"><i class="icon-times-circle"></i>&nbsp;&nbsp; Disable</button>	
+                                                                    </div>
                                                                 </div>
-                                                            </div>
-                                                        </td>
-                                                        <td><button type="button" class="btn-small btn-danger rounded">
-                                                            <i class="icon-times mr-2"></i>Delete Product</button>  </td>
-                                                    </tr>
+                                                            </td>
+                                                        </tr>
+                                                    </template>
                                                 </template>															  
                                             </tbody>
                                         </table>
@@ -232,7 +233,11 @@
                 submitting:state=>state.submitting
             }),
 
-            ...mapGetters('productStore',['products'])
+            ...mapGetters('productStore',['products']),
+
+            imageURL(){
+                return process.env.VUE_APP_IMAGE_PATH
+            }
         },
 
         created(){
@@ -255,8 +260,29 @@
                 this.getProducts()
             },
 
+            filesChange(files){
+                const file = files[0]
+                const prev = document.getElementById('img-preview')
+                if(file){
+                    const fileReader = new FileReader()
+                    fileReader.readAsDataURL(file)
+                    fileReader.addEventListener("load",function(){
+                        prev.innerHTML = '<img style="width: 100px !important; height:100px !important;" src="'+this.result+'"/>'
+                    })
+                }
+            },
+
             create(){
-                this.createProduct(this.form).then(res=>{
+                // this.createProduct(this.form).then(res=>{
+                //     if(res.status == 200){
+                //         this.productsLoading = true
+                //         this.getProducts().then(()=>this.productsLoading = false)
+                //     }
+                // })
+
+                let ele = document.getElementById("create-product-form")
+                let form = new FormData(ele)
+                this.createProduct(form).then(res=>{
                     if(res.status == 200){
                         this.productsLoading = true
                         this.getProducts().then(()=>this.productsLoading = false)

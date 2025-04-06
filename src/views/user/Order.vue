@@ -16,15 +16,13 @@
                                                 <div class="input-group-prepend">
                                                     <div class="input-group-text" style="background-color: #2E671A; border: 2px solid #2E671A;"><i class="icon-shopping_cart float-left s-20 text-white "  ></i></div>
                                                 </div>
-                                                <input type="text" name="phone" value="" class="form-control r-0 light s-12" id="inlineFormInputGroupUsername2"
-                                                        placeholder="Enter Username" style="background-color: transparent">
+                                                <input type="text" v-model="orderCode" class="form-control r-0 light s-12" placeholder="Enter Ordr code" style="background-color: transparent">
                                             </div>
                                         </div>
                                     </div>
-
                                 </div>
                                 <div class="d-flex justify-content-center">
-                                    <button type="submit" class="btn btn-sm btn-success btn-lg mr-3">
+                                    <button @click="getUserOrders" type="submit" class="btn btn-sm btn-success btn-lg mr-3">
                                         <i class="icon-save mr-2"></i>Confirm Selection
                                     </button>
                                 </div>
@@ -43,110 +41,104 @@
                             </div>
                             <hr>
                         <div>
-                            <template v-if="prodClaimLoading">
+                            <template v-if="orderLoading">
                                 <b-skeleton-table
                                     :rows="3"
                                     :columns="3"
                                     :table-props="{ bordered: true, striped: true }"
                                 ></b-skeleton-table>
                             </template>
+
                             <template v-else>
-                                <div v-if="userProductClaims.length == 0">
-                                    <p class="alert alert-info">
-                                        There is no order under this username
-                                    </p>
+                                <div v-if="orders.length==0" class="alert alert-warning">
+                                    Please enter a valid order code to fetch order details
                                 </div>
-                                <div v-else v-for="userClaim,i in userProductClaims" :key="i" class="row column-row p-2" style="border-bottom: 1px solid #2E671A !important;">
-                                    <div class="mt-2 ml-3" style="padding-right:15px">
-                                        <img src="/assets/img/demo/products/product3.png" width="80px" height="80px">
-                                    </div>  
-                                    <div class="mb-2 mt-4 ">
-                                        <h6 class="font-weight-bold text-green s-14" style="margin: 0em; padding: 0em;">{{ userClaim.name }} <br><small class="font-weight-bold"> {{userClaim.points}}PV | Qty:{{ userClaim.product_qty }}</small></h6>	
-                                    </div>	
-                                    <div class="mb-2 mt-4 ml-auto mr-2">
-                                        <span class="font-weight-bold float-right text-green">₦12,700</span>
-                                    </div>
-                                </div>
+                                <div v-else>
+                                    <div v-for="order,i in orders" :key="i" class="row column-row p-2" style="border-bottom: 1px solid #2E671A !important;">
+                                        <template>
+                                            <div class="mt-2 ml-3" style="padding-right:15px" :key="i">
+                                            <img src="/assets/img/demo/products/product3.png" width="80px" height="80px">
+                                            </div>  
+                                            <div class="mb-2 mt-4" :key="i">
+                                                <h6 class="font-weight-bold text-green s-14" style="margin: 0em; padding: 0em;">{{ order.name }} <br>
+                                                    <small class="font-weight-bold"> {{order.points}}PV | Qty:{{ order.product_qty }}</small>
+                                                </h6>
+                                                <h6>
+                                                    <small :class="['font-weight-bold', order.in_stock ? 'text-info' : 'text-danger']">Instock : {{order.in_stock}}</small>  
+                                                    <small :class="['font-weight-bold', order.stock_qty>0 ? 'text-info' : 'text-danger']"> | Stock Qty : {{ order.stock_qty }}</small>
+                                                </h6>	
 
-            
-                                <div class="row column-row " style="border-bottom: 1px solid #2E671A !important;">
-                                    <div class="mb-2 mt-2 ml-3">
-                                        <h6 class="font-weight-bold text-green s-12" style="margin: 0em; padding: 0em;">Total Point Value </h6>											
-                                    </div>	
-                                    <div class="mb-2 mt-2 ml-auto mr-3">
-                                        <h6 class="font-weight-bold text-green s-12" style="margin: 0em; padding: 0em;">{{ totalPv?.toFixed(2) }} PV</h6>											
+                                            </div>	
+                                            <div class="mb-2 mt-4 ml-auto mr-2" :key="i">
+                                                <span class="font-weight-bold float-right text-green">₦{{ order.price.toLocaleString('en-US') }}</span>
+                                            </div>
+                                        </template>
                                     </div>
-                                </div> 	
-                                <div class="row column-row" style="background-Color:#2E671A !important;">
-                                    <div class="mb-2 mt-2 ml-3">
-                                        <h6 class="font-weight-bold text-white s-12" style="margin: 0em; padding: 0em;">Total Price </h6>											
-                                    </div>	
-                                    <div class="mb-2 mt-2 ml-auto mr-3">
-                                        <h6 class="font-weight-bold text-white s-12" style="margin: 0em; padding: 0em;">₦ 12,700</h6>											
+
+                                    <div class="row column-row " style="border-bottom: 1px solid #2E671A !important;">
+                                        <div class="mb-2 mt-2 ml-3">
+                                            <h6 class="font-weight-bold text-green s-12" style="margin: 0em; padding: 0em;">Total Point Value </h6>											
+                                        </div>	
+                                        <div class="mb-2 mt-2 ml-auto mr-3">
+                                            <h6 class="font-weight-bold text-green s-12" style="margin: 0em; padding: 0em;">{{ totalPoints?.toFixed(2) }} PV</h6>											
+                                        </div>
+                                    </div> 	
+                                    <div class="row column-row" style="background-Color:#2E671A !important;">
+                                        <div class="mb-2 mt-2 ml-3">
+                                            <h6 class="font-weight-bold text-white s-12" style="margin: 0em; padding: 0em;">Total Price </h6>											
+                                        </div>	
+                                        <div class="mb-2 mt-2 ml-auto mr-3">
+                                            <h6 class="font-weight-bold text-white s-12" style="margin: 0em; padding: 0em;">₦ {{ totalPrice.toLocaleString('en-US') }}</h6>											
+                                        </div>
+                                    </div>
+
+                                    <div class="d-flex align-items-center mt-4">
+                                        <div>
+                                            <span class="text-green" id="d1" style="font-size:10px">Pick-Up Type</span>
+                                            <h6 class="font-weight-bold text-green" id="d1">{{ orders[0].claim_type }}</h6>
+                                        </div>
                                     </div>
                                 </div>
-                                
-                                <!-- <div class="row column-row border-bottom">
-                                    <div class="mb-2 mt-5 ml-3">
-                                        <h6 class="font-weight-bold text-green s-12" style="margin: 0em; padding: 0em;">Total Product Cost </h6>											
-                                    </div>	
-                                    <div class="mb-2 mt-5 ml-auto mr-3">
-                                        <h6 class="font-weight-bold text-green s-12" style="margin: 0em; padding: 0em;">₦{{ totalWorth?.toLocaleString('en-US') }} </h6>											
-                                    </div>
-                                </div> -->
-
-                                <!--<div class="mt-3">									
-                                    <button type="button" disabled :class="['btn btn-small', productClaimStatus=='processing'?'btn-warning':productClaimStatus=='approved'?'btn-success':'btn-danger']">
-                                        <i class="icon-check-square-o mr-2"></i>{{ productClaimStatus }}</button>
-                                </div>--->
                             </template>
                             
-                            <div class="d-flex align-items-center mt-4">
-                                <div>
-                                    <span class="text-green" id="d1" style="font-size:10px">Pick-Up Type</span>
-                                    <h6 class="font-weight-bold text-green" id="d1">Registration Product Pick-up</h6>
-                                </div>
-                            </div>
+                            
                             <hr>
-                            <div class="d-flex align-items-center mt-4">
+                            <div v-if="member !== null" class="d-flex align-items-center mt-4">
                                 <div>
                                     <span class="text-green" id="d1" style="font-size:10px">Username</span>
-                                    <h6 class="font-weight-bold text-green" id="d1">Olakunle2020</h6>
+                                    <h6 class="font-weight-bold text-green" id="d1">{{ member.username }}</h6>
                                     <span class="text-green" id="d1" style="font-size:10px">Name</span>
-                                    <h6 class="font-weight-bold text-green" id="d1">Olakunle Aderemi</h6>
+                                    <h6 class="font-weight-bold text-green" id="d1">{{ member.first_name }} {{ member.last_name }}</h6>
                                     <span class="text-green" id="d1" style="font-size:10px">Contact</span>
-                                    <h6 class="font-weight-bold text-green mb-3" id="d1">08109234321</h6>
+                                    <h6 class="font-weight-bold text-green mb-3" id="d1">{{ member.phone }}</h6>
                                     <span class="text-green" id="d1" style="font-size:10px">Email</span>
-                                    <h6 class="font-weight-bold text-green mb-3" id="d1">businessaccumen9@gmail.com</h6>
+                                    <h6 class="font-weight-bold text-green mb-3" id="d1">{{ member.email }}</h6>
                                 </div>
                                 <div class="mr-4 ml-auto ">
                                     <div class="avatar avatar-xl mb-3 ">
-										<img class="user_avatar" src="/assets/img/dummy/default_avatar1.png" alt="User Image">
+                                        <img v-if="member.photo_path"  class="user_avatar" :src="imageURL+'/'+member.photo_path" alt="User Image">
+										<img v-else class="user_avatar" src="/assets/img/dummy/default_avatar1.png" alt="User Image">
 									</div>
                                 </div>
                             </div>
                         </div>
                         </div>
                         <hr>
-                        <div class=" mb-3 mt-3">	
+                        <div v-if="orders.length !== 0" class=" mb-3 mt-3">	
                             <!---<span  class="btn btn-sm btn-success">...</span>-->								
-                            <button type="submit" class="btn btn-sm btn-success btn-lg mr-3"><i class="icon-shopping_cart mr-2"></i>Approve Order</button>
-                            <button  type="submit" class="btn btn-sm btn-danger "><i class="icon-cancel mr-2"></i>Cancel Order</button>                   
+                            <button @click="approvePurchase(purchaseId)" type="submit" class="btn btn-sm btn-success btn-lg mr-3"><i class="icon-shopping_cart mr-2"></i>Approve Order</button>
+                            <button type="submit" class="btn btn-sm btn-danger "><i class="icon-cancel mr-2"></i>Cancel Order</button>                   
                         </div> 
                     </div> 
-                      
                 </div>
-                
             <br>
-
 
             <div class="row mt-4">
                 <div class="col-md-12">
                     <div class="card shadow-lg mb-3" style="background-color: transparent">
                         <div class="card-body ">
                             <div class="d-flex justify-content-left mb-2">
-                                <input 
-                                    
+                                <input
                                     class="form-control mr-2" 
                                     type="text" 
                                     placeholder="Search Orders..." 
@@ -165,40 +157,39 @@
                                             <th class="font-weight-bold" scope="col">PHONE</th>
                                             <th class="font-weight-bold" scope="col">EMAIL</th>
                                             <th class="font-weight-bold" scope="col">PICK-UP TYPE</th>
-                                            <th class="font-weight-bold" scope="col">PRODUCT</th>
-                                            <th class="font-weight-bold" scope="col">QTY</th>
-                                            <th class="font-weight-bold" scope="col">PRICE</th>
+                                            <th class="font-weight-bold" scope="col">ORDER ID</th>
+                                            <!-- <th class="font-weight-bold" scope="col">QTY</th>
+                                            <th class="font-weight-bold" scope="col">PRICE</th> -->
                                             <th class="font-weight-bold" scope="col">STATUS</th>
                                             <th class="font-weight-bold" scope="col">DATE/TIME</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr v-if="loading && incClaimLoading">
-                                            <td colspan="5">
+                                        <tr v-if="processedOrdersLoading==true">
+                                            <td colspan="9">
                                                 <b-skeleton-table
-                                                    :rows="5"
-                                                    :columns="5"
+                                                    :rows="3"
+                                                    :columns="9"
                                                     :table-props="{ bordered: true, striped: true }"
                                                 ></b-skeleton-table>
                                             </td>
                                         </tr>
                                         <template v-else>
-                                            <tr v-if="claims.length == 0">
-                                                <td colspan="5">There are no claimed incentives</td>
+                                            <tr v-if="vendorProcessedOrders.length==0">
+                                                <td colspan="5">There are no processed Orders</td>
                                             </tr>
-                                            <tr v-else v-for="claim,i in claims" :key="i">
+                                            <tr v-for="order,i in vendorProcessedOrders" :key="i">
                                                 <th scope="row">{{ ++i }}</th>
-                                                <td>Olakunle2020</td>
+                                                <td>{{ order.username }}</td>
                                                 <!-- <td>{{ claim.worth?.toLocaleString('en-US')}}</td> -->
-                                                <td>Olakunle Aderemi</td>
-                                                <td>08109234321</td>
-                                                <td>businessaccumne9@gmail.com</td>
-                                                <td>Registration Product Pick-up</td>
-                                                <td>1KG REEZ MAX</td>
-                                                <td>1</td>
-                                                <td>₦12,700</td>
-                                                <td><span class="badge badge-success" style="padding: 6px 10px;">Approved</span></td>
-                                                <td>21/08/2024 - 02:46</td>
+                                                <td>{{ order.name }}</td>
+                                                <td>{{ order.phone }}</td>
+                                                <td>{{ order.email }}</td>
+                                                <td>{{ order.pickup_type }}</td>
+                                                <td>#0{{ order.id }}</td>
+                                                
+                                                <td><span class="badge badge-success" style="padding: 6px 10px;">{{ order.status }}</span></td>
+                                                <td>{{ order.created_at }}</td>
                                             </tr>
                                         </template>
                                     </tbody>
@@ -342,54 +333,26 @@ color: #ecf0f1;
 </style>
 
 
-
-
-
 <script>
+import { notification } from '@/util/notification'
 import {mapActions,mapGetters,mapState} from 'vuex'
 export default{
     name:"user-stockistprofile",
 
     data(){
-        return {
-            profitPoolEligible:false,
-            globalProfitEligible:false,
-            equilibrumBonusEligible:false,
-            loyaltyBonusEligible:false,
-            product_ids:[],
-            cartProducts:[],
-            totalWorth:0,
-            totalPv:0,
-            productClaimStatus:'Unclaimed',
-            guestEmail:null,
-            cartPoints:{},
-            cartTotalPoints:0,
+        return {//ymCwA4hAsdNrUarA
 
-            form:{
-                rank_id:null,
-                incentive_id:null
-            }, 
-            
-            inviteForm:{
-                email:null,
-                referrer:null
-            },
+            orderLoading:false,
+            approvingOrder:false,
+            orders:[],
+            processedOrdersLoading:false,
+            orderCode:null,
+            totalPoints:0,
+            totalPrice:0,
+            member:null,
+            purchaseId:null,
+            //vendorProcessedOrders:[]
 
-            prodClaimLoading:false,
-            prodLoading:false,
-            incClaimLoading:false,
-            incLoading:false,
-
-            welcomeBonusLoading:false,
-            loyaltyBonusLoading:false,
-            equilibrumBonusLoading:false,
-            referralBonusLoading:false,
-            totalBonusLoading:false,
-            profitPoolLoading:false,
-            walletBalanceLoading:false,
-            globalProfitLoading:false,
-            packageLoading:false,
-            totalPVLoading:false
         }
     },
 
@@ -403,254 +366,77 @@ export default{
             return process.env.VUE_APP_IMAGE_PATH
         },
 
-        referrerLink(){
-            return this.inviteForm.referrer 
-            ? 'https://app.delishcare.com/register'+'?ref='+this.inviteForm.referrer +'&placer='+this.authUser.username
-            : 'https://app.delishcare.com/register'+'?ref='+this.authUser.username
-        },
-        
-        ...mapGetters('bonusStore',['welcomeBonus',
-        'equilibrumBonus','loyaltyBonus','referralBonus','placementBonus',
-        'profitPool','globalProfit','totalBonus','walletBalance']),
-
-        ...mapGetters('packageStore',['regPackage']),
         ...mapGetters('authStore',['authUser']),
-        ...mapGetters('userStore',['totalPV','uplineDetails','directDownlines']),
-        ...mapGetters('settingStore',['settings']),
-        ...mapGetters('incentiveClaimStore',['claims','currentIncentive']),
-        ...mapGetters('productStore',['products']),
-        ...mapGetters('productClaimStore',['userProductClaims']),
-        ...mapGetters('rankStore',['currentRankBadge']),
+        ...mapGetters('productPurchaseStore',['vendorProcessedOrders']),
     },
 
     created(){
-        if(this.authUser.uuid == undefined){
-            this.getUser().then(res=>{
-                this.getCurrentRankBadge(res.data.rank_id)
-                this.getDashboardData(res.data)
-            })
-        }else{
-            this.getCurrentRankBadge(this.authUser.rank_id)
-            this.getDashboardData(this.authUser)
-        }
 
-        if(this.currentRankBadge==null){
-            this.getCurrentRankBadge(this.authUser.rank_id)
+        if(this.vendorProcessedOrders.length == 0){
+            if(this.authUser.uuid == undefined){
+                this.getUser().then((res)=>{
+                    this.processedOrdersLoading = true
+                    this.getVendorProcessedOrders(res.data.uuid).then((res)=>{
+                        this.processedOrdersLoading=false
+                        this.vendorProcessedOrders = res.data.data.data
+                    })
+                })
+            }else{
+                this.processedOrdersLoading = true
+                this.getVendorProcessedOrders(this.authUser.uuid).then(()=>{
+                    this.processedOrdersLoading=false
+                })
+            }
         }
-
-        if(this.settings.id == undefined){
-            this.all();
-            //this.getSetting('unit_point_value');
-        }
-        
-        if(this.products.length == 0){
-            this.prodLoading = true
-            this.getActiveProducts().then(()=>this.prodLoading = false)
-        }
-        
-        
     },
 
     methods:{
-        logClaim(e,id,points){
-            let data = {qty:e.target.value,id:id}
-            //qty = e.target.value
-            let pv = data.qty * points
-            this.cartPoints = {...this.cartPoints,[data.id]:pv}
-            let pvs = Object.values(this.cartPoints)
-            let sum = pvs.reduce((res,val)=>res+val)
-            this.cartTotalPoints = sum
-           let index = this.cartProducts.findIndex(ele=>ele.id == id)
-           if(index !== -1){
-            this.cartProducts[index].qty = data.qty
-           }else{
-            this.cartProducts.push(data)
-           }
-            
-            //console.log(this.cartProducts)
-        },
-        ...mapActions('bonusStore',['getWelcomeBonus',
-        'getEquilibrumBonus','getLoyaltyBonus','getReferralBonus',
-        'getProfitPool','getGlobalProfit','getPlacementBonus','getTotalBonus','getWalletBalance']),
-        ...mapActions('packageStore',['getPackage']),
-        ...mapActions('authStore',['getUser']),
-        ...mapActions('userStore',['getTotalPVs','inviteGuest','getUplineDetails','countDirectDownlines']),
-        ...mapActions('settingStore',['getSetting','all']),
-        ...mapActions('incentiveClaimStore',['getClaims','getCurrentIncentive','create']),
-        ...mapActions('productStore',['getActiveProducts']),
-        ...mapActions('productClaimStore',['claimProduct','getProductClaims']),
-        ...mapActions('rankStore',['getCurrentRankBadge']),
         
-        getBonuses(uuid){
-            if(this.welcomeBonus==null){
-                this.welcomeBonusLoading = true
-                this.getWelcomeBonus(uuid).then(()=>this.welcomeBonusLoading = false)
-            }
-            if(this.equilibrumBonus==null){
-                this.equilibrumBonusLoading = true
-                this.getEquilibrumBonus(uuid).then(()=>this.equilibrumBonusLoading = false)
-            }
-            if(this.loyaltyBonus==null){
-                this.loyaltyBonusLoading = true
-                this.getLoyaltyBonus(uuid).then(()=>this.loyaltyBonusLoading = false)
-            }
-            if(this.referralBonus==null){
-                this.referralBonusLoading = true
-                this.getReferralBonus(uuid).then(()=>this.referralBonusLoading = false)
-            }
-            if(this.placementBonus==null){
-                this.getPlacementBonus(uuid)
-            }
-            if(this.totalBonus==null){
-                this.totalBonusLoading = true
-                this.getTotalBonus(uuid).then(()=>this.totalBonusLoading = false)
-            }
-            if(this.totalPV==null){
-                this.totalPVLoading = true
-                this.getTotalPVs(uuid).then(()=>this.totalPVLoading=false)
-            }
-            if(this.profitPool==null){
-                this.profitPoolLoading = true
-                this.getProfitPool(uuid).then(()=>this.profitPoolLoading = false)
-            }
-            if(this.globalProfit==null){
-                this.globalProfitLoading = true
-                this.getGlobalProfit(uuid).then(()=>this.globalProfitLoading = false)
-            }
-            if(this.walletBalance==null){
-                this.walletBalanceLoading = true
-                this.getWalletBalance(uuid).then(()=>this.walletBalanceLoading = false)
-            }
+        ...mapActions('authStore',['getUser']),
+        ...mapActions('productPurchaseStore',['getOrders','getVendorProcessedOrders','vendorApprovePurchase']),
+
+        getUserOrders(){
+            this.orderLoading = true
+            this.getOrders(this.orderCode).then((res)=>{
+                this.orders = res.data.data.products
+                this.member = res.data.data.user
+
+                this.totalPoints = this.orders.reduce((prev,curr)=>{
+                    return prev.points + curr.points
+                })
+
+                this.totalPrice = this.orders.reduce((prev,curr)=>{
+                    return prev.price + curr.price
+                })
+
+                this.purchaseId = this.orders[0].product_purchase_id
+
+                this.orderLoading = false
+            })
         },
 
-        getDashboardData(authUser){
-            if(this.regPackage.name == undefined){
-                this.packageLoading = true
-                this.getPackage(authUser.package_id).then(()=>this.packageLoading=false)
-            }
+        approvePurchase(purchaseId){
             
-            this.getBonuses(authUser.uuid)
-
-            if(authUser.package_id == 6){
-                this.profitPoolEligible = true
-            }
-            if(authUser.rank_id >= 5){
-                this.globalProfitEligible = true
-            }
-            if(!this.currentIncentive){
-                this.incLoading = true
-                this.getCurrentIncentive(authUser.uuid).then(()=>this.incLoading=false)
-            }
-            if(this.claims.length == 0){
-                this.incClaimLoading = true
-                this.getClaims(authUser.uuid).then(()=>this.incClaimLoading = false)
-            }
-            
-            if(this.userProductClaims.length == 0){
-                this.prodClaimLoading = true
-                this.getProductClaims({uuid:authUser.uuid, processing:false}).then(res=>{
-                    if( res.status == 200){
-                        this.userProductClaims.forEach(ele=>{
-                            this.totalWorth = this.totalWorth + ele.worth
-                            this.totalPv = this.totalPv + (ele.points * ele.product_qty)
-                            this.productClaimStatus = ele.status
-                        })
-                    }
-                    this.prodClaimLoading = false
-                })
-            }else{
-                this.userProductClaims.forEach(ele=>{
-                    this.totalWorth = this.totalWorth + ele.worth
-                    this.totalPv = this.totalPv + ele.points
-                    this.productClaimStatus = ele.status
-                })
+            if(this.orders.length==0){
+                notification.warning("You cannot proceed without a valid order code")
+                return
             }
 
-            this.countDirectDownlines(this.authUser.uuid).then(res=>{
-                if(res.status == 200){
-                    if(res.data.data >= 2){
-                        this.equilibrumBonusEligible = true
-                    }
-                }
+            let check = this.orders.filter((order)=>order.in_stock==false || order.stock_qty==0)
+
+            //console.log('check',check)
+
+            if(check.length>0){
+                notification.warning("You don't have enough stock to process this order")
+                return
+            }
+
+            this.approvingOrder = true
+            this.vendorApprovePurchase(purchaseId).then(()=>{
+                this.approvingOrder = false
             })
-
-            if(this.uplineDetails.uuid != undefined){
-                this.countDirectDownlines(this.uplineDetails.uuid).then(res=>{
-                    if(res.status == 200){
-                        if(res.data.data >= 2){
-                            this.loyaltyBonusEligible = true
-                        }
-                    }
-                })
-            }else{
-                this.getUplineDetails(this.authUser.uuid).then(res=>{
-                    if(res.status == 200){
-                        this.countDirectDownlines(this.uplineDetails.uuid).then(res1=>{
-                            if(res1.status == 200){
-                                if(res1.data.data >= 2){
-                                    this.loyaltyBonusEligible = true
-                                }
-                            }
-                        })
-                    }
-                })
-            }
-        },
-
-        claimIncentive(){
-            this.form.rank_id = this.authUser.rank_id
-            this.form.incentive_id = this.currentIncentive.id
-            this.create({uuid:this.authUser.uuid, data:this.form}).then(res=>{
-                if(res.status == 200){
-                    this.currentIncentive.claim_status = 'processing';
-                    //this.getCurrentIncentive(this.authUser.uuid)
-                }
-            })
-        },
-
-        productClaim()
-        {
-            //let form = document.getElementById('product-claim-form')
-            let formData = {products:this.cartProducts}
-            this.claimProduct({uuid:this.authUser.uuid,data:formData}).then(res=>{
-                if(res && res.status == 200){
-                    this.userProductClaims.forEach(ele=>{
-                        this.totalWorth = this.totalWorth + ele.worth
-                        this.totalPv = this.totalPv + (ele.points * ele.product_qty)
-                        this.productClaimStatus = ele.status
-                    })
-                    this.cartProducts = []
-                }
-            })
-        },
-
-        myFunction() {
-            /* Get the text field */
-            var copyText = document.getElementById("referrallink");
-
-            /* Select the text field */
-            copyText.select();
-            copyText.setSelectionRange(0, 99999); /*For mobile devices*/
-
-            /* Copy the text inside the text field */
-            document.execCommand("copy");
-
-            /* Alert the copied text */
-            //alert("Copied: " + copyText.value);
-            document.getElementById('button').value='Referral Link Copied';
-        },
-
-        inviteFriend(){
-            this.inviteGuest({uuid:this.authUser.uuid, data:this.inviteForm})
-        },
-
-        cancelOrder(orderId) {
-            // Logic to cancel the order
-            console.log(`Order with ID: ${orderId} is canceled.`);
         }
     }
-
-
 
 }
 </script>

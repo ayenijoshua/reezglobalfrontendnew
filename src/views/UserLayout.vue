@@ -84,7 +84,7 @@
                         </a>
 
                         <!-- Dynamically add 'open' class to keep it expanded when any item is active -->
-                        <ul class="treeview-menu" :class="{ open: isStockistPortalOpen }" style="background-color: #1b4f72">
+                        <ul class="treeview-menu" :class="{  }" style="background-color: #1b4f72">
                             <li :class="['treeview', activeMenu() === 'user-stockistprofile' ? 'active' : '']" 
                                 @click="setMenu('user-stockistprofile')">
                                 <router-link :to="{ name: 'user-stockistprofile' }" style="text-decoration:none;">

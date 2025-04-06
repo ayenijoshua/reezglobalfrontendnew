@@ -14,7 +14,7 @@
                                     <th>Registration Package</th>
                                     <th>Point Value</th>
                                     <th>Registration Amount</th>
-                                    <th>Product Pickup QTY</th>
+                                    <th>Product Pickup Amount</th>
                                     <th>Edit Details</th>
                                 </tr>
                                 <tr v-if="loading && packagesLoading">
@@ -32,18 +32,20 @@
                                             <div class="alert alert-info">There are no packages</div>
                                         </td>
                                     </tr>
-                                    <tr v-else v-for="pack,i in regPackages" :key="i">
-                                        <td>{{ ++i }}</td>
-                                        <td>{{ pack.name }}</td>
-                                        <td>{{ pack.point_value }}PV</td>
-                                        <td>₦ {{ pack.registration_value?.toLocaleString('en-US') }}</td>
-                                        <td>
-                                            3
-                                        </td>
-                                        <td>
-                                            <a @click="setPackage(pack)" v-b-modal.edit-package class="btn btn-sm btn-success text-white caret" href="#"><i class="icon-edit"></i></a>
-                                        </td>
-                                    </tr>
+                                    <template v-else>
+                                        <tr v-for="pack,i in regPackages" :key="i">
+                                            <td>{{ ++i }}</td>
+                                            <td>{{ pack.name }}</td>
+                                            <td>{{ pack.point_value }}PV</td>
+                                            <td>₦ {{ pack.registration_value?.toLocaleString('en-US') }}</td>
+                                            <td>
+                                                {{ pack.pickup_amount?.toLocaleString('en-US') }}
+                                            </td>
+                                            <td>
+                                                <a @click="setPackage(pack)" v-b-modal.edit-package class="btn btn-sm btn-success text-white caret" href="#"><i class="icon-edit"></i></a>
+                                            </td>
+                                        </tr>
+                                    </template>
                                 </template>
                             </table>
                         </div>

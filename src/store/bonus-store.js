@@ -29,7 +29,8 @@ export default{
             countGlobalProfitBonus:null,
 
             companyWalletBalance:null,
-            totalCompanyWallet:null
+            totalCompanyWallet:null,
+            bonusStats : {}
         }
     },
     actions:{

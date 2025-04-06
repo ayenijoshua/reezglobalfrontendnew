@@ -18,4 +18,8 @@ export default  {
     packages: `${apiVersion}/packages`,
     products: `${apiVersion}/products`,
     withdrawals: `${apiVersion}/withdrawals`,
+    productPurchases: `${apiVersion}/product-purchases`,
+    stockists: `${apiVersion}/stockists`,
+    stockistPackage: `${apiVersion}/stockist-packages`,
+    banks: `${apiVersion}/banks`
 };

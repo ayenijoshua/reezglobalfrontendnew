@@ -34,7 +34,8 @@
                                             <div class="alert alert-info">There are no incentives</div>
                                         </td>
                                     </tr>
-                                    <tr v-else v-for="ince,i in incentives" :key="i">
+                                    <template v-else>
+                                        <tr v-for="ince,i in incentives" :key="i">
                                         <td>{{ ++i }}</td>
                                         <td>{{ ince.name }}</td>
                                         <td>{{ ince.points?.toLocaleString('en-US') }}</td>
@@ -47,6 +48,8 @@
                                             <a @click="setIncentive(ince)" class="btn btn-sm btn-success text-white caret" v-b-modal.edit-incentive href="#"><i class="icon-edit"></i></a>
                                         </td>
                                     </tr>
+                                    </template>
+                                    
                                 </template>
                             </table>
                         </div>

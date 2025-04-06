@@ -48,7 +48,7 @@
 
                 <div class="card shadow1 mt-5" style="background-color: transparent !important;">
                     <div class="card-body p-4">
-                        <form>
+                        <form @submit.prevent="storeBank">
                             <div class="text-center">
                                 <h6 class="mt-1 s-8 font-weight-bold text-green">   OFFICIAL COMPANY ACCOUNT DETAILS</h6><br>
                             </div>
@@ -60,12 +60,11 @@
                                                 <i class="icon icon-bank float-left s-20 text-white"></i>
                                             </div>
                                         </div>
-                                        <select id="bank-select"  class="form-control r-1 light s-5" style="background-color:transparent; ; border: 2px solid #2E671A;">
-                                            <option class="s-12" style="background-color: #ecf0f1;">Select Bank</option>
-                                            <option class="s-12" style="background-color: #ecf0f1;">Zenith Bank Plc</option>
-                                            <option class="s-12" style="background-color: #ecf0f1;">Stanbic Bank</option>
-                                            <option class="s-12" style="background-color: #ecf0f1;">United Bank Of Africa</option>
-                                                                        
+                                        <select v-model="bankForm.bank_name" id="bank-select"  class="form-control r-1 light s-5" style="background-color:transparent; ; border: 2px solid #2E671A;">
+                                            <option  :value="null">Select Bank</option>
+                                            <template v-for="bank,i in bankList">
+                                                <option :value="bank.bank" :key="i">{{ bank.bank }}</option>
+                                            </template>                 
                                         </select>	
                                     </div>  
                                 </div> 
@@ -76,7 +75,7 @@
                                                 <i class="icon icon-bank float-left s-20 text-white"></i>
                                             </div>
                                         </div>
-                                        <input required type="text" class="form-control r-0 light s-12" placeholder="Account Name" style="border:1px solid #2E671A !important">
+                                        <input required v-model="bankForm.bank_account_name" type="text" class="form-control r-0 light s-12" placeholder="Account Name" style="border:1px solid #2E671A !important">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -86,14 +85,15 @@
                                                 <i class="icon icon-bank float-left s-20 text-white"></i>
                                             </div>
                                         </div>
-                                        <input required type="text" class="form-control r-0 light s-12" placeholder="Account Number" style="border:1px solid #2E671A !important">
+                                        <input required v-model="bankForm.bank_account_number" type="text" class="form-control r-0 light s-12" placeholder="Account Number" style="border:1px solid #2E671A !important">
                                     </div>
                                 </div>     
                             </div>
 
                             <div class="row justify-content-center">
                                 <div class="col-md-6">
-                                    <button type="submit" class="btn btn-sm btn-success btn-block mt-3">
+                                    <span v-if="submittingBank==true" class="btn btn-sm btn-success btn-block mt-3">...</span>
+                                    <button v-else type="submit" class="btn btn-sm btn-success btn-block mt-3">
                                         <i class="icon-save mr-2"></i>Save Account
                                     </button>
                                 </div>
@@ -109,15 +109,7 @@
                 <div class="card shadow mb-3" style="background-color: transparent">
                     <div class="card-body ">
                         <div class="d-flex justify-content-left mb-2">
-                            <input 
-                                
-                                class="form-control mr-2" 
-                                type="text" 
-                                placeholder="Search..." 
-                                style="width: 250px; background-color: transparent; border: 2px solid #2E671A !important;"/>
-                            <button class="btn text-white" style="background-Color:#2E671A" >
-                                <i class="icon-search"></i>
-                            </button>
+                            
                         </div>
                         <div class="table-responsive">
                             <table id="example2" class="table table-bordered table-hover data-tables" >
@@ -131,73 +123,67 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <th scope="row">1</th>
-                                        <td>Guaranty Trust Bank</td>
-                                        <!-- <td>{{ claim.worth?.toLocaleString('en-US')}}</td> -->
-                                        <td>Star Twins Herbal Limited</td>
-                                        <td>0013476690</td>
-                                        <td><button type="button" class="btn-small btn-danger rounded">
-                                            <i class="icon-times mr-2"></i>Delete Product</button>  
+                                    <tr v-if="banksLoading==true">
+                                        <td colspan="5">
+                                            <b-skeleton-table
+                                                :rows="3"
+                                                :columns="6"
+                                                :table-props="{ bordered: true, striped: true }"
+                                            ></b-skeleton-table>
                                         </td>
                                     </tr>
-                                    <tr>
-                                        <th scope="row">1</th>
-                                        <td>Jaiz Bank</td>
-                                        <!-- <td>{{ claim.worth?.toLocaleString('en-US')}}</td> -->
-                                        <td>Star Twins Herbal Limited</td>
-                                        <td>2017714690</td>
-                                        <td><button type="button" class="btn-small btn-danger rounded">
-                                            <i class="icon-times mr-2"></i>Delete Product</button>  
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">1</th>
-                                        <td>United Bank Of Africa</td>
-                                        <!-- <td>{{ claim.worth?.toLocaleString('en-US')}}</td> -->
-                                        <td>Star Twins Herbal Limited</td>
-                                        <td>1113470690</td>
-                                        <td><button type="button" class="btn-small btn-danger rounded">
-                                            <i class="icon-times mr-2"></i>Delete Product</button>  
-                                        </td>
-                                    </tr>
-                                    
+                                    <template v-else>
+                                        <tr v-if="banks.lenght==0">
+                                            <td colspan="5">
+                                                <div class="alert alert-info">There no banks</div>
+                                            </td>
+                                        </tr>
+                                        <tr v-for="bank,i in banks" :key=i>
+                                            <th scope="row">{{ ++i }}</th>
+                                            <td>{{ bank.bank_name }}</td>
+                                            <td>{{ bank.bank_account_name }}</td>
+                                            <td>{{ bank.bank_account_number }}</td>
+                                            <td>
+                                                <span @click="setBank(bank)" v-b-modal.edit-bank type="button" class="btn-small btn-info rounded mr-3">
+                                                    <i class="icon-pen mr-2"></i>Edit</span> 
+                                                <span  @click="setBank(bank)" v-b-modal.delete-bank type="button" class="btn-small btn-danger rounded">
+                                                <i class="icon-times mr-2"></i>Delete</span>  
+                                            </td>
+                                        </tr>
+                                    </template>
                                 </tbody>
-                            </table><br>
-                            <div class="container">
-                                <ul class="pagination">
-                                    <li>
-                                    <a href="#">Prev</a>
-                                    </li>
-                                    <li class="active">
-                                    <a href="#">1</a>
-                                    </li>
-                                    <li >
-                                    <a href="#">2</a>
-                                    </li>
-                                    <li>
-                                    <a href="#">3</a>
-                                    </li>
-                                    <li>
-                                    <a href="#">4</a>
-                                    </li>
-                                    <li>
-                                    <a href="#">5</a>
-                                    </li>
-                                    <li>
-                                    <a href="#">Next</a>
-                                    </li>
-                                </ul>
-                            </div>
-                            
+                            </table>
                         </div>
-
                     </div>
                 </div>
             </div>				
-        </div>  
+        </div> 
 
+        <Modal modal-id="edit-bank" modal-title="Edit bank" modal-size="md">
+            <template v-if="bank==null">
+                <b-skeleton-table
+                    :rows="3"
+                    :columns="8"
+                    :table-props="{ bordered: true, striped: true }"
+                ></b-skeleton-table>
+            </template>
+            <EditBank v-else :bank="bank" @updated="getBanks"/>
+        </Modal>
 
+        <Modal modal-id="delete-bank" modal-title="Delete bank" modal-size="md">
+            <template v-if="bank==null">
+                <b-skeleton-table
+                    :rows="3"
+                    :columns="8"
+                    :table-props="{ bordered: true, striped: true }"
+                ></b-skeleton-table>
+            </template>
+            <p class="alert alert-danger">Are sure to delete this bank</p>
+            <span type="button" v-if="deletingBank==true" class="btn-small btn-danger rounded">...</span>
+            <button  v-else type="button" @click="destroyBank(bank.id)" class="btn-small btn-danger rounded">
+                <i class="icon-times mr-2"></i>Yes Delete
+            </button>
+        </Modal>
     </div>
 </template>
 <style>
@@ -239,9 +225,16 @@ color: #ecf0f1;
 
 <script>
 import { mapActions, mapGetters, mapState } from 'vuex';
+import EditBank from '@/components/admin/EditBank.vue';
+import Modal from '@/components/Modal.vue';
 
     export default{
         name:"company-details",
+
+        components:{
+            EditBank,
+            Modal
+        },
 
         data(){
             return{
@@ -249,7 +242,20 @@ import { mapActions, mapGetters, mapState } from 'vuex';
                     company_address:null,
                     company_email:null,
                     company_phone:null
-                }
+                },
+
+                bankList:[],
+                banksLoading:false,
+                //fetchingBanks:false,
+
+                bankForm:{
+                    bank_name:null,
+                    bank_account_name:null,
+                    bank_account_number:null
+                },
+                submittingBank:false,
+                bank:null,
+                deletingBank:false
             }
         },
 
@@ -259,7 +265,9 @@ import { mapActions, mapGetters, mapState } from 'vuex';
                 submitting:state=>state.submitting
             }),
 
-            ...mapGetters('settingStore',['settings'])
+            ...mapGetters('settingStore',['settings']),
+            ...mapGetters('bankStore',['banks'])
+           
         },
 
         created(){
@@ -276,14 +284,42 @@ import { mapActions, mapGetters, mapState } from 'vuex';
                 this.form.company_email = this.settings.company_email
                 this.form.company_phone = this.settings.company_phone
             }
+
+            this.fetchBanks().then((res) => {
+                this.bankList = res.data
+            })
+
+            if(this.banks.length == 0){
+                this.banksLoading = true
+                this.getBanks().then(()=>this.banksLoading=false)
+            }
+
         },
 
         methods:{
             ...mapActions('settingStore',['all','update']),
+            ...mapActions('paymentStore',['fetchBanks']),
+            ...mapActions('bankStore',['getBanks','createBank','updateBank','deleteBank']),
 
             submit(){
                 this.update(this.form)
+            },
+
+            storeBank(){
+                this.submittingBank = true
+                this.createBank(this.bankForm).then(()=>{this.submittingBank = false; this.getBanks();})
+            },
+
+            setBank(bank){
+                this.bank = bank
+            },
+
+            destroyBank(id){
+                this.deletingBank = true
+                this.deleteBank(id).then(() => { this.deletingBank = false;  this.getBanks(); this.$bvModal.hide('delete-bank');})
             }
+
+
         }
 
     }

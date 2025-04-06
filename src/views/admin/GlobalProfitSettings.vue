@@ -1,8 +1,37 @@
 <template>
     <div>
         <div class="animated">
-            <div class="d-flex justify-content-center mt-5 pb-4"> 
-                <div class="col-md-7 col-sm-12"> 
+            <div class="d-flex justify-content-center mt-5 pb-4">
+                <div class="col-md-6"> 
+                    <div class="card shadow1" style="background-color:transparent">
+                        <div class="card-body" style="overflow-x:auto;background-color:transparent">
+                        <form @submit.prevent="updateGlobalProfitAmount()">
+                            <div class="card no-b  no-r" style="background-color:transparent">
+                                <div class="card-body no-gutters" style="background-color:transparent">
+                                    <div class="text-center mb-3"><img  src="/assets/img/investors.png" width="80px"  height="80px">
+                                    <h5 class="s-36 font-weight-bold mt-2 text-green">{{ globalProfitAmount.global_profit_value }}</h5>
+                                    <h6 class="mt-1 s-8 font-weight-bold">Global Profit Amount<br><small> Edit Amount</small></h6></div>
+                                    <div class="form-row mb-3">
+                                        <div class="col-md-12">
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text"><i class="icon icon-money-3 float-left s-20 text-white " ></i></div>
+                                                </div>
+                                                <input v-model="globalProfitAmount.global_profit_value" type="" class="form-control r-0 light s-12" placeholder="Global profit amount" style="background-color: #ecf0f1; border: 1px solid #2E671A" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-row ml-1">
+                                        <span class="btn btn-sm btn-success btn-lg" v-if="submitting && globalProfitAmountSubmitting">...</span>
+                                        <button v-else type="submit" class="btn btn-sm btn-success btn-lg"><i class="icon-save mr-2"></i>Update Data</button>
+                                    </div>
+                                </div>	
+                            </div>
+                        </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6"> 
                     <div class="card shadow1" style="background-color:transparent">
                         <div class="card-body" style="overflow-x:auto;background-color:transparent">
                         <form @submit.prevent="updateFirstPercentage()">
@@ -121,10 +150,15 @@ import { mapActions, mapGetters, mapState } from 'vuex';
                     next_global_profit_share_month:null
                 },
 
+                globalProfitAmount:{
+                    global_profit_value:null
+                },
+
                 firstPercSubmitting:false,
                 secondPercSubmitting:false,
                 shareMonthSubmitting:false,
-                shareDaySubmitting:false
+                shareDaySubmitting:false,
+                globalProfitAmountSubmitting:false,
             }
         },
 
@@ -208,6 +242,20 @@ import { mapActions, mapGetters, mapState } from 'vuex';
 
             isNumeric(n){
                 return !isNaN(parseFloat(n)) && isFinite(n)
+            },
+
+            updateGlobalProfitAmount(){
+                if(!this.isNumeric(this.globalProfitAmount.global_profit_value)){
+                    notification.warning("Please enter a valid number")
+                    return
+                }
+                this.globalProfitAmountSubmitting = true
+                this.update(this.globalProfitAmount).then(res=>{
+                    if(res.status == 200){
+                        this.all()
+                    }
+                    this.globalProfitAmountSubmitting = false
+                })
             }
         }
     }

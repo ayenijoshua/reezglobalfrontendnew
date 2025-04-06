@@ -471,51 +471,35 @@ export default {
             LogError(commit,error,'loaded')
         }
     },
-
-
-
-    // async getStates({commit},country){
-    //     try {
-    //         commit('loading',null,{root:true})
-    //         const res = await api.states(country)
-            
-    //         commit('loaded',null,{root:true})
-    //         return res
-    //     } catch (error) {
-    //         LogError(commit,error,'loaded')
-    //     }
-    // },
-
-    // async getCountries({commit}){
-    //     try {
-    //         commit('loading',null,{root:true})
-    //         const res = await api.countries()
-            
-    //         commit('loaded',null,{root:true})
-    //         return res
-    //     } catch (error) {
-    //         LogError(commit,error,'loaded')
-    //     }
-    // },
-
-    // async getIdentityTypes({commit},country_code){
-    //     try {
-    //         commit('loading',null,{root:true})
-    //         const res = await api.identityTypes(country_code)
-            
-    //         commit('loaded',null,{root:true})
-    //         return res
-    //     } catch (error) {
-    //         LogError(commit,error,'loaded')
-    //     }
-    // },
-
-    //-------------identity------------//
-
     
+    async fetchUpgradeData({commit},packageId){
+        try {
+            commit('loading',null,{root:true})
+            const res = await api.upgradeData(packageId)
+            if(res.status == 200){
+                commit('sumPaidUsers',res.data.data)
+            }
+            
+            commit('loaded',null,{root:true})
+            return res
+        } catch (error) {
+            LogError(commit,error,'loaded')
+        }
+    },
 
-
-
-    
+    async getUpgradedUsers({commit}){
+        try {
+            commit('loading',null,{root:true})
+            const res = await api.upgradedUsers()
+            if(res.status == 200){
+                commit('upgradedUsers',res.data.data.data)
+            }
+            
+            commit('loaded',null,{root:true})
+            return res
+        } catch (error) {
+            LogError(commit,error,'loaded')
+        }
+    }
 
 }

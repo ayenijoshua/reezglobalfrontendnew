@@ -22,6 +22,10 @@ export default {
         state.totalUsers = Number(data)
     },
 
+    upgradedUsers(state,data){
+        state.upgradedUsers = data
+    },
+
     totalActiveUsers(state,data){
         state.totalActiveUsers = Number(data)
     },

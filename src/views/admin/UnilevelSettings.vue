@@ -1,267 +1,199 @@
-    <template>
-        <div>
-            <div class="animated">
-                <div class="row my-3 justify-content-center">
-    <div class="col-md-7">
-        <div class="card shadow1 mt-5" style="background-color: transparent !important;">
-            <div class="card-body p-4">
-                <form>
-                    <div class="text-center">
-                        <h6 class="mt-1 s-8 font-weight-bold text-green">UNILEVEL PERCENTAGE SETTING</h6><br>
-                    </div>
-                    <div class="row justify-content-center"> 
-                        <div class="col-md-6">
-                            <div class="input-group mt-3 mb-3">
-                                <div class="input-group-prepend">
-                                    <div class="input-group-text" style="background-color: #2E671A; border:1px solid #2E671A !important">
-                                        <i class="icon icon-add_shopping_cart float-left s-20 text-white"></i>
-                                    </div>
-                                </div>
-                                <input required type="number" class="form-control r-0 light s-12" placeholder="1st generation" style="background-color: #ecf0f1; border:1px solid #2E671A !important">
-                            </div>
+<template>
+    <div>
+        <div class="animated">				
+            <div class="row my-3">
+                <div class="col-md-12">
+                    <div class="card shadow1">
+                        <div class="card-header" style="background-color:#2E671A" >
+                            <h6 class="text-white"><strong class="font-weight-bold">UNILEVEL BONUS EARNING LEVEL</strong></h6>
                         </div>
-                        <div class="col-md-6">
-                            <div class="input-group mt-3 mb-3">
-                                <div class="input-group-prepend">
-                                    <div class="input-group-text" style="background-color: #2E671A; border:1px solid #2E671A !important">
-                                        <i class="icon icon-add_shopping_cart float-left s-20 text-white"></i>
-                                    </div>
-                                </div>
-                                <input required type="number" class="form-control r-0 light s-12" placeholder="2nd generation" style="background-color: #ecf0f1; border:1px solid #2E671A !important">
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="input-group mt-3 mb-3">
-                                <div class="input-group-prepend">
-                                    <div class="input-group-text" style="background-color: #2E671A; border:1px solid #2E671A !important">
-                                        <i class="icon icon-add_shopping_cart float-left s-20 text-white"></i>
-                                    </div>
-                                </div>
-                                <input required type="number" class="form-control r-0 light s-12" placeholder="3rd generation" style="background-color: #ecf0f1; border:1px solid #2E671A !important">
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="input-group mt-3 mb-3">
-                                <div class="input-group-prepend">
-                                    <div class="input-group-text" style="background-color: #2E671A; border:1px solid #2E671A !important">
-                                        <i class="icon icon-add_shopping_cart float-left s-20 text-white"></i>
-                                    </div>
-                                </div>
-                                <input required type="number" class="form-control r-0 light s-12" placeholder="4th generation" style="background-color: #ecf0f1; border:1px solid #2E671A !important">
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="input-group mt-3 mb-3">
-                                <div class="input-group-prepend">
-                                    <div class="input-group-text" style="background-color: #2E671A; border:1px solid #2E671A !important">
-                                        <i class="icon icon-add_shopping_cart float-left s-20 text-white"></i>
-                                    </div>
-                                </div>
-                                <input required type="number" class="form-control r-0 light s-12" placeholder="5th generation" style="background-color: #ecf0f1; border:1px solid #2E671A !important">
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="input-group mt-3 mb-3">
-                                <div class="input-group-prepend">
-                                    <div class="input-group-text" style="background-color: #2E671A; border:1px solid #2E671A !important">
-                                        <i class="icon icon-add_shopping_cart float-left s-20 text-white"></i>
-                                    </div>
-                                </div>
-                                <input required type="number" class="form-control r-0 light s-12" placeholder="6th generation" style="background-color: #ecf0f1; border:1px solid #2E671A !important">
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="input-group mt-3 mb-3">
-                                <div class="input-group-prepend">
-                                    <div class="input-group-text" style="background-color: #2E671A; border:1px solid #2E671A !important">
-                                        <i class="icon icon-add_shopping_cart float-left s-20 text-white"></i>
-                                    </div>
-                                </div>
-                                <input required type="number" class="form-control r-0 light s-12" placeholder="7th generation" style="background-color: #ecf0f1; border:1px solid #2E671A !important">
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="input-group mt-3 mb-3">
-                                <div class="input-group-prepend">
-                                    <div class="input-group-text" style="background-color: #2E671A; border:1px solid #2E671A !important">
-                                        <i class="icon icon-add_shopping_cart float-left s-20 text-white"></i>
-                                    </div>
-                                </div>
-                                <input required type="number" class="form-control r-0 light s-12" placeholder="8th generation" style="background-color: #ecf0f1; border:1px solid #2E671A !important">
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="input-group mt-3 mb-3">
-                                <div class="input-group-prepend">
-                                    <div class="input-group-text" style="background-color: #2E671A; border:1px solid #2E671A !important">
-                                        <i class="icon icon-add_shopping_cart float-left s-20 text-white"></i>
-                                    </div>
-                                </div>
-                                <input required type="number" class="form-control r-0 light s-12" placeholder="9th generation" style="background-color: #ecf0f1; border:1px solid #2E671A !important">
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="input-group mt-3 mb-3">
-                                <div class="input-group-prepend">
-                                    <div class="input-group-text" style="background-color: #2E671A; border:1px solid #2E671A !important">
-                                        <i class="icon icon-add_shopping_cart float-left s-20 text-white"></i>
-                                    </div>
-                                </div>
-                                <input required type="number" class="form-control r-0 light s-12" placeholder="10th generation" style="background-color: #ecf0f1; border:1px solid #2E671A !important">
-                            </div>
+                        <div class="card-body" style="overflow-x:auto;">
+                            <table class="table table-bordered table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>S/N</th>
+                                        <th>Registration Package</th>
+                                        <th>1st Generation</th>
+                                        <th>2nd Generation</th>
+                                        <th>3rd Generation</th>
+                                        <th>4th Generation</th>
+                                        <th>5th Generation</th>
+                                        <th>6th Generation</th>
+                                        <th>7th Generation</th>
+                                        <th>8th Generation</th>
+                                        <th>9th Generation</th>
+                                        <th>10th Generation</th>
+                                        <th>Edit Details</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr v-if="loading && requestLoading">
+                                        <td colspan="13">
+                                            <b-skeleton-table
+                                                :rows="3"
+                                                :columns="13"
+                                                :table-props="{ bordered: true, striped: true }"
+                                            ></b-skeleton-table>
+                                        </td>
+                                    </tr>
+                                    <template v-else>
+                                        <tr v-if="unilevelBonusSetting.length == 0">
+                                            <td colspan="13">
+                                                <div class="alert alert-info">There are no Unilevel bonus settings</div>
+                                            </td>
+                                        </tr>
+                                        <template v-else>
+                                            <tr v-for="(refBo, i) in unilevelBonusSetting" :key="i">
+                                                <td>{{ ++i }}</td>
+                                                <td>{{ refBo.name }}</td>
+                                                <td><span v-if="refBo.generation_1_percentage === 0">-</span>
+                                                    <span v-else>{{ refBo.generation_1_percentage }} %</span>
+                                                </td>
+                                                <td><span v-if="refBo.generation_2_percentage === 0">-</span>
+                                                    <span v-else>{{ refBo.generation_2_percentage }} %</span>
+                                                </td>
+                                                <td><span v-if="refBo.generation_3_percentage === 0">-</span>
+                                                    <span v-else>{{ refBo.generation_3_percentage }} %</span>
+                                                </td>
+                                                <td><span v-if="refBo.generation_4_percentage === 0">-</span>
+                                                    <span v-else>{{ refBo.generation_4_percentage }} %</span>
+                                                </td>
+                                                <td><span v-if="refBo.generation_5_percentage === 0">-</span>
+                                                    <span v-else>{{ refBo.generation_5_percentage }} %</span>
+                                                </td>
+                                                <td><span v-if="refBo.generation_6_percentage === 0">-</span>
+                                                    <span v-else>{{ refBo.generation_6_percentage }} %</span>
+                                                </td>
+                                                <td><span v-if="refBo.generation_7_percentage === 0">-</span>
+                                                    <span v-else>{{ refBo.generation_7_percentage }} %</span>
+                                                </td>
+                                                <td><span v-if="refBo.generation_8_percentage === 0">-</span>
+                                                    <span v-else>{{ refBo.generation_8_percentage }} %</span>
+                                                </td>
+                                                <td><span v-if="refBo.generation_9_percentage === 0">-</span>
+                                                    <span v-else>{{ refBo.generation_9_percentage }} %</span>
+                                                </td>
+                                                <td><span v-if="refBo.generation_10_percentage === 0">-</span>
+                                                    <span v-else>{{ refBo.generation_10_percentage }} %</span>
+                                                </td>
+                                                <td>
+                                                    <a @click="setSetting(refBo)" v-b-modal.edit-settings class="btn btn-sm btn-success text-white caret" href="#">
+                                                        <i class="icon-edit"></i>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        </template>
+                                    </template>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
-
-                    <div class="row justify-content-center">
-                        <div class="col-md-6">
-                            <button type="submit" class="btn btn-sm btn-success btn-block mt-3">
-                                <i class="icon-save mr-2"></i>Save Settings
-                            </button>
-                        </div>
-                    </div>
-                </form>
+                </div>
             </div>
+            <br>
+
+            <!--<div class="row my-3">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header" style="background-color: #2E671A;">
+                            <h6 class="text-white"><strong class="font-weight-bold">UPGRADE PRODUCTS PICK-UP</strong></h6>
+                        </div>
+                        <div class="card-body" style="overflow-x:auto;">
+                            <table class="table table-hover table-bordered">
+                                <tr>
+                                    <th>S/N</th>
+                                    <th>Package Range</th>
+                                    <th>Upgrade Amount</th>
+                                    <th>Upgrade Product Pickup QTY</th>
+                                </tr>
+                                <tr >
+                                    <td>1</td>
+                                    <td>starter - Booster</td>
+                                    <td>₦ 10,000</td>
+                                    <td><input class="form-control" type="number" min="1"  style="background-color: transparent; border: 2px solid #2E671A;"></td>
+                                </tr>
+                                <tr >
+                                    <td>2</td>
+                                    <td>Booster - Member</td>
+                                    <td>₦ 21,000</td>
+                                    <td><input class="form-control" type="number" min="1"  style="background-color: transparent; border: 2px solid #2E671A;"></td>
+                                </tr>
+                                <tr >
+                                    <td>3</td>
+                                    <td>Member - Leader</td>
+                                    <td>₦ 37,000</td>
+                                    <td><input class="form-control" type="number" min="1"  style="background-color: transparent; border: 2px solid #2E671A;"></td>
+                                </tr>
+                                
+                            </table>
+                        </div>
+                    </div>
+                </div
+            </div>-->
         </div>
+        <Modal modal-id="edit-settings" modal-title="Upgrade Bonus Settings" modal-size="md">
+            <template v-if="setting == null">
+                <b-skeleton-table
+                    :rows="3"
+                    :columns="13"
+                    :table-props="{ bordered: true, striped: true }"
+                ></b-skeleton-table>
+            </template>
+            <EditUnilevelBonusSetting v-else :setting="setting" @updated="edited()"/>
+        </Modal>
     </div>
-</div>
-
-            
-            </div>
-            <Modal modal-id="edit-package" modal-title="Edit Package" modal-size="md">
-                <template v-if="currPackage==null">
-                    <b-skeleton-table
-                        :rows="3"
-                        :columns="8"
-                        :table-props="{ bordered: true, striped: true }"
-                    ></b-skeleton-table>
-                </template>
-                <EditPackage v-else :currPackage="currPackage" @updated="edited()"/>
-            </Modal>
-        </div>
-    </template>
-
-<style scoped>
-.table th,
-.table td {
-    padding: 0.75rem;
-    vertical-align: top;
-    border-top: 1px solid #2E671A;
-    border-bottom: 1px solid #2E671A;
-}
-
-/* Hide default checkbox */
-.custom-checkbox {
-  appearance: none;
-  -webkit-appearance: none;
-  width: 20px;
-  height: 20px;
-  border: 2px solid #2E671A;
-  border-radius: 4px;
-  background-color: #ecf0f1;
-  cursor: pointer;
-}
-
-/* Checkbox checked state */
-.custom-checkbox:checked {
-  background-color: #ecf0f1;
-  border-color: #2E671A;
-}
-
-/* Inner tick mark for checked checkbox */
-.custom-checkbox:checked::after {
-  content: "✔";
-  display: block;
-  color: #2E671A;
-  font-size: 14px;
-  text-align: center;
-  line-height: 20px;
-}
-
-.border-left-green {
-    border-left: 1px solid #2E671A !important;
-}
-
-.container {
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.container .pagination {
-  position: relative;
-  height: 50px;
-  background: rgba(255, 255, 255, 0.05);
-  box-shadow: 5px 5px 30px rgba(0, 0, 0, 0.3);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  backdrop-filter: blur(3px);
-  border-radius: 2px;
-}
-.container .pagination li {
-  list-style-type: none;
-  display: inline-block;
-}
-.container .pagination li a {
-  position: relative;
-  padding: 10px 15px;
-  text-decoration: none;
-  color: #2E671A;
-  font-weight: 500;
-}
-.container .pagination li a:hover,
-.container .pagination li.active a {
-  background: rgba(255, 255, 255, 0.2);
-}
-
-</style>
+</template>
 
 <script>
-    import { mapActions, mapGetters, mapState } from 'vuex';
-    import Modal from '@/components/Modal.vue';
-    import EditPackage from '@/components/admin/EditPackage.vue';
+import Modal from '@/components/Modal.vue';
+import {mapGetters, mapState, mapActions } from 'vuex';
+import EditUnilevelBonusSetting from '@/components/admin/EditUnilevelBonusSetting.vue';
 
-    export default{
-        name:"admin-packages",
+export default {
+    name: "unilevel-bonus-settings",
 
-        components:{
-            Modal,
-            EditPackage
-        },
+    components: {
+        Modal,
+        EditUnilevelBonusSetting
+    },
 
-        data(){
-            return {
-                currPackage:null,
-                packagesLoading:false
-            }
-        },
+    data() {
+        return {
+            setting: null,
+            requestLoading: false,
+        };
 
-        computed:{
-            ...mapState({
-                loading:state=>state.loading
-            }),
+        
+    },
 
-            ...mapGetters('packageStore',['regPackages'])
-        },
+    computed: {
+        ...mapState({
+            loading: state => state.loading
+        }),
+        ...mapGetters('settingStore', ['unilevelBonusSetting'])
+    },
 
-        created(){
-            if(this.regPackages.length == 0){
-                this.packagesLoading = true
-                this.all().then(()=>this.packagesLoading = false)
-            }
-        },
-
-        methods:{
-            ...mapActions('packageStore',['all','update']),
-
-            setPackage(pack){
-                this.currPackage = pack
-            },
-
-            edited(){
-                this.all()
-            }
+    created() {
+        if (this.unilevelBonusSetting.length == 0) {
+            this.requestLoading = true;
+            this.getUnilevelBonusSetting().then(() =>{
+                this.requestLoading = false
+                //this.unilevelBonusSetting = res.data.data
+            } );
         }
+    },
 
+    methods: {
+        ...mapActions('settingStore', ['getUnilevelBonusSetting']),
+
+        setSetting(setting) {
+            this.setting = setting;
+        },
+
+        edited() {
+            this.requestLoading = true;
+            this.getUnilevelBonusSetting().then(() => (this.requestLoading = false));
+        }
     }
+};
 </script>

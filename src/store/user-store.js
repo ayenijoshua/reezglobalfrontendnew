@@ -22,6 +22,7 @@ export default{
             paidUsers:[],
             totalPaidUsers:null,
             sumPaidUsers:null,
+            upgradedUsers:[],
 
             userAction:null,
             userState:null,

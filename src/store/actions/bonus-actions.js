@@ -282,6 +282,22 @@ export default {
         }
     },
 
+    async getBonusStats({commit}){
+        try {
+            commit('loading',null,{root:true})
+            const res = await api.bonusStats()
+            if(res && res.status==200){
+                commit('bonusStats',res.data.data)
+            }else{
+                toastr.warning(res.data.message)
+            }
+            commit('loaded',null,{root:true})
+            return res
+        } catch (error) {
+            LogError(commit,error,'loaded')
+        }
+    },
+
 
 
 

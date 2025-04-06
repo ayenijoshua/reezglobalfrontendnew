@@ -18,16 +18,16 @@
                                                 <th class="font-weight-bold text-white" scope="col">POINT VALUE</th>
                                                 <!-- <th scope="col">Worth</th> -->
                                                 <th class="font-weight-bold text-white" scope="col">QUANTITY</th>
-                                                <th class="font-weight-bold text-white" scope="col">SELECT</th>
+                                                <!--<th class="font-weight-bold text-white" scope="col">SELECT</th>-->
                                                 <!-- <th scope="col">Select</th> -->
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <tr v-if="loading && prodLoading">
-                                                <td colspan="4">
+                                                <td colspan="6">
                                                     <b-skeleton-table
                                                         :rows="3"
-                                                        :columns="4"
+                                                        :columns="6"
                                                         :table-props="{ bordered: true, striped: true }"
                                                     ></b-skeleton-table>
                                                 </td>
@@ -43,14 +43,14 @@
                                                             <img src="/assets/img/demo/products/product3.png"  height="70px" width="auto" alt="">
                                                         </td>
                                                         <td>{{ produc.name }}</td>
-                                                        <td>₦ 12,700</td>
+                                                        <td>₦ {{ produc.worth.toLocaleString("en-US") }}</td>
                                                         <td>{{ produc.points }}</td>
                                                         <td>
                                                             <div class="">
-                                                                <input :key="i" @change="(e)=>logClaim(e,produc.id,produc.points)" class="form-control" type="number" min="1"  style="background-color: transparent; border: 2px solid #2E671A;">
+                                                                <input :key="i" @change="(e)=>addToCart(e,produc)" class="form-control" type="number" min="1"  style="background-color: transparent; border: 2px solid #2E671A;">
                                                             </div>
                                                         </td>
-                                                        <td> <div class="form-check"><input class="form-check-input custom-checkbox" type="checkbox" value="" id="cb1" ></div></td>
+                                                        <!--<td> <div class="form-check"><input class="form-check-input custom-checkbox" type="checkbox" value="" id="cb1" ></div></td>-->
                                                     </tr>
                                                 </template>
                                             </template>    
@@ -65,28 +65,21 @@
                     <div class="card  mb-3 shadow" style="background-color: transparent">
                         <div class="float-left">
                             <div class="card-body">
-                                <template v-if="prodClaimLoading">
-                                    <b-skeleton-table
-                                        :rows="3"
-                                        :columns="3"
-                                        :table-props="{ bordered: true, striped: true }"
-                                    ></b-skeleton-table>
+                                <template v-if="cartProducts.length==0">
+                                    <p class="alert alert-info">
+                                        There are no items in your cart
+                                    </p>
                                 </template>
                                 <template v-else>
-                                    <div v-if="userProductClaims.length == 0">
-                                        <p class="alert alert-info">
-                                            There are no claimed products
-                                        </p>
-                                    </div>
-                                    <div v-else v-for="userClaim,i in userProductClaims" :key="i" class="row column-row p-2" style="border-bottom: 1px solid #2E671A !important;">
+                                    <div v-for="prod,i in cartProducts" :key="i" class="row column-row p-2" style="border-bottom: 1px solid #2E671A !important;">
                                         <div class="mt-2 ml-3" style="padding-right:15px">
                                             <img src="/assets/img/demo/products/product3.png" width="80px" height="80px">
                                         </div>  
                                         <div class="mb-2 mt-4 ">
-                                            <h6 class="font-weight-bold text-green s-14" style="margin: 0em; padding: 0em;">{{ userClaim.name }} <br><small class="font-weight-bold"> {{userClaim.points}}PV | Qty:{{ userClaim.product_qty }}</small></h6>	
+                                            <h6 class="font-weight-bold text-green s-14" style="margin: 0em; padding: 0em;">{{ prod.product.name }} <br><small class="font-weight-bold"> {{prod.product.points}}PV | Qty:{{ prod.qty }}</small></h6>	
                                         </div>	
                                         <div class="mb-2 mt-4 ml-auto mr-2">
-                                            <span class="font-weight-bold float-right text-green">₦12,700</span>
+                                            <span class="font-weight-bold float-right text-green">₦{{ prod.product.worth }}</span>
                                         </div>
                                     </div>
 
@@ -96,7 +89,7 @@
                                             <h6 class="font-weight-bold text-green s-12" style="margin: 0em; padding: 0em;">Total Point Value </h6>											
                                         </div>	
                                         <div class="mb-2 mt-2 ml-auto mr-3">
-                                            <h6 class="font-weight-bold text-green s-12" style="margin: 0em; padding: 0em;">{{ totalPv?.toFixed(2) }} PV</h6>											
+                                            <h6 class="font-weight-bold text-green s-12" style="margin: 0em; padding: 0em;">{{ cartTotalPoints?.toFixed(2) }} PV</h6>											
                                         </div>
                                     </div> 	
                                     <div class="row column-row" style="background-Color:#2E671A !important;">
@@ -104,7 +97,7 @@
                                             <h6 class="font-weight-bold text-white s-12" style="margin: 0em; padding: 0em;">Total Price </h6>											
                                         </div>	
                                         <div class="mb-2 mt-2 ml-auto mr-3">
-                                            <h6 class="font-weight-bold text-white s-12" style="margin: 0em; padding: 0em;">₦ 12,700</h6>											
+                                            <h6 class="font-weight-bold text-white s-12" style="margin: 0em; padding: 0em;">₦ {{ cartTotalPrice.toLocaleString("en-US") }}</h6>											
                                         </div>
                                     </div>
                                      <!-- Cancel Order Button -->
@@ -143,9 +136,10 @@
                                     <div class="input-group-prepend">
                                         <div class="input-group-text" style="background-color: #2E671A; border: 2px solid #2E671A;"><i class="icon icon-payment float-left s-20 text-white" ></i></div>
                                     </div>
-                                    <select required v-model="selectedOrderType" class="form-control r-0 light s-12" style="background-color: transparent; border: 2px solid #1b4f72;">
-                                        <option >Pay Offline & Upload POP</option>	
-                                        <option >Pay Via Payment Gateway</option>													   
+                                    <select required v-model="selectedPaymentType" class="form-control r-0 light s-12" style="background-color: transparent; border: 2px solid #1b4f72;">
+                                        <option value="">Select Payment type</option>
+                                        <option value="offline">Pay Offline</option>	
+                                        <!-- <option value="online">Pay Via Payment Gateway</option>													    -->
                                     </select>
                                 </div>
                             </div>
@@ -154,23 +148,24 @@
                 </div>
             </div>
     
-           <div v-if="selectedOrderType === 'Pay Offline & Upload POP'" class="row"> 
-                <div class="col-md-12">
+           <div v-if="selectedPaymentType === 'offline'" class="row"> 
+               <!--- <div class="col-md-12">
                     <div class="row">
                         <div class="col-md-4">
                             <div class="card shadow rounded" style="background-color: #2E671A">
                                 <div class="card-body">
                                     <div class="d-flex justify-content-center">
-                                        <div class="text-center">  <img  src="/assets/img/bank-transfer.png" width="auto" height="100px"></div>
-                                            <div class="card-body text-center">
-                                                <span  id="d1" class="text-white" style="font-size:10px">Bank Name</span>
-                                                <h5 class="font-weight-bold text-white"> Guaranty Trust Bank</h5>
-                                                <span  id="d1" class="text-white" style="font-size:10px">Account Name</span>
-                                                <h5 class="font-weight-bold text-white" id="d1">Star Twins Herbal Limited</h5>
-                                                <span  id="d1" class="text-white" style="font-size:10px">Account Number</span>
-                                                <h5 class="font-weight-bold text-white" id="d1">0013476690</h5>
-                                            </div>
-
+                                        <div class="text-center">  
+                                            <img src="/assets/img/bank-transfer.png" width="auto" height="100px">
+                                        </div>
+                                        <div class="card-body text-center">
+                                            <span  id="d1" class="text-white" style="font-size:10px">Bank Name</span>
+                                            <h5 class="font-weight-bold text-white"> Guaranty Trust Bank</h5>
+                                            <span  id="d1" class="text-white" style="font-size:10px">Account Name</span>
+                                            <h5 class="font-weight-bold text-white" id="d1">Star Twins Herbal Limited</h5>
+                                            <span  id="d1" class="text-white" style="font-size:10px">Account Number</span>
+                                            <h5 class="font-weight-bold text-white" id="d1">0013476690</h5>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -198,65 +193,58 @@
                                 <div class="card-body">
                                     <div class="d-flex justify-content-center">
                                         <div class="text-center">  <img  src="/assets/img/bank-transfer.png" width="auto" height="100px"></div>
-                                            <div class="card-body text-center">
-                                                <span  id="d1" class="text-white" style="font-size:10px">Bank Name</span>
-                                                <h5 class="font-weight-bold text-white"> United Bank Of Africa</h5>
-                                                <span  id="d1" class="text-white" style="font-size:10px">Account Name</span>
-                                                <h5 class="font-weight-bold text-white" id="d1">Star Twins Herbal Limited</h5>
-                                                <span  id="d1" class="text-white" style="font-size:10px">Account Number</span>
-                                                <h5 class="font-weight-bold text-white" id="d1">1113470690</h5>
-                                            </div>
-
+                                        <div class="card-body text-center">
+                                            <span  id="d1" class="text-white" style="font-size:10px">Bank Name</span>
+                                            <h5 class="font-weight-bold text-white"> United Bank Of Africa</h5>
+                                            <span  id="d1" class="text-white" style="font-size:10px">Account Name</span>
+                                            <h5 class="font-weight-bold text-white" id="d1">Star Twins Herbal Limited</h5>
+                                            <span  id="d1" class="text-white" style="font-size:10px">Account Number</span>
+                                            <h5 class="font-weight-bold text-white" id="d1">1113470690</h5>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>   
+                </div>  --> 
 
                 <div class="col-md-12 mt-5">
                     <div class="card shadow" style="background-color: transparent">
                         <div class="card-body" >
-                                <form id="profile-form">
-                                    <div class="card no-b no-r" style="background-color: transparent">
-                                        <div class="card-body">
-                                            <div class="form-row">
-                                                <div class="col-md-12">
-                                                    <div class="form-row mb-2">
-                                                        <div class="form-group col-12 m-0">
-                                                            <div class="form-group m-0">
-                                                                <div class="dropbox" style="background-color: #ecf0f1; border: 2px solid #2E671A;">
-                                                                    <input v-b-popover.hover.top="'Drag your photo here or click to browse'" type="file" id="profile-img" title="profile photo" name="image"  class="form-control form-control-line input-file" style="background-color: #ecf0f1; border: 2px solid #2E671A;">
-                                                                    <p id="img-preview" >
-                                                                        Drag your photo here<br> or click to browse<br>
-                                                                        <span style="font-size: 10px;">Image size should not exceed 500kB</span>
-                                                                    </p>
-                                                                    
-                                                                </div>
-                                                                
-                                                                <!-- <input type="file" name="image" title="profile photo" class="form-control r-0 light s-12" placeholder="Profile photo"> -->
+                            <form id="stock-purchase-form" @submit.prevent="stockistPurchase">
+                                <!---<div class="card no-b no-r" style="background-color: transparent">
+                                    <div class="card-body">
+                                        <div class="form-row">
+                                            <div class="col-md-12">
+                                                <div class="form-row mb-2">
+                                                    <div class="form-group col-12 m-0">
+                                                        <div class="form-group m-0">
+                                                            <div class="dropbox" style="background-color: #ecf0f1; border: 2px solid #2E671A;">
+                                                                <input v-b-popover.hover.top="'Drag payment receipt here or click to browse'" type="file" title="payment receipt" name="payment_receipt"  class="form-control form-control-line input-file" style="background-color: #ecf0f1; border: 2px solid #2E671A;">
+                                                                <p id="img-preview">
+                                                                    Drag your photo here<br> or click to browse<br>
+                                                                    <span style="font-size: 10px;">Image size should not exceed 500kB</span>
+                                                                </p>
                                                             </div>
-                                                            
                                                         </div>
                                                     </div>
-                                                    
                                                 </div>
                                             </div>
-                                        </div>	
-                                    </div>
-                                </form>
-                            
+                                        </div>
+                                    </div>	
+                                </div>-->
+                                <div class="m-3">								
+                                    <button  type="submit" class="btn btn-sm btn-success mr-3 "><i class="icon-shopping-cart mr-2"></i>Submit Order</button>
+                                    <span class="btn btn-sm btn-danger "><i class="icon-cancel mr-2"></i>Cancel Order</span>                   
+                                </div> 
+                            </form>
                         </div>
                     </div>
-                    <div class="m-3">	
-                    <!---<span  class="btn btn-sm btn-success">...</span>-->								
-                        <button  type="submit" class="btn btn-sm btn-success mr-3 "><i class="icon-shopping-cart mr-2"></i>Submit Order</button>
-                        <button  type="submit" class="btn btn-sm btn-danger "><i class="icon-cancel mr-2"></i>Cancel Order</button>                   
-                </div> 
+                    
                 </div>
             </div>
 
-            <div v-if="selectedOrderType === 'Pay Via Payment Gateway'" class="row mb-2 mt-2">
+            <div v-if="selectedPaymentType === 'online'" class="row mb-2 mt-2">
                 <div class="col-md-12">
                     <div class="d-flex flex-wrap justify-content-center mt-2">
                         <div class="col-md-6 col-sm-12"> 
@@ -265,7 +253,10 @@
                                     <div class="text-center mt-5 mb-5" style="padding-bottom:10px; padding-top: 20px">
                                         <img  src="/assets/img/pay_options1.png" width="300px">
                                         <h6 class="font-weight-bold text-white" >Proceed To Payment<br><small>Kindly complete your  Product Purchase by clicking the button Below</small></h6>
-                                        <a class="btn btn-sm btn-custom mb-3 mt-2 btn-lg"><i class="icon icon-credit-card"></i>Pay Now</a>
+                                        <template v-if="paySubmitting">
+                                            <a class="btn btn-sm btn-custom mb-3 mt-2 btn-lg"><i class="icon icon-credit-card"></i>...Processing</a>
+                                        </template>
+                                        <a v-else class="btn btn-sm btn-custom mb-3 mt-2 btn-lg" @click="makePayment"><i class="icon icon-credit-card"></i>Pay Now</a>
                                     </div>
                                 </div>	   
                             </div>
@@ -273,8 +264,29 @@
                     </div> 
                 </div> 
             </div>          
-          
         </div>
+
+        <modal modalId="pay"  modalTitle="Make Payment" modalSize="md" :link="payLink">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <div class="timer flex-wrap d-flex justify-content-center"  style="padding-top: 30px;">
+                        <p class="text-center font-weight-bold">Please, Ensure you complete your transaction within 2 minutes.</p>
+                        <VueCountdown :time="((gatewayTimeout))">
+                            <template slot-scope="props">
+                                <div style="width: 200px !important; padding-right:20px; padding-left:20px; padding-top:20px; padding-bottom:20px;" id="minutes" class="align-items-center flex-column d-flex justify-content-center">{{ props.minutes }}&nbsp;&nbsp;MINUTES</div>
+                                <div style="width: 200px !important; padding-right:20px; padding-left:20px; padding-top:20px; padding-bottom:20px;" id="seconds" class="align-items-center flex-column d-flex justify-content-center">{{ props.seconds }}&nbsp;&nbsp;SECONDS</div>
+                            </template>
+                        </VueCountdown>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-10 offset-md-1">
+                    <iframe id='ifr' frameborder="0" :src="payLink" scrolling="no" width="400" height="500"></iframe>
+                </div>
+            </div>
+        </modal>
+
     </div>
 </template>
 
@@ -363,51 +375,39 @@
 
 <script>
 import {mapActions,mapGetters,mapState} from 'vuex'
+import modal from '@/components/Modal.vue'
+import VueCountdown from '@chenfengyuan/vue-countdown';
+import { notification } from '@/util/notification';
 export default{
     name:"user-repurchase",
 
+    components:{
+        modal,
+        VueCountdown
+    },
+
     data(){
         return {
-            profitPoolEligible:false,
-            globalProfitEligible:false,
-            equilibrumBonusEligible:false,
-            loyaltyBonusEligible:false,
             product_ids:[],
             cartProducts:[],
             totalWorth:0,
             totalPv:0,
-            productClaimStatus:'Unclaimed',
-            guestEmail:null,
-            cartPoints:{},
-            cartTotalPoints:0,
-
-            selectedOrderType: "", // Tracks the selected value
-
-            form:{
-                rank_id:null,
-                incentive_id:null
-            }, 
             
-            inviteForm:{
-                email:null,
-                referrer:null
-            },
+            cartPoints:{},
+            cartPrices:{},
+            cartQtys:{},
 
-            prodClaimLoading:false,
+            cartTotalPoints:0,
+            cartTotalPrice:0,
+            cartTotalQty:0,
+
             prodLoading:false,
-            incClaimLoading:false,
-            incLoading:false,
+            paySubmitting:false,
+            payLink:null,
 
-            welcomeBonusLoading:false,
-            loyaltyBonusLoading:false,
-            equilibrumBonusLoading:false,
-            referralBonusLoading:false,
-            totalBonusLoading:false,
-            profitPoolLoading:false,
-            walletBalanceLoading:false,
-            globalProfitLoading:false,
-            packageLoading:false,
-            totalPVLoading:false
+            selectedPaymentTypes:["offline","online"],
+            selectedPaymentType:"",
+            gatewayTimeout:1000*60*0.5
         }
     },
 
@@ -421,251 +421,163 @@ export default{
             return process.env.VUE_APP_IMAGE_PATH
         },
 
-        referrerLink(){
-            return this.inviteForm.referrer 
-            ? 'https://app.delishcare.com/register'+'?ref='+this.inviteForm.referrer +'&placer='+this.authUser.username
-            : 'https://app.delishcare.com/register'+'?ref='+this.authUser.username
-        },
-        
-        ...mapGetters('bonusStore',['welcomeBonus',
-        'equilibrumBonus','loyaltyBonus','referralBonus','placementBonus',
-        'profitPool','globalProfit','totalBonus','walletBalance']),
-
-        ...mapGetters('packageStore',['regPackage']),
         ...mapGetters('authStore',['authUser']),
-        ...mapGetters('userStore',['totalPV','uplineDetails','directDownlines']),
         ...mapGetters('settingStore',['settings']),
-        ...mapGetters('incentiveClaimStore',['claims','currentIncentive']),
         ...mapGetters('productStore',['products']),
-        ...mapGetters('productClaimStore',['userProductClaims']),
-        ...mapGetters('rankStore',['currentRankBadge']),
+        ...mapGetters('stockistStore',['stockist']),
     },
 
     created(){
         if(this.authUser.uuid == undefined){
-            this.getUser().then(res=>{
-                this.getCurrentRankBadge(res.data.rank_id)
-                this.getDashboardData(res.data)
+            this.getUser().then(()=>{
+                
             })
-        }else{
-            this.getCurrentRankBadge(this.authUser.rank_id)
-            this.getDashboardData(this.authUser)
         }
 
-        if(this.currentRankBadge==null){
-            this.getCurrentRankBadge(this.authUser.rank_id)
-        }
-
-        if(this.settings.id == undefined){
-            this.all();
-            //this.getSetting('unit_point_value');
+        if(this.stockist.id == undefined){
+            if(this.authUser.uuid == undefined){
+                this.getUser().then((res)=>{
+                    this.stockistLoading = true
+                    this.fetchStockistByUuid(res.data.uuid).then(()=>{
+                        this.stockistLoading=false
+                        this.form = Object.assign({},this.stockist) 
+                    })
+                })
+            }else{
+                this.stockistLoading = true
+                this.fetchStockistByUuid(this.authUser.uuid).then(()=>{
+                    this.stockistLoading=false
+                    this.form = Object.assign({},this.stockist)
+                })
+            }
         }
         
         if(this.products.length == 0){
             this.prodLoading = true
             this.getActiveProducts().then(()=>this.prodLoading = false)
         }
-        
-        
+    
     },
 
     methods:{
-        logClaim(e,id,points){
-            let data = {qty:e.target.value,id:id}
-            //qty = e.target.value
-            let pv = data.qty * points
-            this.cartPoints = {...this.cartPoints,[data.id]:pv}
+
+        addToCart(e,product){
+            let data = {qty:e.target.value,id:product.id,price:product.worth,product:product}
+
+            let pv = data.qty * product.points
+            let amt = data.qty * product.worth;
+            let qty = Number(data.qty);
+
+            this.cartPoints = { ...this.cartPoints, [data.id]: pv };
+            this.cartPrices = { ...this.cartPrices, [data.id]: amt };
+            this.cartQty = {...this.cartQty, [data.id]:qty};
+
             let pvs = Object.values(this.cartPoints)
             let sum = pvs.reduce((res,val)=>res+val)
             this.cartTotalPoints = sum
-           let index = this.cartProducts.findIndex(ele=>ele.id == id)
-           if(index !== -1){
-            this.cartProducts[index].qty = data.qty
-           }else{
-            this.cartProducts.push(data)
-           }
-            
-            //console.log(this.cartProducts)
+
+            let prices = Object.values(this.cartPrices)
+            let sumPrice = prices.reduce((res,val)=>res+val)
+            this.cartTotalPrice = sumPrice
+
+            let qtys = Object.values(this.cartQty)
+            let sumQty = qtys.reduce((res,val)=>res+val)
+            this.cartTotalQty = sumQty
+
+            let index = this.cartProducts.findIndex(ele=>ele.id == product.id)
+            if(index !== -1){
+                this.cartProducts[index].qty = data.qty
+            }else{
+                this.cartProducts.push(data)
+            }
         },
-        ...mapActions('bonusStore',['getWelcomeBonus',
-        'getEquilibrumBonus','getLoyaltyBonus','getReferralBonus',
-        'getProfitPool','getGlobalProfit','getPlacementBonus','getTotalBonus','getWalletBalance']),
-        ...mapActions('packageStore',['getPackage']),
+    
         ...mapActions('authStore',['getUser']),
-        ...mapActions('userStore',['getTotalPVs','inviteGuest','getUplineDetails','countDirectDownlines']),
         ...mapActions('settingStore',['getSetting','all']),
-        ...mapActions('incentiveClaimStore',['getClaims','getCurrentIncentive','create']),
         ...mapActions('productStore',['getActiveProducts']),
-        ...mapActions('productClaimStore',['claimProduct','getProductClaims']),
-        ...mapActions('rankStore',['getCurrentRankBadge']),
-        
-        getBonuses(uuid){
-            if(this.welcomeBonus==null){
-                this.welcomeBonusLoading = true
-                this.getWelcomeBonus(uuid).then(()=>this.welcomeBonusLoading = false)
+        ...mapActions('productPurchaseStore',['pushStockistPurchase']),
+        ...mapActions('paymentStore',['initiate','verify','initiatePayment']),
+        ...mapActions('stockistStore',['fetchStockistByUuid']),
+
+        stockistPurchase(){
+            //let ele = document.getElementById("stock-purchase-form")
+            //let form  = new FormData(ele)
+            // form.append("products",this.cartProducts)
+            // form.append("total_price",this.cartTotalPrice)
+            // form.append("total_quantity",this.cartTotalQty)
+            // form.append("total_points",this.cartTotalPoints)
+
+            let form = {
+                products:this.cartProducts,
+                total_price:this.cartTotalPrice,
+                total_quantity:this.cartTotalQty,
+                total_points:this.cartTotalPoints,
+                pickup_type:'purchase'
             }
-            if(this.equilibrumBonus==null){
-                this.equilibrumBonusLoading = true
-                this.getEquilibrumBonus(uuid).then(()=>this.equilibrumBonusLoading = false)
-            }
-            if(this.loyaltyBonus==null){
-                this.loyaltyBonusLoading = true
-                this.getLoyaltyBonus(uuid).then(()=>this.loyaltyBonusLoading = false)
-            }
-            if(this.referralBonus==null){
-                this.referralBonusLoading = true
-                this.getReferralBonus(uuid).then(()=>this.referralBonusLoading = false)
-            }
-            if(this.placementBonus==null){
-                this.getPlacementBonus(uuid)
-            }
-            if(this.totalBonus==null){
-                this.totalBonusLoading = true
-                this.getTotalBonus(uuid).then(()=>this.totalBonusLoading = false)
-            }
-            if(this.totalPV==null){
-                this.totalPVLoading = true
-                this.getTotalPVs(uuid).then(()=>this.totalPVLoading=false)
-            }
-            if(this.profitPool==null){
-                this.profitPoolLoading = true
-                this.getProfitPool(uuid).then(()=>this.profitPoolLoading = false)
-            }
-            if(this.globalProfit==null){
-                this.globalProfitLoading = true
-                this.getGlobalProfit(uuid).then(()=>this.globalProfitLoading = false)
-            }
-            if(this.walletBalance==null){
-                this.walletBalanceLoading = true
-                this.getWalletBalance(uuid).then(()=>this.walletBalanceLoading = false)
-            }
+
+            this.pushStockistPurchase({uuid:this.authUser.uuid,data:form})
         },
 
-        getDashboardData(authUser){
-            if(this.regPackage.name == undefined){
-                this.packageLoading = true
-                this.getPackage(authUser.package_id).then(()=>this.packageLoading=false)
-            }
-            
-            this.getBonuses(authUser.uuid)
-
-            if(authUser.package_id == 6){
-                this.profitPoolEligible = true
-            }
-            if(authUser.rank_id >= 5){
-                this.globalProfitEligible = true
-            }
-            if(!this.currentIncentive){
-                this.incLoading = true
-                this.getCurrentIncentive(authUser.uuid).then(()=>this.incLoading=false)
-            }
-            if(this.claims.length == 0){
-                this.incClaimLoading = true
-                this.getClaims(authUser.uuid).then(()=>this.incClaimLoading = false)
-            }
-            
-            if(this.userProductClaims.length == 0){
-                this.prodClaimLoading = true
-                this.getProductClaims({uuid:authUser.uuid, processing:false}).then(res=>{
-                    if( res.status == 200){
-                        this.userProductClaims.forEach(ele=>{
-                            this.totalWorth = this.totalWorth + ele.worth
-                            this.totalPv = this.totalPv + (ele.points * ele.product_qty)
-                            this.productClaimStatus = ele.status
-                        })
-                    }
-                    this.prodClaimLoading = false
-                })
-            }else{
-                this.userProductClaims.forEach(ele=>{
-                    this.totalWorth = this.totalWorth + ele.worth
-                    this.totalPv = this.totalPv + ele.points
-                    this.productClaimStatus = ele.status
-                })
+        makePayment(){
+            if(this.cartProducts.length == 0){
+                notification.warning("There are no Items in your cart")
+                return
             }
 
-            this.countDirectDownlines(this.authUser.uuid).then(res=>{
-                if(res.status == 200){
-                    if(res.data.data >= 2){
-                        this.equilibrumBonusEligible = true
-                    }
+            this.paySubmitting = true
+            let data = {amount:this.cartTotalPrice,
+                description:"Stock purhcase",
+                txn_source:"stockist_product_purchase",
+                is_upgrade:0,
+                stockist_id:this.stockist.id,
+                total_price:this.cartTotalPrice,
+                total_quantity:this.cartTotalQty,
+                total_points:this.cartTotalPoints,
+                products:this.cartProducts
                 }
-            })
 
-            if(this.uplineDetails.uuid != undefined){
-                this.countDirectDownlines(this.uplineDetails.uuid).then(res=>{
-                    if(res.status == 200){
-                        if(res.data.data >= 2){
-                            this.loyaltyBonusEligible = true
-                        }
-                    }
-                })
-            }else{
-                this.getUplineDetails(this.authUser.uuid).then(res=>{
-                    if(res.status == 200){
-                        this.countDirectDownlines(this.uplineDetails.uuid).then(res1=>{
-                            if(res1.status == 200){
-                                if(res1.data.data >= 2){
-                                    this.loyaltyBonusEligible = true
+            this.initiatePay(data)
+        },
+
+
+        initiatePay(data){
+            var that = this
+            this.initiatePayment(data).then(res=>{
+                console.log(res)
+                var result = res
+                if(res.status == 200){
+                    //if(that.productService.name == 'paystack'){
+                        that.payLink = res.data.data.data.authorization_url
+                        that.$bvModal.show('pay')
+                        
+                        setTimeout(() => {
+                            that.verify({reference:result.data.data.data.reference}).then(resp=>{
+                                if(resp.status == 200 && (resp.data.success == true || resp.data.success == 'true')){
+                                    //vm.$router.push({name:'user-dashboard'})
+                                    notification.success("Payment Verified successfully")
+                                    that.$bvModal.hide('pay')
+                                    this.paySubmitting = false
+                                }else{
+                                    notification.info("Unable to verify payment")
+                                    that.$bvModal.hide('pay')
+                                    this.paySubmitting = false
                                 }
-                            }
-                        })
-                    }
-                })
-            }
-        },
-
-        claimIncentive(){
-            this.form.rank_id = this.authUser.rank_id
-            this.form.incentive_id = this.currentIncentive.id
-            this.create({uuid:this.authUser.uuid, data:this.form}).then(res=>{
-                if(res.status == 200){
-                    this.currentIncentive.claim_status = 'processing';
-                    //this.getCurrentIncentive(this.authUser.uuid)
+                            }).catch(function(err) {
+                                console.log("Some specific work failed", err);
+                                that.$bvModal.hide('pay')
+                                this.paySubmitting = false
+                            });
+                        }, this.gatewayTimeout);
+                    //}
                 }
-            })
+                this.paySubmitting = false
+            }).catch(function(err) {
+                console.log("Error initating payment", err);
+                that.$bvModal.hide('pay')
+                this.paySubmitting = false
+            });
         },
-
-        productClaim()
-        {
-            //let form = document.getElementById('product-claim-form')
-            let formData = {products:this.cartProducts}
-            this.claimProduct({uuid:this.authUser.uuid,data:formData}).then(res=>{
-                if(res && res.status == 200){
-                    this.userProductClaims.forEach(ele=>{
-                        this.totalWorth = this.totalWorth + ele.worth
-                        this.totalPv = this.totalPv + (ele.points * ele.product_qty)
-                        this.productClaimStatus = ele.status
-                    })
-                    this.cartProducts = []
-                }
-            })
-        },
-
-        myFunction() {
-            /* Get the text field */
-            var copyText = document.getElementById("referrallink");
-
-            /* Select the text field */
-            copyText.select();
-            copyText.setSelectionRange(0, 99999); /*For mobile devices*/
-
-            /* Copy the text inside the text field */
-            document.execCommand("copy");
-
-            /* Alert the copied text */
-            //alert("Copied: " + copyText.value);
-            document.getElementById('button').value='Referral Link Copied';
-        },
-
-        inviteFriend(){
-            this.inviteGuest({uuid:this.authUser.uuid, data:this.inviteForm})
-        },
-
-        cancelOrder(orderId) {
-            // Logic to cancel the order
-            console.log(`Order with ID: ${orderId} is canceled.`);
-        }
+       
     }
 
 

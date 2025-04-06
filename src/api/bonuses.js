@@ -69,6 +69,10 @@ export default {
 
     totalCompanyWallet(){
         return http().get(`${endPoints.bonuses}/total-company-wallet`);
+    },
+
+    bonusStats(){
+        return http().get(`${endPoints.bonuses}/bonus-stats`);
     }
 
     

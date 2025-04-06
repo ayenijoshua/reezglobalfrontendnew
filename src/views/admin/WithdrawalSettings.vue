@@ -165,7 +165,7 @@
                 <div class="col-md-6 col-sm-12"> 
                     <div class="card no-b shadow 1" style="background-color: transparent;">
                         <div class="card-body">
-                            <div class="text-center mb-3"><img  src="/assets/img/calendar.png" width="80px"  height="80px">
+                            <div class="text-center mb-3"><img src="/assets/img/calendar.png" width="80px"  height="80px">
                                 <p class="text-blue s-12 font-weight-bold">Automated Payment is Set Currently on</p>
                                 <h5 class="font-weight-bold text-green">Weekly Automated Payout Settings</h5>
                             </div>
@@ -184,9 +184,10 @@
                                     <div class="input-group-prepend">
                                         <div class="input-group-text" style="background-color: #2E671A; border: 2px solid #2E671A;"><i class="icon icon-date_range float-left s-20 text-white" ></i></div>
                                     </div>
-                                    <select required v-model="selectedOrderType" class="form-control r-0 light s-12" style="background-color: transparent; border: 2px solid #1b4f72;">
-                                        <option >Weekly Automated Payout</option>
-                                        <option >Monthly Automated Payout</option>														   
+                                    <select required v-model="form.withdrawal_type" class="form-control r-0 light s-12" style="background-color: transparent; border: 2px solid #1b4f72;">
+                                        <option value="">Select withdrawal type</option>
+                                        <option value="weekly">Weekly Automated Payout</option>
+                                        <option value="monthly">Monthly Automated Payout</option>														   
                                     </select>
                                 </div>
                             </div>
@@ -195,9 +196,7 @@
                 </div>
             </div> 
 
-
-
-            <div  v-if="selectedOrderType === 'Weekly Automated Payout'"  class="d-flex justify-content-center mt-5 mb-5"> <!-- Centering wrapper added -->
+            <div  v-if="form.withdrawal_type === 'weekly'"  class="d-flex justify-content-center mt-5 mb-5"> <!-- Centering wrapper added -->
                 <div class="col-md-6 col-sm-12"> 
                     <div class="card shadow1" style="background-color:transparent">
                         <div class="card-body" style="overflow-x:auto;">
@@ -205,29 +204,30 @@
                                 <div class="card-body no-gutters">
                                     <div class="text-center mb-3"><img  src="/assets/img/calendar.png" width="80px"  height="80px">
                                     <h6 class="mt-1 s-8 font-weight-bold">Weekly Automated Payout Settings</h6></div>
-                                    <form >
+                                    
                                         <div class="form-row mb-3">
                                             <div class="col-md-12 mb-2">
                                                 <div class="input-group">
                                                     <div class="input-group-prepend">
                                                         <div class="input-group-text"><i class="icon icon-date_range float-left s-20 text-white" ></i></div>
                                                     </div>
-                                                    <select class="form-control r-0 light s-12"  style="background-color:#ecf0f1; border: 1px solid #2E671A">                                                       
-                                                        <option>Select Day of the week</option>
-                                                        <option >Monday</option>
-                                                        <option>Tuesday</option>
-                                                        <option>Wednesday</option>
-                                                        <option>Thursday</option>
-                                                        <option>Friday</option>                                
+                                                    <select v-model="form.withdrawal_period" class="form-control r-0 light s-12"  style="background-color:#ecf0f1; border: 1px solid #2E671A">                                                       
+                                                        <option value="">Select Day of the week</option>
+                                                        <option value="1">Sunday</option>
+                                                        <option value="2">Monday</option>
+                                                        <option value="3">Tuesday</option>
+                                                        <option value="4">Wednesday</option>
+                                                        <option value="5">Thursday</option>
+                                                        <option value="6">Friday</option>
+                                                        <option value="7">Saturday</option>                                
                                                     </select>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="form-row ml-1">
-                                            <span v-if="submitting && withdrawalChargeSubmitting" class="btn btn-sm btn-success btn-lg">...</span>
-                                            <button v-else type="submit" class="btn btn-sm btn-success btn-lg"><i class="icon-save mr-2"></i>Update Data</button>
+                                            <span v-if="withdrawalTypeSubmitting" class="btn btn-sm btn-success btn-lg">...</span>
+                                            <button v-else type="submit" class="btn btn-sm btn-success btn-lg" @click="updateWithdrawalType"><i class="icon-save mr-2"></i>Update Data</button>
                                         </div>
-                                    </form>   
                                 </div>	
                             </div>
                         </div>
@@ -235,7 +235,7 @@
                 </div>
             </div> 
 
-            <div v-if="selectedOrderType === 'Monthly Automated Payout'" class="d-flex justify-content-center mt-5 mb-5"> <!-- Centering wrapper added -->
+            <div v-if="form.withdrawal_type === 'monthly'" class="d-flex justify-content-center mt-5 mb-5"> <!-- Centering wrapper added -->
                 <div class="col-md-6 col-sm-12"> 
                     <div class="card shadow1" style="background-color:transparent">
                         <div class="card-body" style="overflow-x:auto;">
@@ -243,35 +243,53 @@
                                 <div class="card-body no-gutters">
                                     <div class="text-center mb-3"><img  src="/assets/img/calendar.png" width="80px"  height="80px">
                                     <h6 class="mt-1 s-8 font-weight-bold">Monthly Automated Payout Settings</h6></div>
-                                    <form >
+                                    
                                         <div class="form-row mb-3">
                                             <div class="col-md-12 mb-2">
                                                 <div class="input-group">
                                                     <div class="input-group-prepend">
                                                         <div class="input-group-text"><i class="icon icon-date_range float-left s-20 text-white" ></i></div>
                                                     </div>
-                                                    <select class="form-control r-0 light s-12"  style="background-color:#ecf0f1; border: 1px solid #2E671A">                                                       
-                                                        <option>Select Day of the Month</option>
-                                                        <option >20th</option>
-                                                        <option>21st</option>
-                                                        <option>22nd</option>
-                                                        <option>23rd</option>
-                                                        <option>24th</option>
-                                                        <option>25th</option> 
-                                                        <option>26th</option> 
-                                                        <option>27th</option>
-                                                        <option>28th</option>
-                                                        <option>29th</option>
-                                                        <option>30th</option>                              
+                                                    <select v-model="form.withdrawal_period" class="form-control r-0 light s-12"  style="background-color:#ecf0f1; border: 1px solid #2E671A">                                                       
+                                                        <option value="">Select Day of the Month</option>
+                                                        <option value="1">1st</option>
+                                                        <option value="2">2nd</option>
+                                                        <option value="3">3rd</option>
+                                                        <option value="4">4th</option>
+                                                        <option value="5">5th</option>
+                                                        <option value="6">6th</option>
+                                                        <option value="7">7th</option>
+                                                        <option value="8">8th</option>
+                                                        <option value="9">9th</option>
+                                                        <option value="10">10th</option>
+                                                        <option value="11">11th</option>
+                                                        <option value="12">12th</option>
+                                                        <option value="13">13th</option>
+                                                        <option value="14">14th</option>
+                                                        <option value="15">15th</option>
+                                                        <option value="16">16th</option>
+                                                        <option value="17">17th</option>
+                                                        <option value="18">18th</option>
+                                                        <option value="19">19th</option>
+                                                        <option value="20">20th</option>
+                                                        <option value="21">21st</option>
+                                                        <option value="22">22nd</option>
+                                                        <option value="23">23rd</option>
+                                                        <option value="24">24th</option>
+                                                        <option value="25">25th</option> 
+                                                        <option value="26">26th</option> 
+                                                        <option value="27">27th</option>
+                                                        <option value="28">28th</option>
+                                                        <option value="29">29th</option>
+                                                        <option value="30">30th</option>                              
                                                     </select>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="form-row ml-1">
-                                            <span v-if="submitting && withdrawalChargeSubmitting" class="btn btn-sm btn-success btn-lg">...</span>
-                                            <button v-else type="submit" class="btn btn-sm btn-success btn-lg"><i class="icon-save mr-2"></i>Update Data</button>
-                                        </div>
-                                    </form>   
+                                            <span v-if="withdrawalPeriodSubmitting" class="btn btn-sm btn-success btn-lg">...</span>
+                                            <button v-else type="submit" class="btn btn-sm btn-success btn-lg" @click="updateWithdrawalType"><i class="icon-save mr-2"></i>Update Data</button>
+                                        </div> 
                                 </div>	
                             </div>
                         </div>
@@ -329,7 +347,7 @@ import { notification } from '@/util/notification';
 
         data(){
             return{
-                selectedOrderType: "", // Tracks the selected value
+                selectedWithdrawalType:"", // Tracks the selected value
 
                 unitPV:{
                     unit_point_value:null,
@@ -350,8 +368,15 @@ import { notification } from '@/util/notification';
                     withdrawal_charge_type:null,
                     charge:null,
                     withdrawal_charge_cap:null
-                }
+                },
 
+                form:{
+                    withdrawal_type:"",
+                    withdrawal_period:""
+                },
+
+                withdrawalTypeSubmitting:false,
+                banks:[]
             }
         },
 
@@ -376,6 +401,9 @@ import { notification } from '@/util/notification';
                         this.maxWithdrawal.maximum_withdrawal = this.settings.maximum_withdrawal
                         this.withdrawalCharge.charge = this.settings.charge
                         this.withdrawalCharge.withdrawal_charge_type = this.settings.withdrawal_charge_type
+                        this.form.withdrawal_type = this.settings.withdrawal_type;
+                        this.form.withdrawal_period = this.settings.withdrawal_period;
+                        this.selectedWithdrawalType = this.form.withdrawal_type
                     }
                 })
             }else{
@@ -384,6 +412,9 @@ import { notification } from '@/util/notification';
                 this.maxWithdrawal.maximum_withdrawal = this.settings.maximum_withdrawal
                 this.withdrawalCharge.charge = this.settings.charge
                 this.withdrawalCharge.withdrawal_charge_type = this.settings.withdrawal_charge_type
+                this.form.withdrawal_type = this.settings.withdrawal_type;
+                this.form.withdrawal_period = this.settings.withdrawal_period;
+                this.selectedWithdrawalType = this.form.withdrawal_type
             }
 
             this.getWalletBalance().then(res=>{
@@ -391,11 +422,12 @@ import { notification } from '@/util/notification';
                 this.availableBalance = this.walletBalance.available_balance
                 ]
             })
+
         },
 
         methods:{
             ...mapActions('settingStore',['all','update']),
-            ...mapActions('paymentStore',['getWalletBalance']),
+            ...mapActions('paymentStore',['getWalletBalance','fetchBanks']),
 
             updateUnitPV(){
                 if(!this.isNumeric(this.unitPV.unit_point_value)){
@@ -456,6 +488,11 @@ import { notification } from '@/util/notification';
 
             isNumeric(n){
                 return !isNaN(parseFloat(n)) && isFinite(n)
+            },
+
+            updateWithdrawalType(){
+                this.withdrawalTypeSubmitting = true
+                this.update(this.form).then(()=>this.withdrawalTypeSubmitting = false)
             }
             
         }

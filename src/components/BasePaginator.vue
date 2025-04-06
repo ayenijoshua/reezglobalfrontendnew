@@ -1,6 +1,6 @@
 <template>
 
-    <div class="flex justify-center">
+    <div class="container">
       <ul class="pagination">
           <!-- <li v-if="(current_page-1 > 0)" class="page-item">
               <a class="page-link" rel="first" @click="firstPage">first</a>

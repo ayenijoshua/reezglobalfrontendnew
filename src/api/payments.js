@@ -7,6 +7,10 @@ export default {
         return http().post(`${endPoints.payments}/initiate`,data)
     },
 
+    initiatePayment(data){
+        return http().post(`${endPoints.payments}/initiate-payment`,data)
+    },
+
     verify(data){
         return http().post(`${endPoints.payments}/verify`,data)
     },
@@ -22,4 +26,12 @@ export default {
     verifyBankDetails(data){
         return http().post(`${endPoints.payments}/verify-bank-details`,data)
     },
+
+    userHistory(uuid){
+        return http().get(`${endPoints.payments}/${uuid}/user-upgrade-history`)
+    },
+
+    stockistHistory(stockistId){
+        return http().get(`${endPoints.payments}/${stockistId}/stockist-upgrade-history`)
+    }
 }

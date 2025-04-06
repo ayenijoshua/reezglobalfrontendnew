@@ -23,6 +23,10 @@ export default {
         return state.totalActiveUsers
     },
 
+    upgradedUsers(state){
+        return state.upgradedUsers
+    },
+
     profile(state){
         return state.profile
     },

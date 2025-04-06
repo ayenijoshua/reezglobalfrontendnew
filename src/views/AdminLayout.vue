@@ -121,13 +121,13 @@
                         </router-link>
                     </li>
                     
-                    <li :class="['treeview', 'shadow', activeMenu()=='admin-settings' ? 'active' : '', isSettingsOpen ? 'menu-open' : '']">
+                    <li :class="['treeview', 'shadow', activeMenu()=='admin-settings' ? 'active' : '']" @click="setMenu('admin-settings')">
                         <a href="#" @click.prevent="toggleSettings" style="text-decoration: none;">
                             <i class="icon icon-gear green-text s-18"></i>
                             <span class="green-text">Settings</span>
                             <i class="icon icon-angle-left s-18 pull-right"></i>
                         </a>
-                        <ul class="treeview-menu" v-show="isSettingsOpen">
+                        <ul class="treeview-menu">
                             <li>
                                 <router-link :to="{name:'referral-bonus-settings'}">
                                     <i class="icon icon-arrow-right"></i> Referral Settings

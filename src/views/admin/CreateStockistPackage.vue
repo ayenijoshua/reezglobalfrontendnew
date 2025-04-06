@@ -2,12 +2,10 @@
     <div>
         <div class="animated">
             <div class="row my-3">
-                
-                    
                 <div class="col-md-12">
                 <div class="card shadow1" style="background-color:transparent">
                     <div class="card-body p-4" style="background-color:transparent" >
-                        <form >
+                       <!-- <form>
                             <div class="row column-row"> 
                                 <div class="col-md-2 ml-3 mt-3">
                                     <p class="green-text s-12 font-weight-bold">Add Package</p>
@@ -18,7 +16,7 @@
                                         <div class="input-group-prepend" >
                                             <div class="input-group-text" style="background-color: #2E671A; border:1px solid #2E671A !important" ><i class="icon icon-add_shopping_cart float-left s-20 text-white"></i></div>
                                         </div>
-                                        <input required type="text" class="form-control r-0 light s-12" placeholder="Stockist Package Name" style="background-color: #ecf0f1; border:1px solid #2E671A !important">
+                                        <input required v-model="form.name" type="text" class="form-control r-0 light s-12" placeholder="Stockist Package Name" style="background-color: #ecf0f1; border:1px solid #2E671A !important">
                                     </div>
                                 </div>
                                 <div class="col-md-3">
@@ -26,7 +24,7 @@
                                         <div class="input-group-prepend" >
                                             <div class="input-group-text" style="background-color: #2E671A; border:1px solid #2E671A !important" ><i class="icon icon-add_shopping_cart float-left s-20 text-white"></i></div>
                                         </div>
-                                        <input required type="number" class="form-control r-0 light s-12" placeholder="Stockist Package Fee" style="background-color: #ecf0f1; border:1px solid #2E671A !important">
+                                        <input required v-model="form.registration_value" type="number" class="form-control r-0 light s-12" placeholder="Stockist Package Fee" style="background-color: #ecf0f1; border:1px solid #2E671A !important">
                                     </div>
                                 </div>
                                 <div class="col-md-3">
@@ -34,7 +32,7 @@
                                         <div class="input-group-prepend">
                                             <div class="input-group-text" style="background-color: #2E671A; border:1px solid #2E671A !important" ><i class="icon icon-tag3 float-left s-20 text-white " ></i></div>
                                         </div>
-                                        <input  required type="text" class="form-control r-0 light s-12" placeholder="Rebate" style="background-color: #ecf0f1; border:1px solid #2E671A !important">
+                                        <input required v-model="form.sales_bonus_percentage" type="text" class="form-control r-0 light s-12" placeholder="Rebate" style="background-color: #ecf0f1; border:1px solid #2E671A !important">
                                     </div>
                                 </div>
                             </div>
@@ -42,7 +40,7 @@
                             <div class="float-right" style="padding-right:110px">								
                                 <button  type="submit" class="btn btn-sm btn-success"><i class="icon-save mr-2"></i>Create Stockist Package</button>
                             </div>
-                        </form>
+                        </form> -->
                     </div>
                 </div>
             </div>
@@ -61,14 +59,25 @@
                                     <th>Stockist Package Name</th>
                                     <th>Stockist Package Prie</th>
                                     <th>Rebate</th>
+                                    <th>Pickup Amount</th>
                                     <th>Edit Details</th>
                                 </tr>
-                                <template>
-                                    <tr >
-                                        <td>1</td>
-                                        <td>Minor</td>
-                                        <td>₦ 750,000</td>
-                                        <td>%3</td>
+                                <tr v-if="packagesLoading">
+                                    <td colspan="6">
+                                        <b-skeleton-table
+                                            :rows="3"
+                                            :columns="7"
+                                            :table-props="{ bordered: true, striped: true }"
+                                        ></b-skeleton-table>
+                                    </td>
+                                </tr>
+                                <template v-else>
+                                    <tr v-for="pack,i in stockistPackages" :key="i">
+                                        <td>{{ ++i }}</td>
+                                        <td>{{ pack.name }}</td>
+                                        <td>₦ {{ pack.registration_value?.toLocaleString('en-US') }}</td>
+                                        <td>%{{ pack.sales_bonus_percentage }}</td>
+                                        <td>₦{{ String(pack.pickup_amount)?.toLocaleString('en-US') }}</td>
                                         <td>
                                             <a @click="setPackage(pack)" v-b-modal.edit-package class="btn btn-sm btn-success text-white caret" href="#"><i class="icon-edit"></i></a>
                                         </td>
@@ -79,19 +88,6 @@
                     </div>
                 </div>
             </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
         </div>
         <Modal modal-id="edit-package" modal-title="Edit Package" modal-size="md">
             <template v-if="currPackage==null">
@@ -185,7 +181,7 @@
 <script>
     import { mapActions, mapGetters, mapState } from 'vuex';
     import Modal from '@/components/Modal.vue';
-    import EditPackage from '@/components/admin/EditPackage.vue';
+    import EditPackage from '@/components/admin/EditStockistPackage.vue';
 
     export default{
         name:"admin-packages",
@@ -198,7 +194,17 @@
         data(){
             return {
                 currPackage:null,
-                packagesLoading:false
+                packagesLoading:false,
+
+                form:{
+                    name:null,
+                    point_value:null,
+                    value:null,
+                    registration_value:null,
+                    pickup_amount:null,
+                    sales_bonus_percentage:null,
+                    //pickup_amount:null
+                }
             }
         },
 
@@ -207,26 +213,32 @@
                 loading:state=>state.loading
             }),
 
-            ...mapGetters('packageStore',['regPackages'])
+            ...mapGetters('stockistPackageStore',['stockistPackages'])
         },
 
         created(){
-            if(this.regPackages.length == 0){
+            if(this.stockistPackages.length == 0){
                 this.packagesLoading = true
-                this.all().then(()=>this.packagesLoading = false)
+                this.getPackages().then(()=>this.packagesLoading = false)
             }
         },
 
         methods:{
-            ...mapActions('packageStore',['all','update']),
+            ...mapActions('stockistPackageStore',['getPackages','update','create']),
 
             setPackage(pack){
                 this.currPackage = pack
             },
 
             edited(){
-                this.all()
+                this.getPackages()
+            },
+
+            createPackage(){
+                this.create(this.form).then(()=>this.getPackages())
             }
+
+            
         }
 
     }

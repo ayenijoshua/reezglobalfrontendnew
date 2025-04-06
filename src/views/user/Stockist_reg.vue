@@ -10,11 +10,7 @@
                             </div>
                         </div>
                         <div class="d-flex justify-content-center">
-                            <button 
-                                type="button" 
-                                class="btn btn-sm btn-success btn-lg mr-3" 
-                                @click="toggleDisclaimer"
-                            >
+                            <button type="button" class="btn btn-sm btn-success btn-lg mr-3" @click="toggleDisclaimer">
                                 {{ isDisclaimerVisible ? "Hide Disclaimer" : "Read Disclaimer" }}
                             </button>
                         </div>
@@ -66,12 +62,9 @@
                                             For further clarification or inquiries, kindly contact Star Twins Herbal 
                                             Limited through official communication channels only.
                                         </p><br>
-
-
                                     </div>
                                 </div>
-                            </div>           
-                            
+                            </div>         
                         </div>
                     </div>
                 </div>   
@@ -84,8 +77,7 @@
                             <div class="">
                                 <div class="card shadow" style="background-color: transparent">
                                     <div class="card-body" style="background-color: transparent">
-                                        <form action="" method="POST">
-                                            <input type="hidden" name="_token" value="6BwLvKulnhkAcUn3BgPaQHev2ZNKme6XDhncAZzL">
+                                        <form id="stockist-registration" method="POST" @submit.prevent="createStockist">
                                             
                                             <div class="card no-b  no-r" style="background-color: transparent">
                                                 <div class="card-body">
@@ -95,8 +87,7 @@
                                                                 <div class="input-group-prepend">
                                                                     <div class="input-group-text" style="background-color: #2E671A; border: 2px solid #2E671A;"><i class="icon-store_mall_directory float-left s-20 text-white" ></i></div>
                                                                 </div>
-                                                                <input type="text" class="form-control r-0 light s-12 " id="inlineFormInputGroupUsername2"
-                                                                        placeholder="Stockist Store Name" style="background-color: transparent" >
+                                                                <input type="text" name="store_name" v-model="form.store_name" class="form-control r-0 light s-12" placeholder="Stockist Store Name" style="background-color: transparent" >
                                                             </div>
                     
                                                             <div class="form-row mb-2">
@@ -105,8 +96,7 @@
                                                                         <div class="input-group-prepend">
                                                                             <div class="input-group-text" style="background-color: #2E671A; border: 2px solid #2E671A;"><i class="icon-room float-left s-20 text-white "  ></i></div>
                                                                         </div>
-                                                                        <input type="text" name="phone" value="" class="form-control r-0 light s-12" id="inlineFormInputGroupUsername2"
-                                                                                placeholder="Store Address" style="background-color: transparent">
+                                                                        <input type="text" name="store_address" v-model="form.store_address" class="form-control r-0 light s-12" placeholder="Store Address" style="background-color: transparent">
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -116,10 +106,10 @@
                                                                     <div class="input-group-prepend">
                                                                         <div class="input-group-text" style="background-color: #2E671A; border: 2px solid #2E671A;"><i class="icon-room float-left s-20 text-white" ></i></div>
                                                                     </div>
-                                                                    <select id="select" class="form-control r-0 light s-12 shadow" style="background-color: transparent">
+                                                                    <select name="store_state" v-model="form.store_state" class="form-control r-0 light s-12 shadow" style="background-color: transparent">
                                                                         <option >Select state</option>
-                                                                        <option >Lagos</option>
-                                                                        <option >Oyo</option>														   
+                                                                        <option value="lagos">Lagos</option>
+                                                                        <option value="oyo">Oyo</option>														   
                                                                     </select>
                                                                 </div>
                                                             </div>
@@ -129,12 +119,11 @@
                                                                     <div class="input-group-prepend">
                                                                         <div class="input-group-text" style="background-color: #2E671A; border: 2px solid #2E671A;"><i class="icon-user-plus float-left s-20 text-white" ></i></div>
                                                                     </div>
-                                                                    <select id="select" class="form-control r-0 light s-12 shadow" style="background-color: transparent">
-                                                                        <option >Select Stockist Package</option>
-                                                                        <option >Basic - ₦1,500,000</option>
-                                                                        <option >Medium - 3,000,000</option>
-                                                                        <option >Advanced - ₦5,000,000</option>
-                                                                        <option >Super Store - ₦50,000,000</option>														   
+                                                                    <select name="package_id" v-model="form.package_id" class="form-control r-0 light s-12 shadow" style="background-color: transparent">
+                                                                        <option value="">Select Package</option>
+                                                                        <template v-for="packag,i in stockistPackages">
+                                                                            <option :value="packag.id" :key="i">{{ packag.name }} - ₦{{ packag.registration_value.toLocaleString('en-US') }}</option>
+                                                                        </template>														   
                                                                     </select>
                                                                 </div>
                                                             </div>
@@ -145,8 +134,7 @@
                                                                         <div class="input-group-prepend">
                                                                             <div class="input-group-text" style="background-color: #2E671A; border: 2px solid #2E671A;"><i class="icon-phone float-left s-20 text-white "  ></i></div>
                                                                         </div>
-                                                                        <input type="tephone" name="phone" value="" class="form-control r-0 light s-12" id="inlineFormInputGroupUsername2"
-                                                                                placeholder="Phone" style="background-color: transparent">
+                                                                        <input type="tephone" name="store_phone" v-model="form.store_phone" value="" class="form-control r-0 light s-12" placeholder="Phone" style="background-color: transparent">
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -157,8 +145,21 @@
                                                                         <div class="input-group-prepend">
                                                                             <div class="input-group-text" style="background-color: #2E671A; border: 2px solid #2E671A;"><i class="icon-check-square-o float-left s-20 text-white "  ></i></div>
                                                                         </div>
-                                                                        <input type="text" name="signee" value="" class="form-control r-0 light s-12" id="inlineFormInputGroupUsername2"
-                                                                                placeholder="Signee" style="background-color: transparent">
+                                                                        <input type="text" name="referrer_id" v-model="form.referrer" class="form-control r-0 light s-12" placeholder="Signee" style="background-color: transparent">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="form-row mb-2">
+                                                                <div class="form-group col-12 m-0">
+                                                                    <div class="form-group m-0">
+                                                                        <div class="dropbox" style="background-color: transparent; border: 2px solid #2E671A;">
+                                                                            <input name="payment_receipt" v-b-popover.hover.top="'Drag your payment receipt here or click to browse'" type="file" @change="filesChange($event.target.files);" title="proof of payment" class="form-control form-control-line input-file" style="background-color: #ecf0f1; border: 2px solid #2E671A;">
+                                                                            <p id="img-preview">
+                                                                                Drag your photo here<br> or click to browse<br>
+                                                                                <span style="font-size: 10px;">Image size should not exceed 500kB</span>
+                                                                            </p>
+                                                                        </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -166,8 +167,7 @@
                                                     </div>
                                                 </div>	
                                                 <div class="card-body">
-                                                        <input type="hidden" name="id" value="960">
-                                                    <button type="submit" class="btn btn-sm btn-success btn-lg"><i class="icon-save mr-2"></i>Confirm Details</button>
+                                                    <button type="submit" class="btn btn-sm btn-success btn-lg"><i class="icon-save mr-2"></i>Submit Details</button>
                                                 </div>
                                             </div>
                                         </form>
@@ -190,18 +190,18 @@
                         <div class="">
                             <div class="d-flex align-items-center">
                                 <div>
-                                    <span id="d1" style="font-size:10px">Stockist Name</span>
-                                    <h6 class="font-weight-bold " id="d1">Valleyhill Stockist</h6>
+                                    <span id="d1" style="font-size:10px">Store name</span>
+                                    <h6 class="font-weight-bold " id="d1">{{ form.store_name }}</h6>
                                     <span  id="d1" style="font-size:10px">Stockist Address <Area></Area></span>
-                                    <h6 class="font-weight-bold " id="d1">Suite 5, Garry Paul Complex,Toyin Street, Ikeja, Lagos</h6>
+                                    <h6 class="font-weight-bold " id="d1">{{ form.store_address }}</h6>
                                     <span  id="d1" style="font-size:10px">State</span>
-                                    <h6 class="font-weight-bold " id="d1">Lagos</h6>
-                                    <span  id="d1" style="font-size:10px">Stockist Page</span>
-                                    <h6 class="font-weight-bold " id="d1">Basic - ₦1,500,000</h6>
+                                    <h6 class="font-weight-bold " id="d1">{{ form.store_state }}</h6>
+                                    <span  id="d1" style="font-size:10px">Stockist Package</span>
+                                    <h6 class="font-weight-bold " id="d1">{{ form.package_id }}</h6>
                                     <span  id="d1" style="font-size:10px">Contact</span>
-                                    <h6 class="font-weight-bold " id="d1">08109234321</h6>
+                                    <h6 class="font-weight-bold " id="d1">{{ form.store_phone }}</h6>
                                     <span  id="d1" style="font-size:10px">Signee</span>
-                                    <h6 class="font-weight-bold" id="d1">Jessica2024</h6>
+                                    <h6 class="font-weight-bold" id="d1">{{ form.referrrer }}</h6>
                                     
                                 </div>
                                 <div class="mr-4 ml-auto ">
@@ -275,39 +275,6 @@
                 <div class="col-md-12">
                     <div class="card shadow" style="background-color: transparent">
                         <div class="card-body" >
-                                <form id="profile-form">
-                                    <div class="card no-b no-r" style="background-color: transparent">
-                                        <div class="card-body">
-                                            <div class="form-row">
-                                                <div class="col-md-12">
-                                                    <div class="form-row mb-2">
-                                                        <div class="form-group col-12 m-0">
-                                                            <div class="form-group m-0">
-                                                                <div class="dropbox" style="background-color: transparent; border: 2px solid #2E671A;">
-                                                                    <input v-b-popover.hover.top="'Drag your photo here or click to browse'" type="file" id="profile-img" title="profile photo" name="image"  class="form-control form-control-line input-file" style="background-color: #ecf0f1; border: 2px solid #2E671A;">
-                                                                    <p id="img-preview" >
-                                                                        Drag your photo here<br> or click to browse<br>
-                                                                        <span style="font-size: 10px;">Image size should not exceed 500kB</span>
-                                                                    </p>
-                                                                    
-                                                                </div>
-                                                                
-                                                                <!-- <input type="file" name="image" title="profile photo" class="form-control r-0 light s-12" placeholder="Profile photo"> -->
-                                                            </div>
-                                                            
-                                                        </div>
-                                                    </div>
-                                                    
-                                                </div>
-                                            </div>
-                                        </div>	
-                                        <div class="card-body">
-                                            
-                                            <button type="submit" class="btn btn-sm btn-success btn-lg"><i class="icon-save mr-2"></i>Submit Registration</button>
-                                        </div>
-                                    </div>
-                                </form>
-                            
                         </div>
                     </div>
                 </div>
@@ -366,16 +333,65 @@
 </style>
 
 <script>
+import { mapActions, mapGetters, mapState } from 'vuex';
+
 export default {
   data() {
     return {
       isDisclaimerVisible: false, // Controls visibility of the disclaimer
+      form:{
+        store_name:"",
+        store_address:"",
+        store_phone:"",
+        store_state:"",
+        package_id:"",
+        referrer:""
+      }
     };
   },
+
+  computed:{
+    ...mapState({
+      loading: (state) => state.loading,
+      submitting: (state) => state.submitting,
+    }),
+
+    ...mapGetters("stockistPackageStore",["stockistPackages"])
+  },
+
+  created(){
+    //alert()
+    if(this.stockistPackages.length == 0){
+        this.getPackages()
+    }
+  },
+
+
   methods: {
+    ...mapActions("stockistStore",["create"]),
+    ...mapActions("stockistPackageStore",["getPackages"]),
+
     toggleDisclaimer() {
       this.isDisclaimerVisible = !this.isDisclaimerVisible;
     },
+
+    createStockist(){
+        let ele = document.getElementById('stockist-registration')
+        let form = new FormData(ele)
+        this.create(form)
+    },
+
+    filesChange(files){
+        const file = files[0]
+        const prev = document.getElementById('img-preview')
+        if(file){
+            const fileReader = new FileReader()
+            fileReader.readAsDataURL(file)
+            fileReader.addEventListener("load",function(){
+                prev.innerHTML = '<img style="width: 100px !important; height:100px !important;" src="'+this.result+'"/>'
+            })
+        }
+    }
   },
 };
 </script>

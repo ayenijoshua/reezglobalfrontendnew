@@ -11,5 +11,13 @@ export default {
 
     referralBonusSetting(state,data){
         state.referralBonusSetting = data
-     }
+     },
+
+     upgradeBonusSetting(state,data){
+        state.upgradeBonusSetting = data
+     },
+
+     unilevelBonusSetting(state,data){
+        state.unilevelBonusSetting = data
+    }
 }

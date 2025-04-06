@@ -12,9 +12,9 @@
                                         <div class="input-group-text" style="background-color: #2E671A; border: 2px solid #2E671A;"><i class="icon icon-shopping-cart float-left s-20 text-white" ></i></div>
                                     </div>
                                     <select required v-model="selectedOrderType" class="form-control r-0 light s-12" style="background-color: transparent; border: 2px solid #1b4f72;">
-                                        <option >Repurchase Order Pick-up</option>
-                                        <option >Registration Product Pick-up</option>
-                                        <option >Upgrade Product Pick-up</option>														   
+                                        <template v-for="orderType,i in orderTypes">
+                                            <option :value="orderType" :key="i">{{orderType == '' ? 'Select' : orderType.replace('_'," ")}}</option>
+                                        </template>														   
                                     </select>
                                 </div>
                             </div>
@@ -24,7 +24,7 @@
             </div> 
 
 
-            <div  v-if="selectedOrderType === 'Upgrade Product Pick-up'" class="d-flex justify-content-center mt-2 mb-3"> <!-- Centering wrapper added -->
+            <div  v-if="selectedOrderType === 'upgrade_pickup'" class="d-flex justify-content-center mt-2 mb-3"> <!-- Centering wrapper added -->
                 <div class="col-md-6 col-sm-12"> 
                     <div class="row row-column">
                         <div class="col-md-6 col-sm-12"> 
@@ -97,15 +97,13 @@
                                                         <td>{{ produc.points }}</td>
                                                         <td>
                                                             <div class="">
-                                                                <input :key="i" @change="(e)=>logClaim(e,produc.id,produc.points)" class="form-control" type="number" min="1"  style="background-color: transparent; border: 2px solid #2E671A;">
+                                                                <input :key="i" @change="(e)=>logClaim2(e,produc.id,produc)" class="form-control" type="number" min="1"  style="background-color: transparent; border: 2px solid #2E671A;">
                                                             </div>
                                                         </td>
                                                         <td> <div class="form-check"><input class="form-check-input custom-checkbox" type="checkbox" value="" id="cb1" ></div></td>
                                                     </tr>
                                                 </template>
                                             </template>    
-
-
                                         </tbody>
                                     </table>
                                 </div>
@@ -114,44 +112,19 @@
                     </div>
                 </div>
 
-                
-           
                 <div class="col-md-4">
                     <div class="card  mb-3 shadow" style="background-color: transparent">
                         <div class="float-left">
                             <div class="card-body">
-                                <template v-if="prodClaimLoading">
-                                    <b-skeleton-table
-                                        :rows="3"
-                                        :columns="3"
-                                        :table-props="{ bordered: true, striped: true }"
-                                    ></b-skeleton-table>
-                                </template>
-                                <template v-else>
-                                    <div v-if="userProductClaims.length == 0">
-                                        <p class="alert alert-info">
-                                            There are no claimed products
-                                        </p>
-                                    </div>
-                                    <div v-else v-for="userClaim,i in userProductClaims" :key="i" class="row column-row p-2" style="border-bottom: 1px solid #2E671A !important;">
-                                        <div class="mt-2 ml-3" style="padding-right:15px">
-                                            <img src="/assets/img/demo/products/product3.png" width="80px" height="80px">
-                                        </div>  
-                                        <div class="mb-2 mt-4 ">
-                                            <h6 class="font-weight-bold text-green s-14" style="margin: 0em; padding: 0em;">{{ userClaim.name }} <br><small class="font-weight-bold"> {{userClaim.points}}PV | Qty:{{ userClaim.product_qty }}</small></h6>	
-                                        </div>	
-                                        <div class="mb-2 mt-4 ml-auto mr-2">
-                                            <span class="font-weight-bold float-right text-green">₦12,700</span>
-                                        </div>
-                                    </div>
-
+                                
+                                <template>
 
                                     <div class="row column-row " style="border-bottom: 1px solid #2E671A !important;">
                                         <div class="mb-2 mt-2 ml-3">
                                             <h6 class="font-weight-bold text-green s-12" style="margin: 0em; padding: 0em;">Total Point Value </h6>											
                                         </div>	
                                         <div class="mb-2 mt-2 ml-auto mr-3">
-                                            <h6 class="font-weight-bold text-green s-12" style="margin: 0em; padding: 0em;">{{ totalPv?.toFixed(2) }} PV</h6>											
+                                            <h6 class="font-weight-bold text-green s-12" style="margin: 0em; padding: 0em;">{{ cartTotalPoints?.toFixed(2) }} PV</h6>											
                                         </div>
                                     </div> 	
                                     <div class="row column-row" style="background-Color:#2E671A !important;">
@@ -159,14 +132,18 @@
                                             <h6 class="font-weight-bold text-white s-12" style="margin: 0em; padding: 0em;">Total Price </h6>											
                                         </div>	
                                         <div class="mb-2 mt-2 ml-auto mr-3">
-                                            <h6 class="font-weight-bold text-white s-12" style="margin: 0em; padding: 0em;">₦ 12,700</h6>											
+                                            <h6 class="font-weight-bold text-white s-12" style="margin: 0em; padding: 0em;">₦ {{ cartTotalPrice }}</h6>											
                                         </div>
                                     </div>
+                                    
                                      <!-- Cancel Order Button -->
                                     <div class="row column-row" >
+                                        <div v-if="selectedOrderType != 'repurchase_pickup'" class="ml-auto mr-2">
+                                            <button @click.prevent="submitOrder()" class="btn btn-sm btn-success  mt-2" ><i class="icon-mark mr-2"></i> Submit Selection</button>
+                                        </div> 
                                         <div class="ml-auto mr-2">
-                                            <button @click="cancelOrder(userClaim.id)" class="btn btn-sm btn-danger  mt-2" ><i class="icon-cancel mr-2"></i> Cancel Selection</button>
-                                        </div>    
+                                            <button @click.prevent="cancelOrder()" class="btn btn-sm btn-danger  mt-2" ><i class="icon-cancel mr-2"></i> Cancel Selection</button>
+                                        </div>     
                                     </div>   
                                     <!-- <div class="row column-row border-bottom">
                                         <div class="mb-2 mt-5 ml-3">
@@ -177,10 +154,6 @@
                                         </div>
                                     </div> -->
 
-                                    <!--<div class="mt-3">									
-                                        <button type="button" disabled :class="['btn btn-small', productClaimStatus=='processing'?'btn-warning':productClaimStatus=='approved'?'btn-success':'btn-danger']">
-                                            <i class="icon-check-square-o mr-2"></i>{{ productClaimStatus }}</button>
-                                    </div>--->
                                 </template>
                             </div>  
                         </div>
@@ -383,10 +356,7 @@
                     </div>
                 </div>              
             </div>--->
-            <div   class="row mb-2 mt-2" v-if="
-                selectedOrderType === 'Registration Product Pick-up' ||
-                selectedOrderType === 'Upgrade Product Pick-up'
-            ">
+            <div class="row mb-2 mt-2" v-if="selectedOrderType === 'registration_pickup' || selectedOrderType === 'upgracde_pickup'">
                 <div class="col-md-12">
                     <div class="d-flex flex-wrap justify-content-center mt-2">
                         <div class="m-3">							
@@ -399,7 +369,7 @@
 
 
 
-            <div class="row mt-5 mb-5" v-if="selectedOrderType === 'Repurchase Order Pick-up'">               
+            <div class="row mt-5 mb-5" v-if="selectedOrderType === 'repurchase_pickup'">               
                 <div class="col-md-6">
                     <div class="card  mb-3 shadow1" style="background-color: #2E671A">                       
                         <div class="d-flex flex-wrap justify-content-center">
@@ -460,34 +430,27 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <template>
+                                        <template v-if="userPurchases.length == 0">
                                             <tr>
-                                                <th scope="row">1</th>
-                                                <td>Repurchase Pick-Up</td>
-                                                <td>Valleyhill Stockist</td>
+                                                <td colspan="11">
+                                                    <div>Ther are no orders</div>
+                                                </td>
+                                            </tr>
+                                        </template>
+                                        <template v-else v-for="purchase,i in userPurchases">
+                                            <tr :key="i">
+                                                <td scope="row">{{ ++i }}</td>
+                                                <td>{{ purchase.pickup_type }}</td>
+                                                <td>N/A</td>
                                                 <!-- <td>{{ claim.worth?.toLocaleString('en-US')}}</td> -->
-                                                <td>Suite 5, Garry Paul Complex,Toyin Street, Ikeja</td>
+                                                <td>N/A</td>
                                                 <td>Lagos</td>
                                                 <td>081093445670</td>
                                                 <td>1KG REEZ MAX</td>
                                                 <td>1</td>
-                                                <td>₦12,700</td>
-                                                <td><span class="badge badge-success" style="padding: 6px 10px;">Order Picked</span></td>
-                                                <td>21/08/2024 - 02:46</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">2</th>
-                                                <td>Repurchase Pick-Up</td>
-                                                <td>Philip Davis Store</td>
-                                                <!-- <td>{{ claim.worth?.toLocaleString('en-US')}}</td> -->
-                                                <td>No.6,Are Avenue, Bodija, Ibadan, Oyo</td>
-                                                <td>Oyo</td>
-                                                <td>081093445670</td>
-                                                <td>1KG REEZ MAX</td>
-                                                <td>3</td>
-                                                <td>₦42,100</td>
-                                                <td><span class="badge badge-success" style="padding: 6px 10px;">Order Picked</span></td>
-                                                <td>21/08/2024 - 02:46</td>
+                                                <td>{{ purchase.total_price }}</td>
+                                                <td><span class="badge badge-success" style="padding: 6px 10px;">{{ purchase.status }}</span></td>
+                                                <td>{{ purchase.created_at }}</td>
                                             </tr>
                                         </template>
                                     </tbody>
@@ -664,51 +627,35 @@ color: #ecf0f1;
 
 <script>
 import { mapActions, mapGetters, mapState } from "vuex";
+import { notification } from "@/util/notification";
 
 export default {
   name: "user-repurchase",
 
   data() {
     return {
-      profitPoolEligible: false,
-      globalProfitEligible: false,
-      equilibrumBonusEligible: false,
-      loyaltyBonusEligible: false,
-      product_ids: [],
+      
       cartProducts: [],
       totalWorth: 0,
       totalPv: 0,
       productClaimStatus: "Unclaimed",
       guestEmail: null,
       cartPoints: {},
+      cartPrices:{},
       cartTotalPoints: 0,
+      cartTotalPrice: 0,
+      cartTotalQty:0,
+      cartQty:{},
+
+      orderTypes : ["","upgrade_pickup","registration_pickup","repurchase_pickup"],
 
       selectedOrderType: "", // Tracks the selected value
-
-      form: {
-        rank_id: null,
-        incentive_id: null,
-      },
-
-      inviteForm: {
-        email: null,
-        referrer: null,
-      },
 
       prodClaimLoading: false,
       prodLoading: false,
       incClaimLoading: false,
       incLoading: false,
 
-      welcomeBonusLoading: false,
-      loyaltyBonusLoading: false,
-      equilibrumBonusLoading: false,
-      referralBonusLoading: false,
-      totalBonusLoading: false,
-      profitPoolLoading: false,
-      walletBalanceLoading: false,
-      globalProfitLoading: false,
-      packageLoading: false,
       totalPVLoading: false,
     };
   },
@@ -719,75 +666,56 @@ export default {
       submitting: (state) => state.submitting,
     }),
 
-    imageURL() {
-      return process.env.VUE_APP_IMAGE_PATH;
-    },
-
-    referrerLink() {
-      return this.inviteForm.referrer
-        ? "https://app.delishcare.com/register" +
-            "?ref=" +
-            this.inviteForm.referrer +
-            "&placer=" +
-            this.authUser.username
-        : "https://app.delishcare.com/register" + "?ref=" + this.authUser.username;
-    },
-
-    ...mapGetters("bonusStore", [
-      "welcomeBonus",
-      "equilibrumBonus",
-      "loyaltyBonus",
-      "referralBonus",
-      "placementBonus",
-      "profitPool",
-      "globalProfit",
-      "totalBonus",
-      "walletBalance",
-    ]),
-
+    
     ...mapGetters("packageStore", ["regPackage"]),
     ...mapGetters("authStore", ["authUser"]),
-    ...mapGetters("userStore", ["totalPV", "uplineDetails", "directDownlines"]),
     ...mapGetters("settingStore", ["settings"]),
-    ...mapGetters("incentiveClaimStore", ["claims", "currentIncentive"]),
+    
     ...mapGetters("productStore", ["products"]),
-    ...mapGetters("productClaimStore", ["userProductClaims"]),
-    ...mapGetters("rankStore", ["currentRankBadge"]),
+    ...mapGetters("productPurchaseStore",["userPurchases"])
+   
   },
 
   created() {
-    if (this.authUser.uuid === undefined) {
-      this.getUser().then((res) => {
-        this.getCurrentRankBadge(res.data.rank_id);
-        this.getDashboardData(res.data);
-      });
-    } else {
-      this.getCurrentRankBadge(this.authUser.rank_id);
-      this.getDashboardData(this.authUser);
-    }
 
-    if (this.currentRankBadge == null) {
-      this.getCurrentRankBadge(this.authUser.rank_id);
-    }
-
-    if (this.settings.id === undefined) {
-      this.all();
+    if(this.authUser.uuid == undefined){
+        this.getUser();
     }
 
     if (this.products.length === 0) {
       this.prodLoading = true;
       this.getActiveProducts().then(() => (this.prodLoading = false));
     }
+
+    if(this.userPurchases.length==0){
+        this.getUserPurchases(this.authUser.uuid)
+    }
   },
 
   methods: {
-    logClaim(e, id, points) {
-      let data = { qty: e.target.value, id: id };
-      let pv = data.qty * points;
+    
+    logClaim2(e, id, product) {
+      let data = { qty: e.target.value, id: id, price:product.worth };
+      let pv = data.qty * product.points;
+      let amt = data.qty * product.worth;
+      let qty = Number(data.qty);
+
       this.cartPoints = { ...this.cartPoints, [data.id]: pv };
+      this.cartPrices = { ...this.cartPrices, [data.id]: amt };
+      this.cartQty = {...this.cartQty, [data.id]:qty};
+
       let pvs = Object.values(this.cartPoints);
       let sum = pvs.reduce((res, val) => res + val);
       this.cartTotalPoints = sum;
+
+      let prices = Object.values(this.cartPrices);
+      let sumPrices = prices.reduce((res, val) => res + val);
+      this.cartTotalPrice = sumPrices;
+
+      let qtys = Object.values(this.cartQty);
+      let sumQtys = qtys.reduce((res, val) => res + val);
+      this.cartTotalQty = sumQtys;
+
       let index = this.cartProducts.findIndex((ele) => ele.id === id);
       if (index !== -1) {
         this.cartProducts[index].qty = data.qty;
@@ -795,69 +723,46 @@ export default {
         this.cartProducts.push(data);
       }
     },
-    ...mapActions("bonusStore", [
-      "getWelcomeBonus",
-      "getEquilibrumBonus",
-      "getLoyaltyBonus",
-      "getReferralBonus",
-      "getProfitPool",
-      "getGlobalProfit",
-      "getPlacementBonus",
-      "getTotalBonus",
-      "getWalletBalance",
-    ]),
-    ...mapActions("packageStore", ["getPackage"]),
-    ...mapActions("authStore", ["getUser"]),
-    ...mapActions("userStore", [
-      "getTotalPVs",
-      "inviteGuest",
-      "getUplineDetails",
-      "countDirectDownlines",
-    ]),
+
+    submitOrder(){
+        if(this.cartProducts.length==0){
+            notification.warning("There are no selected products")
+            return
+        }
+
+        if(!this.selectedOrderType){
+            notification.warning("Order type not selected")
+            return
+        }
+
+       let data =  {
+            "products":this.cartProducts,
+            "total_price":this.cartTotalPrice,
+            "total_quantity":this.cartTotalQty,
+            "pickup_type":this.selectedOrderType,
+            "total_points":this.cartTotalPoints
+        }
+
+       this.userPurchase({uuid:this.authUser.uuid,reqData:data}).then(()=>{
+         this.getUserPurchases(this.authUser.uuid)
+       })
+
+    },
+
+    cancelOrder(){
+        this.cartProducts = [];
+        this.cartTotalPrice = 0;
+        this.cartTotalPoints = 0;
+    },
+
+   
+    ...mapActions("productPurchaseStore",["userPurchase","getUserPurchases"]),
     ...mapActions("settingStore", ["getSetting", "all"]),
-    ...mapActions("incentiveClaimStore", [
-      "getClaims",
-      "getCurrentIncentive",
-      "create",
-    ]),
     ...mapActions("productStore", ["getActiveProducts"]),
-    ...mapActions("productClaimStore", ["claimProduct", "getProductClaims"]),
-    ...mapActions("rankStore", ["getCurrentRankBadge"]),
-
-    getBonuses(uuid) {
-      if (this.welcomeBonus === null) {
-        this.welcomeBonusLoading = true;
-        this.getWelcomeBonus(uuid).then(
-          () => (this.welcomeBonusLoading = false)
-        );
-      }
-      // Add remaining bonus methods
-    },
-
-    getDashboardData(authUser) {
-      if (this.regPackage.name === undefined) {
-        this.packageLoading = true;
-        this.getPackage(authUser.package_id).then(
-          () => (this.packageLoading = false)
-        );
-      }
-
-      this.getBonuses(authUser.uuid);
-
-      if (authUser.package_id === 6) {
-        this.profitPoolEligible = true;
-      }
-      if (authUser.rank_id >= 5) {
-        this.globalProfitEligible = true;
-      }
-      if (!this.currentIncentive) {
-        this.incLoading = true;
-        this.getCurrentIncentive(authUser.uuid).then(
-          () => (this.incLoading = false)
-        );
-      }
-    },
-
+    ...mapActions('authStore',['getUser']),
+    //...mapActions("product")
+  
+   
     makePayment() {
       console.log("Payment initiated");
       // Implement your payment logic here

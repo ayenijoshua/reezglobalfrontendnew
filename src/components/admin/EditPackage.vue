@@ -33,8 +33,8 @@
                                     <div class="input-group-prepend">
                                         <div class="input-group-text"><i class="icon icon-package float-left s-20 text-white  " ></i></div>
                                     </div>
-                                    <input v-model="form.registration_value" type="text" class="form-control r-0 light s-12" id="inlineFormInputGroupUsername2"
-                                            placeholder="Registration Product Puck-up QTY" style="border: 1px solid #2E671A; background-color: #ded8c7;">
+                                    <input v-model="form.pickup_amount" type="text" class="form-control r-0 light s-12" id="inlineFormInputGroupUsername2"
+                                            placeholder="Registration Product Puck-up Amount" style="border: 1px solid #2E671A; background-color: #ded8c7;">
                                 </div>
                             </div>
                         </div>
@@ -66,6 +66,7 @@ import { mapActions, mapState } from 'vuex'
                 registration_value:null,
                 point_value:null,
                 name:null,
+                pickup_amount:0
             }
         }
     },

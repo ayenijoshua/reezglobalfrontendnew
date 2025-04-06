@@ -9,7 +9,9 @@ export default{
         return{
             settings:{},
             setting:{},
-            referralBonusSetting:[]
+            referralBonusSetting:[],
+            upgradeBonusSetting:[],
+            unilevelBonusSetting:[]
         }
     },
     actions:{

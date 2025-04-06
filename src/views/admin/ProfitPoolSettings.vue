@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="animated">
-            <div class="row my-3">
+            <div class="row my-">
                 <div class="col-md-6">
                     <div class="card">
                         <div class="card-body" style="overflow-x:auto;">
@@ -10,7 +10,7 @@
                                 <div class="card-body no-gutters">
                                     <div class="text-center mb-3"><img  src="/assets/img/investors.png" width="80px"  height="80px">
                                     <h5 class="s-36 font-weight-bold mt-2 text-green"> {{ settings.profit_pool_percentage }} %</h5>
-                                    <h6 class="mt-1 s-8 font-weight-bold">Profit Pool Percentage<br><small> Edit profit pool percentage</small></h6></div>
+                                    <h6 class="mt-1 s-8 font-weight-bold">Profit Pool Percentage<br><small> Edit profit pool percentag</small></h6></div>
                                     <div class="form-row mb-3">
                                         <div class="col-md-12">
                                             <div class="input-group">

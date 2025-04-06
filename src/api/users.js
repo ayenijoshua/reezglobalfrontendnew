@@ -129,5 +129,14 @@ export default {
 
     searchPaidUsers(search,page){
         return http().get(`${endPoints.users}/search-paid-users?page=${page}&search=${search}`)
+    },
+
+    //package upgrade data
+    upgradeData(packageId){
+        return http().get(`${endPoints.users}/${packageId}/package-difference`)
+    },
+
+    upgradedUsers(){
+        return http().get(`${endPoints.users}/upgraded-users`)
     }
 }

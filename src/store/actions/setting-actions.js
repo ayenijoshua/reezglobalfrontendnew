@@ -94,4 +94,74 @@ export default {
             LogError(commit,err,'loaded')
         }
     },
+
+    async updateUpgradeBonus({commit},{id,data}){
+        var res;
+        try {
+            commit('submitting',null,{root:true})
+            res = await api.updateUpgradeBonus(id,data)
+            if(res.status==200){
+                notification.success("Setting updated successfully")
+            }else{
+                toastr.warning(res.data.message)
+            }
+            commit('submitted',null,{root:true})
+            return res;
+        } catch (err) {
+            LogError(commit,err,'submitted')
+        }
+    },
+
+    async getUpgradeBonusSetting({commit}){
+        var res;
+        try {
+            commit('loading',null,{root:true})
+            res = await api.upgradeBonusSettings()
+            if(res.status==200){
+                commit('upgradeBonusSetting',res.data.data)
+                //notification.success("Setting updated successfully")
+            }else{
+                toastr.warning(res.data.message)
+            }
+            commit('loaded',null,{root:true})
+            return res;
+        } catch (err) {
+            LogError(commit,err,'loaded')
+        }
+    },
+
+    async updateUnilevelBonus({commit},{id,data}){
+        var res;
+        try {
+            commit('submitting',null,{root:true})
+            res = await api.updateUnilevelBonus(id,data)
+            if(res.status==200){
+                notification.success("Setting updated successfully")
+            }else{
+                toastr.warning(res.data.message)
+            }
+            commit('submitted',null,{root:true})
+            return res;
+        } catch (err) {
+            LogError(commit,err,'submitted')
+        }
+    },
+
+    async getUnilevelBonusSetting({commit}){
+        var res;
+        try {
+            commit('loading',null,{root:true})
+            res = await api.unilevelBonusSettings()
+            if(res.status==200){
+                commit('unilevelBonusSetting',res.data.data)
+                //notification.success("Setting updated successfully")
+            }else{
+                toastr.warning(res.data.message)
+            }
+            commit('loaded',null,{root:true})
+            return res;
+        } catch (err) {
+            LogError(commit,err,'loaded')
+        }
+    },
 }

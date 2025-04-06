@@ -14,6 +14,10 @@ import incentiveClaimStore from "./incentive-claim-store";
 import productStore from "./product-store";
 import withdrawalStore from "./withdrawal-store";
 import productClaimStore from "./product-claim-store";
+import stockistStore from "./stockist-store";
+import productPurchaseStore from "./product-purchase-store";
+import stockistPackageStore from "./stockist-package-store";
+import bankStore from "./bank-store";
 
 Vue.use(Vuex)
 
@@ -55,6 +59,10 @@ export default new Vuex.Store({
     incentiveClaimStore,
     productStore,
     withdrawalStore,
-    productClaimStore
+    productClaimStore,
+    stockistStore,
+    productPurchaseStore,
+    stockistPackageStore,
+    bankStore
   }
 })
