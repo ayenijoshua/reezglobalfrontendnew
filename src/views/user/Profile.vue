@@ -664,7 +664,7 @@ li > a:hover .icon {
                 let data = {
                     amount:this.upgradeData.package_difference,
                     description:"Package Upgrade",
-                    txn_source:"member_package_payment",
+                    txn_source:"package_payment",
                     is_upgrade:1,
                     meta_data:this.upgradeForm.package_id
                     //stockist_id:this.stockist.id,
