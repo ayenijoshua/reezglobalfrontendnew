@@ -193,13 +193,15 @@
                                                                             <tr v-if="userWithdrawals.length == 0 && userPendingWithdrawals.length == 0">
                                                                                 <td colspan="5">There are no withdrawals</td>
                                                                             </tr>
-                                                                            <tr v-else v-for="withdraw,i in userWithdrawals" :key="i">
-                                                                                <td>{{ ++i }}</td>
-                                                                                <td>₦{{ withdraw.amount?.toLocaleString('en-US') }}</td>
-                                                                                <td>₦{{ withdraw.fee?.toLocaleString('en-US') }}</td>
-                                                                                <td>{{ withdraw.status }}</td>
-                                                                                <td>{{ withdraw.created_at }}</td>
-                                                                            </tr>
+                                                                            <template v-else>
+                                                                                <tr v-for="withdraw,i in userWithdrawals" :key="i">
+                                                                                    <td>{{ ++i }}</td>
+                                                                                    <td>₦{{ withdraw.amount?.toLocaleString('en-US') }}</td>
+                                                                                    <td>₦{{ withdraw.fee?.toLocaleString('en-US') }}</td>
+                                                                                    <td>{{ withdraw.status }}</td>
+                                                                                    <td>{{ withdraw.created_at }}</td>
+                                                                                </tr>
+                                                                            </template>
                                                                         </template>
                                                                     </template>
                                                                     <tr><th colspan="5">Total withdrawals (TW)</th><td>₦{{ userTotalWithdrawals?.toLocaleString('en-US') }}</td></tr>

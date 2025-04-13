@@ -68,7 +68,7 @@
                                                 <th class="font-weight-bold text-white" scope="col">POINT VALUE</th>
                                                 <!-- <th scope="col">Worth</th> -->
                                                 <th class="font-weight-bold text-white" scope="col">QUANTITY</th>
-                                                <th class="font-weight-bold text-white" scope="col">SELECT</th>
+                                                <!-- <th class="font-weight-bold text-white" scope="col">SELECT</th> -->
                                                 <!-- <th scope="col">Select</th> -->
                                             </tr>
                                         </thead>
@@ -100,7 +100,7 @@
                                                                 <input :key="i" @change="(e)=>logClaim2(e,produc.id,produc)" class="form-control" type="number" min="1"  style="background-color: transparent; border: 2px solid #2E671A;">
                                                             </div>
                                                         </td>
-                                                        <td> <div class="form-check"><input class="form-check-input custom-checkbox" type="checkbox" value="" id="cb1" ></div></td>
+                                                        <!-- <td> <div class="form-check"><input class="form-check-input custom-checkbox" type="checkbox" value="" id="cb1" ></div></td> -->
                                                     </tr>
                                                 </template>
                                             </template>    
@@ -116,8 +116,23 @@
                     <div class="card  mb-3 shadow" style="background-color: transparent">
                         <div class="float-left">
                             <div class="card-body">
-                                
-                                <template>
+                                <template v-if="cartProducts.length==0">
+                                    <p class="alert alert-info">
+                                        There are no items in your cart
+                                    </p>
+                                </template>
+                                <template v-else>
+                                    <div v-for="prod,i in cartProducts" :key="i" class="row column-row p-2" style="border-bottom: 1px solid #2E671A !important;">
+                                        <div class="mt-2 ml-3" style="padding-right:15px">
+                                            <img src="/assets/img/demo/products/product3.png" width="80px" height="80px">
+                                        </div>  
+                                        <div class="mb-2 mt-4 ">
+                                            <h6 class="font-weight-bold text-green s-14" style="margin: 0em; padding: 0em;">{{ prod.product.name }} <br><small class="font-weight-bold"> {{prod.product.points}}PV | Qty:{{ prod.qty }}</small></h6>	
+                                        </div>	
+                                        <div class="mb-2 mt-4 ml-auto mr-2">
+                                            <span class="font-weight-bold float-right text-green">₦{{ prod.product.worth }}</span>
+                                        </div>
+                                    </div>
 
                                     <div class="row column-row " style="border-bottom: 1px solid #2E671A !important;">
                                         <div class="mb-2 mt-2 ml-3">
@@ -267,7 +282,10 @@
                             <div class="text-center mt-5 mb-5" style="padding-bottom:10px; padding-top: 20px">
                                 <img  src="/assets/img/pay_options1.png" width="300px">
                                 <h6 class="font-weight-bold text-white" >Proceed To Payment<br><small>Kindly complete your  Product Purchase by clicking the button Below</small></h6>
-                                <a class="btn btn-sm btn-custom mb-3 mt-2 btn-lg"><i class="icon icon-credit-card"></i>Pay Now</a>
+                                <template v-if="paySubmitting">
+                                    <a class="btn btn-sm btn-custom mb-3 mt-2 btn-lg"><i class="icon icon-credit-card"></i>...Processing</a>
+                                </template>
+                                <a v-else class="btn btn-sm btn-custom mb-3 mt-2 btn-lg" @click="makePayment"><i class="icon icon-credit-card"></i>Pay Now</a>
                             </div>
                         </div>	   
                     </div>
@@ -277,31 +295,29 @@
                         <div class="d-flex flex-wrap justify-content-center">
                             <div class="text-center">
                                 <img class=" mt-3" src="/assets/img/wallet4a.png" width="auto" height="150px">
-                                <h1 class="font-weight-bold text-blue" style="margin: 0em; padding: 0em;">₦345,902</h1>
+                                <h1 class="font-weight-bold text-blue" style="margin: 0em; padding: 0em;">₦{{ walletBalance?.toLocaleString('en-US') }}</h1>
                                 <small class=" font-weight-bold s-10 text-blue" style="margin: 0em; padding: 0em;" >Current Wallet Available Balance</small><br>
-                                <a class="btn btn-sm btn-success mb-3 mt-2 btn-lg"><i class="icon icon-credit-card"></i>Pay with Wallet</a>
+                                <a v-if="payingWithWallet==true" class="btn btn-sm btn-success mb-3 mt-2 btn-lg"><i class="icon icon-credit-card"></i>...Processing</a>
+                                <a v-else class="btn btn-sm btn-success mb-3 mt-2 btn-lg" @click="payManually"><i class="icon icon-credit-card"></i>Pay with Wallet</a>
                             </div>    
                         </div>    
                     </div>
-                </div>              
-                                         
+                </div>                                  
             </div>
-
 
             <div class="row mt-4" style="padding-top: 50px">
                 <div class="col-md-12">
                     <div class="card shadow-lg mb-3" style="background-color: transparent">
                         <div class="card-body ">
                             <div class="d-flex justify-content-left mb-2">
-                                <input 
-                                    
+                                <!-- <input 
                                     class="form-control mr-2" 
                                     type="text" 
                                     placeholder="Search..." 
                                     style="width: 250px; background-color: transparent; border: 2px solid #2E671A !important;"/>
                                 <button class="btn text-white" style="background-Color:#2E671A" >
                                     <i class="icon-search"></i>
-                                </button>
+                                </button> -->
                             </div>
                             <div class="table-responsive">
                                 <table id="example2" class="table table-hover data-tables" data-options='{ "paging": false; "searching":false}' >
@@ -313,9 +329,9 @@
                                             <th class="font-weight-bold" scope="col">LOCATION</th>     
                                             <th class="font-weight-bold" scope="col">STATE</th>
                                             <th class="font-weight-bold" scope="col">CONTACT</th>
-                                            <th class="font-weight-bold" scope="col">PRODUCT</th>
-                                            <th class="font-weight-bold" scope="col">QTY</th>
-                                            <th class="font-weight-bold" scope="col">PRICE</th>
+                                            <th class="font-weight-bold" scope="col">POrder ID</th>
+                                            <th class="font-weight-bold" scope="col">Total QTY</th>
+                                            <th class="font-weight-bold" scope="col">Total PRICE</th>
                                             <th class="font-weight-bold" scope="col">STATUS</th>
                                             <th class="font-weight-bold" scope="col">DATE/TIME</th>
                                         </tr>
@@ -332,14 +348,14 @@
                                             <tr :key="i">
                                                 <td scope="row">{{ ++i }}</td>
                                                 <td>{{ purchase.pickup_type }}</td>
-                                                <td>N/A</td>
+                                                <td>{{ purchase.stockist_name??'N/A' }}</td>
                                                 <!-- <td>{{ claim.worth?.toLocaleString('en-US')}}</td> -->
-                                                <td>N/A</td>
-                                                <td>Lagos</td>
-                                                <td>081093445670</td>
-                                                <td>1KG REEZ MAX</td>
-                                                <td>1</td>
-                                                <td>{{ purchase.total_price }}</td>
+                                                <td>{{ purchase.stockist_address??'N/A' }}</td>
+                                                <td>{{ purchase.stockist_state??'N/A' }}</td>
+                                                <td>{{ purchase.stockist_phone??'N/A' }}</td>
+                                                <td>#{{ purchase.id }}</td>
+                                                <td>{{ purchase.total_quantity }}</td>
+                                                <td>₦{{ purchase.total_price.toLocaleString("en-US") }}</td>
                                                 <td><span class="badge badge-success" style="padding: 6px 10px;">{{ purchase.status }}</span></td>
                                                 <td>{{ purchase.created_at }}</td>
                                             </tr>
@@ -378,6 +394,26 @@
                 </div>				
             </div>
         </div>
+        <modal modalId="pay"  modalTitle="Make Payment" modalSize="md" :link="payLink">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <div class="timer flex-wrap d-flex justify-content-center"  style="padding-top: 30px;">
+                        <p class="text-center font-weight-bold">Please, Ensure you complete your transaction within 2 minutes.</p>
+                        <VueCountdown :time="((gatewayTimeout))">
+                            <template slot-scope="props">
+                                <div style="width: 200px !important; padding-right:20px; padding-left:20px; padding-top:20px; padding-bottom:20px;" id="minutes" class="align-items-center flex-column d-flex justify-content-center">{{ props.minutes }}&nbsp;&nbsp;MINUTES</div>
+                                <div style="width: 200px !important; padding-right:20px; padding-left:20px; padding-top:20px; padding-bottom:20px;" id="seconds" class="align-items-center flex-column d-flex justify-content-center">{{ props.seconds }}&nbsp;&nbsp;SECONDS</div>
+                            </template>
+                        </VueCountdown>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-10 offset-md-1">
+                    <iframe id='ifr' frameborder="0" :src="payLink" scrolling="no" width="400" height="500"></iframe>
+                </div>
+            </div>
+        </modal>
     </div>
 </template>
 
@@ -516,9 +552,16 @@ color: #ecf0f1;
 <script>
 import { mapActions, mapGetters, mapState } from "vuex";
 import { notification } from "@/util/notification";
+import modal from '@/components/Modal.vue'
+import VueCountdown from '@chenfengyuan/vue-countdown';
 
 export default {
   name: "user-repurchase",
+
+  components:{
+    modal,
+    VueCountdown
+ },
 
   data() {
     return {
@@ -545,6 +588,12 @@ export default {
       incLoading: false,
 
       totalPVLoading: false,
+
+      paySubmitting:false,
+      payLink:null,
+      gatewayTimeout:1000*60*0.5,
+      walletBalanceLoading:false,
+      payingWithWallet:false,
     };
   },
 
@@ -560,56 +609,63 @@ export default {
     ...mapGetters("settingStore", ["settings"]),
     
     ...mapGetters("productStore", ["products"]),
-    ...mapGetters("productPurchaseStore",["userPurchases"])
+    ...mapGetters("productPurchaseStore",["userPurchases"]),
+    ...mapGetters('bonusStore',['walletBalance']),
    
   },
 
   created() {
 
     if(this.authUser.uuid == undefined){
-        this.getUser();
+        this.getUser().then((res)=>{
+            this.getUserPurchases(res.data.uuid)
+            this.walletBalanceLoading = true
+            this.getWalletBalance(res.data.uuid).then(()=>this.walletBalanceLoading = false)
+        });
+    }else{
+        if(this.userPurchases.length==0){
+            this.getUserPurchases(this.authUser.uuid)
+            this.getWalletBalance(this.authUser.uuid).then(()=>this.walletBalanceLoading = false)
+        }
     }
 
     if (this.products.length === 0) {
       this.prodLoading = true;
       this.getActiveProducts().then(() => (this.prodLoading = false));
     }
-
-    if(this.userPurchases.length==0){
-        this.getUserPurchases(this.authUser.uuid)
-    }
   },
 
   methods: {
     
     logClaim2(e, id, product) {
-      let data = { qty: e.target.value, id: id, price:product.worth };
-      let pv = data.qty * product.points;
-      let amt = data.qty * product.worth;
-      let qty = Number(data.qty);
+        let data = {qty:e.target.value,id:product.id,price:product.worth,product:product}
 
-      this.cartPoints = { ...this.cartPoints, [data.id]: pv };
-      this.cartPrices = { ...this.cartPrices, [data.id]: amt };
-      this.cartQty = {...this.cartQty, [data.id]:qty};
+        let pv = data.qty * product.points
+        let amt = data.qty * product.worth;
+        let qty = Number(data.qty);
 
-      let pvs = Object.values(this.cartPoints);
-      let sum = pvs.reduce((res, val) => res + val);
-      this.cartTotalPoints = sum;
+        this.cartPoints = { ...this.cartPoints, [data.id]: pv };
+        this.cartPrices = { ...this.cartPrices, [data.id]: amt };
+        this.cartQty = {...this.cartQty, [data.id]:qty};
 
-      let prices = Object.values(this.cartPrices);
-      let sumPrices = prices.reduce((res, val) => res + val);
-      this.cartTotalPrice = sumPrices;
+        let pvs = Object.values(this.cartPoints)
+        let sum = pvs.reduce((res,val)=>res+val)
+        this.cartTotalPoints = sum
 
-      let qtys = Object.values(this.cartQty);
-      let sumQtys = qtys.reduce((res, val) => res + val);
-      this.cartTotalQty = sumQtys;
+        let prices = Object.values(this.cartPrices)
+        let sumPrice = prices.reduce((res,val)=>res+val)
+        this.cartTotalPrice = sumPrice
 
-      let index = this.cartProducts.findIndex((ele) => ele.id === id);
-      if (index !== -1) {
-        this.cartProducts[index].qty = data.qty;
-      } else {
-        this.cartProducts.push(data);
-      }
+        let qtys = Object.values(this.cartQty)
+        let sumQty = qtys.reduce((res,val)=>res+val)
+        this.cartTotalQty = sumQty
+
+        let index = this.cartProducts.findIndex(ele=>ele.id == product.id)
+        if(index !== -1){
+            this.cartProducts[index].qty = data.qty
+        }else{
+            this.cartProducts.push(data)
+        }
     },
 
     submitOrder(){
@@ -643,17 +699,83 @@ export default {
         this.cartTotalPoints = 0;
     },
 
-   
     ...mapActions("productPurchaseStore",["userPurchase","getUserPurchases"]),
     ...mapActions("settingStore", ["getSetting", "all"]),
     ...mapActions("productStore", ["getActiveProducts"]),
     ...mapActions('authStore',['getUser']),
     ...mapActions("stockistStore",["getStockists"]),
+    ...mapActions('paymentStore',['initiate','verify','initiatePayment']),
+    ...mapActions("withdrawalStore",["payWithWallet"]),
+    ...mapActions('bonusStore',['getWalletBalance']),
   
    
-    makePayment() {
-      console.log("Payment initiated");
-      // Implement your payment logic here
+    makePayment(){
+        if(this.cartProducts.length == 0){
+            notification.warning("There are no Items in your cart")
+            return
+        }
+
+        this.paySubmitting = true
+        let data = {amount:this.cartTotalPrice,
+            description:"Member purhcase",
+            txn_source:"member_product_purchase",
+            is_upgrade:0,
+            //stockist_id:this.stockist.id,
+            total_price:this.cartTotalPrice,
+            total_quantity:this.cartTotalQty,
+            total_points:this.cartTotalPoints,
+            products:this.cartProducts,
+            pickup_type:"repurchase"
+        }
+
+        this.initiatePay(data)
+    },
+
+    initiatePay(data){
+        var that = this
+        this.initiatePayment(data).then(res=>{
+            console.log(res)
+            var result = res
+            if(res.status == 200){
+                //if(that.productService.name == 'paystack'){
+                    that.payLink = res.data.data.data.authorization_url
+                    that.$bvModal.show('pay')
+                    
+                    setTimeout(() => {
+                        that.verify({reference:result.data.data.data.reference}).then(resp=>{
+                            if(resp.status == 200 && (resp.data.success == true || resp.data.success == 'true')){
+                                //vm.$router.push({name:'user-dashboard'})
+                                notification.success("Payment Verified successfully")
+                                that.$bvModal.hide('pay')
+                                this.paySubmitting = false
+                            }else{
+                                notification.info("Unable to verify payment")
+                                that.$bvModal.hide('pay')
+                                this.paySubmitting = false
+                            }
+                        }).catch(function(err) {
+                            console.log("Some specific work failed", err);
+                            that.$bvModal.hide('pay')
+                            this.paySubmitting = false
+                        });
+                    }, this.gatewayTimeout);
+                //}
+            }
+            this.paySubmitting = false
+        }).catch(function(err) {
+            console.log("Error initating payment", err);
+            that.$bvModal.hide('pay')
+            this.paySubmitting = false
+        });
+    },
+
+    payManually(){
+        if(this.cartProducts.length == 0){
+            notification.warning("There are no Items in your cart")
+            return
+        }
+        this.payingWithWallet = true;
+        this.payWithWallet({amount:this.cartTotalPrice}).then(()=>this.payingWithWallet = false)
     }
   },
 };

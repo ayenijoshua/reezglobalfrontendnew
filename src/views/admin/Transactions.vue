@@ -530,7 +530,7 @@
                                                                 <td>{{ stock.store_state }}</td>
                                                                 <td>{{stock.store_phone}}</td>
                                                                 <td>{{stock.stockist_status}}</td>
-                                                                <td>{{stock.created_at}}</td>
+                                                                <td>{{stock.reg_date}}</td>
                                                                 <!-- <td>₦{{ stock.total_purchases.toLocaleString('en-US') }}</td>
                                                                 <td>₦{{ stock.total_sales.toLocaleString('en-US') }}</td> -->
                                                                 <td>
@@ -541,7 +541,7 @@
                                                                         <div class="dropdown-menu"  style="background-color: #ecf0f1">
                                                                             <a @click="setStockist(stock)" v-b-modal.stockist-pop class="dropdown-item text-green" ><i class="icon-barometer2"></i>&nbsp;&nbsp; View POP</a>
 
-                                                                            <template v-if="stock.status == 'pending'">
+                                                                            <template v-if="stock.stockist_status == 'pending'">
                                                                                 <a @click="setStockist(stock)" v-b-modal.approve-stockist class="dropdown-item text-green">
                                                                                     <i class="icon-drivers-license-o"></i>&nbsp;&nbsp; Approve
                                                                                 </a>
@@ -601,7 +601,6 @@
                                                         <form id="product-claim-form" @submit.prevent="productClaim()">
                                                             <div class="d-flex justify-content-left mb-2">
                                                                 <input 
-                                                                    
                                                                     class="form-control mr-2" 
                                                                     type="text" 
                                                                     placeholder="Search stockists..." 
@@ -646,7 +645,7 @@
                                                                                 <td> {{ ++i }}</td>
                                                                                 <td>{{order.username}}</td>   
                                                                                 <td>{{order.store_name}}</td>
-                                                                                <td>{{order.stockist_package}} - ₦750,000</td>
+                                                                                <td>{{order.stockist_package}}</td>
                                                                                 <td>{{order.pickup_type}}</td>
                                                                                 <td>
                                                                                     <a class="btn-fab btn-fab-sm btn-success text-white" href="#" data-toggle="modal" data-target="#viewproductModal">
@@ -660,8 +659,8 @@
                                                                                         <i class="caret"></i>
                                                                                         </button>
                                                                                         <div class="dropdown-menu " aria-labelledby="dropdownMenuButton" style="position:fixed; background-color: #ecf0f1">
-                                                                                            <a @click="accept(prod.user_uuid)" class="dropdown-item text-green" href="#"  ><i class="icon-check-circle"></i>&nbsp;&nbsp; Approve</a>
-                                                                                            <a @click="reject(prod.user_uuid)" class="dropdown-item text-green" href="#" ><i class="icon-times-circle"></i>&nbsp;&nbsp; Decline</a>	
+                                                                                            <a v-b-modal.approve-stockist-purchase @click="setOrder(order)" class="dropdown-item text-green" href="#"  ><i class="icon-check-circle"></i>&nbsp;&nbsp; Approve</a>
+                                                                                            <a v-b-modal.disapprove-stockist-purchase @click="setOrder(order)" class="dropdown-item text-green" href="#" ><i class="icon-times-circle"></i>&nbsp;&nbsp; Decline</a>	
                                                                                         </div>
                                                                                     </div>													
                                                                                 </td>
@@ -732,9 +731,9 @@
             <template v-else>
                 <div role="dialog" aria-hidden="true" >
                     <div class="modal-dialog modal-dialog-centered" role="document" style="background: transparent!important;">
-                        <div class="" >
+                        <div class="">
                             <div class="">
-                                <img :src="imageURL(stockist.payment_receipt)" alt="Product Image"  style="height:700px; width: auto">
+                                <img :src="imageURL(stockist.payment_receipt)" alt="Proof Of Payment"  style="height:700px; width: auto">
                             </div>
                         </div>
                     </div>
@@ -788,6 +787,86 @@
                     </div>
                     <div class="col-md-12">
                         <p>Total Sales - {{ stockistSalesStats.total_sales }}</p>
+                    </div>
+                </div>
+            </template>
+        </Modal>
+
+        <Modal modal-id="approve-stockist" modal-title="Approve Stockist" modal-size="lg">
+            <template v-if="stockist==null">
+                <b-skeleton-table
+                    :rows="3"
+                    :columns="8"
+                    :table-props="{ bordered: true, striped: true }"
+                ></b-skeleton-table>
+            </template>
+            <template v-else>
+                <div class="row">
+                    <div class="col-md-6">
+                        <img :src="imageURL(stockist.payment_receipt)">
+                    </div>
+                    <div class="col-md-6">
+                        <button v-if="updatingRegistration==true" class="btn btn-danger">...</button>
+                        <button v-else class="btn btn-primary" @click="approveRegistration(stockist.payment_id)">Approve</button>
+                    </div>
+                </div>
+            </template>
+        </Modal>
+
+        <Modal modal-id="disapprove-stockist" modal-title="Disapprove Stockist" modal-size="lg">
+            <template v-if="stockist==null">
+                <b-skeleton-table
+                    :rows="3"
+                    :columns="8"
+                    :table-props="{ bordered: true, striped: true }"
+                ></b-skeleton-table>
+            </template>
+            <template v-else>
+                <div class="row">
+                    <div class="col-md-6">
+                        <img :src="imageURL(stockist.payment_receipt)">
+                    </div>
+                    <div class="col-md-6">
+                        <button v-if="updatingRegistration==true" class="btn btn-danger">...</button>
+                        <button v-else class="btn btn-danger" @click="disapproveRegistration(stockist.payment_id)">Disapprove</button>
+                    </div>
+                </div>
+            </template>
+        </Modal>
+
+        <Modal modal-id="approve-stockist-purchase" modal-title="Approve Stockist Purchase" modal-size="lg">
+            <template v-if="order==null">
+                <b-skeleton-table
+                    :rows="3"
+                    :columns="8"
+                    :table-props="{ bordered: true, striped: true }"
+                ></b-skeleton-table>
+            </template>
+            <template v-else>
+                <div class="row">
+                    <div class="col-md-12">
+                        <p class="bg-danger">Are you sure to approve purchase?</p>
+                        <button v-if="updatingRegistration==true" class="btn btn-danger">...</button>
+                        <button v-else class="btn btn-primary" @click="approveStockistPurchase(order.purchase_id)">Approve</button>
+                    </div>
+                </div>
+            </template>
+        </Modal>
+
+        <Modal modal-id="disapprove-stockist-purchase" modal-title="Disapprove Stockist Purchase" modal-size="lg">
+            <template v-if="order==null">
+                <b-skeleton-table
+                    :rows="3"
+                    :columns="8"
+                    :table-props="{ bordered: true, striped: true }"
+                ></b-skeleton-table>
+            </template>
+            <template v-else>
+                <div class="row">
+                    <div class="col-md-12">
+                        <p class="bg-danger">Are you sure to disapprove purchase?</p>
+                        <button v-if="updatingRegistration==true" class="btn btn-danger">...</button>
+                        <button v-else class="btn btn-primary" @click="disapproveStockistPurchase(order.purchase_id)">Decline</button>
                     </div>
                 </div>
             </template>
@@ -964,7 +1043,9 @@ import StockistPackagePayment from '@/components/admin/StockistPackagePayment.vu
             stockistSalesStats:null,
             salesStatsLoading:false,
             stockistUpgradeHistoryLoading:false,
-            stockistUpgradeHistory:[]
+            stockistUpgradeHistory:[],
+            updatingRegistration:false,
+            order:null
         }
     },
 
@@ -1036,8 +1117,8 @@ import StockistPackagePayment from '@/components/admin/StockistPackagePayment.vu
         ...mapActions('withdrawalStore',['all','getTotal','searchWithdrawals']),
         ...mapActions('userStore',['getPaidUsers','getTotalPaidUsers',
         'getSumPaidUsers','searchPaidUsers','getUpgradedUsers']),
-        ...mapActions('productPurchaseStore',['getSumTotalPrices','getMonthlyRepurchases']),
-        ...mapActions('stockistStore',['getStockists','getStockistsStats','getStockistsOrders','getSalesStats']),
+        ...mapActions('productPurchaseStore',['getSumTotalPrices','getMonthlyRepurchases',"approvePurchase","disapprovePurchase"]),
+        ...mapActions('stockistStore',['getStockists','getStockistsStats','getStockistsOrders','getSalesStats','approveStockist','disapproveStockist']),
         //...mapActions("PaymentStore",["getStockistPackagePayment"]),
 
         searchWithdraws(){
@@ -1061,11 +1142,35 @@ import StockistPackagePayment from '@/components/admin/StockistPackagePayment.vu
             this.getSalesStats(uuid).then(res=>{this.stockistSalesStats = res.data.data; this.salesStatsLoading=false;})
         },
 
-       
-
         imageURL(image){
             return image ? process.env.VUE_APP_IMAGE_PATH+'/'+image : '/assets/img/mock-image.jpeg'
+        },
+
+        approveRegistration(id){
+            this.updatingRegistration = true
+            this.approveStockist(id).then(()=>this.updatingRegistration = false)
+        },
+
+        disapproveRegistration(id){
+            this.updatingRegistration = true
+            this.disapproveStockist(id).then(()=>this.updatingRegistration = false)
+        },
+
+        approveStockistPurchase(id){
+            this.approvePurchase(id).then(()=>{
+                alert();
+                this.getStockistsOrders()
+            })
+        },
+
+        disapproveStockistPurchase(id){
+            this.disapprovePurchase(id).then(()=>this.getStockistsOrders())
+        },
+
+        setOrder(order){
+            this.order = order
         }
+
     }
  }
 </script>

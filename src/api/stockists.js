@@ -1,5 +1,6 @@
 import endPoints from "./endpoints"
 import {http} from './axios-config'
+import endpoints from "./endpoints"
 
 export default {
 
@@ -54,6 +55,14 @@ export default {
 
     salesStats(uuid){
         return http().get(`${endPoints.stockists}/${uuid}/sales-stats`)
+    },
+
+    approveStockist(id){
+        return http().patch(`${endpoints.stockists}/${id}/approve-registration`)
+    },
+
+    disapproveStockist(id){
+        return http().patch(`${endpoints.stockists}/${id}/disapprove-registration`)
     }
 
 

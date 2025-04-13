@@ -1,6 +1,7 @@
 import api from '../../api/stockists'
 import toastr from 'toastr'
 import { LogError } from '@/util/responseHandler'
+import { notification } from '@/util/notification'
 //import { notification } from '@/util/notification'
 
 export default {
@@ -214,6 +215,41 @@ export default {
             return res
         } catch (error) {
             LogError(commit,error,'loaded')
+        }
+    },
+
+    async approveStockist({commit},id){
+        try {
+            commit('submitting',null,{root:true})
+            const res = await api.approveStockist(id)
+            if(res && res.status==200){
+                //toastr.success(res.data.message)
+                //commit('stockistsOrders',res.data.data.data)
+                notification.success(res.data.message)
+            }else{
+                toastr.warning(res.data.message)
+            }
+            commit('submitted',null,{root:true})
+            return res
+        } catch (error) {
+            LogError(commit,error,'submitted')
+        }
+    },
+
+    async disapproveStockist({commit},id){
+        try {
+            commit('submitting',null,{root:true})
+            const res = await api.disapproveStockist(id)
+            if(res && res.status==200){
+                //toastr.success(res.data.message)
+                notification.success(res.data.message)
+            }else{
+                toastr.warning(res.data.message)
+            }
+            commit('submitted',null,{root:true})
+            return res
+        } catch (error) {
+            LogError(commit,error,'submitted')
         }
     }
 }

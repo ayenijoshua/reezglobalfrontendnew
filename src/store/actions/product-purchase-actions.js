@@ -218,4 +218,38 @@ export default {
             LogError(commit,error,'loaded')
         }
     },
+
+    async approvePurchase({commit},id){
+        try {
+            commit('submitting',null,{root:true})
+            const res = await api.approveStock(id)
+            if(res && res.status==200){
+                toastr.success(res.data.message)
+                //commit("monthlyRepurchases",res.data.data)
+            }else{
+                toastr.warning(res.data.message)
+            }
+            commit('loaded',null,{root:true})
+            return res
+        } catch (error) {
+            LogError(commit,error,'loaded')
+        }
+    },
+
+    async disapprovePurchase({commit},id){
+        try {
+            commit('submitting',null,{root:true})
+            const res = await api.disapproveStock(id)
+            if(res && res.status==200){
+                toastr.success(res.data.message)
+                //commit("monthlyRepurchases",res.data.data)
+            }else{
+                toastr.warning(res.data.message)
+            }
+            commit('loaded',null,{root:true})
+            return res
+        } catch (error) {
+            LogError(commit,error,'loaded')
+        }
+    },
 }

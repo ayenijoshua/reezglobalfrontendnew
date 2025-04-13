@@ -425,7 +425,7 @@
         data(){
             return {
                 form:{
-                    bank_account_name:null, //this.profile.id ? this.profile.bank_account_name : '',
+                    bank_account_name:'startwins', //this.profile.id ? this.profile.bank_account_name : '',
                     bank_account_number:null, //this.profile.id ? this.profile.bank_account_number : '',
                     bank_name:null, //this.profile.id ? this.profile.bank_name : '',
                     bank_code:null

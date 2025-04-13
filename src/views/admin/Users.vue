@@ -104,7 +104,7 @@
                                                     </td>
                                                     <td><span class="font-weight-bold">{{ user.stockist_package_name }}</span></td>
                                                     <td>
-                                                        <div class="dropdown">
+                                                        <div class="dropdown" v-if="user.is_stockist==1">
                                                             <button class="btn btn-sm btn-success dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                                 <i class="caret"></i> Active
                                                             </button>
