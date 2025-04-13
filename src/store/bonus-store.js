@@ -30,7 +30,8 @@ export default{
 
             companyWalletBalance:null,
             totalCompanyWallet:null,
-            bonusStats : {}
+            bonusStats : {},
+            userBonusStats:{}
         }
     },
     actions:{

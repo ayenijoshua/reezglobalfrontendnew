@@ -19,152 +19,26 @@
                 <div class="animated">
                     <div class="tab-content" id="v-pills-tabContent">
                         <div class="tab-pane fade show active" id="v-pills-wallet-summary" role="tabpanel" aria-labelledby="v-pills-wallet-summary-tab">
-                             
-                            
-                            <div class="row row-eq-height my-3">
-                                <div class="col-md-8">
-                                    <div class="row">
-                                        <div class="col-md-6 col-sm-6">
-                                            <div class="card mb-3 shadow1" style="background-color: #2E671A">
-                                                <div class="card-body">
-                                                    <div class="d-flex justify-content-between align-items-center">
-                                                        <div><img class="mr-3  r-3" src="/assets/img/referral3.png"
-                                                            alt="Generic placeholder image" width="50px" height="auto"></div>
-                                                        <div><img class="mr-3  r-3" src="/assets/img/earn1.png"
-                                                            alt="Generic placeholder image" width="50px" height="auto"></div>
-                                                    </div>
-                                                    <div class="text-center">
-                                                        <div class="s-40 my-3 font-weight-lighter text-white" style="font-size:35px">₦ {{ referralBonus?.toLocaleString('en-US') }}</div>
-                                                    <span class="green-text font-weight-bold text-white">Total Referral Bonus</span> 
-                                                    </div>
-
-                                                </div>
+                               
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="card mb-3 shadow1" style="background-color: transparent">
+                                        <div class="card-body">
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <div><img class="mr-3  r-3" src="/assets/img/user.png"
+                                                    alt="Generic placeholder image" width="50px" height="auto"></div>
+                                                <div><img class="mr-3  r-3" src="/assets/img/earn2.png"
+                                                    alt="Generic placeholder image" width="50px" height="auto"></div>
+                                            </div>
+                                            <div class="text-center">
+                                                <div class="s-40 my-3 font-weight-lighter" style="font-size:35px">₦ {{ totalBonus?.toLocaleString('en-US') }}</div>
+                                                <span class=" font-weight-bold">Total Bonus </span> 
                                             </div>
                                         </div>
-                                        <!--<div class="col-md-3 col-sm-6">
-                                            <div class="card mb-3 shadow1" style="background-color: transparent">
-                                                <div class="card-body">
-                                                    <div class="d-flex justify-content-between align-items-center">
-                                                        <div><i class="icon icon-money s-18"></i></div>
-                                                        <div><span class="green-text font-weight-bold">TPB</span></div>
-                                                    </div>
-                                                    <div class="text-center">
-                                                        <div class="s-40 my-3 font-weight-lighter" style="font-size:35px">₦ {{ placementBonus?.toLocaleString('en-US') }}</div>
-                                                    <span class="green-text font-weight-bold">Total Placement Bonus</span> 
-                                                    </div>
-
-                                                </div>
-                                            </div>
-                                        </div>--->
-                                        <div class="col-md-3 col-sm-6">
-                                            <div class="card mb-3 shadow1" style="background-color: transparent">
-                                                <div class="card-body">
-                                                    <div class="d-flex justify-content-between align-items-center">
-                                                        <div><img class="mr-3  r-3" src="/assets/img/matching1.png"
-                                                            alt="Generic placeholder image" width="50px" height="50px"></div>
-                                                        <div><img class="mr-3  r-3" src="/assets/img/earn2.png"
-                                                            alt="Generic placeholder image" width="50px" height="50px"></div>
-                                                    </div>
-                                                    <div class="text-center">
-                                                        <div class="s-40 my-3 font-weight-lighter" style="font-size:35px">₦ {{ equilibrumBonus?.toLocaleString('en-US') }}</div>
-                                                    <span class="font-weight-bold">Total Matching Bonus </span> 
-                                                    </div>
-
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-3 col-sm-6">
-                                            <div class="card mb-3 shadow1" style="background-color: transparent">
-                                                <div class="card-body">
-                                                    <div class="d-flex justify-content-between align-items-center">
-                                                        <div><img class="mr-3  r-3" src="/assets/img/repurchase1.png"
-                                                            alt="Generic placeholder image" width="50px" height="auto"></div>
-                                                        <div><img class="mr-3  r-3" src="/assets/img/earn2.png"
-                                                            alt="Generic placeholder image" width="50px" height="auto"></div>
-                                                    </div>
-                                                    <div class="text-center">
-                                                        <div class="s-40 my-3 font-weight-lighter" style="font-size:35px">₦ 10,800,000</div>
-                                                    <span class=" font-weight-bold">Total Repurchase Bonus</span> 
-                                                    </div>
-
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-3 col-sm-6">
-                                            <div class="card mb-3 shadow1" style="background-color: transparent">
-                                                <div class="card-body">
-                                                    <div class="d-flex justify-content-between align-items-center">
-                                                        <div><img class="mr-3  r-3" src="/assets/img/unilevel1.png"
-                                                            alt="Generic placeholder image" width="50px" height="auto"></div>
-                                                        <div><img class="mr-3  r-3" src="/assets/img/earn2.png"
-                                                            alt="Generic placeholder image" width="50px" height="auto"></div>
-                                                    </div>
-                                                    <div class="text-center">
-                                                        <div class="s-40 my-3 font-weight-lighter" style="font-size:35px">₦ 10,800,000</div>
-                                                    <span class=" font-weight-bold">Total unilevel Bonus</span> 
-                                                    </div>
-
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-3 col-sm-6">
-                                            <div class="card mb-3 shadow1" style="background-color: transparent">
-                                                <div class="card-body">
-                                                    <div class="d-flex justify-content-between align-items-center">
-                                                        <div><img class="mr-3  r-3" src="/assets/img/upgrade.png"
-                                                            alt="Generic placeholder image" width="50px" height="auto"></div>
-                                                        <div><img class="mr-3  r-3" src="/assets/img/earn2.png"
-                                                            alt="Generic placeholder image" width="50px" height="auto"></div>
-                                                    </div>
-                                                    <div class="text-center">
-                                                        <div class="s-40 my-3 font-weight-lighter" style="font-size:35px">₦ 10,800,000</div>
-                                                    <span class=" font-weight-bold">Total Upgrade Bonus</span> 
-                                                    </div>
-
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-3 col-sm-6">
-                                            <div class="card mb-3 shadow1" style="background-color:#be4025">
-                                                <div class="card-body">
-                                                    <div class="d-flex justify-content-between align-items-center">
-                                                        <div><img class="mr-3  r-3" src="/assets/img/salary1.png"
-                                                            alt="Generic placeholder image" width="50px" height="auto"></div>
-                                                        <div><img class="mr-3  r-3" src="/assets/img/earn1.png"
-                                                            alt="Generic placeholder image" width="50px" height="auto"></div>
-                                                    </div>
-                                                    <div class="text-center">
-                                                        <div class="s-40 my-3 font-weight-lighter text-white" style="font-size:35px">₦ {{ globalProfit?.toLocaleString('en-US') }}</div>
-                                                    <span class="text-white font-weight-bold">Global Pool Sharing</span> 
-                                                    </div>
-
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-3 col-sm-6">
-                                            <div class="card mb-3 shadow1" style="background-color: transparent">
-                                                <div class="card-body">
-                                                    <div class="d-flex justify-content-between align-items-center">
-                                                        <div><img class="mr-3  r-3" src="/assets/img/user.png"
-                                                            alt="Generic placeholder image" width="50px" height="auto"></div>
-                                                        <div><img class="mr-3  r-3" src="/assets/img/earn2.png"
-                                                            alt="Generic placeholder image" width="50px" height="auto"></div>
-                                                    </div>
-                                                    <div class="text-center">
-                                                        <div class="s-40 my-3 font-weight-lighter" style="font-size:35px">₦ {{ totalBonus?.toLocaleString('en-US') }}</div>
-                                                        <span class=" font-weight-bold">Total Bonus </span> 
-                                                    </div>
-
-                                                </div>
-                                            </div>
-                                        </div>
-
                                     </div>
                                 </div>
                                 <div class="col-md-4">
-                                    <div class="card no-b p-4 shadow-lg" style="background-color:#2E671A; border: 1px solid #2E671A !important;">
+                                    <div class="card no-b shadow-lg" style="background-color:#2E671A; border: 1px solid #2E671A !important;">
 
                                         <div class="pt-5 pb-5 pl-5 pr-5" >
                                             <h5 class="font-weight-bold text-white s-14">Total withdrawals (TW)</h5>
@@ -181,147 +55,7 @@
                                     </div>
                                 </div> 
                             </div>
-                            <div class="row">
-                                <div class="col-lg-6">
-                                    <b-card v-if="globalProfitLoading && loading">
-                                        <b-skeleton width="85%"></b-skeleton>
-                                        <b-skeleton width="55%"></b-skeleton>
-                                        <b-skeleton width="70%"></b-skeleton>
-                                    </b-card>
-                                    <div v-else class="counter-box p-40   shadow1 r-5" style="background-color:transparent;">
-                                        <div class="float-right">
-                                            <img  src="/assets/img/wallet30.png" alt="Generic placeholder image" width="70px" height="70px">
-                                        </div>
-                                        <div class="mt-1 text-dark-heading " ></div>
-                                        <h6 class="counter-title font-weight-bold">Total Stockist Rebate Bonus</h6><br>
-                                       <span class="s-40 my-3 font-weight-lighter" style="font-size:35px"> ₦ 137,000</span> 
-                                    </div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <b-card v-if="globalProfitLoading && loading">
-                                        <b-skeleton width="85%"></b-skeleton>
-                                        <b-skeleton width="55%"></b-skeleton>
-                                        <b-skeleton width="70%"></b-skeleton>
-                                    </b-card>
-                                    <div v-else class="counter-box p-40   shadow1 r-5" style="background-color:transparent;">
-                                        <div class="float-right">
-                                            <img  src="/assets/img/retailer.png" alt="Generic placeholder image" width="70px" height="70px">
-                                        </div>
-                                        <div class="mt-1 text-dark-heading " ></div>
-                                        <h6 class="counter-title font-weight-bold">Total Signee Bonus</h6><br>
-                                       <span class="s-40 my-3 font-weight-lighter" style="font-size:35px"> ₦ 137,000</span> 
-                                    </div>
-                                </div>
-                            </div>   
-                       
-                        <!--<div class="row">
-                                <div class="col-md-12">
-                                    <div class="row my-3">
-                                         bar charts group -->
-                                        <!-- <div class="col-md-12">
-                                            <div class="card shadow-lg" style="background-color: transparent; border: 2px solid #2E671A !important;">
-                                                <div class="card-header">
-                                                    <h4 class="green-text"><strong class="font-weight-bold">Wallet Summary</strong></h4>
-                                                </div>
-                                                <div class="card-body" style="overflow-x:auto;">
-                                                    <table class="table table-bordered table-hover">
-                                                        <thead>
-                                                            <tr>                                                               
-                                                            <th class="font-weight-bold" scope="col">Total Referral Bonus (TRB)</th>
-                                                            <th class="font-weight-bold" scope="col">Total Placement Bonus (TPB)</th>
-                                                            <th class="font-weight-bold" scope="col">Total Matching Bonus (TEB)</th>
-                                                            <th class="font-weight-bold" scope="col">Total Repurchase Bonus (TRB)</th>
-                                                            <th class="font-weight-bold" scope="col">Total unilevel Bonus (TLB)</th>
-                                                            <th class="font-weight-bold" scope="col">Total Upgrade Bonus (TUB)</th>
-                                                            <th class="font-weight-bold" scope="col">Global Pool Sharing (GPS)</th>
-                                                            <th class="font-weight-bold" scope="col">Total Bonus (TB)</th>
-                                                            <th class="font-weight-bold" scope="col">Total withdrawals (TW)</th>
-                                                            <th class="font-weight-bold" scope="col">Wallet balance (TB - TW)</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            <tr>
-                                                            <td>₦{{ welcomeBonus?.toLocaleString('en-US') }}</td>
-                                                            <td>₦{{ referralBonus?.toLocaleString('en-US') }} </td>
-                                                            <td>₦{{ placementBonus?.toLocaleString('en-US') }} </td>
-                                                            <td>₦{{ equilibrumBonus?.toLocaleString('en-US') }}</td>
-                                                            <td>₦{{ loyaltyBonus?.toLocaleString('en-US') }}</td>
-                                                            <td>₦{{ profitPool?.toLocaleString('en-US') }}</td>
-                                                            <td>₦{{ globalProfit?.toLocaleString('en-US') }}</td>
-                                                            <td>₦{{ totalBonus?.toLocaleString('en-US') }}</td>
-                                                            <td>₦{{ userTotalWithdrawals?.toLocaleString('en-US') }}</td>
-                                                            <td>₦{{ walletBalance?.toLocaleString('en-US') }}</td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                            </div>
-                                        </div>-->
-                                    <!-- /bar charts group -->									
-                                   <!--  </div>
-                                </div>
-                            </div>-->	
-
-
-                           <div class="row">
-                                <div class="col-md-12">
-                                    <div class="row my-3">
-
-
-                                        <!-- bar charts group -->
-                                        <!--<div class="col-md-12">
-                                            <div class="card">
-                                                <div class="card-header bg-white">
-                                                    <h4 class="green-text"><strong class="font-weight-bold">Profit Pool</strong></h4>
-                                                </div>
-                                                <div class="card-body" style="overflow-x:auto;">
-                                                    <table class="table table-bordered table-hover">
-                                                        <thead>
-                                                        <tr>
-                                                            <th scope="col">Recieved Months</th>
-                                                            <th scope="col">Profit Pool Bonus</th>
-                                                            <th scope="col">Status</th>
-                                                            <th scope="col">Required Registrations</th>
-                                                            <th scope="col">Payment</th>
-                                                            <th scope="col">Date</th>
-                                                        </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            <tr v-if="loading">
-                                                                <td colspan="6">
-                                                                    <b-skeleton-table
-                                                                        :rows="3"
-                                                                        :columns="6"
-                                                                        :table-props="{ bordered: true, striped: true }"
-                                                                    ></b-skeleton-table>
-                                                                </td>
-                                                            </tr>
-                                                            <template v-else>
-                                                                <tr v-if="profitPools.length == 0">
-                                                                    <td colspan="4">There are no profit pools</td>
-                                                                </tr>
-                                                                <tr v-else v-for="pool,i in profitPools" :key="i">
-                                                                    <td>{{ ++i }}</td>
-                                                                    <td>₦{{ pool.value }}</td>
-                                                                    <td><span class="badge text-white bg-green"><i class="icon icon-check" ></i>&nbsp;&nbsp;Eligible</span></td>
-                                                                    <td>4</td>
-                                                                    <td><span class="badge text-white bg-green"><i class="icon icon-check" ></i>&nbsp;&nbsp;Approved</span></td>
-                                                                    <td>{{ pool.created_at }}</td>
-                                                                </tr>
-                                                            </template>
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                            </div>
-                                        </div>-->
-                                        <!-- /bar charts group -->
-
-
-
-                                    </div>
-                                </div>
-                            </div>
-
+                                
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="row my-3">
@@ -351,11 +85,13 @@
                                                                 <tr v-if="globalProfits.length == 0">
                                                                     <td colspan="4">There are no global profits</td>
                                                                 </tr>
-                                                                <tr v-else v-for="globProfit,i in globalProfits" :key="i">
-                                                                    <td>{{ ++i }}</td>
-                                                                    <td>₦{{ globProfit.profit }}</td>
-                                                                    <td>{{ globProfit.created_at }}</td>
-                                                                </tr>
+                                                                <template v-else>
+                                                                    <tr v-for="globProfit,i in globalProfits" :key="i">
+                                                                        <td>{{ ++i }}</td>
+                                                                        <td>₦{{ globProfit.profit }}</td>
+                                                                        <td>{{ globProfit.created_at }}</td>
+                                                                    </tr>
+                                                                </template>
                                                             </template>
                                                         </tbody>
                                                     </table>
@@ -366,9 +102,7 @@
                                     </div>
                                 </div>
                             </div>
-
                         </div>
-
 
                         <div class="tab-pane fade" id="v-pills-Withdrawal-History" role="tabpanel" aria-labelledby="v-pills-Withdrawal-History-tab">
                             <div class="row">
@@ -380,13 +114,39 @@
                                                 <div class="text-center"> <h5 class="font-weight-bold" >Notification</h5></div>
                                                 <div v-if="settings.charge">
                                                     <small v-if="settings.withdrawal_charge_type=='percentage'">You will be charged {{ settings.charge }}% of your withdrawal amount
-                                                        at a maximum of ₦{{ settings.withdrawal_charge_cap }}
+                                                        at a cap of ₦{{ settings.withdrawal_charge_cap }}
                                                     </small>
                                                     <small v-else class="mb-3">You will be charge ₦{{ settings.charge }} for your withdrawal.</small><br>
                                                     <b><i>Please note that these charges are bank charges from our third party providers</i></b>
                                                 </div>
                                                 <small v-if="settings.minimum_withdrawal"><br>  Minimum withdrawal is ₦{{ settings.minimum_withdrawal?.toLocaleString('en-US') }}.</small>
                                                 <small v-if="settings.maximum_withdrawal"><br>  Maximum withdrawal is ₦{{ settings.maximum_withdrawal?.toLocaleString('en-US') }}.</small>
+                                            </div>                                            
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <div class="card shadow1">
+                                        <b-card v-if="settingsLoading">
+                                            <b-skeleton width="85%"></b-skeleton>
+                                            <b-skeleton width="55%"></b-skeleton>
+                                            <b-skeleton width="70%"></b-skeleton>
+                                            <b-skeleton width="85%"></b-skeleton>
+                                            <b-skeleton width="55%"></b-skeleton>
+                                        </b-card>
+                                        <div v-else class="collapse show text-center" id="invoiceCard">
+                                            <div class="card-body  text-center">
+                                                <img  src="/assets/img/note.png"  width="auto" height="200px">
+                                                <div class="text-center"> <h5 class="font-weight-bold">Withdrawal Amount </h5> ₦{{ authUser.withdrawal_amount?.toLocaleString('en-US') }}</div>
+                                                
+                                                <form @submit.prevent="submitWithdrawalAmount">
+                                                    <div class="form-row">
+                                                        <div class="col-md-12 mb-3">
+                                                            <input type="number" required v-model="withdrawalForm.withdrawal_amount" class="form-control" :min="settings.minimum_withdrawal > 0 ? settings.minimum_withdrawal : 1" :max="settings.maximum_withdrawal > 0 ? settings.minimum_withdrawal : $event.target.value" placeholder="withdrawal amount" style="background-color: transparent; border: 2px solid #1b4f72;">
+                                                        </div>
+                                                    </div>
+                                                    <span v-if="submittingAmt==true" class="btn btn-success">...</span>
+                                                    <button v-else class="btn btn-success" type="submit">Submit</button>
+                                                </form>
                                             </div>                                            
                                         </div>
                                     </div>
@@ -497,7 +257,12 @@ import { mapActions,mapState,mapGetters } from 'vuex';
             return{
                 form:{
                     amount:''
-                }
+                },
+                withdrawalForm:{
+                    withdrawal_amount:0
+                },
+                submittingAmt:false,
+                settingsLoading:false
             }
         },
 
@@ -539,8 +304,11 @@ import { mapActions,mapState,mapGetters } from 'vuex';
             }
 
             if(this.settings.id == undefined){
-                this.all()
+                this.settingsLoading = true
+                this.all().then(()=>this.settingsLoading = false)
             }
+
+            this.withdrawalForm.withdrawal_amount = this.authUser.withdrawal_amount
         },
 
         methods:{
@@ -554,39 +322,14 @@ import { mapActions,mapState,mapGetters } from 'vuex';
 
                 ...mapActions('withdrawalStore',['getUserTotal','getUserHistory','initiate','getUserPendingWithdrawals']),
                 ...mapActions('settingStore',['all']),
+                ...mapActions('userStore',['updateWithdrawalAmount']),
 
             getBonuses(uuid){
-                if(!this.welcomeBonus){
-                    this.getWelcomeBonus(uuid)
-                }
-                if(!this.equilibrumBonus){
-                    this.getEquilibrumBonus(uuid)
-                }
-                if(!this.loyaltyBonus){
-                    this.getLoyaltyBonus(uuid)
-                }
-                if(!this.referralBonus){
-                    this.getReferralBonus(uuid)
-                }
-                if(!this.placementBonus){
-                    this.getPlacementBonus(uuid)
-                }
+                
                 if(!this.totalBonus){
                     this.getTotalBonus(uuid)
                 }
-                if(!this.profitPool){
-                    this.getProfitPool(uuid)
-                }
-                if(!this.globalProfit){
-                    this.getGlobalProfit(uuid)
-                }
-                //this.getTotalPVs(uuid)
-                if(!this.profitPools.length == 0){
-                    this.getProfitPools(uuid)
-                }
-                if(!this.globalProfits.length == 0){
-                    this.getGlobalProfits(uuid)
-                }
+                
                 if(!this.walletBalance){
                     this.getWalletBalance(uuid)
                 }
@@ -608,6 +351,11 @@ import { mapActions,mapState,mapGetters } from 'vuex';
 
             isNumeric(n){
                 return !isNaN(parseFloat(n)) && isFinite(n)
+            },
+
+            submitWithdrawalAmount(){
+                this.submittingAmt = true
+                this.updateWithdrawalAmount(this.withdrawalForm).then(()=>{this.submittingAmt=false; this.getUser();})
             }
         }
     }

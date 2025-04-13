@@ -33,5 +33,9 @@ export default {
 
     userPendingWithdrawals(uuid){
         return http().get(`${endPoints.withdrawals}/${uuid}/pending`)
+    },
+
+    payWithWallet(data){
+        return http().patch(`${endPoints.withdrawals}/pay-with-wallet`,data)
     }
 }

@@ -73,6 +73,10 @@ export default {
 
     bonusStats(){
         return http().get(`${endPoints.bonuses}/bonus-stats`);
+    },
+
+    userBonusStats(uuid){
+        return http().get(`${endPoints.bonuses}/${uuid}/bonus-stats`);
     }
 
     

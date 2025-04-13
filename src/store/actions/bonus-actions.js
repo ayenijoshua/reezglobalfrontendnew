@@ -298,6 +298,23 @@ export default {
         }
     },
 
+    async getUserBonusStats({commit},uuid){
+        try {
+            commit('loading',null,{root:true})
+            const res = await api.userBonusStats(uuid)
+            if(res && res.status==200){
+                commit('userBonusStats',res.data.data)
+                console.log("log-sta",res.data.data)
+            }else{
+                toastr.warning(res.data.message)
+            }
+            commit('loaded',null,{root:true})
+            return res
+        } catch (error) {
+            LogError(commit,error,'loaded')
+        }
+    },
+
 
 
 

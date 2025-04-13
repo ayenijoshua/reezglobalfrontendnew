@@ -76,7 +76,7 @@
                     </li>
 
 
-                    <li class="shadow">
+                    <li class="shadow" v-if="authUser.is_stokist==1">
                         <a href="#" style="text-decoration:none;" @click.prevent="toggleStockistPortal">
                             <i class="icon icon-web text-blue"></i>
                             <span class="font-weight-bold text-blue">Stockist Portal</span>

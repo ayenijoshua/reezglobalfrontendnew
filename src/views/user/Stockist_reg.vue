@@ -214,76 +214,34 @@
             </div>
             <br>
             <div class="row">
-                <div class="col-md-4">
-                    <div class="card shadow rounded" style="background-color: #2E671A">
-                        <div class="card-body">
-                            <div class="d-flex justify-content-center">
-                                <div class="text-center">  <img  src="/assets/img/bank-transfer.png" width="auto" height="100px"></div>
-                                    <div class="card-body text-center">
-                                        <span  id="d1" class="text-white" style="font-size:10px">Bank Name</span>
-                                        <h5 class="font-weight-bold text-white"> Guaranty Trust Bank</h5>
-                                        <span  id="d1" class="text-white" style="font-size:10px">Account Name</span>
-                                        <h5 class="font-weight-bold text-white" id="d1">Star Twins Herbal Limited</h5>
-                                        <span  id="d1" class="text-white" style="font-size:10px">Account Number</span>
-                                        <h5 class="font-weight-bold text-white" id="d1">0013476690</h5>
-                                    </div>
-
+                <b-card v-if="banksLoading" class="col-md-12" >
+                    <b-skeleton width="85%"></b-skeleton>
+                    <b-skeleton width="55%"></b-skeleton>
+                    <b-skeleton width="70%"></b-skeleton>
+                </b-card>
+                <template v-else>
+                    <div v-for="bank,i in banks" class="col-md-4" :key="i">
+                        <div class="card shadow rounded" style="background-color: #2E671A">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-center">
+                                    <div class="text-center">  <img src="/assets/img/bank-transfer.png" width="auto" height="100px"></div>
+                                        <div class="card-body text-center">
+                                            <span  id="d1" class="text-white" style="font-size:10px">Bank Name</span>
+                                            <h5 class="font-weight-bold text-white"> {{ bank.bank_name }}</h5>
+                                            <span  id="d1" class="text-white" style="font-size:10px">Account Name</span>
+                                            <h5 class="font-weight-bold text-white" id="d1">{{ bank.bank_account_name }}</h5>
+                                            <span  id="d1" class="text-white" style="font-size:10px">Account Number</span>
+                                            <h5 class="font-weight-bold text-white" id="d1">{{ bank.bank_account_number }}</h5>
+                                        </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card shadow rounded" style="background-color: #2E671A">
-                        <div class="card-body">
-                            <div class="d-flex justify-content-center">
-                                <div class="text-center">  <img  src="/assets/img/bank-transfer.png" width="auto" height="100px"></div>
-                                    <div class="card-body text-center">
-                                        <span  id="d1" class="text-white" style="font-size:10px">Bank Name</span>
-                                        <h5 class="font-weight-bold text-white"> Jaiz Bank</h5>
-                                        <span  id="d1" class="text-white" style="font-size:10px">Account Name</span>
-                                        <h5 class="font-weight-bold text-white" id="d1">Star Twins Herbal Limited</h5>
-                                        <span  id="d1" class="text-white" style="font-size:10px">Account Number</span>
-                                        <h5 class="font-weight-bold text-white" id="d1">2017714690</h5>
-                                    </div>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card shadow rounded" style="background-color: #2E671A">
-                        <div class="card-body">
-                            <div class="d-flex justify-content-center">
-                                <div class="text-center">  <img  src="/assets/img/bank-transfer.png" width="auto" height="100px"></div>
-                                    <div class="card-body text-center">
-                                        <span  id="d1" class="text-white" style="font-size:10px">Bank Name</span>
-                                        <h5 class="font-weight-bold text-white"> United Bank Of Africa</h5>
-                                        <span  id="d1" class="text-white" style="font-size:10px">Account Name</span>
-                                        <h5 class="font-weight-bold text-white" id="d1">Star Twins Herbal Limited</h5>
-                                        <span  id="d1" class="text-white" style="font-size:10px">Account Number</span>
-                                        <h5 class="font-weight-bold text-white" id="d1">1113470690</h5>
-                                    </div>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-            <br>
-            <div class="row"> 
-                <div class="col-md-12">
-                    <div class="card shadow" style="background-color: transparent">
-                        <div class="card-body" >
-                        </div>
-                    </div>
-                </div>
+                </template>
             </div>
         </div>
     </div>
 </template>
-
-
 
 <style >
     #disclaimer .card {
@@ -346,7 +304,8 @@ export default {
         store_state:"",
         package_id:"",
         referrer:""
-      }
+      },
+      banksLoading:false
     };
   },
 
@@ -356,7 +315,8 @@ export default {
       submitting: (state) => state.submitting,
     }),
 
-    ...mapGetters("stockistPackageStore",["stockistPackages"])
+    ...mapGetters("stockistPackageStore",["stockistPackages"]),
+    ...mapGetters("bankStore",["banks"])
   },
 
   created(){
@@ -364,12 +324,18 @@ export default {
     if(this.stockistPackages.length == 0){
         this.getPackages()
     }
+
+    if(this.banks.length == 0){
+        this.banksLoading = true
+        this.getBanks().then(()=>this.banksLoading=false)
+    }
   },
 
 
   methods: {
     ...mapActions("stockistStore",["create"]),
     ...mapActions("stockistPackageStore",["getPackages"]),
+    ...mapActions("bankStore",["getBanks"]),
 
     toggleDisclaimer() {
       this.isDisclaimerVisible = !this.isDisclaimerVisible;

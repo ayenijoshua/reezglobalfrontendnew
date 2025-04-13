@@ -87,5 +87,9 @@ export default{
 
     bonusStats(state){
         return state.bonusStats
+    },
+
+    userBonusStats(state){
+        return state.userBonusStats
     }
 }

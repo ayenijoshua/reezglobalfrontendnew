@@ -500,6 +500,21 @@ export default {
         } catch (error) {
             LogError(commit,error,'loaded')
         }
+    },
+
+    async updateWithdrawalAmount({commit},data){
+        try {
+            commit('submitting',null,{root:true})
+            const res = await api.updateWithdrawalAmount(data)
+            if(res.status == 200){
+                notification.success("Withdrawal amount updated successfully")
+            }
+            
+            commit('submitted',null,{root:true})
+            return res
+        } catch (error) {
+            LogError(commit,error,'submitted')
+        }
     }
 
 }

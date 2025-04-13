@@ -133,5 +133,22 @@ export default {
         }
     },
 
+    async payWithWallet({commit},data){
+        var res;
+        try {
+            //commit('loading',null,{root:true})
+            res = await api.payWithWallet(data)
+            if(res.status==200){
+                //commit('userWithdrawals',res.data.data.data)
+            }else{
+                toastr.warning(res.data.message)
+            }
+            //commit('loaded',null,{root:true})
+            return res
+        } catch (err) {
+            LogError(commit,err,'loaded')
+        }
+    }
+
     
 }

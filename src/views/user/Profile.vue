@@ -236,7 +236,7 @@
                                                         </div>
                                                         <select id="select" v-model="upgradeForm.package_id" @change="getPackageDifference" class="form-control r-0 light s-12 shadow1" style="background-color: transparent" readonly>
                                                             <option style="background-color: transparent" value="">Select Stockist Package</option>
-                                                            <option v-for="reg,i in regPackages" :key="i" :value="reg.id">{{ reg.name }}</option>											   
+                                                            <option v-for="reg,i in regPackages.filter((ele) => ele.id > regPackage.id)" :key="i" :value="reg.id">{{ reg.name }}</option>											   
                                                         </select>
                                                     </div>
                                                 </div>
@@ -284,13 +284,19 @@
                                     </div>
                                 </div>
                                 <div class="col-md-6">
-                                    <div class="card mr-3 shadow1 " style="background-color: transparent">
+                                    <b-card v-if="walletBalanceLoading==true || walletBalance == null" >
+                                        <b-skeleton width="85%"></b-skeleton>
+                                        <b-skeleton width="55%"></b-skeleton>
+                                        <b-skeleton width="70%"></b-skeleton>
+                                    </b-card>
+                                    <div v-else class="card mr-3 shadow1 " style="background-color: transparent">
                                         <div class="d-flex flex-wrap justify-content-center">
                                             <div class="text-center">
                                                 <img class=" mt-3" src="/assets/img/wallet4a.png" width="auto" height="150px">
-                                                <h1 class="font-weight-bold text-blue" style="margin: 0em; padding: 0em;">₦345,902</h1>
+                                                <h1 class="font-weight-bold text-blue" style="margin: 0em; padding: 0em;">₦{{ walletBalance.toLocaleString('en-US') }}</h1>
                                                 <small class=" font-weight-bold s-10 text-blue" style="margin: 0em; padding: 0em;" >Current Wallet Available Balance</small><br>
-                                                <a class="btn btn-sm btn-success mb-3 mt-2 btn-lg"><i class="icon icon-credit-card"></i>Pay with Wallet</a>
+                                                <a v-if="payingWithWallet==true" class="btn btn-sm btn-success mb-3 mt-2 btn-lg"><i class="icon icon-credit-card"></i>...Processing</a>
+                                                <a v-else class="btn btn-sm btn-success mb-3 mt-2 btn-lg" @click="payManually"><i class="icon icon-credit-card"></i>Pay with Wallet</a>
                                             </div>    
                                         </div>    
                                     </div>
@@ -547,7 +553,10 @@ li > a:hover .icon {
                 upgradeData:{},
                 paySubmitting:false,
                 gatewayTimeout:1000*60*0.5,
-                payLink:null
+                payLink:null,
+                walletBalanceLoading:false,
+                payingWithWallet:false,
+                payAmount:0
             }
         },
 
@@ -560,6 +569,7 @@ li > a:hover .icon {
             ...mapGetters('authStore',['authUser']),
             ...mapGetters('userStore',['profile','uplineDetails']),
             ...mapGetters('packageStore',['regPackage','regPackages']),
+            ...mapGetters('bonusStore',['walletBalance']),
 
             imageURL(){
                 let img = this.profile?.photo_path
@@ -577,6 +587,8 @@ li > a:hover .icon {
             ...mapActions('authStore',['getUser']),
             ...mapActions('packageStore',['getPackage','all']),
             ...mapActions('paymentStore',['verifyBankDetails','fetchBanks','verify','initiatePayment']),
+            ...mapActions('bonusStore',['getWalletBalance']),
+            ...mapActions("withdrawalStore",["payWithWallet"]),
 
             profileUpdate(){
                 let ele = document.getElementById('profile-form')
@@ -677,7 +689,6 @@ li > a:hover .icon {
                 this.initiatePay(data)
             },
 
-
             initiatePay(data){
                 var that = this
                 this.initiatePayment(data).then(res=>{
@@ -716,6 +727,15 @@ li > a:hover .icon {
                     this.paySubmitting = false
                 });
             },
+
+            payManually(){
+                if(this.upgradeData.package_difference == undefined){
+                    notification.warning("Select a package for upgrade")
+                    return
+                }
+                this.payingWithWallet = true;
+                this.payWithWallet({amount:this.upgradeData.package_difference}).then(()=>this.payingWithWallet = false)
+            }
         },
 
        created(){
@@ -733,6 +753,11 @@ li > a:hover .icon {
                         this.getPackage(res.data.package_id)
                         this.uplineLoading = true
                         this.getUplineDetails(res.data.uuid).then(()=>this.uplineLoading=false)
+
+                        //if(this.walletBalance==null){
+                            this.walletBalanceLoading = true
+                            this.getWalletBalance(res.data.uuid).then(()=>this.walletBalanceLoading = false)
+                        //}
                     }
                 })
                 
@@ -749,6 +774,11 @@ li > a:hover .icon {
 
                 this.uplineLoading = true
                 this.getUplineDetails(this.authUser.uuid).then(()=>this.uplineLoading=false) 
+
+                //if(this.walletBalance==null){
+                    this.walletBalanceLoading = true
+                    this.getWalletBalance(this.authUser.uuid).then(()=>this.walletBalanceLoading = false)
+                //}
             }
 
             this.fetchBanks().then(res=>{

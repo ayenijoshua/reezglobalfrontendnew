@@ -138,5 +138,9 @@ export default {
 
     upgradedUsers(){
         return http().get(`${endPoints.users}/upgraded-users`)
+    },
+
+    updateWithdrawalAmount(data){
+        return http().put(`${endPoints.users}/withdrawal-amount`,data)
     }
 }

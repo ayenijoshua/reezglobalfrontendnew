@@ -5,7 +5,7 @@
                 <div class="col-md-4">
                     <div class="row">
                         <div class="col-md-12 col-sm-12">
-                            <b-card v-if="packageLoading && loading">
+                            <b-card v-if="packageLoading">
                                 <b-skeleton width="85%"></b-skeleton>
                                 <b-skeleton width="55%"></b-skeleton>
                                 <b-skeleton width="70%"></b-skeleton>
@@ -28,7 +28,7 @@
                     </div>
                     <div class="row">
                         <div class="col-md-6 col-sm-6">
-                            <b-card v-if="referralBonusLoading && loading">
+                            <b-card v-if="referralBonusLoading">
                                 <b-skeleton width="85%"></b-skeleton>
                                 <b-skeleton width="55%"></b-skeleton>
                                 <b-skeleton width="70%"></b-skeleton>
@@ -48,14 +48,19 @@
                             </div>
                         </div>
                         <div class="col-md-6 col-sm-6">
-                            <div class="card no-b mb-3 shadow1" style="background-color:#ecf0f1">
+                            <b-card v-if="bonusStatsLoading">
+                                <b-skeleton width="85%"></b-skeleton>
+                                <b-skeleton width="55%"></b-skeleton>
+                                <b-skeleton width="70%"></b-skeleton>
+                            </b-card>
+                            <div v-else class="card no-b mb-3 shadow1" style="background-color:#ecf0f1">
                                 <div class="card-body">
                                    <div class="d-flex justify-content-between align-items-center">
                                         <div><h6 class="mt-0 mb-1 font-weight-bold text-black">Matching Bonus</h6></div>
                                     </div>
                                     <div class="text-center">
                                         <div class="s-18 my-3 font-weight-lighter"><img class="mr-3  r-3" src="/assets/img/matching1.png"
-                                        alt="Generic placeholder image" width="70px" height="70px"><br><small class="font-weight-bold mr-3">₦ 56,103</small></div>                           
+                                        alt="Generic placeholder image" width="70px" height="70px"><br><small class="font-weight-bold mr-3">₦ {{ userBonusStats.matching_bonus??0 }}</small></div>                           
                                     </div>
                                 </div>
                             </div>
@@ -63,7 +68,7 @@
                     </div>
                 </div>
                <div class="col-md-4">
-                    <b-card v-if="walletBalanceLoading && loading">
+                    <b-card v-if="bonusStatsLoading">
                         <b-skeleton width="85%"></b-skeleton>
                         <b-skeleton width="55%"></b-skeleton>
                         <b-skeleton width="70%"></b-skeleton>
@@ -86,51 +91,63 @@
             </div>
             <div class="col-md-4">
                 <div class="row">
-                        <div class="col-md-6 col-sm-6">
-                            <div class="card no-b mb-3 shadow1" style="background-color:#ecf0f1">
-                                <div class="card-body">
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <div><h6 class="mt-0 mb-1 font-weight-bold text-black">Repurchase Bonus</h6></div>
-                                    </div>
-                                    <div class="text-center">
-                                        <div class="s-18 my-3 font-weight-lighter"><img class="mr-3  r-3" src="/assets/img/repurchase1.png"
-                                        alt="Generic placeholder image" width="70px" height="70px"><br><small class="font-weight-bold mr-3">₦ 56,103</small></div>                           
-                                    </div>
-
+                    <div class="col-md-6 col-sm-6">
+                        <b-card v-if="bonusStatsLoading">
+                            <b-skeleton width="85%"></b-skeleton>
+                            <b-skeleton width="55%"></b-skeleton>
+                            <b-skeleton width="70%"></b-skeleton>
+                        </b-card>
+                        <div v-else class="card no-b mb-3 shadow1" style="background-color:#ecf0f1">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div><h6 class="mt-0 mb-1 font-weight-bold text-black">Repurchase Bonus</h6></div>
+                                </div>
+                                <div class="text-center">
+                                    <div class="s-18 my-3 font-weight-lighter"><img class="mr-3  r-3" src="/assets/img/repurchase1.png"
+                                    alt="Generic placeholder image" width="70px" height="70px"><br><small class="font-weight-bold mr-3">₦ {{ userBonusStats.repurchase_bonus??0 }}</small></div>                           
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-6 col-sm-6">
-                            <div class="card no-b mb-3 shadow1" style="background-color:#ecf0f1">
-                                <div class="card-body">
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <div><h6 class="mt-0 mb-1 font-weight-bold text-black">Unilevel Bonus</h6></div>
-                                    </div>
-                                    <div class="text-center">
-                                        <div class="s-18 my-3 font-weight-lighter"><img class="mr-3  r-3" src="/assets/img/unilevel1.png"
-                                        alt="Generic placeholder image" width="70px" height="70px"><br><small class="font-weight-bold mr-3">₦ 12,276</small></div>                           
-                                    </div>
-
+                    </div>
+                    <div class="col-md-6 col-sm-6">
+                        <b-card v-if="bonusStatsLoading">
+                            <b-skeleton width="85%"></b-skeleton>
+                            <b-skeleton width="55%"></b-skeleton>
+                            <b-skeleton width="70%"></b-skeleton>
+                        </b-card>
+                        <div v-else class="card no-b mb-3 shadow1" style="background-color:#ecf0f1">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div><h6 class="mt-0 mb-1 font-weight-bold text-black">Unilevel Bonus</h6></div>
+                                </div>
+                                <div class="text-center">
+                                    <div class="s-18 my-3 font-weight-lighter"><img class="mr-3  r-3" src="/assets/img/unilevel1.png"
+                                    alt="Generic placeholder image" width="70px" height="70px"><br><small class="font-weight-bold mr-3">₦ {{ userBonusStats.unilevel_bonus??0 }}</small></div>                           
                                 </div>
                             </div>
                         </div>
+                    </div>
                 </div>
                 <div class="row">
                     <div class="col-md-6 col-sm-6">
-                        <div class="card no-b mb-3 shadow1" style="background-color:#ecf0f1">
+                        <b-card v-if="bonusStatsLoading">
+                            <b-skeleton width="85%"></b-skeleton>
+                            <b-skeleton width="55%"></b-skeleton>
+                            <b-skeleton width="70%"></b-skeleton>
+                        </b-card>
+                        <div v-else class="card no-b mb-3 shadow1" style="background-color:#ecf0f1">
                             <div class="card-body" >
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div><h6 class="mt-0 mb-1 font-weight-bold text-black">Upgrade Bonus</h6></div>
                                 </div>
                                 <div class="text-center">
                                     <div class="s-18 my-3 font-weight-lighter"><img class="mr-3  r-3" src="/assets/img/upgrade.png"
-                                    alt="Generic placeholder image" width="70px" height="70px"><br><small class="font-weight-bold mr-3">₦ 8,017</small></div>                           
+                                    alt="Generic placeholder image" width="70px" height="70px"><br><small class="font-weight-bold mr-3">₦ {{ userBonusStats.upgrade_bonus??0 }}</small></div>                           
                                 </div>
-
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-6 col-sm-6">
+                   <!--<div class="col-md-6 col-sm-6">
                         <div class="card no-b mb-3 shadow1" style="background-color:#ecf0f1">
                             <div class="card-body">
                                 <div class="d-flex justify-content-between align-items-center">
@@ -140,10 +157,9 @@
                                     <div class="s-18 my-3 font-weight-lighter"><img class="mr-3  r-3" src="/assets/img/retailer.png"
                                     alt="Generic placeholder image" width="70px" height="70px"><br><small class="font-weight-bold mr-3">₦ 0</small></div>                           
                                 </div>
-
                             </div>
                         </div>
-                    </div>
+                    </div>-->
                 </div>
             </div>
         </div>
@@ -166,8 +182,6 @@
                 </div>
             </div>
         </div>
-
-
 
             <div class="d-flex row row-eq-height my-3">
                 <div class="col-md-4">
@@ -366,14 +380,16 @@
                                             <tr v-if="claims.length == 0">
                                                 <td colspan="5">There are no claimed incentives</td>
                                             </tr>
-                                            <tr v-else v-for="claim,i in claims" :key="i">
-                                                <th scope="row">{{ ++i }}</th>
-                                                <td>{{ claim.incentive }}</td>
-                                                <!-- <td>{{ claim.worth?.toLocaleString('en-US')}}</td> -->
-                                                <td>{{ claim.status }}</td>
-                                                <td>{{ claim.points }} PV</td>
-                                                <td>{{ claim.created_at }} </td>
-                                            </tr>
+                                            <template v-else>
+                                                <tr v-for="claim,i in claims" :key="i">
+                                                    <th scope="row">{{ ++i }}</th>
+                                                    <td>{{ claim.incentive }}</td>
+                                                    <!-- <td>{{ claim.worth?.toLocaleString('en-US')}}</td> -->
+                                                    <td>{{ claim.status }}</td>
+                                                    <td>{{ claim.points }} PV</td>
+                                                    <td>{{ claim.created_at }} </td>
+                                                </tr>
+                                            </template>
                                         </template>
                                     </tbody>
                                 </table>
@@ -598,7 +614,8 @@ export default{
             walletBalanceLoading:false,
             globalProfitLoading:false,
             packageLoading:false,
-            totalPVLoading:false
+            totalPVLoading:false,
+            bonusStatsLoading:false
         }
     },
 
@@ -620,7 +637,7 @@ export default{
         
         ...mapGetters('bonusStore',['welcomeBonus',
         'equilibrumBonus','loyaltyBonus','referralBonus','placementBonus',
-        'profitPool','globalProfit','totalBonus','walletBalance']),
+        'profitPool','globalProfit','totalBonus','walletBalance','userBonusStats']),
 
         ...mapGetters('packageStore',['regPackage']),
         ...mapGetters('authStore',['authUser']),
@@ -656,6 +673,8 @@ export default{
             this.prodLoading = true
             this.getActiveProducts().then(()=>this.prodLoading = false)
         }
+
+        
         
         
     },
@@ -680,7 +699,7 @@ export default{
         },
         ...mapActions('bonusStore',['getWelcomeBonus',
         'getEquilibrumBonus','getLoyaltyBonus','getReferralBonus',
-        'getProfitPool','getGlobalProfit','getPlacementBonus','getTotalBonus','getWalletBalance']),
+        'getProfitPool','getGlobalProfit','getPlacementBonus','getTotalBonus','getWalletBalance','getUserBonusStats']),
         ...mapActions('packageStore',['getPackage']),
         ...mapActions('authStore',['getUser']),
         ...mapActions('userStore',['getTotalPVs','inviteGuest','getUplineDetails','countDirectDownlines']),
@@ -730,12 +749,18 @@ export default{
                 this.walletBalanceLoading = true
                 this.getWalletBalance(uuid).then(()=>this.walletBalanceLoading = false)
             }
+
         },
 
         getDashboardData(authUser){
             if(this.regPackage.name == undefined){
                 this.packageLoading = true
                 this.getPackage(authUser.package_id).then(()=>this.packageLoading=false)
+            }
+
+            if(this.userBonusStats.matching_bonus == undefined){
+                this.bonusStatsLoading = true
+                this.getUserBonusStats(authUser.uuid).then(()=>{this.bonusStatsLoading = false;})
             }
             
             this.getBonuses(authUser.uuid)

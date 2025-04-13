@@ -74,7 +74,7 @@
                                         </thead>
                                         <tbody>
                                             <tr v-if="loading && prodLoading">
-                                                <td colspan="4">
+                                                <td colspan="7">
                                                     <b-skeleton-table
                                                         :rows="3"
                                                         :columns="4"
@@ -84,7 +84,7 @@
                                             </tr>
                                             <template v-else>
                                                <tr v-if="products.length == 0" class="no-b">
-                                                    <td colspan="4">There are no products</td>
+                                                    <td colspan="7">There are no products</td>
                                                 </tr>
                                                 <template v-else>
                                                     <tr  v-for="produc,i in products" :key="i" >
@@ -247,115 +247,8 @@
                         <br>
                     </div>
 				</div>
-                <!---S<div class="col-md-4">
-                    <div class="card mr-3 shadow1" style="background-color: #ded8c7">
-                        <div class="row column-row">
-                            <div class="mt-4 ml-auto" style="padding-right:40px">
-                                <span class="border-left border-left-green"></span>&nbsp;&nbsp;
-                                <span class="text-green float-right font-weight-bold" id="d1" style="font-size:10px">Selected Stockist Details</span>
-                            </div> 
-                        </div>
-                        <div class="card-body">
-                            <div class="d-flex align-items-center">
-                                <div>
-                                    <span class="text-green" id="d1" style="font-size:10px">Stockist Name</span>
-                                    <h6 class="font-weight-bold text-green" id="d1">Valleyhill Stockist</h6>
-                                    <span class="text-green" id="d1" style="font-size:10px">Location</span>
-                                    <h6 class="font-weight-bold text-green" id="d1">Suite 5, Garry Paul Complex,Toyin Street, Ikeja</h6>
-                                    <span class="text-green" id="d1" style="font-size:10px">State</span>
-                                    <h6 class="font-weight-bold text-green" id="d1">Lagos</h6>
-                                    <span class="text-green" id="d1" style="font-size:10px">Contact</span>
-                                    <h6 class="font-weight-bold text-green" id="d1">081093445670</h6>
-                                    
-                                </div>
-                                <div class="mr-4 ml-auto ">
-                                    <img  src="/assets/img/personal-banking1.png" width="auto" height="80px">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>-->
             </div>
-            <!---<div class="mt-3 pb-4"> <img  src="/assets/img/step3a.png" width="auto" height="80px"></div>--->
-            <!---<div class="row">
-                <div class="col-md-6">
-                    <div class="card  mb-3 shadow1" style="background-color: transparent">
-                        <div class="float-left">
-                            <div class="card-body">
-                                <template v-if="prodClaimLoading">
-                                    <b-skeleton-table
-                                        :rows="3"
-                                        :columns="3"
-                                        :table-props="{ bordered: true, striped: true }"
-                                    ></b-skeleton-table>
-                                </template>
-                                <template v-else>
-                                    <div v-if="userProductClaims.length == 0">
-                                        <p class="alert alert-info">
-                                            There are no claimed products
-                                        </p>
-                                    </div>
-                                    <div v-else v-for="userClaim,i in userProductClaims" :key="i" class="row column-row p-2" style="border-bottom: 1px solid #2E671A !important;">
-                                        <div class="mt-2 ml-3" style="padding-right:15px">
-                                            <img src="/assets/img/shop2.png" width="80px" height="80px">
-                                        </div>  
-                                        <div class="mb-2 mt-4 ">
-                                            <h6 class="font-weight-bold text-green s-14" style="margin: 0em; padding: 0em;">{{ userClaim.name }} <br><small class="font-weight-bold"> {{userClaim.points}}PV | Qty:{{ userClaim.product_qty }}</small></h6>	
-                                        </div>	
-                                    </div>
-
-
-                                    <div class="row column-row " style="border-bottom: 1px solid #2E671A !important;">
-                                        <div class="mb-2 mt-2 ml-3">
-                                            <h6 class="font-weight-bold text-green s-12" style="margin: 0em; padding: 0em;">Total Point Value </h6>											
-                                        </div>	
-                                        <div class="mb-2 mt-2 ml-auto mr-3">
-                                            <h6 class="font-weight-bold text-green s-12" style="margin: 0em; padding: 0em;">{{ totalPv?.toFixed(2) }} PV</h6>											
-                                        </div>
-                                    </div> 	
-                                    <div class="row column-row" style="border-bottom: 1px solid #2E671A !important;">
-                                        <div class="mb-2 mt-2 ml-3">
-                                            <h6 class="font-weight-bold text-green s-12" style="margin: 0em; padding: 0em;">Total Price </h6>											
-                                        </div>	
-                                        <div class="mb-2 mt-2 ml-auto mr-3">
-                                            <h6 class="font-weight-bold text-green s-12" style="margin: 0em; padding: 0em;">₦ 14,700</h6>											
-                                        </div>
-                                    </div>
-
-                                </template>
-                            </div>  
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="card mr-3 shadow1 " style="background-color: #ded8c7">
-                        <div class="row column-row">
-                            <div class="mt-4 ml-auto" style="padding-right:40px">
-                                <span class="border-left border-left-green"></span>&nbsp;&nbsp;
-                                <span class="text-green float-right font-weight-bold" id="d1" style="font-size:10px">Selected Stockist Details</span>
-                            </div> 
-                        </div>
-                        <div class="card-body">
-                            <div class="d-flex align-items-center">
-                                <div>
-                                    <span class="text-green" id="d1" style="font-size:10px">Stockist Name</span>
-                                    <h6 class="font-weight-bold text-green" id="d1">Valleyhill Stockist</h6>
-                                    <span class="text-green" id="d1" style="font-size:10px">Location</span>
-                                    <h6 class="font-weight-bold text-green" id="d1">Suite 5, Garry Paul Complex,Toyin Street, Ikeja</h6>
-                                    <span class="text-green" id="d1" style="font-size:10px">State</span>
-                                    <h6 class="font-weight-bold text-green" id="d1">Lagos</h6>
-                                    <span class="text-green" id="d1" style="font-size:10px">Contact</span>
-                                    <h6 class="font-weight-bold text-green" id="d1">081093445670</h6>
-                                    
-                                </div>
-                                <div class="mr-4 ml-auto ">
-                                    <img  src="/assets/img/personal-banking1.png" width="auto" height="80px">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>              
-            </div>--->
+                    
             <div class="row mb-2 mt-2" v-if="selectedOrderType === 'registration_pickup' || selectedOrderType === 'upgracde_pickup'">
                 <div class="col-md-12">
                     <div class="d-flex flex-wrap justify-content-center mt-2">
@@ -366,8 +259,6 @@
                     </div>	
                 </div>
             </div>	
-
-
 
             <div class="row mt-5 mb-5" v-if="selectedOrderType === 'repurchase_pickup'">               
                 <div class="col-md-6">
@@ -486,9 +377,6 @@
                     </div>
                 </div>				
             </div>
-
-
-
         </div>
     </div>
 </template>
@@ -760,21 +648,13 @@ export default {
     ...mapActions("settingStore", ["getSetting", "all"]),
     ...mapActions("productStore", ["getActiveProducts"]),
     ...mapActions('authStore',['getUser']),
-    //...mapActions("product")
+    ...mapActions("stockistStore",["getStockists"]),
   
    
     makePayment() {
       console.log("Payment initiated");
       // Implement your payment logic here
-    },
-
-    myFunction() {
-      let copyText = document.getElementById("referrallink");
-      copyText.select();
-      copyText.setSelectionRange(0, 99999);
-      document.execCommand("copy");
-      document.getElementById("button").value = "Referral Link Copied";
-    },
+    }
   },
 };
 </script>
