@@ -46,7 +46,7 @@
                                             <div class="col-md-12 mt-3">
                                                 <div class="forget-pass green-text text-center">
                                                     <span v-if="submitting" class="">...</span>
-                                                    <a v-else class="green-text" href="#" @click="sendCode()" style="text-decoration:none">
+                                                    <a v-else class="green-text" href="#" @click="resendEmail()" style="text-decoration:none">
                                                         <span class="font-weight-bold">Resend Confirmation Code</span>
                                                     </a>
                                                 </div>    
