@@ -11,7 +11,21 @@ export default{
             stockist:{},
             rebateEarnings:[],
             stockistsStats:{},
-            sotckistsOrders:[]
+            sotckistsOrders:[],
+
+            stockistsAction:null,
+            stockistsState:null,
+            stockistsCurrentPage:null,
+            stockistsLastPage:null,
+            stockistsPerPage:null,
+            stockistsTotalPages:null,
+
+            stockistsOrdersAction:null,
+            stockistsOrdersState:null,
+            stockistsOrdersCurrentPage:null,
+            stockistsOrdersLastPage:null,
+            stockistsOrdersPerPage:null,
+            stockistsOrdersTotalPages:null,
         }
     },
     actions:{

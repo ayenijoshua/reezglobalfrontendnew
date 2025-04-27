@@ -57,5 +57,9 @@ export default {
 
     monthlyRepurchases(){
         return http().get(`${endPoints.productPurchases}/monthly-repurchases`)
+    },
+
+    stockistPrevMonthSales(uuid){
+        return http().get(`${endPoints.productPurchases}/stockist-prev-month-sales/${uuid}`)
     }
 }

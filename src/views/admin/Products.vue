@@ -113,7 +113,7 @@
                                             </thead>
                                             <tbody>
                                                 <tr v-if="loading && productsLoading">
-                                                    <td colspan="7">
+                                                    <td colspan="9">
                                                         <b-skeleton-table
                                                             :rows="3"
                                                             :columns="7"

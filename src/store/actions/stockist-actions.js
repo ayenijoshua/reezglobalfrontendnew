@@ -6,13 +6,20 @@ import { notification } from '@/util/notification'
 
 export default {
 
-    async getStockists({commit}){
+    async getStockists({commit},{page=null}){
         try {
             commit('loading',null,{root:true})
-            const res = await api.all()
+            const res = await api.all(page)
             if(res && res.status==200){
                 toastr.success(res.data.message)
                 commit('stockists',res.data.data.data)
+
+                commit('stockistsAction','stockistsStore/getStockists')
+                commit('stockistsState',res.data.data.data)
+                commit('stockistsCurrentPage',res.data.data.current_page)
+                commit('stockistsLastPage',res.data.data.last_page)
+                commit('stockistsPerPage',res.data.data.per_page)
+                commit('stockistsTotalPages',res.data.data.total)
             }else{
                 toastr.warning(res.data.message)
             }
@@ -184,13 +191,20 @@ export default {
         }
     },
 
-    async getStockistsOrders({commit}){
+    async getStockistsOrders({commit},{page=null}){
         try {
             commit('loading',null,{root:true})
-            const res = await api.productOrders()
+            const res = await api.productOrders(page)
             if(res && res.status==200){
                 //toastr.success(res.data.message)
                 commit('stockistsOrders',res.data.data.data)
+
+                commit('stockistsOrdersAction','stockistStore/getStockistsOrders')
+                commit('stockistsOrdersState',res.data.data.data)
+                commit('stockistsOrdersCurrentPage',res.data.data.current_page)
+                commit('stockistsOrdersLastPage',res.data.data.last_page)
+                commit('stockistsOrdersPerPage',res.data.data.per_page)
+                commit('stockistsOrdersTotalPages',res.data.data.total)
             }else{
                 toastr.warning(res.data.message)
             }

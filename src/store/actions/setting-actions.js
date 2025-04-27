@@ -164,4 +164,38 @@ export default {
             LogError(commit,err,'loaded')
         }
     },
+
+    async getStockistUplineBonusSetting({commit}){
+        var res;
+        try {
+            commit('loading',null,{root:true})
+            res = await api.stockistUplineBonusSettings()
+            if(res.status==200){
+                commit('stockistUplineBonusSetting',res.data.data)
+            }else{
+                toastr.warning(res.data.message)
+            }
+            commit('loaded',null,{root:true})
+            return res;
+        } catch (err) {
+            LogError(commit,err,'loaded')
+        }
+    },
+
+    async updateStockistUplineBonusSetting({commit},{id,data}){
+        var res;
+        try {
+            commit('submitting',null,{root:true})
+            res = await api.updateStockistUplineBonusSettings(id,data)
+            if(res.status==200){
+                notification.success("Setting updated successfully")
+            }else{
+                toastr.warning(res.data.message)
+            }
+            commit('submitted',null,{root:true})
+            return res;
+        } catch (err) {
+            LogError(commit,err,'submitted')
+        }
+    }
 }

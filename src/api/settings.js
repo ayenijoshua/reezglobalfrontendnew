@@ -39,4 +39,12 @@ export default {
         return http().get(`${endPoints.settings}/unilevel-bonus`)
     },
 
+    stockistUplineBonusSettings(){
+        return http().get(`${endPoints.settings}/stockist-upline-bonus`)
+    },
+
+    updateStockistUplineBonusSettings(id,data){
+        return http().put(`${endPoints.settings}/stockist-upline-bonus/${id}`,data)
+    },
+
 }

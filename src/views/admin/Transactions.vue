@@ -367,34 +367,8 @@
                                                                 <td>₦{{ val.total.toLocaleString('en-US') }}</td>
                                                             </tr>
                                                         </template>
-                                                        
                                                     </tbody>
-                                                </table><br>
-                                                <div class="container">
-                                                    <ul class="pagination">
-                                                        <li>
-                                                        <a href="#">Prev</a>
-                                                        </li>
-                                                        <li class="active">
-                                                        <a href="#">1</a>
-                                                        </li>
-                                                        <li >
-                                                        <a href="#">2</a>
-                                                        </li>
-                                                        <li>
-                                                        <a href="#">3</a>
-                                                        </li>
-                                                        <li>
-                                                        <a href="#">4</a>
-                                                        </li>
-                                                        <li>
-                                                        <a href="#">5</a>
-                                                        </li>
-                                                        <li>
-                                                        <a href="#">Next</a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
+                                                </table>
                                             </div>
                                         </div>
                                     </div>
@@ -475,16 +449,17 @@
                             <div class="row mt-4">
                                 <div class="col-md-12">
                                     <div class="card shadow1 mb-3" style="background-color: transparent">
+                                        <div class="card-header">Stockist Registrations</div>
                                         <div class="card-body ">
                                             <div class="d-flex justify-content-left mb-2">
-                                                <input 
+                                                <!-- <input 
                                                     class="form-control mr-2" 
                                                     type="text" 
                                                     placeholder="Search..." 
                                                     style="width: 250px; background-color: transparent; border: 2px solid #2E671A !important;"/>
                                                 <button class="btn text-white" style="background-Color:#2E671A" >
                                                     <i class="icon-search"></i>
-                                                </button>
+                                                </button> -->
                                             </div>
                                             <div class="table-responsive">
                                                 <table id="example2" class="table table-bordered table-hover data-tables" >
@@ -521,7 +496,7 @@
                                                                 </td>
                                                             </tr>
                                                             <tr v-for="stock,i in stockists" :key="i">
-                                                                <td scope="row">{{ ++i }}</td>
+                                                                <td scope="row">{{ (stockistsPerPage * (stockistsCurrentPage - 1)) + ( ++i) }}</td>
                                                                 <td>{{ stock.store_name }}</td>
                                                                 <!-- <td>{{ claim.worth?.toLocaleString('en-US')}}</td> -->
                                                                 <td>{{stock.username}}</td>
@@ -562,29 +537,7 @@
                                                 
                                             </div>
                                             <div class="container">
-                                                <ul class="pagination">
-                                                    <li>
-                                                    <a href="#">Prev</a>
-                                                    </li>
-                                                    <li class="active">
-                                                    <a href="#">1</a>
-                                                    </li>
-                                                    <li >
-                                                    <a href="#">2</a>
-                                                    </li>
-                                                    <li>
-                                                    <a href="#">3</a>
-                                                    </li>
-                                                    <li>
-                                                    <a href="#">4</a>
-                                                    </li>
-                                                    <li>
-                                                    <a href="#">5</a>
-                                                    </li>
-                                                    <li>
-                                                    <a href="#">Next</a>
-                                                    </li>
-                                                </ul>
+                                                <BasePaginator v-if="stockistsAction" :action="stockistsAction" :current_page="stockistsCurrentPage" :last_page="stockistsLastPage" :total_pages="stockistsTotalPages" :per_page="stockistsPerPage"></BasePaginator>
                                             </div>
                                         </div>
                                     </div>
@@ -597,104 +550,82 @@
                                         <div class="">
                                             <div class="" > 
                                                 <div class="card  mb-3 shadow" style="background-color: transparent">
-                                                    <div class="card-body" >
-                                                        <form id="product-claim-form" @submit.prevent="productClaim()">
-                                                            <div class="d-flex justify-content-left mb-2">
-                                                                <input 
-                                                                    class="form-control mr-2" 
-                                                                    type="text" 
-                                                                    placeholder="Search stockists..." 
-                                                                    style="width: 250px; background-color: transparent; border: 2px solid #2E671A !important;"
-                                                                />
-                                                                <button class="btn text-white" style="background-Color:#2E671A" >
-                                                                    <i class="icon-search"></i>
-                                                                </button>
-                                                            </div>
-                                                            <div class="form-row table-responsive  equal-width-table" style="overflow-x:auto;">
-                                                                <table class="table table-hover" >
-                                                                    <thead>
-                                                                        <tr>
-                                                                            <th class="font-weight-bold" scope="col">S/N</th>
-                                                                            <th class="font-weight-bold" scope="col">USERNAME</th>
-                                                                            <th class="font-weight-bold" scope="col">STOCKIST NAME</th>
-                                                                            <th class="font-weight-bold" scope="col">PACKAGE</th>
-                                                                            <th class="font-weight-bold" scope="col">PAYMENT TYPE</th>
-                                                                            <th class="font-weight-bold" scope="col">PAYMENT</th>
-                                                                            <th class="font-weight-bold" scope="col">DATE & TIME</th>
-                                                                            <th class="font-weight-bold" scope="col">ACTION</th>
-                                                                            <th class="font-weight-bold" scope="col">STATUS</th>
-                                                                        </tr>
-                                                                    </thead>
-                                                                    <tbody>
-                                                                        <tr v-if="stockistsOrdersLoading==true">
-                                                                            <td colspan="11">
-                                                                                <b-skeleton-table
-                                                                                    :rows="3"
-                                                                                    :columns="8"
-                                                                                    :table-props="{ bordered: true, striped: true }"
-                                                                                ></b-skeleton-table>
+                                                    <div class="card-header">Stockist Purchases</div>
+                                                    <div class="card-body">
+                                                        <div class="d-flex justify-content-left mb-2">
+                                                            <!-- <input 
+                                                                class="form-control mr-2" 
+                                                                type="text" 
+                                                                placeholder="Search stockists..." 
+                                                                style="width: 250px; background-color: transparent; border: 2px solid #2E671A !important;"
+                                                            />
+                                                            <button class="btn text-white" style="background-Color:#2E671A" >
+                                                                <i class="icon-search"></i>
+                                                            </button> -->
+                                                        </div>
+                                                        <div class="form-row table-responsive  equal-width-table" style="overflow-x:auto;">
+                                                            <table class="table table-hover" >
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th class="font-weight-bold" scope="col">S/N</th>
+                                                                        <th class="font-weight-bold" scope="col">USERNAME</th>
+                                                                        <th class="font-weight-bold" scope="col">STOCKIST NAME</th>
+                                                                        <th class="font-weight-bold" scope="col">PACKAGE</th>
+                                                                        <th class="font-weight-bold" scope="col">PAYMENT TYPE</th>
+                                                                        <th class="font-weight-bold" scope="col">PAYMENT</th>
+                                                                        <th class="font-weight-bold" scope="col">DATE & TIME</th>
+                                                                        <th class="font-weight-bold" scope="col">ACTION</th>
+                                                                        <th class="font-weight-bold" scope="col">STATUS</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <tr v-if="stockistsOrdersLoading==true">
+                                                                        <td colspan="11">
+                                                                            <b-skeleton-table
+                                                                                :rows="3"
+                                                                                :columns="8"
+                                                                                :table-props="{ bordered: true, striped: true }"
+                                                                            ></b-skeleton-table>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <template v-else>
+                                                                        <tr v-if="stockistsOrders.length==0">
+                                                                            <td colspan="9">
+                                                                                <div class="alert alert-info">There are stockist orders</div>
                                                                             </td>
                                                                         </tr>
-                                                                        <template v-else>
-                                                                            <tr v-if="stockistsOrders.length==0">
-                                                                                <td colspan="9">
-                                                                                    <div class="alert alert-info">There are stockist orders</div>
-                                                                                </td>
-                                                                            </tr>
-                                                                            <tr v-for="order,i in stockistsOrders" :key="i">
-                                                                                <td> {{ ++i }}</td>
-                                                                                <td>{{order.username}}</td>   
-                                                                                <td>{{order.store_name}}</td>
-                                                                                <td>{{order.stockist_package}}</td>
-                                                                                <td>{{order.pickup_type}}</td>
-                                                                                <td>
-                                                                                    <a class="btn-fab btn-fab-sm btn-success text-white" href="#" data-toggle="modal" data-target="#viewproductModal">
-                                                                                        <i class="icon-eye"></i>
-                                                                                    </a>
-                                                                                </td>
-                                                                                <td>{{order.created_at}}</td>
-                                                                                <td>
-                                                                                    <div class="dropdown"> 
-                                                                                        <button class="btn btn-sm btn-success  dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                                                        <i class="caret"></i>
-                                                                                        </button>
-                                                                                        <div class="dropdown-menu " aria-labelledby="dropdownMenuButton" style="position:fixed; background-color: #ecf0f1">
-                                                                                            <a v-b-modal.approve-stockist-purchase @click="setOrder(order)" class="dropdown-item text-green" href="#"  ><i class="icon-check-circle"></i>&nbsp;&nbsp; Approve</a>
-                                                                                            <a v-b-modal.disapprove-stockist-purchase @click="setOrder(order)" class="dropdown-item text-green" href="#" ><i class="icon-times-circle"></i>&nbsp;&nbsp; Decline</a>	
-                                                                                        </div>
-                                                                                    </div>													
-                                                                                </td>
-                                                                                <td><span class="badge badge-success" style="padding: 6px 10px;">{{order.status}}</span></td>
-                                                                            </tr>
-                                                                        </template>									  
-                                                                    </tbody>
-                                                                </table>
-                                                            </div>
-                                                        </form>
+                                                                        <tr v-for="order,i in stockistsOrders" :key="i">
+                                                                            <td> {{ (stockistsOrdersPerPage * (stockistsOrdersCurrentPage - 1)) + ( ++i) }}</td>
+                                                                            <td>{{order.username}}</td>   
+                                                                            <td>{{order.store_name}}</td>
+                                                                            <td>{{order.stockist_package}}</td>
+                                                                            <td>{{order.pickup_type}}</td>
+                                                                            <td>
+                                                                                <a class="btn-fab btn-fab-sm btn-success text-white" href="#" data-toggle="modal" data-target="#viewproductModal">
+                                                                                    <i class="icon-eye"></i>
+                                                                                </a>
+                                                                            </td>
+                                                                            <td>{{order.created_at}}</td>
+                                                                            <td>
+                                                                                <div class="dropdown"> 
+                                                                                    <button class="btn btn-sm btn-success  dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                                    <i class="caret"></i>
+                                                                                    </button>
+                                                                                    <div class="dropdown-menu " aria-labelledby="dropdownMenuButton" style="position:fixed; background-color: #ecf0f1">
+                                                                                        <a v-b-modal.approve-stockist-purchase @click="setOrder(order)" class="dropdown-item text-green" href="#"  ><i class="icon-check-circle"></i>&nbsp;&nbsp; Approve</a>
+                                                                                        <a v-b-modal.disapprove-stockist-purchase @click="setOrder(order)" class="dropdown-item text-green" href="#" ><i class="icon-times-circle"></i>&nbsp;&nbsp; Decline</a>	
+                                                                                    </div>
+                                                                                </div>													
+                                                                            </td>
+                                                                            <td><span class="badge badge-success" style="padding: 6px 10px;">{{order.status}}</span></td>
+                                                                        </tr>
+                                                                    </template>									  
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                        
                                                         <div class="container">
-                                                            <ul class="pagination">
-                                                                <li>
-                                                                <a href="#">Prev</a>
-                                                                </li>
-                                                                <li class="active">
-                                                                <a href="#">1</a>
-                                                                </li>
-                                                                <li >
-                                                                <a href="#">2</a>
-                                                                </li>
-                                                                <li>
-                                                                <a href="#">3</a>
-                                                                </li>
-                                                                <li>
-                                                                <a href="#">4</a>
-                                                                </li>
-                                                                <li>
-                                                                <a href="#">5</a>
-                                                                </li>
-                                                                <li>
-                                                                <a href="#">Next</a>
-                                                                </li>
-                                                            </ul>
+                                                            <BasePaginator v-if="stockistsOrdersAction" :action="stockistsOrdersAction" :current_page="stockistsOrdersCurrentPage" :last_page="stockistsOrdersLastPage" :total_pages="stockistsOrdersTotalPages" :per_page="stockistsOrdersPerPage"></BasePaginator>
                                                         </div>
                                                     </div>
                                                     <br>
@@ -845,7 +776,7 @@
             <template v-else>
                 <div class="row">
                     <div class="col-md-12">
-                        <p class="bg-danger">Are you sure to approve purchase?</p>
+                        <p class="bg-danger text-white">Are you sure to approve purchase?</p>
                         <button v-if="updatingRegistration==true" class="btn btn-danger">...</button>
                         <button v-else class="btn btn-primary" @click="approveStockistPurchase(order.purchase_id)">Approve</button>
                     </div>
@@ -1060,8 +991,12 @@ import StockistPackagePayment from '@/components/admin/StockistPackagePayment.vu
                 'paidUserAction','paidUsersCurrentPage','paidUsersLastPage',
                 'paidUsersPerPage','paidUsersTotalPages','upgradedUsers']),
         ...mapGetters('productPurchaseStore',['monthlyRepurchases']),
-        ...mapGetters('stockistStore',['stockists','stockistsStats','stockistsOrders']),
-
+        ...mapGetters('stockistStore',['stockists','stockistsStats','stockistsOrders',
+            'stockistsAction','stockistsCurrentPage','stockistsLastPage','stockistsPerPage','stockistsTotalPages',
+            'stockistsOrdersAction','stockistsOrdersState','stockistsOrdersCurrentPage','stockistsOrdersLastPage',
+            'stockistsOrdersPerPage','stockistsOrdersTotalPages'
+        ]),
+       
         imageURI(image){
             return image ? process.env.VUE_APP_IMAGE_PATH+'/'+image : '/assets/img/mock-image.jpeg'
         },
@@ -1098,7 +1033,7 @@ import StockistPackagePayment from '@/components/admin/StockistPackagePayment.vu
 
         if(this.stockists.length==0){
             this.stockistsLoading = true
-            this.getStockists().then(()=>this.stockistsLoading=false)
+            this.getStockists({page:1,type:null}).then(()=>this.stockistsLoading=false)
         }
 
         if(this.stockistsStats.stockist_count==undefined){
@@ -1108,7 +1043,7 @@ import StockistPackagePayment from '@/components/admin/StockistPackagePayment.vu
 
         if(this.stockistsOrders.length == 0){
             this.stockistsOrdersLoading = true
-            this.getStockistsOrders().then(()=>this.stockistsOrdersLoading=false)
+            this.getStockistsOrders({page:1,type:null}).then(()=>this.stockistsOrdersLoading=false)
         }
         
     },
@@ -1118,7 +1053,8 @@ import StockistPackagePayment from '@/components/admin/StockistPackagePayment.vu
         ...mapActions('userStore',['getPaidUsers','getTotalPaidUsers',
         'getSumPaidUsers','searchPaidUsers','getUpgradedUsers']),
         ...mapActions('productPurchaseStore',['getSumTotalPrices','getMonthlyRepurchases',"approvePurchase","disapprovePurchase"]),
-        ...mapActions('stockistStore',['getStockists','getStockistsStats','getStockistsOrders','getSalesStats','approveStockist','disapproveStockist']),
+        ...mapActions('stockistStore',['getStockists','getStockistsStats','getStockistsOrders','getSalesStats','approveStockist','disapproveStockist',
+        ]),
         //...mapActions("PaymentStore",["getStockistPackagePayment"]),
 
         searchWithdraws(){
@@ -1158,7 +1094,7 @@ import StockistPackagePayment from '@/components/admin/StockistPackagePayment.vu
 
         approveStockistPurchase(id){
             this.approvePurchase(id).then(()=>{
-                alert();
+                //alert();
                 this.getStockistsOrders()
             })
         },

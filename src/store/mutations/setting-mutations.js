@@ -17,7 +17,11 @@ export default {
         state.upgradeBonusSetting = data
      },
 
-     unilevelBonusSetting(state,data){
+    unilevelBonusSetting(state,data){
         state.unilevelBonusSetting = data
+    },
+
+    stockistUplineBonusSetting(state,data){
+        state.stockistUplineBonusSetting = data
     }
 }

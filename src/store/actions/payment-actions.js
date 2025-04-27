@@ -142,4 +142,21 @@ export default{
             LogError(commit,error,'loading')
         }
     },
+
+    async makePayment({commit},{uuid,data}){
+        try {
+            commit('submitting',null,{root:true})
+            
+            const res = await api.bankTransfer(uuid,data)
+            if(res.status==200){
+                notification.error(res.data.message)
+            }else{
+                notification.error(res.data.message)
+            }
+            commit('submitted',null,{root:true})
+            return res
+        } catch (error) {
+            LogError(commit,error,'submitted')
+        }
+    }
 }

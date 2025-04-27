@@ -11,7 +11,8 @@ export default{
             setting:{},
             referralBonusSetting:[],
             upgradeBonusSetting:[],
-            unilevelBonusSetting:[]
+            unilevelBonusSetting:[],
+            stockistUplineBonusSetting:[]
         }
     },
     actions:{

@@ -1,5 +1,6 @@
 import endPoints from "./endpoints"
 import {http} from './axios-config'
+import endpoints from "./endpoints"
 
 export default {
 
@@ -33,5 +34,9 @@ export default {
 
     stockistHistory(stockistId){
         return http().get(`${endPoints.payments}/${stockistId}/stockist-upgrade-history`)
+    },
+
+    bankTransfer(uuid,data){
+        return http().post(`${endpoints.payments}/${uuid}/bank-transfer`,data)
     }
 }

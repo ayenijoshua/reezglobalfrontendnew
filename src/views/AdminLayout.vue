@@ -163,6 +163,11 @@
                                     <i class="icon icon-arrow-right"></i> Company Details
                                 </router-link>
                             </li>
+                            <li>
+                                <router-link :to="{name:'stockist-upline-bonus-setting'}">
+                                    <i class="icon icon-arrow-right"></i> Stockist Upline Settings
+                                </router-link>
+                            </li>
                         </ul>
                     </li>
                 </ul>

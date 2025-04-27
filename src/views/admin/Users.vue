@@ -99,6 +99,7 @@
                                                                 <a v-if="usersType !== 'inactive'" @click="setUser(user)" v-b-modal.user-bank-details class="dropdown-item text-green" data-toggle="modal" data-target="#popModal-1"><i class="icon-bank"></i>&nbsp;&nbsp;Enable Bank Account Change</a>	
                                                                 <a v-if="usersType !== 'inactive'" @click="setUser(user)" v-b-modal.user-password class="dropdown-item text-green" data-toggle="modal" data-target="#popModal-2"><i class="icon-lock"></i>&nbsp;&nbsp;Login Details Change</a>											
                                                                 <a @click="setUser(user)" v-b-modal.send-message class="dropdown-item text-green" data-toggle="modal" data-target="#popModal-3"><i class="icon-mail-envelope-open6"></i>&nbsp;&nbsp;Send Message</a>
+                                                                <a @click="setUser(user)" class="dropdown-item text-green" v-b-modal.make-transfer>Make Payout<i class="icon-mail-money"></i>&nbsp;&nbsp;</a>
                                                             </div>
                                                         </div>
                                                     </td>
@@ -342,6 +343,46 @@
                 </div>
             </template>
         </Modal>
+
+        <Modal modal-id="make-transfer" modal-title="Make Transfer" modal-size="md">
+            <template v-if="user==null">
+                <b-skeleton-table
+                    :rows="3"
+                    :columns="8"
+                    :table-props="{ bordered: true, striped: true }"
+                ></b-skeleton-table>
+            </template>
+            <template v-else>
+                <div v-if="userIsActive">
+                    <form @submit.prevent="bankTransfer">
+                        <div class="form-row mb-3 d-flex justify-content-center">
+                            <div class="col-md-8">
+                                <div class="input-group mb-2" >
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text"><i class="icon icon-money float-left s-20 text-white"></i></div>
+                                    </div>
+                                    <input type="number" required v-model="bankTransferForm.amount" class="form-control r-1 light s-12" placeholder="Amount" style="background-color:transparent; border: 2px solid #2E671A;"> 
+                                </div>
+                                <div class="input-group mb-2" >
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text"><i class="icon icon-money float-left s-20 text-white"></i></div>
+                                    </div>
+                                    <textarea required v-model="bankTransferForm.reason" class="form-control r-1 light s-12" placeholder="Enter narration" style="background-color:transparent; border: 2px solid #2E671A;"></textarea> 
+                                </div>
+                                <span class="btn btn-success btn-sm" v-if="submitting">...</span>
+                                <button v-else type="submit" class="btn btn-success btn-sm btn-block">
+                                    <i class="icon-check-square-o mr-2"></i>Make payment
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div v-else class="alert alert-info">
+                    <span v-if="userDataLoading">User data loading</span>
+                    <span v-else>This user is Inactive</span>
+                </div>
+            </template>
+        </Modal>
     </div>
 </template>
 
@@ -497,7 +538,13 @@
             searche:null,
             usersType:'all',
             userIsActive:false,
-            userDataLoading:false
+            userDataLoading:false,
+            bankTransferForm:{
+                amount:0,
+                reason:null
+            },
+            
+            makingPayment:false
         };
     },
     computed: {
@@ -516,6 +563,7 @@
     },
     methods: {
         ...mapActions("userStore", ["getUsers",'searchUsers','getUser']),
+        ...mapActions("paymentStore", ["makePayment"]),
 
         setUser(user) {
             this.user = user;
@@ -541,6 +589,11 @@
         loadUsers(type){
             this.usersType = type
             this.getUsers({page:1,type})
+        },
+
+        bankTransfer(){
+            this.makingPayment = true
+            this.makePayment({uuid:this.user.uuid, data:this.bankTransferForm}).then(()=>this.makingPayment=false)
         }
     },
     

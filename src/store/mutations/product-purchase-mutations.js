@@ -23,5 +23,9 @@ export default {
 
     monthlyRepurchases(state,data){
         state.monthlyRepurchases = data
+    },
+
+    stockistPrevMonthSales(state,data){
+        state.stockistPrevMonthSales = data
     }
 }

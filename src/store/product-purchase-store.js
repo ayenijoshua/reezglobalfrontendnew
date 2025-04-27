@@ -12,7 +12,8 @@ export default{
             vendorProcessedOrders:[],
             stockDetails:[],
             pickupStats:{},
-            monthlyRepurchases:[]
+            monthlyRepurchases:[],
+            stockistPrevMonthSale:null
         }
     },
     actions:{

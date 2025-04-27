@@ -20,6 +20,7 @@ import Ranks from '@/views/admin/Ranks'
 import CreateStockistPackage from '@/views/admin/CreateStockistPackage'
 import UpgradeSettings from '@/views/admin/UpgradeSettings'
 import UnilevelSettings from '@/views/admin/UnilevelSettings'
+import StockistUplineBonusSettings from '@/views/admin/StockistUplineBonusSettings.vue'
 
 export default [
     {
@@ -202,6 +203,15 @@ export default [
             path:'company-details',
             name:'company-details',
             component:CompanyDetails,
+            meta:{
+                isAdmin:true,
+                requiresAuth:true
+            },
+          },
+          {
+            path:'stockist-upline-bonus-setting',
+            name:'stockist-upline-bonus-setting',
+            component:StockistUplineBonusSettings,
             meta:{
                 isAdmin:true,
                 requiresAuth:true

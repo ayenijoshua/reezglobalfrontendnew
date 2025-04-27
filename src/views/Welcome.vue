@@ -263,12 +263,12 @@
                 </div>	
             </div>
         </div>
-        <modal modalId="pay"  modalTitle="Make Payment" modalSize="md" :link="payLink">
+        <modal modalId="pay" modalTitle="Make Payment" modalSize="md" :link="payLink">
             <div class="row">
                 <div class="col-md-12 text-center">
                     <div class="timer flex-wrap d-flex justify-content-center"  style="padding-top: 30px;">
                         <p class="text-center font-weight-bold">Please, Ensure you complete your transaction within 2 minutes.</p>
-                        <VueCountdown :time="((1000*60*2))">
+                        <VueCountdown :time="(1000*60*2)">
                             <template slot-scope="props">
                                 <div style="width: 200px !important; padding-right:20px; padding-left:20px; padding-top:20px; padding-bottom:20px;" id="minutes" class="align-items-center flex-column d-flex justify-content-center">{{ props.minutes }}&nbsp;&nbsp;MINUTES</div>
                                 <div style="width: 200px !important; padding-right:20px; padding-left:20px; padding-top:20px; padding-bottom:20px;" id="seconds" class="align-items-center flex-column d-flex justify-content-center">{{ props.seconds }}&nbsp;&nbsp;SECONDS</div>
@@ -425,7 +425,7 @@
         data(){
             return {
                 form:{
-                    bank_account_name:'startwins', //this.profile.id ? this.profile.bank_account_name : '',
+                    bank_account_name:null, //this.profile.id ? this.profile.bank_account_name : '',
                     bank_account_number:null, //this.profile.id ? this.profile.bank_account_number : '',
                     bank_name:null, //this.profile.id ? this.profile.bank_name : '',
                     bank_code:null
@@ -519,7 +519,8 @@
                 this.verifyBankDetails(verifyData).then(verRes=>{
                     if(verRes.status==200){
                         this.form.bank_code = verRes.data.data.bank_code
-                        this.form.bank_account_name = verRes.data.data.accountName
+                        this.form.bank_account_name = verRes.data.data.account_name
+                        
                         this.updateBankDetails(data).then(res=>{
                             if(res.status==200){
                                 this.getProfileDetails(uuid)

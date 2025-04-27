@@ -4,8 +4,8 @@ import endpoints from "./endpoints"
 
 export default {
 
-    all(){
-        return http().get(`${endPoints.stockists}/all`)
+    all(page){
+        return http().get(`${endPoints.stockists}/all?page=${page}`)
     },
 
     single(id){
@@ -49,8 +49,8 @@ export default {
         return http().get(`${endPoints.stockists}/stats`)
     },
 
-    productOrders(){
-        return http().get(`${endPoints.stockists}/product-orders`)
+    productOrders(page){
+        return http().get(`${endPoints.stockists}/product-orders?page=${page}`)
     },
 
     salesStats(uuid){

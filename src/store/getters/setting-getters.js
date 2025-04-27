@@ -19,5 +19,9 @@ export default {
 
     unilevelBonusSetting(state){
         return state.unilevelBonusSetting
+    },
+
+    stockistUplineBonusSetting(state){
+        return state.stockistUplineBonusSetting
     }
 }

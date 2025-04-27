@@ -5,59 +5,59 @@
             <div class="row ">		
                 <div class="col-md-8">
                     <div class="card no-b shadow" style="background-color:#ecf0f1">
+                        <div class="card-header">Stock Purchase</div>
                         <div class="card-body p-0">
-                            <form id="product-claim-form" @submit.prevent="productClaim()">
-                                <div class="table-responsive">
-                                    <table class="table table-hover">
-                                        <thead style="background-color:#2E671A">
-                                            <tr>
-                                                <th class="font-weight-bold text-white" scope="col">S/N</th>
-                                                <th class="font-weight-bold text-white" scope="col">VIEW</th>
-                                                <th class="font-weight-bold text-white" scope="col">PRODUCTS</th>
-                                                <th class="font-weight-bold text-white" scope="col">PRICE</th>
-                                                <th class="font-weight-bold text-white" scope="col">POINT VALUE</th>
-                                                <!-- <th scope="col">Worth</th> -->
-                                                <th class="font-weight-bold text-white" scope="col">QUANTITY</th>
-                                                <!--<th class="font-weight-bold text-white" scope="col">SELECT</th>-->
-                                                <!-- <th scope="col">Select</th> -->
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr v-if="loading && prodLoading">
-                                                <td colspan="6">
-                                                    <b-skeleton-table
-                                                        :rows="3"
-                                                        :columns="6"
-                                                        :table-props="{ bordered: true, striped: true }"
-                                                    ></b-skeleton-table>
-                                                </td>
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <thead style="background-color:#2E671A">
+                                        <tr>
+                                            <th class="font-weight-bold text-white" scope="col">S/N</th>
+                                            <th class="font-weight-bold text-white" scope="col">VIEW</th>
+                                            <th class="font-weight-bold text-white" scope="col">PRODUCTS</th>
+                                            <th class="font-weight-bold text-white" scope="col">PRICE</th>
+                                            <th class="font-weight-bold text-white" scope="col">POINT VALUE</th>
+                                            <!-- <th scope="col">Worth</th> -->
+                                            <th class="font-weight-bold text-white" scope="col">QUANTITY</th>
+                                            <!--<th class="font-weight-bold text-white" scope="col">SELECT</th>-->
+                                            <!-- <th scope="col">Select</th> -->
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr v-if="loading && prodLoading">
+                                            <td colspan="6">
+                                                <b-skeleton-table
+                                                    :rows="3"
+                                                    :columns="6"
+                                                    :table-props="{ bordered: true, striped: true }"
+                                                ></b-skeleton-table>
+                                            </td>
+                                        </tr>
+                                        <template v-else>
+                                            <tr v-if="products.length == 0" class="no-b">
+                                                <td colspan="4">There are no products</td>
                                             </tr>
                                             <template v-else>
-                                               <tr v-if="products.length == 0" class="no-b">
-                                                    <td colspan="4">There are no products</td>
+                                                <tr  v-for="produc,i in products" :key="i" >
+                                                    <td>{{ ++i }}</td>
+                                                    <td class="w-10">
+                                                        <img src="/assets/img/demo/products/product3.png"  height="70px" width="auto" alt="">
+                                                    </td>
+                                                    <td>{{ produc.name }}</td>
+                                                    <td>₦ {{ produc.worth.toLocaleString("en-US") }}</td>
+                                                    <td>{{ produc.points }}</td>
+                                                    <td>
+                                                        <div class="">
+                                                            <input :key="i" @change="(e)=>addToCart(e,produc)" class="form-control" type="number" min="1"  style="background-color: transparent; border: 2px solid #2E671A;">
+                                                        </div>
+                                                    </td>
+                                                    <!--<td> <div class="form-check"><input class="form-check-input custom-checkbox" type="checkbox" value="" id="cb1" ></div></td>-->
                                                 </tr>
-                                                <template v-else>
-                                                    <tr  v-for="produc,i in products" :key="i" >
-                                                        <td>{{ ++i }}</td>
-                                                        <td class="w-10">
-                                                            <img src="/assets/img/demo/products/product3.png"  height="70px" width="auto" alt="">
-                                                        </td>
-                                                        <td>{{ produc.name }}</td>
-                                                        <td>₦ {{ produc.worth.toLocaleString("en-US") }}</td>
-                                                        <td>{{ produc.points }}</td>
-                                                        <td>
-                                                            <div class="">
-                                                                <input :key="i" @change="(e)=>addToCart(e,produc)" class="form-control" type="number" min="1"  style="background-color: transparent; border: 2px solid #2E671A;">
-                                                            </div>
-                                                        </td>
-                                                        <!--<td> <div class="form-check"><input class="form-check-input custom-checkbox" type="checkbox" value="" id="cb1" ></div></td>-->
-                                                    </tr>
-                                                </template>
-                                            </template>    
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </form>     
+                                            </template>
+                                        </template>    
+                                    </tbody>
+                                </table>
+                            </div>
+                              
                         </div>
                     </div>
                 </div>
@@ -105,21 +105,14 @@
                                         <div class="ml-auto mr-2">
                                             <button @click="cancelOrder(userClaim.id)" class="btn btn-sm btn-danger  mt-2" ><i class="icon-cancel mr-2"></i> Cancel Selection</button>
                                         </div>    
-                                    </div>   
-                                    <!-- <div class="row column-row border-bottom">
-                                        <div class="mb-2 mt-5 ml-3">
-                                            <h6 class="font-weight-bold text-green s-12" style="margin: 0em; padding: 0em;">Total Product Cost </h6>											
-                                        </div>	
-                                        <div class="mb-2 mt-5 ml-auto mr-3">
-                                            <h6 class="font-weight-bold text-green s-12" style="margin: 0em; padding: 0em;">₦{{ totalWorth?.toLocaleString('en-US') }} </h6>											
-                                        </div>
-                                    </div> -->
-
-                                    <!--<div class="mt-3">									
-                                        <button type="button" disabled :class="['btn btn-small', productClaimStatus=='processing'?'btn-warning':productClaimStatus=='approved'?'btn-success':'btn-danger']">
-                                            <i class="icon-check-square-o mr-2"></i>{{ productClaimStatus }}</button>
-                                    </div>--->
+                                    </div>
                                 </template>
+                                <!-- <div class="row column-row">
+                                    <div class="">
+                                        <h5>Previous Month Sales Sum</h5>
+                                        <span class="btn btn-sm btn-info  mt-2"><i class="icon-bulb mr-2"></i> {{ stockistPrevMonthSales }}</span>
+                                    </div>    
+                                </div>  -->
                             </div>  
                         </div>
                     </div>
@@ -425,14 +418,11 @@ export default{
         ...mapGetters('settingStore',['settings']),
         ...mapGetters('productStore',['products']),
         ...mapGetters('stockistStore',['stockist']),
+        ...mapGetters('productPurchaseStore',['stockistPrevMonthSale']),
     },
 
     created(){
-        if(this.authUser.uuid == undefined){
-            this.getUser().then(()=>{
-                
-            })
-        }
+        
 
         if(this.stockist.id == undefined){
             if(this.authUser.uuid == undefined){
@@ -442,6 +432,10 @@ export default{
                         this.stockistLoading=false
                         this.form = Object.assign({},this.stockist) 
                     })
+                    
+                    if(this.stockistPrevMonthSale == null){
+                        this.fetchStockPrevMonthSales(res.data.uuid)
+                    }
                 })
             }else{
                 this.stockistLoading = true
@@ -449,6 +443,10 @@ export default{
                     this.stockistLoading=false
                     this.form = Object.assign({},this.stockist)
                 })
+
+                if(this.stockistPrevMonthSale == null){
+                    this.fetchStockPrevMonthSales(this.authUser.uuid)
+                }
             }
         }
         
@@ -495,7 +493,7 @@ export default{
         ...mapActions('authStore',['getUser']),
         ...mapActions('settingStore',['getSetting','all']),
         ...mapActions('productStore',['getActiveProducts']),
-        ...mapActions('productPurchaseStore',['pushStockistPurchase']),
+        ...mapActions('productPurchaseStore',['pushStockistPurchase','fetchStockPrevMonthSales']),
         ...mapActions('paymentStore',['initiate','verify','initiatePayment']),
         ...mapActions('stockistStore',['fetchStockistByUuid']),
 
