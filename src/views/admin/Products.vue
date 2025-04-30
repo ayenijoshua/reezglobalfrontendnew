@@ -4,7 +4,7 @@
             <div class="col-lg-12">
                 <div class="counter-box p-40 text-white shadow1 r-5" style="background-color: #2E671A">
                     <div class="float-right">
-                        <img  src="/assets/img/shop1.png" width="80px" height="80px">
+                        <img  src="/assets/img/wallet1.png" width="80px" height="80px">
                     </div>
                     <small class="mt-0text-white" >Registration Products</small>
                     <p class="text-dark-heading font-weight-bold text-white"><span style="font-size:32px">{{ products.length }}</span></p>
@@ -103,7 +103,7 @@
                                                     <th scope="col">Products</th>
                                                     <th scope="col">Products Description</th>
                                                     <th scope="col" >Products Image</th>
-                                                    <th scope="col">PV</th>
+                                                    <!-- <th scope="col">PV</th> -->
                                                     <th scope="col">Worth</th>
                                                     <th scope="col">Status</th>
                                                     <th scope="col">Edit</th>
@@ -133,7 +133,7 @@
                                                             <td>{{ prod.name }}</td>
                                                             <td>{{ prod.description }}</td>
                                                             <td ><img :src="imageURL+'/'+prod.image" width="100px" height="100px"></td>
-                                                            <td>{{ prod.points }}</td>
+                                                            <!-- <td>{{ prod.points }}</td> -->
                                                             <td>₦{{ prod.worth?.toLocaleString('en-US') }}</td>
                                                             <td>
                                                                 <span v-if="prod.is_active">Enabled</span>

@@ -26,21 +26,19 @@
                                     <img class="mr-3  r-3" src="/assets/img/hand-shake.png" alt="Generic placeholder image" width="70px" height="70px">
                                 </div>
                                 <div class="ml-auto">
-                                    <h6 class="mt-0 mb-1 font-weight-bold text-white" >Welcome Bonus</h6>
-                                    <div class="mt-1 text-dark-heading text-white float-right" >₦  {{ welcomeBonus?.toLocaleString('en-US') }}</div>
-                                    
+                                    <h6 class="mt-0 mb-1 font-weight-bold text-white" >Award Bonus</h6>
+                                    <div class="mt-1 text-dark-heading text-white float-right" >₦  {{ userBonusStats.award_bonus?.toLocaleString('en-US') }}</div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <div class="card" style="background-color: #2E671A" >
+                    <div class="card" style="background-color: #2E671A">
                         <div class="card-body" >
                             <div class="d-flex align-items-center">
                                 <div class="mr-3">
-                                    <img class="mr-3  r-3" src="/assets/img/referral.png"
-                                        alt="Generic placeholder image" width="70px" height="70px">
+                                    <img class="mr-3  r-3" src="/assets/img/hand-shake.png" alt="Generic placeholder image" width="70px" height="70px">
                                 </div>
                                 <div class="ml-auto">
                                     <h6 class="mt-0 mb-1 font-weight-bold text-white" >Referral Bonus</h6>
@@ -58,10 +56,9 @@
                         <div class="float-right">
                             <img src="/assets/img/equil.png" alt="Generic placeholder image" width="60px" height="60px">
                         </div>
-                        <div class="mt-1 text-dark-heading text-green" >{{ equilibrumBonus?.toLocaleString('en-US') }}</div>
-                        <h6 class="counter-title font-weight-bold" style="color:#2E671A">Equilibrum (₦) </h6><br>
-                        <span v-if="equilibrumBonusEligible" class="badge text-white bg-green"><i class="icon icon-check" ></i>&nbsp;&nbsp;Eligible</span>
-                        <span v-else class="badge text-white bg-danger"><i class="icon icon-close" ></i>&nbsp;&nbsp;Not-Eligible</span>
+                        <div class="mt-1 text-dark-heading text-green" >{{ userBonusStats.unilevel_bonus?.toLocaleString('en-US') }}</div>
+                        <h6 class="counter-title font-weight-bold" style="color:#2E671A">Unilevel (₦) </h6><br>
+                        <span class="badge text-white bg-green"><i class="icon icon-check"></i>&nbsp;&nbsp;Eligible</span>
                     </div>
                 </div>
                 <div class="col-lg-3">
@@ -69,10 +66,9 @@
                         <div class="float-right">
                             <img src="/assets/img/bonus.png" alt="Generic placeholder image" width="60px" height="60px">
                         </div>
-                        <div class="mt-1 text-dark-heading text-green" >{{ loyaltyBonus?.toLocaleString('en-US') }}</div>
-                        <h6 class="counter-title font-weight-bold" style="color:#2E671A">Loyalty (₦)</h6><br>
-                        <span v-if="loyaltyBonusEligible" class="badge text-white bg-green"><i class="icon icon-check" ></i>&nbsp;&nbsp;Eligible</span>
-                        <span v-else class="badge text-white bg-red"><i class="icon icon-close" ></i>&nbsp;&nbsp;Not-Eligible</span>
+                        <div class="mt-1 text-dark-heading text-green" >{{ userBonusStats.matching_bonus?.toLocaleString('en-US') }}</div>
+                        <h6 class="counter-title font-weight-bold" style="color:#2E671A">Matching Bonus (₦)</h6><br>
+                        <span class="badge text-white bg-green"><i class="icon icon-check"></i>&nbsp;&nbsp;Eligible</span>
                     </div>
                 </div>
                 <div class="col-lg-3">
@@ -80,10 +76,9 @@
                         <div class="float-right">
                             <img  src="/assets/img/bars.png" alt="Generic placeholder image" width="60px" height="60px">
                         </div>
-                        <div class="mt-1 text-dark-heading text-green" >{{ profitPool?.toLocaleString('en-US') }}</div>
-                        <h6 class="counter-title font-weight-bold" style="color:#2E671A">Profit Pool (₦) </h6><br>
-                        <span v-if="profitPoolEligible" class="badge text-white bg-green"><i class="icon icon-check"></i>&nbsp;&nbsp;Eligible</span>
-                        <span v-else class="badge text-white bg-red"><i class="icon icon-close" ></i>&nbsp;&nbsp;Not Eligible</span>
+                        <div class="mt-1 text-dark-heading text-green" >{{ userBonusStats.upgrade_bonus?.toLocaleString('en-US') }}</div>
+                        <h6 class="counter-title font-weight-bold" style="color:#2E671A">Upgrade Bonus (₦) </h6><br>
+                        <span class="badge text-white bg-green"><i class="icon icon-check"></i>&nbsp;&nbsp;Eligible</span>
                     </div>
                 </div>
                 <div class="col-lg-3">
@@ -93,8 +88,7 @@
                         </div>
                         <div class="mt-1 text-dark-heading text-white" >{{ globalProfit?.toLocaleString('en-US') }}</div>
                         <h6 class="counter-title font-weight-bold">Global Profit (₦)</h6><br>
-                        <span v-if="globalProfitEligible" class="badge text-white bg-green"><i class="icon icon-check"></i>&nbsp;&nbsp;Eligible</span>
-                        <span v-else class="badge text-white bg-red"><i class="icon icon-close" ></i>&nbsp;&nbsp;Not Eligible</span>
+                        <span class="badge text-white bg-green"><i class="icon icon-check"></i>&nbsp;&nbsp;Eligible</span>
                     </div>
                 </div>
             </div>
@@ -233,71 +227,7 @@
                     </div>
                 </div>				
             </div>
-            <div class="row">		
-                
-                <div class="col-md-12">
-                    <div class="card no-b mb-3">
-                        <div class="card-header white">
-                            <div class="row justify-content-end">
-                                <div class="col">
-                                    <ul class="nav nav-tabs card-header-tabs nav-material">
-                                        <li class="nav-item">
-                                            <a class="nav-link text-green" id="w1-tab1" data-toggle="tab" >TOTAL SELECTION</a>
-                                        </li>	
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="float-left">
-                            <div class="card-body">
-                                <template v-if="loading">
-                                    <b-skeleton-table
-                                        :rows="3"
-                                        :columns="3"
-                                        :table-props="{ bordered: true, striped: true }"
-                                    ></b-skeleton-table>
-                                </template>
-                                <template v-else>
-                                    <div v-if="userProductClaims.length == 0">
-                                        <p class="alert alert-info">
-                                            There are no claimed products
-                                        </p>
-                                    </div>
-                                    <div v-else v-for="userClaim,i in userProductClaims" :key="i" class="row column-row border-bottom">
-                                        <div class="mt-2 ml-3" style="padding-right:15px">
-                                            <img src="/assets/img/shop1.png" width="30px" height="30px">
-                                        </div>  
-                                        <div class="mb-2 mt-2">
-                                            <h6 class="font-weight-bold text-green s-12" style="margin: 0em; padding: 0em;">{{ userClaim.name }} <br><small> ₦{{ userClaim.worth }} | {{userClaim.points}}PV</small></h6>	
-                                        </div>	
-                                    </div>
-
-                                    <div class="row column-row border-bottom">
-                                        <div class="mb-2 mt-2 ml-3">
-                                            <h6 class="font-weight-bold text-green s-12" style="margin: 0em; padding: 0em;">Total Point Value </h6>											
-                                        </div>	
-                                        <div class="mb-2 mt-2 ml-auto mr-3">
-                                            <h6 class="font-weight-bold text-green s-12" style="margin: 0em; padding: 0em;">{{ totalPv }} PV</h6>											
-                                        </div>
-                                    </div> 	
-                                    <div class="row column-row border-bottom">
-                                        <div class="mb-2 mt-5 ml-3">
-                                            <h6 class="font-weight-bold text-green s-12" style="margin: 0em; padding: 0em;">Total Product Cost </h6>											
-                                        </div>	
-                                        <div class="mb-2 mt-5 ml-auto mr-3">
-                                            <h6 class="font-weight-bold text-green s-12" style="margin: 0em; padding: 0em;">₦{{ totalWorth?.toLocaleString('en-US') }} </h6>											
-                                        </div>
-                                    </div>
-
-                                    <div class="mt-3">									
-                                        <button type="button" disabled :class="['btn btn-small', productClaimStatus=='processing'?'btn-warning':productClaimStatus=='approved'?'btn-success':'btn-danger']"><i class="icon-check-square-o mr-2"></i>{{ productClaimStatus }}</button>
-                                    </div>
-                                </template>
-                            </div>  
-                        </div>
-                    </div>
-                </div>
-            </div>
+            
         </div>
     </div>
 </template>
@@ -337,7 +267,7 @@ export default{
         
         ...mapGetters('bonusStore',['welcomeBonus',
         'equilibrumBonus','loyaltyBonus','referralBonus','placementBonus',
-        'profitPool','globalProfit','totalBonus','walletBalance']),
+        'profitPool','globalProfit','totalBonus','walletBalance','userBonusStats']),
 
         ...mapGetters('packageStore',['regPackage']),
         ...mapGetters('authStore',['authUser']),
@@ -401,7 +331,9 @@ export default{
     methods:{
         ...mapActions('bonusStore',['getWelcomeBonus',
         'getEquilibrumBonus','getLoyaltyBonus','getReferralBonus',
-        'getProfitPool','getGlobalProfit','getPlacementBonus','getTotalBonus','getWalletBalance']),
+        'getProfitPool','getGlobalProfit','getPlacementBonus','getTotalBonus','getWalletBalance',
+        'getUserBonusStats'
+        ]),
         ...mapActions('packageStore',['getPackage']),
         ...mapActions('authStore',['getUser']),
         ...mapActions('userStore',['getTotalPVs','inviteGuest','getUplineDetails','countDirectDownlines','getProfileDetails','getUser']),
@@ -412,14 +344,15 @@ export default{
         ...mapActions('rankStore',['getCurrentRankBadge']),
         
         getBonuses(uuid){
-            this.getWelcomeBonus(uuid)
-            this.getEquilibrumBonus(uuid)
-            this.getLoyaltyBonus(uuid)
+            this.getUserBonusStats(uuid)
+            //this.getWelcomeBonus(uuid)
+            //this.getEquilibrumBonus(uuid)
+            //this.getLoyaltyBonus(uuid)
             this.getReferralBonus(uuid)
             this.getPlacementBonus(uuid)
             this.getTotalBonus(uuid)
             this.getTotalPVs(uuid)
-            this.getProfitPool(uuid)
+            //this.getProfitPool(uuid)
             this.getGlobalProfit(uuid)
             this.getWalletBalance(uuid)
         },

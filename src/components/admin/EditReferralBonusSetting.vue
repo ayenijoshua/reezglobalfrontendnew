@@ -1,7 +1,7 @@
 <template>
     <div class="card border-0 justify-content-center" style="background-color: #ecf0f1">
         <div class="card-body rounded" style="background-color: #ecf0f1"> 
-            <div class="text-center"><img  src="/assets/img/referral.png" width="80px"  height="80px" style=" opacity: 0.5;">
+            <div class="text-center"><img  src="/assets/img/wallet1.png" width="80px"  height="80px" style=" opacity: 0.5;">
             <h6 class="mt-1 s-8 font-weight-bold">OFFICIAL REFERRAL BONUSES PER PACKAGE<br><small> Edit preferred Referral bonuses per package</small></h6></div>
             <form @submit.prevent="update()">
                 <div class="text-center"><h6 class="font-weight-bold mt-2">{{ setting.name }}</h6></div>

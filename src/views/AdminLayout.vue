@@ -56,7 +56,7 @@
                         </router-link>
                     </li>
 
-                    <li :class="['treeview', 'shadow', activeMenu()=='admin-ranks' ? 'active' : '']" @click="setMenu('admin-packages')">
+                    <li :class="['treeview', 'shadow', activeMenu()=='admin-ranks' ? 'active' : '']" @click="setMenu('admin-ranks')">
                         <router-link :to="{name:'admin-ranks'}" :style="{'text-decoration': 'none'}" >
                             <i class="icon icon-medal5 green-text s-18"></i>
                             <span class="green-text">Ranks</span>

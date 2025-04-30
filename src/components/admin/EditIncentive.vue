@@ -84,6 +84,7 @@ export default{
 
     data(){
         return{
+            hasFile:false
         }
     },
 
@@ -113,6 +114,9 @@ export default{
 
             let ele = document.getElementById('incentive-form')
             let form = new FormData(ele)
+            if(this.hasFile == false){
+                form.delete("file_path")
+            }
             this.update({id:this.incentive.id,data:form}).then(res=>{
                 if(res.status==200){
                     this.$emit('updated')
@@ -122,8 +126,12 @@ export default{
 
         checkFileZize(){
             let ele = document.getElementById('file');
-            let fileSize = ele.files[0].size/1000
-            return fileSize > 500 ? false : true
+            if(ele.files[0] !== undefined){
+                let fileSize = ele.files[0].size/1000
+                this.hasFile = true;
+                return fileSize > 500 ? false : true
+            }
+            return true
         },
     }
     

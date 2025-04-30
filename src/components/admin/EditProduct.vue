@@ -1,9 +1,9 @@
 <template>
     <div class="card border-0 justify-content-center" style="background-color: #ecf0f1">
         <div class="card-body rounded" style="background-color: #ecf0f1"> 
-            <div class="text-center"><img  src="/assets/img/shop1.png" width="80px"  height="80px" style=" opacity: 0.5;">
+            <div class="text-center"><img  src="/assets/img/wallet1.png" width="80px"  height="80px" style=" opacity: 0.5;">
             <h6 class="mt-1 s-8 font-weight-bold text-green">PRODUCT<br><small> Edit product</small></h6></div>
-            <form @submit.prevent="update()">
+            <form @submit.prevent="update()" id="update-product-form">
                 <div class="card no-b  no-r">
                     <div class="card-body no-gutters" style="background-color: #ecf0f1">
                         <div class="form-row mb-3">
@@ -12,29 +12,29 @@
                                     <div class="input-group-prepend">
                                         <div class="input-group-text"><i class="icon icon-card_membership float-left s-20 text-white " ></i></div>
                                     </div>
-                                    <input v-model="form.name" type="text" class="form-control r-0 light s-12"  placeholder="Product name" style="border: 1px solid #2E671A; background-color: #ded8c7;">
+                                    <input name="name" :value="form.name" type="text" class="form-control r-0 light s-12"  placeholder="Product name" style="border: 1px solid #2E671A; background-color: #ded8c7;">
                                 </div>
                                 <div class="input-group mr-sm-2 mt-3 mb-3">
-                                    <div class="input-group-prepend">
+                                    <!-- <div class="input-group-prepend">
                                         <div class="input-group-text"><i class="icon icon-sitemap float-left s-20 text-white" ></i></div>
-                                    </div>
-                                    <input v-model="form.points" type="text" class="form-control r-0 light s-12"
-                                            placeholder="Point Value" style="border: 1px solid #2E671A; background-color: #ded8c7;">
+                                    </div> -->
+                                    <input name="points" type="hidden" class="form-control r-0 light s-12"
+                                            value="5" style="border: 1px solid #2E671A; background-color: #ded8c7;">
                                 </div>
                                 <div class="input-group">
                                     <div class="input-group-prepend">
                                         <div class="input-group-text"><i class="icon icon-credit-card float-left s-20 text-white " ></i></div>
                                     </div>
-                                    <input v-model="form.worth" type="text" class="form-control r-0 light s-12"
+                                    <input name="worth" :value="form.worth" type="text" class="form-control r-0 light s-12"
                                             placeholder="Product worth" style="border: 1px solid #2E671A; background-color: #ded8c7;">
                                 </div>
 
 
                                 <div class="input-group mt-3 mb-3">
                                     <div class="input-group-prepend">
-                                        <div class="input-group-text"><i class="icon icon-file float-left s-20 text-white " ></i></div>
+                                        <div class="input-group-text"><i class="icon icon-file float-left s-20 text-white"></i></div>
                                     </div>
-                                         <input type="file" id="file"  style="border: 1px solid #2E671A; background-color: #ded8c7;" name="file_path"/>
+                                         <input type="file" id="image"  style="border: 1px solid #2E671A; background-color: #ded8c7;" name="image"/>
                                 </div>
                              
                             </div>
@@ -90,7 +90,7 @@
 
 <script>
 import { mapActions, mapState } from 'vuex'
-
+import { notification } from '@/util/notification';
  export default{
     name:"edit-product",
 
@@ -107,7 +107,8 @@ import { mapActions, mapState } from 'vuex'
                 points:null,
                 worth:null,
                 name:null,
-            }
+            },
+            hasFile:false
         }
     },
 
@@ -127,12 +128,31 @@ import { mapActions, mapState } from 'vuex'
         ...mapActions('productStore',['updateProduct']),
 
         update(){
-            this.updateProduct({id:this.product.id,data:this.form}).then(res=>{
+            if(!this.checkFileZize()){
+                notification.warning('Image size should not exceed 500kB')
+                return
+            }
+            let ele = document.getElementById("update-product-form")
+            let form = new FormData(ele)
+            if(this.hasFile==false){
+                form.delete("image")
+            }
+            this.updateProduct({id:this.product.id,data:form}).then(res=>{
                 if(res.status == 200){
                     this.$emit('updated')
                 }
             })
-        }
+        },
+
+        checkFileZize(){
+            let ele = document.getElementById('image');
+            if(ele.files[0] !== undefined){
+                let fileSize = ele.files[0].size/1000
+                this.hasFile = true;
+                return fileSize > 500 ? false : true
+            }
+            return true
+        },
     }
  }
 </script>

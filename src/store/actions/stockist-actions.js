@@ -11,7 +11,7 @@ export default {
             commit('loading',null,{root:true})
             const res = await api.all(page)
             if(res && res.status==200){
-                toastr.success(res.data.message)
+                //toastr.success(res.data.message)
                 commit('stockists',res.data.data.data)
 
                 commit('stockistsAction','stockistsStore/getStockists')
@@ -79,7 +79,7 @@ export default {
             commit('loading',null,{root:true})
             const res = await api.single(id)
             if(res && res.status==200){
-                toastr.success(res.data.message)
+                //toastr.success(res.data.message)
                 commit('stockist',res.data.data)
             }else{
                 toastr.warning(res.data.message)
@@ -95,7 +95,7 @@ export default {
             commit('loading',null,{root:true})
             const res = await api.userSingle(uuid)
             if(res && res.status==200){
-                toastr.success(res.data.message)
+                //toastr.success(res.data.message)
                 commit('stockist',res.data.data)
             }else{
                 toastr.warning(res.data.message)
