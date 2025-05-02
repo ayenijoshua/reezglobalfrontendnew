@@ -32,12 +32,12 @@
                                                     <table class="table table-bordered table-hover">
                                                         <thead>
                                                             <tr>
-                                                            <th scope="col">Welcome Bonus (WB)</th>
+                                                            <!-- <th scope="col">Welcome Bonus (WB)</th> -->
                                                             <th scope="col">Total Referral Bonus (TRB)</th>
-                                                            <th scope="col">Total Placement Bonus (TPB)</th>
-                                                            <th scope="col">Total Equilibrum Bonus (TEB)</th>
-                                                            <th scope="col">Total Loyalty Bonus (TLB)</th>
-                                                            <th scope="col">Profit Pool Bonus (PPB)</th>
+                                                            <!-- <th scope="col">Total Placement Bonus (TPB)</th> -->
+                                                            <th scope="col">Total Matching Bonus (TEB)</th>
+                                                            <th scope="col">Total Unilevel Bonus (TLB)</th>
+                                                            <!-- <th scope="col">Profit Pool Bonus (PPB)</th> -->
                                                             <th scope="col">Global Pool Sharing (GPS)</th>
                                                             <th scope="col">Total Bonus (TB)</th>
                                                             <th scope="col">Total withdrawals (TW)</th>
@@ -46,12 +46,12 @@
                                                         </thead>
                                                         <tbody>
                                                             <tr>
-                                                                <td>₦{{ welcomeBonus?.toLocaleString('en-US') }}</td>
-                                                                <td>₦{{ referralBonus?.toLocaleString('en-US') }} </td>
-                                                                <td>₦{{ placementBonus?.toLocaleString('en-US') }} </td>
-                                                                <td>₦{{ equilibrumBonus?.toLocaleString('en-US') }}</td>
-                                                                <td>₦{{ loyaltyBonus?.toLocaleString('en-US') }}</td>
-                                                                <td>₦{{ profitPool?.toLocaleString('en-US') }}</td>
+                                                                <!-- <td>₦{{ welcomeBonus?.toLocaleString('en-US') }}</td> -->
+                                                                <td>₦{{ (placementBonus+referralBonus)?.toLocaleString('en-US') }} </td>
+                                                                <!-- <td>₦{{ placementBonus?.toLocaleString('en-US') }} </td> -->
+                                                                <td>₦{{ userBonusStats.matching_bonus?.toLocaleString('en-US') }}</td>
+                                                                <td>₦{{ userBonusStats.unilevel_bonus?.toLocaleString('en-US') }}</td>
+                                                                <!-- <td>₦{{ profitPool?.toLocaleString('en-US') }}</td> -->
                                                                 <td>₦{{ globalProfit?.toLocaleString('en-US') }}</td>
                                                                 <td>₦{{ totalBonus?.toLocaleString('en-US') }}</td>
                                                                 <td>₦{{ userTotalWithdrawals?.toLocaleString('en-US') }}</td>
@@ -66,59 +66,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="row my-3">
-                                        <!-- bar charts group -->
-                                        <div class="col-md-12">
-                                            <div class="card">
-                                                <div class="card-header bg-white">
-                                                    <h4 class="green-text"><strong class="font-weight-bold">Profit Pool</strong></h4>
-                                                </div>
-                                                <div class="card-body" style="overflow-x:auto;">
-                                                    <table class="table table-bordered table-hover">
-                                                        <thead>
-                                                        <tr>
-                                                            <th scope="col">Recieved Months</th>
-                                                            <th scope="col">Profit Pool Bonus</th>
-                                                            <th scope="col">Status</th>
-                                                            <th scope="col">Required Registrations</th>
-                                                            <th scope="col">Payment</th>
-                                                            <th scope="col">Date</th>
-                                                        </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            <tr v-if="loading">
-                                                                <td colspan="6">
-                                                                    <b-skeleton-table
-                                                                        :rows="3"
-                                                                        :columns="6"
-                                                                        :table-props="{ bordered: true, striped: true }"
-                                                                    ></b-skeleton-table>
-                                                                </td>
-                                                            </tr>
-                                                            <template v-else>
-                                                                <tr v-if="profitPools.length == 0">
-                                                                    <td colspan="4">There are no profit pools</td>
-                                                                </tr>
-                                                                <tr v-else v-for="pool,i in profitPools" :key="i">
-                                                                    <td>{{ ++i }}</td>
-                                                                    <td>₦{{ pool.value }}</td>
-                                                                    <td><span class="badge text-white bg-green"><i class="icon icon-check" ></i>&nbsp;&nbsp;Eligible</span></td>
-                                                                    <td>4</td>
-                                                                    <td><span class="badge text-white bg-green"><i class="icon icon-check" ></i>&nbsp;&nbsp;Approved</span></td>
-                                                                    <td>{{ pool.created_at }}</td>
-                                                                </tr>
-                                                            </template>
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- /bar charts group -->
-                                    </div>
-                                </div>
-                            </div>
+                            
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="row my-3">
@@ -266,7 +214,8 @@
             return{
                 form:{
                     amount:''
-                }
+                },
+                loadingBonusStats:false
                 
             }
         },
@@ -280,7 +229,7 @@
             ...mapGetters('authUser',['authUser']),
             ...mapGetters('bonusStore',['welcomeBonus',
                 'equilibrumBonus','loyaltyBonus','referralBonus',
-                'profitPool','profitPools','globalProfit',
+                'profitPool','profitPools','globalProfit','userBonusStats',
                 'globalProfits','totalBonus','walletBalance','placementBonus']),
             ...mapGetters('authStore',['authUser']),
             ...mapGetters('withdrawalStore',['userWithdrawals','userTotalWithdrawals']),
@@ -305,23 +254,23 @@
                 'getEquilibrumBonus','getLoyaltyBonus','getReferralBonus',
                 'getProfitPool','getProfitPools','getGlobalProfit',
                 'getGlobalProfits','getPlacementBonus',
-                'getTotalBonus','getWalletBalance']),
+                'getTotalBonus','getWalletBalance','getUserBonusStats']),
 
                 ...mapActions('authStore',['getUser']),
 
                 ...mapActions('withdrawalStore',['getUserTotal','getUserHistory','initiate']),
 
             getBonuses(uuid){
-                this.getWelcomeBonus(uuid)
-                this.getEquilibrumBonus(uuid)
-                this.getLoyaltyBonus(uuid)
+                this.getUserBonusStats(uuid)
+                //this.getEquilibrumBonus(uuid)
+                //this.getLoyaltyBonus(uuid)
                 this.getReferralBonus(uuid)
                 this.getPlacementBonus(uuid)
                 this.getTotalBonus(uuid)
                 //this.getTotalPVs(uuid)
-                this.getProfitPool(uuid)
+                //this.getProfitPool(uuid)
                 this.getGlobalProfit(uuid)
-                this.getProfitPools(uuid)
+                //this.getProfitPools(uuid)
                 this.getGlobalProfits(uuid)
                 this.getWalletBalance(uuid)
             },

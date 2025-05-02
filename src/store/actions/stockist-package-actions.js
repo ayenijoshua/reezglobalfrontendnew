@@ -10,7 +10,7 @@ export default {
             commit('loading',null,{root:true})
             const res = await api.all()
             if(res && res.status==200){
-                toastr.success(res.data.message)
+                //toastr.success(res.data.message)
                 commit('stockistPackages',res.data.data)
             }else{
                 toastr.warning(res.data.message)
@@ -23,16 +23,17 @@ export default {
 
     async update({commit},data){
         try {
-            commit('loading',null,{root:true})
+            commit('submitting',null,{root:true})
             const res = await api.update(data.id,data.data)
             if(res && res.status==200){
                 toastr.success(res.data.message)
             }else{
                 toastr.warning(res.data.message)
             }
-            commit('loaded',null,{root:true})
+            commit('submitted',null,{root:true})
+            return res
         } catch (error) {
-            LogError(commit,error,'loaded')
+            LogError(commit,error,'submitted')
         }
     },
 

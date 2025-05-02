@@ -33,14 +33,17 @@
                                     </select>
                                 </div>
 
-                                <!------<div class="input-group mr-sm-2 mt-3 mb-3">
+                                <div class="input-group mr-sm-2 mt-3 mb-3">
                                     <div class="input-group-prepend">
                                         <div class="input-group-text"><i class="icon icon-sitemap float-left s-20 green-text" ></i></div>
                                     </div>
-                                    <textarea v-model="form.description" class="form-control r-0 light s-12"
-                                            placeholder="Rank Description"></textarea>
-                                </div>--->
-
+                                    <select required v-model="form.package_id" class="form-control r-0 light s-12" style="background-color:#ded8c7; border: 1px solid #2E671A">
+                                        <template v-if="form.package_id==undefined">
+                                            <option :value="undefined" selected>Select Package</option>
+                                        </template>
+                                        <option v-for="pack,i in regPackages" :value="pack.id" :key="i">{{ pack.name }}</option>
+                                    </select>
+                                </div>
                             </div>
                         </div>
                         <span class="btn btn-sm btn-success btn-lg" v-if="submitting">...</span>
@@ -53,7 +56,8 @@
 </template>
 
 <script>
-import { mapActions, mapState } from 'vuex'
+import { notification } from '@/util/notification'
+import { mapActions, mapGetters, mapState } from 'vuex'
 
  export default{
     name:"edit-rank",
@@ -71,7 +75,8 @@ import { mapActions, mapState } from 'vuex'
                 name:null,
                 points:null,
                 is_global_profit_eligible:0,
-                description:null
+                description:null,
+                package_id:null
             }
         }
     },
@@ -79,7 +84,9 @@ import { mapActions, mapState } from 'vuex'
     computed:{
         ...mapState({
             submitting:state=>state.submitting
-        })
+        }),
+
+        ...mapGetters("packageStore",["regPackages"])
     },
 
     created(){
@@ -87,19 +94,27 @@ import { mapActions, mapState } from 'vuex'
         this.form.points = this.rank.points
         this.form.is_global_profit_eligible = this.rank.is_global_profit_eligible
         this.form.description = this.rank.description
-        //alert(this.rank.is_global_profit_eligible)
+        this.form.package_id = this.rank.package
+        alert(this.form.package_id)
+
+        this.all();
     },
 
     methods:{
         ...mapActions('rankStore',['update']),
+        ...mapActions('packageStore',['all']),
 
         updateRank(){
+            if(this.form.package_id == undefined){
+                return notification.warning("Package required")
+            }
             this.update({id:this.rank.id,data:this.form}).then(res=>{
                 if(res.status == 200){
                     this.$emit('updated')
                 }
             })
-        }
+        },
+
     }
  }
 </script>

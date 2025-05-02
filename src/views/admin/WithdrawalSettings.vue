@@ -97,7 +97,7 @@
                                 <div class="card-body no-gutters">
                                     <div class="text-center mb-3"><img  src="/assets/img/wallet1.png" width="80px"  height="80px">
                                     <h5 class="s-36 font-weight-bold mt-2 text-green">₦ {{ availableBalance?.toLocaleString('en-US') }}</h5>
-                                    <h6 class="mt-1 s-8 font-weight-bold">Balance On Fincra<br></h6></div>
+                                    <h6 class="mt-1 s-8 font-weight-bold">Balance On Paystack<br></h6></div>
                                     <div class="form-row ml-1">
                                         <button class="btn btn-sm btn-success btn-lg" @click="reloadBalance()"><i class="icon-save mr-2"></i>Reload Data</button>
                                     </div>

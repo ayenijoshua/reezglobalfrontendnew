@@ -18,7 +18,7 @@
                                     <th>Edit Details</th>
                                 </tr>
                                 <tr v-if="loading && packagesLoading">
-                                    <td colspan="5">
+                                    <td colspan="6">
                                         <b-skeleton-table
                                             :rows="3"
                                             :columns="5"
@@ -28,7 +28,7 @@
                                 </tr>
                                 <template v-else>
                                     <tr v-if="regPackages.length == 0">
-                                        <td colspan="5">
+                                        <td colspan="6">
                                             <div class="alert alert-info">There are no packages</div>
                                         </td>
                                     </tr>
@@ -39,7 +39,7 @@
                                             <td>{{ pack.point_value }}PV</td>
                                             <td>₦ {{ pack.registration_value?.toLocaleString('en-US') }}</td>
                                             <td>
-                                                {{ pack.pickup_amount?.toLocaleString('en-US') }}
+                                                ₦{{ Number(pack.pickup_amount)?.toLocaleString('en-US') }}
                                             </td>
                                             <td>
                                                 <a @click="setPackage(pack)" v-b-modal.edit-package class="btn btn-sm btn-success text-white caret" href="#"><i class="icon-edit"></i></a>

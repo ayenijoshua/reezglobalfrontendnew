@@ -77,7 +77,7 @@
                                         <td>{{ pack.name }}</td>
                                         <td>₦ {{ pack.registration_value?.toLocaleString('en-US') }}</td>
                                         <td>%{{ pack.sales_bonus_percentage }}</td>
-                                        <td>₦{{ String(pack.pickup_amount)?.toLocaleString('en-US') }}</td>
+                                        <td>₦{{ Number(pack.pickup_amount).toLocaleString('en-US') }}</td>
                                         <td>
                                             <a @click="setPackage(pack)" v-b-modal.edit-package class="btn btn-sm btn-success text-white caret" href="#"><i class="icon-edit"></i></a>
                                         </td>
@@ -89,6 +89,39 @@
                 </div>
             </div>
         </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card shadow1" style="background-color:transparent">
+                    <div class="card-body" style="overflow-x:auto;">
+                    <form @submit.prevent="updateRefBonus()">
+                        <div class="card no-b  no-r" style="background-color:transparent">
+                            <div class="card-body no-gutters">
+                                <div class="text-center mb-3"><img  src="/assets/img/cash-withdrawal.png" width="80px"  height="80px">
+                                <h5 class="s-36 font-weight-bold mt-2 text-green">₦ {{ settings.stockist_referral_bonus_percentage?.toLocaleString('en-US') }}</h5>
+                                <h6 class="mt-1 s-8 font-weight-bold">STOCKIST REFERRAL BONUS %<br><small> Edit referral bonus percentage</small></h6></div>
+                                <div class="form-row mb-3">
+                                    <div class="col-md-12">
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <div class="input-group-text"><i class="icon icon-money-3 float-left s-20 text-white " ></i></div>
+                                            </div>
+                                            <input v-model="stockistReferralBonusPercentage.stockist_referral_bonus_percentage" type="number" class="form-control r-0 light s-12" placeholder="Referral bonus %"  style="background-color:#ecf0f1; border: 1px solid #2E671A">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-row ml-1">
+                                    <span v-if="refBonusSubmitting" class="btn btn-sm btn-success btn-lg">...</span>
+                                    <button v-else type="submit" class="btn btn-sm btn-success btn-lg"><i class="icon-save mr-2"></i>Update Data</button>
+                                </div>
+                            </div>	
+                        </div>
+                    </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <Modal modal-id="edit-package" modal-title="Edit Package" modal-size="md">
             <template v-if="currPackage==null">
                 <b-skeleton-table
@@ -204,7 +237,11 @@
                     pickup_amount:null,
                     sales_bonus_percentage:null,
                     //pickup_amount:null
-                }
+                },
+                stockistReferralBonusPercentage:{
+                    stockist_referral_bonus_percentage:null
+                },
+                refBonusSubmitting:false
             }
         },
 
@@ -213,7 +250,8 @@
                 loading:state=>state.loading
             }),
 
-            ...mapGetters('stockistPackageStore',['stockistPackages'])
+            ...mapGetters('stockistPackageStore',['stockistPackages']),
+            ...mapGetters('settingStore',['settings'])
         },
 
         created(){
@@ -221,10 +259,21 @@
                 this.packagesLoading = true
                 this.getPackages().then(()=>this.packagesLoading = false)
             }
+
+            if(this.settings.id == undefined){
+                this.all().then(res=>{
+                    if(res.status == 200){
+                        this.stockistReferralBonusPercentage.stockist_referral_bonus_percentage = this.settings.stockist_referral_bonus_percentage
+                    }
+                })
+            }else{
+                this.stockistReferralBonusPercentage.stockist_referral_bonus_percentage = this.settings.stockist_referral_bonus_percentage
+            }
         },
 
         methods:{
             ...mapActions('stockistPackageStore',['getPackages','update','create']),
+            ...mapActions('settingStore',['all','update']),
 
             setPackage(pack){
                 this.currPackage = pack
@@ -236,9 +285,12 @@
 
             createPackage(){
                 this.create(this.form).then(()=>this.getPackages())
-            }
+            },
 
-            
+            updateRefBonus(){
+                this.refBonusSubmitting = true
+                this.update(this.stockistReferralBonusPercentage).then(()=>{this.all(); this.refBonusSubmitting = false})
+            }
         }
 
     }

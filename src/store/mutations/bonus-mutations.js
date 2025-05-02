@@ -89,6 +89,6 @@ export default{
     },
 
     userBonusStats(state,data){
-        state.bonusStats = data
+        state.userBonusStats = data
     }
 }

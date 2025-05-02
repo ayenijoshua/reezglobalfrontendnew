@@ -46,6 +46,7 @@ export default {
 
     async update({commit},{id,data}){
         try {
+            alert()
             commit('loading',null,{root:true})
             const res = await api.update(id,data)
             if(res && res.status==200){
@@ -54,6 +55,7 @@ export default {
                 toastr.warning(res.data.message)
             }
             commit('loaded',null,{root:true})
+            return res
         } catch (error) {
             LogError(commit,error,'loaded')
         }

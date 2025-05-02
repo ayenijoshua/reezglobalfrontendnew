@@ -15,13 +15,14 @@
                                     <input v-model="form.name" type="text" class="form-control r-0 light s-12" id="inlineFormInputGroupUsername2"
                                             placeholder="Registration Package" style="border: 1px solid #2E671A; background-color: #ded8c7;">
                                 </div>
-                                <div class="input-group mr-sm-2 mt-3 mb-3">
+                                <br/>
+                                <!-- <div class="input-group mr-sm-2 mt-3 mb-3">
                                     <div class="input-group-prepend">
                                         <div class="input-group-text"><i class="icon icon-sitemap float-left s-20 text-white " ></i></div>
                                     </div>
                                     <input v-model="form.point_value" type="text" class="form-control r-0 light s-12" id="inlineFormInputGroupUsername2"
                                             placeholder="Point Value" style="border: 1px solid #2E671A; background-color: #ded8c7;">
-                                </div>
+                                </div> -->
                                 <div class="input-group">
                                     <div class="input-group-prepend">
                                         <div class="input-group-text"><i class="icon icon-credit-card float-left s-20 text-white  " ></i></div>
@@ -40,7 +41,7 @@
                                     <div class="input-group-prepend">
                                         <div class="input-group-text"><i class="icon icon-package float-left s-20 text-white  " ></i></div>
                                     </div>
-                                    <input v-model="form.sales_bonus_percentage" type="text" class="form-control r-0 light s-12" id="inlineFormInputGroupUsername2"
+                                    <input v-model="form.sales_bonus_percentage" title="rebate percentage" type="text" class="form-control r-0 light s-12" id="inlineFormInputGroupUsername2"
                                             placeholder="Rebate" style="border: 1px solid #2E671A; background-color: #ded8c7;">
                                 </div>
                             </div>
@@ -71,7 +72,7 @@ import { mapActions, mapState } from 'vuex'
         return{
             form:{
                 registration_value:null,
-                point_value:null,
+                point_value:1,
                 name:null,
                 pickup_amount:null,
                 sales_bonus_percentage:null,
@@ -101,7 +102,7 @@ import { mapActions, mapState } from 'vuex'
 
         updatePackage(){
             this.sending = true
-            this.update({id:this.currPackage.id,data:this.form}).then(res=>{
+            this.update({id:this.currPackage.id,data:this.form}).then((res)=>{
                 if(res.status == 200){
                     this.$emit('updated')
                     this.sending = false

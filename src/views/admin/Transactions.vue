@@ -641,7 +641,7 @@
             </div>
         </div>
 
-        <div v-if="user" class="modal fade" id="viewproductModal" tabindex="-1" role="dialog" aria-hidden="true" >
+        <!--<div v-if="user" class="modal fade" id="viewproductModal" tabindex="-1" role="dialog" aria-hidden="true" >
             <div class="modal-dialog modal-dialog-centered" role="document" style="background: transparent!important;">
                 <div class="" >
                     <div class="">
@@ -649,7 +649,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div>-->
 
         <Modal modal-id="stockist-pop" modal-title="Stockist POP" modal-size="md">
             <template v-if="stockist==null">

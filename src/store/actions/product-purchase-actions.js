@@ -190,7 +190,7 @@ export default {
             commit('loading',null,{root:true})
             const res = await api.sumTotalPrices()
             if(res && res.status==200){
-                toastr.success(res.data.message)
+                //toastr.success(res.data.message)
                 //commit("pickupStats",res.data.data)
             }else{
                 toastr.warning(res.data.message)
@@ -207,7 +207,7 @@ export default {
             commit('loading',null,{root:true})
             const res = await api.monthlyRepurchases()
             if(res && res.status==200){
-                toastr.success(res.data.message)
+                //toastr.success(res.data.message)
                 commit("monthlyRepurchases",res.data.data)
             }else{
                 toastr.warning(res.data.message)

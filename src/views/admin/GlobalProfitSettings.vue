@@ -31,7 +31,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6"> 
+                <!--<div class="col-md-6"> 
                     <div class="card shadow1" style="background-color:transparent">
                         <div class="card-body" style="overflow-x:auto;background-color:transparent">
                         <form @submit.prevent="updateFirstPercentage()">
@@ -59,7 +59,7 @@
                         </form>
                         </div>
                     </div>
-                </div>
+                </div>-->
             </div>
 
             <div class="row my-3">

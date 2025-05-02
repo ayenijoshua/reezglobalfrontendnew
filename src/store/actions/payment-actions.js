@@ -149,7 +149,7 @@ export default{
             
             const res = await api.bankTransfer(uuid,data)
             if(res.status==200){
-                notification.error(res.data.message)
+                notification.success(res.data.message)
             }else{
                 notification.error(res.data.message)
             }

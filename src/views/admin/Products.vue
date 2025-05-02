@@ -30,14 +30,14 @@
                                         <input v-model="form.name" name="name" required type="text" class="form-control r-0 light s-12" placeholder="Product Name" style="background-color: #ecf0f1; border:1px solid #2E671A !important">
                                     </div>
                                 </div>
-                                <div class="col-md-3">
+                                <!--<div class="col-md-3">
                                     <div class="input-group mt-3 mb-3">
                                         <div class="input-group-prepend" >
                                             <div class="input-group-text" style="background-color: #2E671A; border:1px solid #2E671A !important" ><i class="icon icon-add_shopping_cart float-left s-20 text-white"></i></div>
                                         </div>
-                                        <input v-model="form.points" name="points" required type="text" class="form-control r-0 light s-12" placeholder="Product PV" style="background-color: #ecf0f1; border:1px solid #2E671A !important">
+                                        <input v-model="form.points" name="points" value="1" type="hidden" class="form-control r-0 light s-12" placeholder="Product PV" style="background-color: #ecf0f1; border:1px solid #2E671A !important">
                                     </div>
-                                </div>
+                                </div>-->
                                 <div class="col-md-3">
                                     <div class="input-group mt-3 mb-3">
                                         <div class="input-group-prepend">
@@ -131,8 +131,10 @@
                                                         <tr  v-for="prod,i in products" :key="i">
                                                             <td>{{ ++i }}</td>
                                                             <td>{{ prod.name }}</td>
-                                                            <td>{{ prod.description }}</td>
-                                                            <td ><img :src="imageURL+'/'+prod.image" width="100px" height="100px"></td>
+                                                            <td> 
+                                                                <textarea :value="prod.description"></textarea>
+                                                            </td>
+                                                            <td><img :src="imageURL+'/'+prod.image" width="50px" height="100px"></td>
                                                             <!-- <td>{{ prod.points }}</td> -->
                                                             <td>₦{{ prod.worth?.toLocaleString('en-US') }}</td>
                                                             <td>
@@ -220,7 +222,7 @@
                 product:null,
                 form:{
                     name:null,
-                    points:null,
+                    points:1,
                     worth:null
                 },
                 productsLoading:false
