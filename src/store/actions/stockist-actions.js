@@ -46,7 +46,7 @@ export default {
 
     async update({commit},{id,data}){
         try {
-            alert()
+            //alert()
             commit('loading',null,{root:true})
             const res = await api.update(id,data)
             if(res && res.status==200){

@@ -91,7 +91,7 @@
         });
       },
       nextPage(pageNum=null) {
-        alert(pageNum)
+        //alert(pageNum)
         //if(pageNum==this.current_page){return}
         this.$store.dispatch(this.action, {page:this.setParameter(pageNum !== null ? pageNum : (this.current_page + 1)),type:this.type} ).then(() => {
           // this.$router.push({
