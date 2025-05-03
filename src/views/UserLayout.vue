@@ -68,13 +68,12 @@
                         </router-link>
                     </li>
 
-                    <li :class="['treeview', 'shadow', activeMenu() == 'user-stockist_reg' ? 'active' : '']" @click="setMenu('user-stockist_reg')">
+                    <li v-if="authUser.is_stockist==0" :class="['treeview', 'shadow', activeMenu() == 'user-stockist_reg' ? 'active' : '']" @click="setMenu('user-stockist_reg')">
                         <router-link :to="{ name: 'user-stockist_reg' }" :style="{ 'text-decoration': 'none' }">
                         <i class="icon icon-account_box text-blue s-18"></i>
                         <span class="text-blue">Become a Stockist</span>
                         </router-link>
                     </li>
-
 
                     <li class="shadow" v-if="authUser.is_stockist==1">
                         <a href="#" style="text-decoration:none;" @click.prevent="toggleStockistPortal">
@@ -114,7 +113,6 @@
                             </li>
                         </ul>
                     </li>
-
 
                     <li :class="['treeview', 'shadow', activeMenu()=='user-security' ? 'active' : '']" @click="setMenu('user-security')">
                         <router-link :to="{name:'user-security'}" :style="{'text-decoration':'none'}">

@@ -84,13 +84,15 @@
                                                             <tr v-if="downlines.length == 0">
                                                                 <td colspan="4">There are no downlines</td>
                                                             </tr>
-                                                            <tr v-else v-for="user,i in downlines" :key="i">
-                                                                <th scope="row">{{ ++i }}</th>
-                                                                <td>{{ user.name }}</td>
-                                                                <td>{{ user.username }}</td>
-                                                                <td>{{ user.package }}</td>
-                                                                <td>{{ user.downlines }}</td>
-                                                            </tr>
+                                                            <template v-else>
+                                                                <tr v-for="user,i in downlines" :key="i">
+                                                                    <th scope="row">{{ ++i }}</th>
+                                                                    <td>{{ user.name }}</td>
+                                                                    <td>{{ user.username }}</td>
+                                                                    <td>{{ user.package }}</td>
+                                                                    <td>{{ user.downlines }}</td>
+                                                                </tr>
+                                                            </template>
                                                         </template>
                                                     </tbody>
                                                     </table>

@@ -65,7 +65,7 @@
                                                 <th class="font-weight-bold text-white" scope="col">VIEW</th>
                                                 <th class="font-weight-bold text-white" scope="col">PRODUCTS</th>
                                                 <th class="font-weight-bold text-white" scope="col">PRICE</th>
-                                                <th class="font-weight-bold text-white" scope="col">POINT VALUE</th>
+                                                <!-- <th class="font-weight-bold text-white" scope="col">POINT VALUE</th> -->
                                                 <!-- <th scope="col">Worth</th> -->
                                                 <th class="font-weight-bold text-white" scope="col">QUANTITY</th>
                                                 <!-- <th class="font-weight-bold text-white" scope="col">SELECT</th> -->
@@ -73,7 +73,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr v-if="loading && prodLoading">
+                                            <tr v-if="prodLoading">
                                                 <td colspan="7">
                                                     <b-skeleton-table
                                                         :rows="3"
@@ -90,11 +90,11 @@
                                                     <tr  v-for="produc,i in products" :key="i" >
                                                         <td>{{ ++i }}</td>
                                                         <td class="w-10">
-                                                            <img src="/assets/img/demo/products/product3.png"  height="70px" width="auto" alt="">
+                                                            <img :src="imageURL(produc.image)"  height="50" width="50" alt="">
                                                         </td>
                                                         <td>{{ produc.name }}</td>
-                                                        <td>₦ 12,700</td>
-                                                        <td>{{ produc.points }}</td>
+                                                        <td>₦ {{Number(produc.worth)?.toLocaleString('en-US')}}</td>
+                                                        <!-- <td>{{ produc.points }}</td> -->
                                                         <td>
                                                             <div class="">
                                                                 <input :key="i" @change="(e)=>logClaim2(e,produc.id,produc)" class="form-control" type="number" min="1"  style="background-color: transparent; border: 2px solid #2E671A;">
@@ -116,6 +116,7 @@
                     <div class="card  mb-3 shadow" style="background-color: transparent">
                         <div class="float-left">
                             <div class="card-body">
+                                <div class="card-header">Cart History</div>
                                 <template v-if="cartProducts.length==0">
                                     <p class="alert alert-info">
                                         There are no items in your cart
@@ -124,13 +125,13 @@
                                 <template v-else>
                                     <div v-for="prod,i in cartProducts" :key="i" class="row column-row p-2" style="border-bottom: 1px solid #2E671A !important;">
                                         <div class="mt-2 ml-3" style="padding-right:15px">
-                                            <img src="/assets/img/demo/products/product3.png" width="80px" height="80px">
+                                            <img :src="imageURL(prod.product.image)" width="80px" height="80px">
                                         </div>  
                                         <div class="mb-2 mt-4 ">
                                             <h6 class="font-weight-bold text-green s-14" style="margin: 0em; padding: 0em;">{{ prod.product.name }} <br><small class="font-weight-bold"> {{prod.product.points}}PV | Qty:{{ prod.qty }}</small></h6>	
                                         </div>	
                                         <div class="mb-2 mt-4 ml-auto mr-2">
-                                            <span class="font-weight-bold float-right text-green">₦{{ prod.product.worth }}</span>
+                                            <span class="font-weight-bold float-right text-green">₦{{ prod.product.worth?.toLocaleString('en-US') }}</span>
                                         </div>
                                     </div>
 
@@ -138,37 +139,42 @@
                                         <div class="mb-2 mt-2 ml-3">
                                             <h6 class="font-weight-bold text-green s-12" style="margin: 0em; padding: 0em;">Total Point Value </h6>											
                                         </div>	
-                                        <div class="mb-2 mt-2 ml-auto mr-3">
+                                        <!-- <div class="mb-2 mt-2 ml-auto mr-3">
                                             <h6 class="font-weight-bold text-green s-12" style="margin: 0em; padding: 0em;">{{ cartTotalPoints?.toFixed(2) }} PV</h6>											
-                                        </div>
+                                        </div> -->
                                     </div> 	
                                     <div class="row column-row" style="background-Color:#2E671A !important;">
                                         <div class="mb-2 mt-2 ml-3">
                                             <h6 class="font-weight-bold text-white s-12" style="margin: 0em; padding: 0em;">Total Price </h6>											
                                         </div>	
                                         <div class="mb-2 mt-2 ml-auto mr-3">
-                                            <h6 class="font-weight-bold text-white s-12" style="margin: 0em; padding: 0em;">₦ {{ cartTotalPrice }}</h6>											
+                                            <h6 class="font-weight-bold text-white s-12" style="margin: 0em; padding: 0em;">₦ {{ cartTotalPrice?.toLocaleString('en-US') }}</h6>											
                                         </div>
                                     </div>
                                     
                                      <!-- Cancel Order Button -->
                                     <div class="row column-row" >
                                         <div v-if="selectedOrderType != 'repurchase_pickup'" class="ml-auto mr-2">
-                                            <button @click.prevent="submitOrder()" class="btn btn-sm btn-success  mt-2" ><i class="icon-mark mr-2"></i> Submit Selection</button>
+                                            <button @click.prevent="submitOrder()" class="btn btn-sm btn-success  mt-2"><i class="icon-mark mr-2"></i> Submit Selection</button>
                                         </div> 
                                         <div class="ml-auto mr-2">
-                                            <button @click.prevent="cancelOrder()" class="btn btn-sm btn-danger  mt-2" ><i class="icon-cancel mr-2"></i> Cancel Selection</button>
+                                            <button @click.prevent="cancelOrder()" class="btn btn-sm btn-danger  mt-2"><i class="icon-cancel mr-2"></i> Cancel Selection</button>
                                         </div>     
-                                    </div>   
-                                    <!-- <div class="row column-row border-bottom">
+                                    </div>
+                                    <br/>
+                                    <b-card v-if="packageLoading">
+                                        <b-skeleton width="85%"></b-skeleton>
+                                        <b-skeleton width="55%"></b-skeleton>
+                                        <b-skeleton width="70%"></b-skeleton>
+                                    </b-card>
+                                    <div v-else class="row column-row border-bottom">
                                         <div class="mb-2 mt-5 ml-3">
-                                            <h6 class="font-weight-bold text-green s-12" style="margin: 0em; padding: 0em;">Total Product Cost </h6>											
+                                            <h6 class="font-weight-bold text-green s-12" style="margin: 0em; padding: 0em;">Pickup Amount </h6>											
                                         </div>	
                                         <div class="mb-2 mt-5 ml-auto mr-3">
-                                            <h6 class="font-weight-bold text-green s-12" style="margin: 0em; padding: 0em;">₦{{ totalWorth?.toLocaleString('en-US') }} </h6>											
+                                            <h6 class="font-weight-bold text-green s-12" style="margin: 0em; padding: 0em;">₦{{ Number(regPackage.pickup_amount)?.toLocaleString('en-US') }} </h6>											
                                         </div>
-                                    </div> -->
-
+                                    </div>
                                 </template>
                             </div>  
                         </div>
@@ -176,95 +182,73 @@
                 </div>
             </div>
 
-
             <div class="row mt-5">
                 <div class="col-md-12">
                     <div class="card mr-3 shadow1" style="background-color: transparent">
                         <div class="card-body">
+                            <div calss="card-header">Available Stockists</div>
                             <div class="form-row" style="overflow-x:auto;">
                                 <div class="d-flex justify-content-end mb-2">
-                                    <input 
-                                         
+                                    <input v-model="search.search"
                                         class="form-control mr-2" 
                                         type="text" 
                                         placeholder="Search stockists..." 
                                         style="width: 250px; background-color: transparent; border: 2px solid #2E671A !important;"
                                     />
-                                    <button class="btn text-white" style="background-Color:#2E671A" >
+                                    <span v-if="searching==true" class="btn text-white" style="background-Color:#2E671A">...</span>
+                                    <button v-else @click="searchStockist" class="btn text-white" style="background-Color:#2E671A" >
                                         <i class="icon-search"></i>
                                     </button>
                                 </div>
                                 <table class="table table-hover">
-                                        <thead  style="border-top: 1px solid #2E671A !important;">
-                                        <tr >
+                                    <thead  style="border-top: 1px solid #2E671A !important;">
+                                        <tr>
                                             <th class="font-weight-bold" scope="col">S/N</th>
                                             <th class="font-weight-bold" scope="col">STOCKIST NAME</th>
                                             <th class="font-weight-bold" scope="col">ADDRESS</th>
                                             <th class="font-weight-bold" scope="col">STATE</th>
                                             <th class="font-weight-bold" scope="col">CONTACT</th>
                                         </tr>
-                                        </thead>
-                                        <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>Valleyhill Stockist</td>
-                                            <td>Suite 5, Garry Paul Complex,Toyin Street, Ikeja.</td>
-                                            <td>Lagos</td>
-                                            <td>081093445670</td>
+                                    </thead>
+                                    <tbody>
+                                        <tr v-if="stockistsLoading==true">
+                                            <td colspan="5">
+                                                <b-skeleton-table
+                                                    :rows="5"
+                                                    :columns="5"
+                                                    :table-props="{ bordered: true, striped: true }"
+                                                ></b-skeleton-table>
+                                            </td>
                                         </tr>
-                                        <tr>
-                                            <td>2</td>
-                                            <td>God is Great</td>
-                                            <td>No.6,Are Avenue, Bodija, Ibadan, Oyo</td>
-                                            <td>Oyo</td>
-                                            <td>07093115680</td>
-                                        </tr>
-
-                                        <tr>
-                                            <td>3</td>
-                                            <td>Philip Davis Store</td>
-                                            <td>Flat 3, No. 17 Jerry Quarters, Ugbobi, Port Harcourt, Rivers</td>
-                                            <td>Rivers</td>
-                                            <td>081093445670</td>
-                                        </tr>															  
-
-                                        </tbody>
+                                        <template v-else>
+                                            <template v-if="stockists.length == 0">
+                                                <tr>
+                                                    <td colspan="5">
+                                                        <div>Ther are no stockists</div>
+                                                    </td>
+                                                </tr>
+                                            </template>
+                                            <template v-else v-for="stockist,i in stockists">
+                                                <tr :key="i">
+                                                    <td>{{ (stockistsPerPage * (stockistsCurrentPage - 1)) + ( ++i) }}</td>
+                                                    <td>{{ stockist.store_name }}</td>
+                                                    <td>{{ stockist.store_address }}</td>
+                                                    <td>{{ stockist.store_state }}</td>
+                                                    <td>{{ stockist.store_phone }}</td>
+                                                </tr>
+                                            </template>
+                                        </template>
+                                    </tbody>
                                 </table>
-
                             </div>
-                            <div class="container">
-                                <ul class="pagination">
-                                    <li>
-                                    <a href="#">Prev</a>
-                                    </li>
-                                    <li class="active">
-                                    <a href="#">1</a>
-                                    </li>
-                                    <li >
-                                    <a href="#">2</a>
-                                    </li>
-                                    <li>
-                                    <a href="#">3</a>
-                                    </li>
-                                    <li>
-                                    <a href="#">4</a>
-                                    </li>
-                                    <li>
-                                    <a href="#">5</a>
-                                    </li>
-                                    <li>
-                                    <a href="#">Next</a>
-                                    </li>
-                                </ul>
-                            </div>
-
+                            <BasePaginator v-if="stockistsAction" :action="stockistsAction" :current_page="stockistsCurrentPage" :last_page="stockistsLastPage" :total_pages="stockistsTotalPages" :per_page="stockistsPerPage" :type="''"></BasePaginator>
                         </div>
                         <br>
                     </div>
 				</div>
             </div>
                     
-            <div class="row mb-2 mt-2" v-if="selectedOrderType === 'registration_pickup' || selectedOrderType === 'upgracde_pickup'">
+            <!--<div class="row mb-2 mt-2" v-if="selectedOrderType === 'registration_pickup' || selectedOrderType === 'upgrade_pickup'">
                 <div class="col-md-12">
                     <div class="d-flex flex-wrap justify-content-center mt-2">
                         <div class="m-3">							
@@ -273,7 +257,7 @@
                         </div> 
                     </div>	
                 </div>
-            </div>	
+            </div>-->	
 
             <div class="row mt-5 mb-5" v-if="selectedOrderType === 'repurchase_pickup'">               
                 <div class="col-md-6">
@@ -308,7 +292,8 @@
             <div class="row mt-4" style="padding-top: 50px">
                 <div class="col-md-12">
                     <div class="card shadow-lg mb-3" style="background-color: transparent">
-                        <div class="card-body ">
+                        <div class="card-body">
+                            <div calss="card-header">Purchase History</div>
                             <div class="d-flex justify-content-left mb-2">
                                 <!-- <input 
                                     class="form-control mr-2" 
@@ -320,7 +305,7 @@
                                 </button> -->
                             </div>
                             <div class="table-responsive">
-                                <table id="example2" class="table table-hover data-tables" data-options='{ "paging": false; "searching":false}' >
+                                <table id="example2" class="table table-hover bordered data-tables" data-options='{ "paging": false; "searching":false}' >
                                     <thead >
                                         <tr>
                                             <th class="font-weight-bold" scope="col">S/N</th>
@@ -337,58 +322,45 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <template v-if="userPurchases.length == 0">
-                                            <tr>
-                                                <td colspan="11">
-                                                    <div>Ther are no orders</div>
-                                                </td>
-                                            </tr>
-                                        </template>
-                                        <template v-else v-for="purchase,i in userPurchases">
-                                            <tr :key="i">
-                                                <td scope="row">{{ ++i }}</td>
-                                                <td>{{ purchase.pickup_type }}</td>
-                                                <td>{{ purchase.stockist_name??'N/A' }}</td>
-                                                <!-- <td>{{ claim.worth?.toLocaleString('en-US')}}</td> -->
-                                                <td>{{ purchase.stockist_address??'N/A' }}</td>
-                                                <td>{{ purchase.stockist_state??'N/A' }}</td>
-                                                <td>{{ purchase.stockist_phone??'N/A' }}</td>
-                                                <td>#{{ purchase.id }}</td>
-                                                <td>{{ purchase.total_quantity }}</td>
-                                                <td>₦{{ purchase.total_price.toLocaleString("en-US") }}</td>
-                                                <td><span class="badge badge-success" style="padding: 6px 10px;">{{ purchase.status }}</span></td>
-                                                <td>{{ purchase.created_at }}</td>
-                                            </tr>
+                                        <tr v-if="purchasesLoading==true">
+                                            <td colspan="11">
+                                                <b-skeleton-table
+                                                    :rows="5"
+                                                    :columns="11"
+                                                    :table-props="{ bordered: true, striped: true }"
+                                                ></b-skeleton-table>
+                                            </td>
+                                        </tr>
+                                        <template v-else>
+                                            <template v-if="userPurchases.length == 0">
+                                                <tr>
+                                                    <td colspan="11">
+                                                        <div>Ther are no orders</div>
+                                                    </td>
+                                                </tr>
+                                            </template>
+                                            <template v-else v-for="purchase,i in userPurchases">
+                                                <tr :key="i">
+                                                    <td>{{ (userPurchasesPerPage * (userPurchasesCurrentPage - 1)) + ( ++i) }}</td>
+                                                    <td>{{ purchase.pickup_type }}</td>
+                                                    <td>{{ purchase.stockist_name??'N/A' }}</td>
+                                                    <!-- <td>{{ claim.worth?.toLocaleString('en-US')}}</td> -->
+                                                    <td>{{ purchase.stockist_address??'N/A' }}</td>
+                                                    <td>{{ purchase.stockist_state??'N/A' }}</td>
+                                                    <td>{{ purchase.stockist_phone??'N/A' }}</td>
+                                                    <td>#{{ purchase.id }}</td>
+                                                    <td>{{ purchase.total_quantity }}</td>
+                                                    <td>₦{{ purchase.total_price.toLocaleString("en-US") }}</td>
+                                                    <td><span class="badge badge-success" style="padding: 6px 10px;">{{ purchase.status }}</span></td>
+                                                    <td>{{ purchase.created_at }}</td>
+                                                </tr>
+                                            </template>
                                         </template>
                                     </tbody>
                                 </table>
                                 
                             </div>
-                            <div class="container">
-                                <ul class="pagination">
-                                    <li>
-                                    <a href="#">Prev</a>
-                                    </li>
-                                    <li class="active">
-                                    <a href="#">1</a>
-                                    </li>
-                                    <li >
-                                    <a href="#">2</a>
-                                    </li>
-                                    <li>
-                                    <a href="#">3</a>
-                                    </li>
-                                    <li>
-                                    <a href="#">4</a>
-                                    </li>
-                                    <li>
-                                    <a href="#">5</a>
-                                    </li>
-                                    <li>
-                                    <a href="#">Next</a>
-                                    </li>
-                                </ul>
-                            </div>
+                            <BasePaginator v-if="userPurchasesAction" :action="userPurchasesAction" :current_page="userPurchasesCurrentPage" :last_page="userPurchasesLastPage" :total_pages="userPurchasesTotalPages" :per_page="userPurchasesPerPage" :type="authUser.uuid"></BasePaginator>
                         </div>
                     </div>
                 </div>				
@@ -554,13 +526,15 @@ import { mapActions, mapGetters, mapState } from "vuex";
 import { notification } from "@/util/notification";
 import modal from '@/components/Modal.vue'
 import VueCountdown from '@chenfengyuan/vue-countdown';
+import BasePaginator from '@/components/BasePaginator.vue';
 
 export default {
   name: "user-repurchase",
 
   components:{
     modal,
-    VueCountdown
+    VueCountdown,
+    BasePaginator
  },
 
   data() {
@@ -594,6 +568,11 @@ export default {
       gatewayTimeout:1000*60*0.5,
       walletBalanceLoading:false,
       payingWithWallet:false,
+      stockistsLoading:false,
+      search:{search:null},
+      searching:false,
+      purchasesLoading:false,
+      packageLoading:false
     };
   },
 
@@ -603,29 +582,37 @@ export default {
       submitting: (state) => state.submitting,
     }),
 
-    
     ...mapGetters("packageStore", ["regPackage"]),
     ...mapGetters("authStore", ["authUser"]),
     ...mapGetters("settingStore", ["settings"]),
     
     ...mapGetters("productStore", ["products"]),
-    ...mapGetters("productPurchaseStore",["userPurchases"]),
+    ...mapGetters("productPurchaseStore",["userPurchases",'userPurchasesAction','userPurchasesState',
+    'userPurchasesCurrentPage','userPurchasesLastPage','userPurchasesPerPage','userPurchasesTotalPages']),
     ...mapGetters('bonusStore',['walletBalance']),
+    ...mapGetters('stockistStore',['stockists','stockistsAction','stockistsCurrentPage','stockistsLastPage','stockistsPerPage','stockistsTotalPages']),
+    ...mapGetters('packageStore',['regPackage'])
    
   },
 
   created() {
-
+    
     if(this.authUser.uuid == undefined){
         this.getUser().then((res)=>{
-            this.getUserPurchases(res.data.uuid)
+            this.purchasesLoading = true
+            this.getUserPurchases({type:res.data.uuid,page:1}).then(()=>this,this.purchasesLoading=false)
             this.walletBalanceLoading = true
             this.getWalletBalance(res.data.uuid).then(()=>this.walletBalanceLoading = false)
+            this.packageLoading = true
+            this.getPackage(res.data.package_id).then(()=>this.packageLoading=false)
         });
     }else{
-        if(this.userPurchases.length==0){
-            this.getUserPurchases(this.authUser.uuid)
+        if(this.userPurchases.length==0){ 
+            this.purchasesLoading = true
+            this.getUserPurchases({type:this.authUser.uuid,page:1}).then(()=>this.purchasesLoading=false)
             this.getWalletBalance(this.authUser.uuid).then(()=>this.walletBalanceLoading = false)
+            this.packageLoading = true
+            this.getPackage(this.authUser.package_id).then(()=>this.packageLoading=false)
         }
     }
 
@@ -633,6 +620,12 @@ export default {
       this.prodLoading = true;
       this.getActiveProducts().then(() => (this.prodLoading = false));
     }
+
+    if (this.stockists.length == 0) {
+        this.stockistsLoading = true
+        this.getStockists({page:1}).then(()=>this.stockistsLoading = false)
+    }
+
   },
 
   methods: {
@@ -679,6 +672,21 @@ export default {
             return
         }
 
+        if(this.selectedOrderType == 'registration_pickup'){
+            if(this.cartTotalPrice > this.regPackage.pickup_amount){
+                notification.warning("Total selected product price is higher than pickup amount")
+                return
+            }
+        }
+
+        if(this.selectedOrderType == 'upgrade_pickup'){
+            this.getPackage()
+            if(this.cartTotalPrice > this.regPackage.pickup_amount){
+                notification.warning("Total selected product price is higher than pickup amount")
+                return
+            }
+        }
+
        let data =  {
             "products":this.cartProducts,
             "total_price":this.cartTotalPrice,
@@ -703,10 +711,11 @@ export default {
     ...mapActions("settingStore", ["getSetting", "all"]),
     ...mapActions("productStore", ["getActiveProducts"]),
     ...mapActions('authStore',['getUser']),
-    ...mapActions("stockistStore",["getStockists"]),
+    ...mapActions("stockistStore",["getStockists","searchStockists"]),
     ...mapActions('paymentStore',['initiate','verify','initiatePayment']),
     ...mapActions("withdrawalStore",["payWithWallet"]),
     ...mapActions('bonusStore',['getWalletBalance']),
+    ...mapActions('packageStore',['getPackage']),
   
    
     makePayment(){
@@ -776,8 +785,19 @@ export default {
         }
         this.payingWithWallet = true;
         this.payWithWallet({amount:this.cartTotalPrice}).then(()=>this.payingWithWallet = false)
+    },
+
+    searchStockist(){
+        this.searching = true
+        this.searchStockists(this.search).then(()=>this.searching=false)
+    },
+
+    imageURL(img){
+        return img ? process.env.VUE_APP_IMAGE_PATH+'/'+img : '/assets/img/demo/products/product3.png';
     }
   },
+
+  
 };
 </script>
 

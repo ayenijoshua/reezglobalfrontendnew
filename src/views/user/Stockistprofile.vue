@@ -255,8 +255,8 @@
                                     </div>	
                                 </div>
                                 <div class="m-3 mb-3">	
-                                    <button type="submit" class="btn btn-sm btn-success btn-lg mr-3"><i class="icon-save mr-2"></i>Upgrade Stockist Package</button>
-                                    <button  type="submit" class="btn btn-sm btn-danger "><i class="icon-cancel mr-2"></i>Cancel Stockist Upgrade</button>                   
+                                    <!-- <button type="submit" class="btn btn-sm btn-success btn-lg mr-3"><i class="icon-save mr-2"></i>Upgrade Stockist Package</button>
+                                    <button  type="submit" class="btn btn-sm btn-danger "><i class="icon-cancel mr-2"></i>Cancel Stockist Upgrade</button>                    -->
                                 </div> 
                             </form>
                         </div>

@@ -27,5 +27,31 @@ export default {
 
     stockistPrevMonthSales(state){
         return state.stockistPrevMonthSales
+    },
+
+    userPurchasesAction(state){
+        return state.userPurchasesAction
+    },
+
+    userPurchasesState(state){
+        return state.userPurchasesState
+    },
+
+    userPurchasesCurrentPage(state){
+        return state.userPurchasesCurrentPage
+    },
+
+    userPurchasesLastPage(state){
+        return state.userPurchasesLastPage
+    },
+
+    userPurchasesPerPage(state){
+        return state.userPurchasesPerPage
+    },
+
+    userPurchasesTotalPages(state){
+        return state.userPurchasesTotalPages
     }
+
+
 }

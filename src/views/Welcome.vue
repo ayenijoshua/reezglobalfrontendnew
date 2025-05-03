@@ -75,10 +75,10 @@
                                                     <span class="font-weight-bold">Dear {{ authUser.first_name }} {{ authUser.last_name }},</span>
                                                 </template>
                                             </p>
-                                            <p class="font-weight-bold ">We want to take a moment to extend our heartfelt gratitude for registering with <b>Reez Global</b> – the premier network marketing program offering seven earning opportunities, incredible incentives, and high-quality health products.</p>
-                                            <p class="font-weight-bold ">Your decision to join our community reflects both your trust in us and your commitment to a healthier, happier life. With <b>Reez Global</b>, we’re confident that you’ll not only reach your personal wellness goals but also establish a sustainable income stream.</p>
-                                            <p class="font-weight-bold ">As a <b>Reez Global partner</b>, you’re now part of a dynamic team dedicated to making a positive impact in people's lives. We’re committed to providing you with top-notch support and resources to help you succeed on your path to financial freedom and personal wellness.</p>
-                                            <p class="font-weight-bold ">Once again, thank you for choosing <b>Reez Global</b>. We look forward to an exciting and rewarding journey together.</p>
+                                            <p class="font-weight-bold ">We want to take a moment to extend our heartfelt gratitude for registering with <b>Startwins</b> – the premier network marketing program offering seven earning opportunities, incredible incentives, and high-quality health products.</p>
+                                            <p class="font-weight-bold ">Your decision to join our community reflects both your trust in us and your commitment to a healthier, happier life. With <b>Startwins</b>, we’re confident that you’ll not only reach your personal wellness goals but also establish a sustainable income stream.</p>
+                                            <p class="font-weight-bold ">As a <b>Startwins partner</b>, you’re now part of a dynamic team dedicated to making a positive impact in people's lives. We’re committed to providing you with top-notch support and resources to help you succeed on your path to financial freedom and personal wellness.</p>
+                                            <p class="font-weight-bold ">Once again, thank you for choosing <b>Startwins</b>. We look forward to an exciting and rewarding journey together.</p>
                                             <p class="font-weight-bold ">Best Regards,</p>
                                             <p class="font-weight-bold ">The Star Twins Team.</p>
                                         </div>

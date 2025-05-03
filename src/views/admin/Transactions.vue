@@ -591,7 +591,7 @@
                                                                     <template v-else>
                                                                         <tr v-if="stockistsOrders.length==0">
                                                                             <td colspan="9">
-                                                                                <div class="alert alert-info">There are stockist orders</div>
+                                                                                <div class="alert alert-info">There are no stockist orders</div>
                                                                             </td>
                                                                         </tr>
                                                                         <tr v-for="order,i in stockistsOrders" :key="i">
@@ -664,7 +664,7 @@
                     <div class="modal-dialog modal-dialog-centered" role="document" style="background: transparent!important;">
                         <div class="">
                             <div class="">
-                                <img :src="imageURL(stockist.payment_receipt)" alt="Proof Of Payment"  style="height:700px; width: auto">
+                                <img :src="imageURL(stockist.payment_receipt)" alt="Proof Of Payment"  style="height:200px; width: 200px">
                             </div>
                         </div>
                     </div>
@@ -734,7 +734,7 @@
             <template v-else>
                 <div class="row">
                     <div class="col-md-6">
-                        <img :src="imageURL(stockist.payment_receipt)">
+                        <img :src="imageURL(stockist.payment_receipt)" width="200px" height="200px">
                     </div>
                     <div class="col-md-6">
                         <button v-if="updatingRegistration==true" class="btn btn-danger">...</button>
@@ -755,7 +755,7 @@
             <template v-else>
                 <div class="row">
                     <div class="col-md-6">
-                        <img :src="imageURL(stockist.payment_receipt)">
+                        <img :src="imageURL(stockist.payment_receipt)" width="200px" height="100px">
                     </div>
                     <div class="col-md-6">
                         <button v-if="updatingRegistration==true" class="btn btn-danger">...</button>

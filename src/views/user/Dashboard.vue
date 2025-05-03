@@ -147,19 +147,24 @@
                             </div>
                         </div>
                     </div>
-                   <!--<div class="col-md-6 col-sm-6">
-                        <div class="card no-b mb-3 shadow1" style="background-color:#ecf0f1">
+                   <div class="col-md-6 col-sm-6">
+                        <b-card v-if="bonusStatsLoading==true">
+                            <b-skeleton width="85%"></b-skeleton>
+                            <b-skeleton width="55%"></b-skeleton>
+                            <b-skeleton width="70%"></b-skeleton>
+                        </b-card>
+                        <div v-else class="card no-b mb-3 shadow1" style="background-color:#ecf0f1">
                             <div class="card-body">
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div><h6 class="mt-0 mb-1 font-weight-bold text-black">Signee Bonus</h6></div>
                                 </div>
                                 <div class="text-center">
                                     <div class="s-18 my-3 font-weight-lighter"><img class="mr-3  r-3" src="/assets/img/retailer.png"
-                                    alt="Generic placeholder image" width="70px" height="70px"><br><small class="font-weight-bold mr-3">₦ 0</small></div>                           
+                                    alt="Generic placeholder image" width="70px" height="70px"><br><small class="font-weight-bold mr-3">₦{{ userBonusStats.stockist_ref_bonus?? 0}}</small></div>                           
                                 </div>
                             </div>
                         </div>
-                    </div>-->
+                    </div>
                 </div>
             </div>
         </div>
@@ -631,8 +636,8 @@ export default{
 
         referrerLink(){
             return this.inviteForm.referrer 
-            ? 'https://app.delishcare.com/register'+'?ref='+this.inviteForm.referrer +'&placer='+this.authUser.username
-            : 'https://app.delishcare.com/register'+'?ref='+this.authUser.username
+            ? 'https://startwins-vue.pages.dev/register'+'?ref='+this.inviteForm.referrer +'&placer='+this.authUser.username
+            : 'https://startwins-vue.pages.dev/register'+'?ref='+this.authUser.username
         },
         
         ...mapGetters('bonusStore',['welcomeBonus',

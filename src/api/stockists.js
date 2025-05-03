@@ -63,6 +63,10 @@ export default {
 
     disapproveStockist(id){
         return http().patch(`${endpoints.stockists}/${id}/disapprove-registration`)
+    },
+
+    searchStockist(search,page){
+        return http().get(`${endpoints.stockists}/search?page=${page}&search=${search}`)
     }
 
 

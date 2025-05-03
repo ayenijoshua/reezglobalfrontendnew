@@ -267,5 +267,28 @@ export default {
         } catch (error) {
             LogError(commit,error,'submitted')
         }
-    }
+    },
+
+    async searchStockists({commit},{search,page=null}){
+        try {
+            commit('loading',null,{root:true})
+            const res = await api.searchStockist(search,page)
+            if(res && res.status==200){
+                //toastr.success(res.data.message)
+                commit('stockists',res.data.data.data)
+
+                commit('stockistsAction','stockistsStore/searchStockists')
+                commit('stockistsState',res.data.data.data)
+                commit('stockistsCurrentPage',res.data.data.current_page)
+                commit('stockistsLastPage',res.data.data.last_page)
+                commit('stockistsPerPage',res.data.data.per_page)
+                commit('stockistsTotalPages',res.data.data.total)
+            }else{
+                toastr.warning(res.data.message)
+            }
+            commit('loaded',null,{root:true})
+        } catch (error) {
+            LogError(commit,error,'loaded')
+        }
+    },
 }

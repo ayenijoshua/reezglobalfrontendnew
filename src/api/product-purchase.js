@@ -7,8 +7,8 @@ export default {
         return http().post(`${endPoints.productPurchases}/user/${uuid}`,data)
     },
 
-    userPurchaseHistory(uuid){
-        return http().get(`${endPoints.productPurchases}/user/${uuid}/history`)
+    userPurchaseHistory(uuid,page=1){
+        return http().get(`${endPoints.productPurchases}/user/${uuid}/history?page=${page}`)
     },
 
     stockistPurchase(uuid,data){

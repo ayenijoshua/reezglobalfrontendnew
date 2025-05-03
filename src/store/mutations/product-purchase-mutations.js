@@ -27,5 +27,33 @@ export default {
 
     stockistPrevMonthSales(state,data){
         state.stockistPrevMonthSales = data
+    },
+
+    //----pagination data
+
+    userPurchasesAction(state,data){
+        state.userPurchasesAction = data
+    },
+
+    userPurchasesState(state,data){
+        state.userPurchasesState = data
+    },
+
+    userPurchasesCurrentPage(state,data){
+        state.userPurchasesCurrentPage = data
+    },
+
+    userPurchasesLastPage(state,data){
+        state.userPurchasesLastPage = data
+    },
+
+    userPurchasesPerPage(state,data){
+        state.userPurchasesPerPage = data
+    },
+
+    userPurchasesTotalPages(state,data){
+        state.userPurchasesTotalPages = data
     }
+
+    //--pagination data
 }

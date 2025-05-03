@@ -235,7 +235,7 @@
                                                             <div class="input-group-text" style="background-color: #2E671A; border: 2px solid #2E671A;"><i class="icon-user-plus float-left s-20 text-white" ></i></div>
                                                         </div>
                                                         <select id="select" v-model="upgradeForm.package_id" @change="getPackageDifference" class="form-control r-0 light s-12 shadow1" style="background-color: transparent" readonly>
-                                                            <option style="background-color: transparent" value="">Select Stockist Package</option>
+                                                            <option style="background-color: transparent" value="">Select Registration Package</option>
                                                             <option v-for="reg,i in regPackages.filter((ele) => ele.id > regPackage.id)" :key="i" :value="reg.id">{{ reg.name }}</option>											   
                                                         </select>
                                                     </div>
@@ -318,11 +318,11 @@
                                             <div class="d-flex align-items-center mt-3">
                                                 <div class="ml-2">
                                                     <span class="text-white font-weight-bold" id="d1" style="font-size:10px">Account Name</span>
-                                                    <h6 class="font-weight-bold text-white" id="d1">Simon Jacob</h6>
+                                                    <h6 class="font-weight-bold text-white" id="d1">{{ this.bank.bank_account_name }}</h6>
                                                     <span class="text-white font-weight-bold" id="d1" style="font-size:10px">Account Number</span>
-                                                    <h6 class="font-weight-bold text-white" id="d1">013459001</h6>
+                                                    <h6 class="font-weight-bold text-white" id="d1">{{ this.bank.bank_account_number }}</h6>
                                                     <span class="text-white font-weight-bold" id="d1" style="font-size:10px">Bank Name</span>
-                                                    <h6 class="font-weight-bold text-white" id="d1">Guarantee Trust Bank</h6>
+                                                    <h6 class="font-weight-bold text-white" id="d1">{{ this.bank.bank_name }}</h6>
                                                 </div>
                                                 <div class="avatar avatar-xl mr-4 ml-auto mr-4">
                                                     <img class="user_avatar" :src="imageURL" alt="User Image">

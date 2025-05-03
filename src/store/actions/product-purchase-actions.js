@@ -56,13 +56,20 @@ export default {
         }
     },
 
-    async getUserPurchases({commit},uuid){
+    async getUserPurchases({commit},{type,page}){
         try {
             commit('loading',null,{root:true})
-            const res = await api.userPurchaseHistory(uuid)
+            const res = await api.userPurchaseHistory(type,page)
             if(res && res.status==200){
                 //toastr.success(res.data.message)
                 commit('userPurchases',res.data.data.data)
+
+                commit('userPurchasesAction','productPurchaseStore/getUserPurchases')
+                commit('userPurchasesState',res.data.data.data)
+                commit('userPurchasesCurrentPage',res.data.data.current_page)
+                commit('userPurchasesLastPage',res.data.data.last_page)
+                commit('userPurchasesPerPage',res.data.data.per_page)
+                commit('userPurchasesTotalPages',res.data.data.total)
             }else{
                 toastr.warning(res.data.message)
             }

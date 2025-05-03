@@ -145,7 +145,7 @@
                                                                         <div class="input-group-prepend">
                                                                             <div class="input-group-text" style="background-color: #2E671A; border: 2px solid #2E671A;"><i class="icon-check-square-o float-left s-20 text-white "  ></i></div>
                                                                         </div>
-                                                                        <input type="text" name="referrer_id" v-model="form.referrer" class="form-control r-0 light s-12" placeholder="Signee" style="background-color: transparent">
+                                                                        <input type="text" name="referrer_id" v-model="form.referrer" class="form-control r-0 light s-12" placeholder="Signee (username or email)" style="background-color: transparent">
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -167,7 +167,8 @@
                                                     </div>
                                                 </div>	
                                                 <div class="card-body">
-                                                    <button type="submit" class="btn btn-sm btn-success btn-lg"><i class="icon-save mr-2"></i>Submit Details</button>
+                                                    <span v-if="submittingStockist==true" class="btn btn-sm btn-success btn-lg">...</span>
+                                                    <button v-else type="submit" class="btn btn-sm btn-success btn-lg"><i class="icon-save mr-2"></i>Submit Details</button>
                                                 </div>
                                             </div>
                                         </form>
@@ -197,11 +198,11 @@
                                     <span  id="d1" style="font-size:10px">State</span>
                                     <h6 class="font-weight-bold " id="d1">{{ form.store_state }}</h6>
                                     <span  id="d1" style="font-size:10px">Stockist Package</span>
-                                    <h6 class="font-weight-bold " id="d1">{{ form.package_id }}</h6>
+                                    <h6 class="font-weight-bold " id="d1">{{ getPackageName(form.package_id) }}</h6>
                                     <span  id="d1" style="font-size:10px">Contact</span>
                                     <h6 class="font-weight-bold " id="d1">{{ form.store_phone }}</h6>
                                     <span  id="d1" style="font-size:10px">Signee</span>
-                                    <h6 class="font-weight-bold" id="d1">{{ form.referrrer }}</h6>
+                                    <h6 class="font-weight-bold" id="d1">{{ form.referrer }}</h6>
                                     
                                 </div>
                                 <div class="mr-4 ml-auto ">
@@ -305,7 +306,8 @@ export default {
         package_id:"",
         referrer:""
       },
-      banksLoading:false
+      banksLoading:false,
+      submittingStockist:false
     };
   },
 
@@ -342,9 +344,10 @@ export default {
     },
 
     createStockist(){
+        this.submittingStockist = true
         let ele = document.getElementById('stockist-registration')
         let form = new FormData(ele)
-        this.create(form)
+        this.create(form).then(()=>this.submittingStockist=false)
     },
 
     filesChange(files){
@@ -357,6 +360,14 @@ export default {
                 prev.innerHTML = '<img style="width: 100px !important; height:100px !important;" src="'+this.result+'"/>'
             })
         }
+    },
+
+    getPackageName(id){
+       var packag = this.stockistPackages.filter((ele)=>ele.id == id)
+        if(packag.length > 0 && packag[0].name != undefined){
+          return packag[0].name
+        }
+       return ''
     }
   },
 };
