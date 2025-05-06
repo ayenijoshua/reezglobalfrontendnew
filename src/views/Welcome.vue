@@ -103,8 +103,6 @@
                                             </template>
                                             <!---<template slot-scope="props">Time Remaining：{{ props.days }} days, {{ props.hours }} hours, {{ props.minutes }} minutes, {{ props.seconds }} seconds.</template>-->
                                         </VueCountdown>
-                                        
-                                        
                                     </div>
                                 </div>	
                             </div>
@@ -205,7 +203,7 @@
                                                                         <div class="input-group-prepend">
                                                                             <div class="input-group-text" style="background-color: #2E671A"><i class="icon icon-account_balance float-left s-20 text-white" ></i></div>
                                                                         </div>
-                                                                        <select id="bank-select" v-model="form.bank_name" required class="form-control r-1 light s-5" style="background-color:transparent; ; border: 2px solid #2E671A;">
+                                                                        <select id="bank-select" @change="setBankCode" v-model="form.bank_name" required class="form-control r-1 light s-5" style="background-color:transparent; ; border: 2px solid #2E671A;">
                                                                             <option :value="null" style="background-color: #ded8c7;">Select Bank</option>
                                                                             <option v-for="bank,i in banks" :value="bank.bank" :key="i" :selected="profile?.bank_name == bank.bank" style="background-color: #ded8c7">{{ bank.bank }}
                                                                                 
@@ -218,6 +216,7 @@
                                                                         </div>
                                                                         <input v-model="form.bank_account_number" required type="text" min="10" class="form-control r-1 light s-12" placeholder="Account No." style="background-color:transparent; ; border: 2px solid #2E671A;"> 
                                                                     </div>  
+                                                                    <input v-model="form.bank_code" required type="hidden" min="10" class="form-control r-1 light s-12" placeholder="Account No." style="background-color:transparent; ; border: 2px solid #2E671A;"> 
                                                                     <!-- <div class="input-group ">
                                                                         <div class="input-group-prepend">
                                                                             <div class="input-group-text"><i class="icon icon-account_balance float-left s-20 green-text " ></i></div>
@@ -515,9 +514,10 @@
                 var uuid = this.authUser.uuid;
                 let data = {uuid:uuid,data:this.form}
                 this.bankSubmitting = true
-                let verifyData = {bank_name:this.form.bank_name,account_number:this.form.bank_account_number}
+                let verifyData = {bank_name:this.form.bank_name,account_number:this.form.bank_account_number,bank_code:this.form.bank_code}
                 this.verifyBankDetails(verifyData).then(verRes=>{
                     if(verRes.status==200){
+                        //alert(verRes.data.data.bank_code)
                         this.form.bank_code = verRes.data.data.bank_code
                         this.form.bank_account_name = verRes.data.data.account_name
                         
@@ -536,20 +536,12 @@
                 this.verifyBankDetails(verifyData)
             },
 
-            // setBankCode(){
-            //     var ele = document.getElementById('bank-select')
-            //     var val = ele.value
-            //     let bank_code = val.split('-')[1]
-                
-            //     this.form.bank_code = bank_code
-                
-                
-            //     //alert(this.form.bank_name)
-            //     ele.value = val.split('-')[0]
-            //     //ele.dispatchEvent(new Event('change'))
-            //     this.form.bank_name = val.split('-')[0]
-            //     this.$forceUpdate()
-            // },
+            setBankCode(){
+                var ele = document.getElementById('bank-select')
+                var val = ele.value
+                let bank =  this.banks.find((ele)=>ele.bank == val)
+                this.form.bank_code = bank.code
+            },
 
             makePayment(){
                 this.paySubmitting = true
@@ -588,6 +580,14 @@
                     this.paySubmitting = false
                 })
             },
+
+            addBankCode(e){
+                alert(e.target.value)
+                // let bank = this.banks.find((ele)=>ele.code == code)
+                // if(bank.code != undefined){
+                //     return bank.code
+                // }
+            }
         }
 
     }

@@ -97,7 +97,7 @@
                                                         <!-- <td>{{ produc.points }}</td> -->
                                                         <td>
                                                             <div class="">
-                                                                <input :key="i" @change="(e)=>logClaim2(e,produc.id,produc)" class="form-control" type="number" min="1"  style="background-color: transparent; border: 2px solid #2E671A;">
+                                                                <input :ref="'prod-'+produc.id" :key="i" @change="(e)=>logClaim2(e,produc.id,produc)" class="form-control" type="number" min="1"  style="background-color: transparent; border: 2px solid #2E671A;">
                                                             </div>
                                                         </td>
                                                         <!-- <td> <div class="form-check"><input class="form-check-input custom-checkbox" type="checkbox" value="" id="cb1" ></div></td> -->
@@ -125,24 +125,27 @@
                                 <template v-else>
                                     <div v-for="prod,i in cartProducts" :key="i" class="row column-row p-2" style="border-bottom: 1px solid #2E671A !important;">
                                         <div class="mt-2 ml-3" style="padding-right:15px">
+                                            <button @click="removeProduct(prod.product.id)" class="btn btn-danger">x</button>
+                                        </div> 
+                                        <div class="mt-2 ml-3" style="padding-right:15px">
                                             <img :src="imageURL(prod.product.image)" width="80px" height="80px">
                                         </div>  
                                         <div class="mb-2 mt-4 ">
-                                            <h6 class="font-weight-bold text-green s-14" style="margin: 0em; padding: 0em;">{{ prod.product.name }} <br><small class="font-weight-bold"> {{prod.product.points}}PV | Qty:{{ prod.qty }}</small></h6>	
+                                            <h6 class="font-weight-bold text-green s-14" style="margin: 0em; padding: 0em;">{{ prod.product.name }} <br><small class="font-weight-bold"> unit price : {{prod.product.worth}} | Qty:{{ prod.qty }}</small></h6>	
                                         </div>	
                                         <div class="mb-2 mt-4 ml-auto mr-2">
-                                            <span class="font-weight-bold float-right text-green">₦{{ prod.product.worth?.toLocaleString('en-US') }}</span>
+                                            <span class="font-weight-bold float-right text-green">₦{{ prod.price?.toLocaleString('en-US') }}</span>
                                         </div>
                                     </div>
 
-                                    <div class="row column-row " style="border-bottom: 1px solid #2E671A !important;">
+                                     <div class="row column-row " style="border-bottom: 1px solid #2E671A !important;">
                                         <div class="mb-2 mt-2 ml-3">
-                                            <h6 class="font-weight-bold text-green s-12" style="margin: 0em; padding: 0em;">Total Point Value </h6>											
+                                            <h6 class="font-weight-bold text-green s-12" style="margin: 0em; padding: 0em;">Total Quantity </h6>											
                                         </div>	
-                                        <!-- <div class="mb-2 mt-2 ml-auto mr-3">
-                                            <h6 class="font-weight-bold text-green s-12" style="margin: 0em; padding: 0em;">{{ cartTotalPoints?.toFixed(2) }} PV</h6>											
-                                        </div> -->
-                                    </div> 	
+                                        <div class="mb-2 mt-2 ml-auto mr-3">
+                                            <h6 class="font-weight-bold text-green s-12" style="margin: 0em; padding: 0em;">{{ cartTotalQty }}</h6>											
+                                        </div> 
+                                    </div>
                                     <div class="row column-row" style="background-Color:#2E671A !important;">
                                         <div class="mb-2 mt-2 ml-3">
                                             <h6 class="font-weight-bold text-white s-12" style="margin: 0em; padding: 0em;">Total Price </h6>											
@@ -631,6 +634,10 @@ export default {
   methods: {
     
     logClaim2(e, id, product) {
+        if(e.target.value < 1){
+            notification.warning("One of your selection has quantity less than 1")
+            return
+        }
         let data = {qty:e.target.value,id:product.id,price:product.worth,product:product}
 
         let pv = data.qty * product.points
@@ -656,6 +663,7 @@ export default {
         let index = this.cartProducts.findIndex(ele=>ele.id == product.id)
         if(index !== -1){
             this.cartProducts[index].qty = data.qty
+            this.cartProducts[index].price = this.cartProducts[index].product.worth * data.qty
         }else{
             this.cartProducts.push(data)
         }
@@ -707,6 +715,26 @@ export default {
         this.cartTotalPoints = 0;
     },
 
+    removeProduct(id){
+        let prodIndex = this.cartProducts.findIndex((ele)=>ele.id == id)
+        if(prodIndex != -1){
+            this.cartProducts.splice(prodIndex,1);
+            this.cartPrices = { ...this.cartPrices, [id]: 0 };
+            let prices = Object.values(this.cartPrices)
+            let sumPrice = prices.reduce((res,val)=>res+val)
+            this.cartTotalPrice = sumPrice
+
+            this.cartQty = {...this.cartQty, [id]:0};
+            let qtys = Object.values(this.cartQty)
+            let sumQty = qtys.reduce((res,val)=>res+val)
+            this.cartTotalQty = sumQty
+
+            this.cartQty -= 1
+            document.getElementById('prod-'+id).value
+            this.$refs['prod-'+id].value=0
+        }
+    },
+
     ...mapActions("productPurchaseStore",["userPurchase","getUserPurchases"]),
     ...mapActions("settingStore", ["getSetting", "all"]),
     ...mapActions("productStore", ["getActiveProducts"]),
@@ -717,7 +745,6 @@ export default {
     ...mapActions('bonusStore',['getWalletBalance']),
     ...mapActions('packageStore',['getPackage']),
   
-   
     makePayment(){
         if(this.cartProducts.length == 0){
             notification.warning("There are no Items in your cart")
@@ -794,7 +821,9 @@ export default {
 
     imageURL(img){
         return img ? process.env.VUE_APP_IMAGE_PATH+'/'+img : '/assets/img/demo/products/product3.png';
-    }
+    },
+
+    
   },
 
   
