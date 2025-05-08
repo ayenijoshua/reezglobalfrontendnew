@@ -39,11 +39,11 @@
                                                                 <img class="user_avatar" :src="imageURL(dirDown.photo_path)" alt="User Image">
                                                             </div>
                                                             <div class="">
-                                                                <ul class="list-group list-group-flush" >
+                                                                <ul class="list-group list-group-flush">
                                                                     <li class="list-group-item"><i class="icon icon-vcard float-left s-20 text-green border-right" ></i> <span class="float-right s-12 font-weight-medium text-green">{{ dirDown.package }}</span></li>
-                                                                    <li class="list-group-item" ><i class="icon icon-person float-left s-20 text-green border-right" ></i> <span class="float-right s-12 font-weight-medium text-green ">{{ dirDown.name }}</span></li>
-                                                                    <li class="list-group-item"  ><i class="icon icon-mail-envelope-closed4 text-green float-left s-20  border-right"></i> <span class="float-right s-12 font-weight-medium text-green">{{ dirDown.email }}</span></li>
-                                                                    <li class="list-group-item" ><i class="icon icon-account_box float-left s-20 text-green border-right"></i>  <span class="float-right s-12 font-weight-medium text-green">{{ dirDown.username }}</span></li>
+                                                                    <li class="list-group-item"><i class="icon icon-person float-left s-20 text-green border-right" ></i> <span class="float-right s-12 font-weight-medium text-green ">{{ dirDown.name }}</span></li>
+                                                                    <li class="list-group-item"><i class="icon icon-mail-envelope-closed4 text-green float-left s-20  border-right"></i> <span class="float-right s-12 font-weight-medium text-green">{{ dirDown.email }}</span></li>
+                                                                    <li class="list-group-item"><i class="icon icon-account_box float-left s-20 text-green border-right"></i>  <span class="float-right s-12 font-weight-medium text-green">{{ dirDown.username }}</span></li>
                                                                 </ul>
                                                             </div>
                                                         </div>
@@ -159,7 +159,7 @@ import { mapActions, mapGetters, mapState } from 'vuex';
 
             imageURL(image){
                 let img = image
-               return img ? process.env.VUE_APP_IMAGE_PATH+'/'+img : '/assets/img/dummy/u2a.png'
+               return img ? process.env.VUE_APP_IMAGE_PATH+'/'+img : "/assets/img/mock-image.jpeg"
             },
         }
     }

@@ -180,6 +180,35 @@
                         </div>
                     </div>
                 </div>
+                <div class="col-md-6">
+                    <div class="card shadow1" style="background-color:transparent">
+                        <div class="card-body" style="overflow-x:auto;">
+                        <form @submit.prevent="updateMatchingBonusFrequency">
+                            <div class="card no-b  no-r" style="background-color:transparent">
+                                <div class="card-body no-gutters">
+                                    <div class="text-center mb-3"><img  src="/assets/img/cash-withdrawal.png" width="80px"  height="80px">
+                                    <h5 class="s-36 font-weight-bold mt-2 text-green">{{ settings.matching_bonus_frequency }} Day(s)</h5>
+                                    <h6 class="mt-1 s-8 font-weight-bold">MATHCING BONUS FREQUENCY<br><small> Edit matching bonus frequency</small></h6></div>
+                                    <div class="form-row mb-3">
+                                        <div class="col-md-12">
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text"><i class="icon icon-money-3 float-left s-20 text-white " ></i></div>
+                                                </div>
+                                                <input v-model="matchingBonusFrequency.matching_bonus_frequency" required type="number" class="form-control r-0 light s-12" placeholder="Bonus Frequency"  style="background-color:#ecf0f1; border: 1px solid #2E671A">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-row ml-1">
+                                        <span v-if="updatingMathingBonusFrequency==true" class="btn btn-sm btn-success btn-lg">...</span>
+                                        <button v-else type="submit" class="btn btn-sm btn-success btn-lg"><i class="icon-save mr-2"></i>Update Data</button>
+                                    </div>
+                                </div>	
+                            </div>
+                        </form>
+                        </div>
+                    </div>
+                </div>
             </div>  
         </div>
         <Modal modal-id="edit-settings" modal-title="Referral Bonus Settings" modal-size="md">
@@ -215,6 +244,7 @@ export default {
             updatingMatchingPv:false,
             updatingMatchingPercentage:false,
             updatingRepurchaseBonus:false,
+            updatingMathingBonusFrequency:false,
 
             matchingBonusPercent:{
                 matching_bonus_percent:null,
@@ -225,6 +255,9 @@ export default {
             },
             repurchaseBonus:{
                 repurchase_bonus_percentage:null
+            },
+            matchingBonusFrequency:{
+                matching_bonus_frequency:null
             }
         };
     },
@@ -247,11 +280,13 @@ export default {
                 this.matchingBonusPV.matching_bonus_total_pv = res.matching_bonus_total_pv
                 this.matchingBonusPercent.matching_bonus_percent = res.matching_bonus_percent
                 this.repurchaseBonus.repurchase_bonus_percentage = res.repurchase_bonus_percentage
+                this.matchingBonusFrequency.matching_bonus_frequency = this.settings.matching_bonus_frequency
             })
         }else{
             this.matchingBonusPV.matching_bonus_total_pv = this.settings.matching_bonus_total_pv
             this.matchingBonusPercent.matching_bonus_percent = this.settings.matching_bonus_percent
             this.repurchaseBonus.repurchase_bonus_percentage = this.settings.repurchase_bonus_percentage
+            this.matchingBonusFrequency.matching_bonus_frequency = this.settings.matching_bonus_frequency
         }
     },
 
@@ -275,9 +310,15 @@ export default {
             this.updatingMatchingPercentage = true
             this.update(this.matchingBonusPercent).then(()=>{this.updatingMatchingPercentage=false; this.all()})
         },
+
         updateRepurchaseBonus(){
             this.updatingRepurchaseBonus = true
             this.update(this.repurchaseBonus).then(()=>{this.updatingRepurchaseBonus=false; this.all()})
+        },
+
+        updateMatchingBonusFrequency(){
+            this.updatingMathingBonusFrequency = true
+            this.update(this.matchingBonusFrequency).then(()=>{this.updatingMathingBonusFrequency=false; this.all()})
         }
     }
 };

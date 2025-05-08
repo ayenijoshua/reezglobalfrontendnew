@@ -140,6 +140,7 @@ export default {
             res = await api.payWithWallet(data)
             if(res.status==200){
                 //commit('userWithdrawals',res.data.data.data)
+                toastr.warning(res.data.message)
             }else{
                 toastr.warning(res.data.message)
             }

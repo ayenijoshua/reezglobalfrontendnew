@@ -35,6 +35,14 @@
                                     </div>
                                     <input v-model="form.pickup_amount" type="text" class="form-control r-0 light s-12" id="inlineFormInputGroupUsername2"
                                             placeholder="Registration Product Puck-up Amount" style="border: 1px solid #2E671A; background-color: #ded8c7;">
+                                    
+                                </div>
+                                <div class="input-group mt-3">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text"><i class="icon icon-credit-card float-left s-20 text-white  " ></i></div>
+                                    </div>
+                                    <input v-model="form.matching_bonus_cap" type="text" class="form-control r-0 light s-12" id="inlineFormInputGroupUsername2"
+                                    placeholder="Matching bonus cap" style="border: 1px solid #2E671A; background-color: #ded8c7;">
                                 </div>
                             </div>
                         </div>
@@ -66,7 +74,8 @@ import { mapActions, mapState } from 'vuex'
                 registration_value:null,
                 point_value:null,
                 name:null,
-                pickup_amount:0
+                pickup_amount:0,
+                matching_bonus_cap:0
             }
         }
     },
@@ -81,6 +90,7 @@ import { mapActions, mapState } from 'vuex'
         this.form.registration_value = this.currPackage.registration_value
         this.form.point_value = this.currPackage.point_value
         this.form.name = this.currPackage.name
+        this.form.matching_bonus_cap = this.currPackage.matching_bonus_cap
     },
 
     methods:{

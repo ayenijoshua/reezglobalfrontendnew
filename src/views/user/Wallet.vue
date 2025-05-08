@@ -141,7 +141,7 @@
                                                 <form @submit.prevent="submitWithdrawalAmount">
                                                     <div class="form-row">
                                                         <div class="col-md-12 mb-3">
-                                                            <input type="number" required v-model="withdrawalForm.withdrawal_amount" class="form-control" :min="settings.minimum_withdrawal > 0 ? settings.minimum_withdrawal : 1" :max="settings.maximum_withdrawal > 0 ? settings.minimum_withdrawal : $event.target.value" placeholder="withdrawal amount" style="background-color: transparent; border: 2px solid #1b4f72;">
+                                                            <input type="number" required v-model="withdrawalForm.withdrawal_amount" class="form-control" :min="settings.minimum_withdrawal > 0 ? settings.minimum_withdrawal : 1" :max="settings.maximum_withdrawal" placeholder="withdrawal amount" style="background-color: transparent; border: 2px solid #1b4f72;">
                                                         </div>
                                                     </div>
                                                     <span v-if="submittingAmt==true" class="btn btn-success">...</span>

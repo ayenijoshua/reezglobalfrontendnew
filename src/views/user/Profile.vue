@@ -661,8 +661,8 @@ li > a:hover .icon {
             },
 
             getPackageDifference(){
-                this.fetchUpgradeData(this.upgradeForm.package_id).then((res)=>{
-                    console.log('pac-diff',res.data.data)
+                this.fetchUpgradeData({packageId:this.upgradeForm.package_id,isUpgradePickup:false}).then((res)=>{
+                    //console.log('pac-diff',res.data.data)
                     this.upgradeData = res.data.data
                 })
             },
@@ -734,7 +734,14 @@ li > a:hover .icon {
                     return
                 }
                 this.payingWithWallet = true;
-                this.payWithWallet({amount:this.upgradeData.package_difference}).then(()=>this.payingWithWallet = false)
+                let data = {
+                    amount:this.upgradeData.package_difference,
+                    description:"Package Upgrade",
+                    txn_source:"package_payment",
+                    is_upgrade:1,
+                    meta_data:this.upgradeForm.package_id
+                }
+                this.payWithWallet(data).then(()=>this.payingWithWallet = false)
             }
         },
 

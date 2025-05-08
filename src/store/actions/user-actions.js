@@ -472,10 +472,10 @@ export default {
         }
     },
     
-    async fetchUpgradeData({commit},packageId){
+    async fetchUpgradeData({commit},{packageId,isUpgradePickup}){
         try {
             commit('loading',null,{root:true})
-            const res = await api.upgradeData(packageId)
+            const res = await api.upgradeData(packageId,isUpgradePickup)
             if(res.status == 200){
                 commit('sumPaidUsers',res.data.data)
             }

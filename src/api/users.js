@@ -132,8 +132,8 @@ export default {
     },
 
     //package upgrade data
-    upgradeData(packageId){
-        return http().get(`${endPoints.users}/${packageId}/package-difference`)
+    upgradeData(packageId,isUpgradePickup=false){
+        return http().get(`${endPoints.users}/${packageId}/package-difference?is_upgrade_pickup=${isUpgradePickup}`)
     },
 
     upgradedUsers(){

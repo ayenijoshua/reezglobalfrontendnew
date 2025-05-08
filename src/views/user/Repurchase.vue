@@ -11,7 +11,7 @@
                                     <div class="input-group-prepend">
                                         <div class="input-group-text" style="background-color: #2E671A; border: 2px solid #2E671A;"><i class="icon icon-shopping-cart float-left s-20 text-white" ></i></div>
                                     </div>
-                                    <select required v-model="selectedOrderType" class="form-control r-0 light s-12" style="background-color: transparent; border: 2px solid #1b4f72;">
+                                    <select required v-model="selectedOrderType" @change="getPickupAmount" class="form-control r-0 light s-12" style="background-color: transparent; border: 2px solid #1b4f72;">
                                         <template v-for="orderType,i in orderTypes">
                                             <option :value="orderType" :key="i">{{orderType == '' ? 'Select' : orderType.replace('_'," ")}}</option>
                                         </template>														   
@@ -24,7 +24,7 @@
             </div> 
 
 
-            <div  v-if="selectedOrderType === 'upgrade_pickup'" class="d-flex justify-content-center mt-2 mb-3"> <!-- Centering wrapper added -->
+            <!--<div  v-if="selectedOrderType === 'upgrade_pickup'" class="d-flex justify-content-center mt-2 mb-3"> Centering wrapper added
                 <div class="col-md-6 col-sm-12"> 
                     <div class="row row-column">
                         <div class="col-md-6 col-sm-12"> 
@@ -49,7 +49,7 @@
                         </div>     
                     </div>            
                 </div>
-            </div>
+            </div>-->
             
             
             <div class="row mb-5">
@@ -97,7 +97,7 @@
                                                         <!-- <td>{{ produc.points }}</td> -->
                                                         <td>
                                                             <div class="">
-                                                                <input :ref="'prod-'+produc.id" :key="i" @change="(e)=>logClaim2(e,produc.id,produc)" class="form-control" type="number" min="1"  style="background-color: transparent; border: 2px solid #2E671A;">
+                                                                <input :id="'prod-'+produc.id" :key="i" @change="(e)=>logClaim2(e,produc.id,produc)" class="form-control" type="number" min="1"  style="background-color: transparent; border: 2px solid #2E671A;">
                                                             </div>
                                                         </td>
                                                         <!-- <td> <div class="form-check"><input class="form-check-input custom-checkbox" type="checkbox" value="" id="cb1" ></div></td> -->
@@ -134,7 +134,7 @@
                                             <h6 class="font-weight-bold text-green s-14" style="margin: 0em; padding: 0em;">{{ prod.product.name }} <br><small class="font-weight-bold"> unit price : {{prod.product.worth}} | Qty:{{ prod.qty }}</small></h6>	
                                         </div>	
                                         <div class="mb-2 mt-4 ml-auto mr-2">
-                                            <span class="font-weight-bold float-right text-green">₦{{ prod.price?.toLocaleString('en-US') }}</span>
+                                            <span class="font-weight-bold float-right text-green">₦{{ (prod.product.worth * prod.qty)?.toLocaleString('en-US') }}</span>
                                         </div>
                                     </div>
 
@@ -165,19 +165,21 @@
                                         </div>     
                                     </div>
                                     <br/>
-                                    <b-card v-if="packageLoading">
-                                        <b-skeleton width="85%"></b-skeleton>
-                                        <b-skeleton width="55%"></b-skeleton>
-                                        <b-skeleton width="70%"></b-skeleton>
-                                    </b-card>
-                                    <div v-else class="row column-row border-bottom">
-                                        <div class="mb-2 mt-5 ml-3">
-                                            <h6 class="font-weight-bold text-green s-12" style="margin: 0em; padding: 0em;">Pickup Amount </h6>											
-                                        </div>	
-                                        <div class="mb-2 mt-5 ml-auto mr-3">
-                                            <h6 class="font-weight-bold text-green s-12" style="margin: 0em; padding: 0em;">₦{{ Number(regPackage.pickup_amount)?.toLocaleString('en-US') }} </h6>											
+                                    <template v-if="selectedOrderType=='registration_pickup' || selectedOrderType=='upgrade_pickup'">
+                                        <b-card v-if="packageLoading==true || pickupAmountLoading==true">
+                                            <b-skeleton width="85%"></b-skeleton>
+                                            <b-skeleton width="55%"></b-skeleton>
+                                            <b-skeleton width="70%"></b-skeleton>
+                                        </b-card>
+                                        <div v-else class="row column-row border-bottom">
+                                            <div class="mb-2 mt-5 ml-3">
+                                                <h6 class="font-weight-bold text-green s-12" style="margin: 0em; padding: 0em;">{{ pickupAmountType }} </h6>											
+                                            </div>	
+                                            <div class="mb-2 mt-5 ml-auto mr-3">
+                                                <h6 class="font-weight-bold text-green s-12" style="margin: 0em; padding: 0em;">₦{{ Number(pickupAmount)?.toLocaleString('en-US') }} </h6>											
+                                            </div>
                                         </div>
-                                    </div>
+                                    </template>
                                 </template>
                             </div>  
                         </div>
@@ -575,7 +577,11 @@ export default {
       search:{search:null},
       searching:false,
       purchasesLoading:false,
-      packageLoading:false
+      packageLoading:false,
+
+     pickupAmount:null,
+     pickupAmountType:null,
+     pickupAmountLoading:false
     };
   },
 
@@ -607,7 +613,7 @@ export default {
             this.walletBalanceLoading = true
             this.getWalletBalance(res.data.uuid).then(()=>this.walletBalanceLoading = false)
             this.packageLoading = true
-            this.getPackage(res.data.package_id).then(()=>this.packageLoading=false)
+            this.getPackage(res.data.reg_package_id).then(()=>this.packageLoading=false)
         });
     }else{
         if(this.userPurchases.length==0){ 
@@ -615,7 +621,7 @@ export default {
             this.getUserPurchases({type:this.authUser.uuid,page:1}).then(()=>this.purchasesLoading=false)
             this.getWalletBalance(this.authUser.uuid).then(()=>this.walletBalanceLoading = false)
             this.packageLoading = true
-            this.getPackage(this.authUser.package_id).then(()=>this.packageLoading=false)
+            this.getPackage(this.authUser.reg_package_id).then(()=>this.packageLoading=false)
         }
     }
 
@@ -663,7 +669,7 @@ export default {
         let index = this.cartProducts.findIndex(ele=>ele.id == product.id)
         if(index !== -1){
             this.cartProducts[index].qty = data.qty
-            this.cartProducts[index].price = this.cartProducts[index].product.worth * data.qty
+            this.cartProducts[index].price = product.worth * data.qty
         }else{
             this.cartProducts.push(data)
         }
@@ -688,8 +694,8 @@ export default {
         }
 
         if(this.selectedOrderType == 'upgrade_pickup'){
-            this.getPackage()
-            if(this.cartTotalPrice > this.regPackage.pickup_amount){
+            //this.getPackage()
+            if(this.cartTotalPrice > this.pickupAmount){
                 notification.warning("Total selected product price is higher than pickup amount")
                 return
             }
@@ -729,9 +735,9 @@ export default {
             let sumQty = qtys.reduce((res,val)=>res+val)
             this.cartTotalQty = sumQty
 
-            this.cartQty -= 1
-            document.getElementById('prod-'+id).value
-            this.$refs['prod-'+id].value=0
+            //this.cartQty -= 1
+            document.getElementById('prod-'+id).value = 0
+            //this.$refs['prod-'+id].value=0
         }
     },
 
@@ -739,6 +745,7 @@ export default {
     ...mapActions("settingStore", ["getSetting", "all"]),
     ...mapActions("productStore", ["getActiveProducts"]),
     ...mapActions('authStore',['getUser']),
+    ...mapActions('userStore',['fetchUpgradeData']),
     ...mapActions("stockistStore",["getStockists","searchStockists"]),
     ...mapActions('paymentStore',['initiate','verify','initiatePayment']),
     ...mapActions("withdrawalStore",["payWithWallet"]),
@@ -811,7 +818,19 @@ export default {
             return
         }
         this.payingWithWallet = true;
-        this.payWithWallet({amount:this.cartTotalPrice}).then(()=>this.payingWithWallet = false)
+        let data = {
+            amount:this.cartTotalPrice,
+            description:"Member purhcase",
+            txn_source:"member_product_purchase",
+            is_upgrade:0,
+            //stockist_id:this.stockist.id,
+            total_price:this.cartTotalPrice,
+            total_quantity:this.cartTotalQty,
+            total_points:this.cartTotalPoints,
+            products:this.cartProducts,
+            pickup_type:"repurchase"
+        }
+        this.payWithWallet({data}).then(()=>this.payingWithWallet = false)
     },
 
     searchStockist(){
@@ -822,6 +841,35 @@ export default {
     imageURL(img){
         return img ? process.env.VUE_APP_IMAGE_PATH+'/'+img : '/assets/img/demo/products/product3.png';
     },
+
+    getPickupAmount(){
+        switch (this.selectedOrderType) {
+            case 'registration_pickup':
+                this.pickupAmountType = "Registration Pickup Amount";
+                this.pickupAmount = this.regPackage.pickup_amount
+                break;
+            
+            case 'upgrade_pickup':
+                this.pickupAmountType = "Upgrade Pickup Amount";
+                this.pickupAmountLoading = true;
+                this.fetchUpgradeData({packageId:this.authUser.package_id,isUpgradePickup:true}).then((res)=>{
+                    let currPackage = res.data.data.current_package
+                    let newPackage = res.data.data.new_package
+                    let diff = newPackage.pickup_amount - currPackage.pickup_amount;
+
+                    this.pickupAmount = diff;
+
+                    this.pickupAmountLoading = false;
+                })
+                break;
+
+            default:
+                this.pickupAmountType = "";
+                this.pickupAmount = null
+                break;
+        }
+        
+    }
 
     
   },
