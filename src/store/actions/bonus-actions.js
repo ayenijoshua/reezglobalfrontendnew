@@ -32,6 +32,7 @@ export default {
                 toastr.warning(res.data.message)
             }
             commit('loaded',null,{root:true})
+            return res
         } catch (error) {
             LogError(commit,error,'loaded')
         }

@@ -269,11 +269,11 @@
                 </div>
             </div>
 
-            <div class="d-flex justify-content-center mt-5 pb-4"> <!-- Centering wrapper added -->
+            <!--<div class="d-flex justify-content-center mt-5 pb-4"> 
                 <div class="col-md-9 col-sm-12"> 
                     <div >
                         <div >
-                            <div class="d-flex justify-content-center align-items-center" > <!-- Added styling and classes -->
+                            <div class="d-flex justify-content-center align-items-center" >
                                 <img  src="/assets/img/x-button.png" width="auto" height="100px">
                             </div>
                             
@@ -284,7 +284,7 @@
                         </div>
                     </div>
                 </div>   
-            </div>
+            </div>-->
 
 
         </div>

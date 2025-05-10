@@ -276,4 +276,21 @@ export default {
             LogError(commit,error,'loaded')
         }
     },
+
+    async fetchOrderCode({commit},data){
+        try {
+            commit('loading',null,{root:true})
+            const res = await api.orderCode(data)
+            if(res && res.status==200){
+                //toastr.success(res.data.message)
+                //commit("stockistPrevMonthSales",res.data.data)
+            }else{
+                toastr.warning(res.data.message)
+            }
+            commit('loaded',null,{root:true})
+            return res
+        } catch (error) {
+            LogError(commit,error,'loaded')
+        }
+    },
 }

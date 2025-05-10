@@ -98,7 +98,7 @@
                                                         </td>
                                                     </tr>
                                                     <template v-else>
-                                                        <tr v-if="stockDetails.lenght==0">
+                                                        <tr v-if="stockDetails.length==0">
                                                             <td colspan="4">There are no purchases</td>
                                                         </tr>
                                                         <template v-else>
@@ -200,14 +200,16 @@
                                             <tr v-if="stocks.length == 0">
                                                 <td colspan="5">There are no stocks</td>
                                             </tr>
-                                            <tr v-for="stock,i in stocks" :key="i">
-                                                <th scope="row">{{ ++i }}</th>
-                                                <td>{{ stock.name }}</td>
-                                                <!-- <td>{{ claim.worth?.toLocaleString('en-US')}}</td> -->
-                                                <td>₦{{ stock.cost_price }}</td>
-                                                <td>{{ stock.quantity }}</td>
-                                                <td><span :class="['badge', stock.in_stock ? 'badge-success' : 'badge-danger']" style="padding: 6px 10px;">{{ stock.in_stock }}</span></td>
-                                            </tr>
+                                            <template v-else>
+                                                <tr v-for="stock,i in stocks" :key="i">
+                                                    <th scope="row">{{ ++i }}</th>
+                                                    <td>{{ stock.name }}</td>
+                                                    <!-- <td>{{ claim.worth?.toLocaleString('en-US')}}</td> -->
+                                                    <td>₦{{ stock.cost_price }}</td>
+                                                    <td>{{ stock.quantity }}</td>
+                                                    <td><span :class="['badge', stock.in_stock ? 'badge-success' : 'badge-danger']" style="padding: 6px 10px;">{{ stock.in_stock }}</span></td>
+                                                </tr>
+                                            </template>
                                         </template>
                                     </tbody>
                                 </table>
@@ -352,7 +354,7 @@
                                             </td>
                                         </tr>
                                         <template v-else>
-                                            <tr v-if="rebateEarnings.lenght==0">
+                                            <tr v-if="rebateEarnings.length==0">
                                                 <td colspan="5">There are no rebate earnings</td>
                                             </tr>
                                             <tr v-for="rebate,i in rebateEarnings" :key="i">

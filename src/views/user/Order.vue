@@ -9,7 +9,7 @@
                                     <img  src="/assets/img/list-items.png" width="auto" height="150px">
                                 </div>
                                 
-                                <div class="d-flex justify-content-center"><p class="font-weight-bold">Input a username to process the order associated with it.</p></div>
+                                <div class="d-flex justify-content-center"><p class="font-weight-bold">Input order code to process the order associated with it.</p></div>
                                     <div class="form mb-3">                                     
                                         <div class="form-group col-12 m-0 ">
                                             <div class="input-group mb-2 mr-sm-2 shadow">

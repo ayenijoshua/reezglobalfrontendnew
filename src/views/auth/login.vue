@@ -23,7 +23,7 @@
                                                 <div class="col-lg-6">
                                                     <div class="form-group has-icon shadow1" ><i class="icon-person green-text"></i>
                                                         <input type="text" v-model="form.username" class="form-control form-control-lg no-b"
-                                                            placeholder="Username"  >
+                                                            placeholder="Username">
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-6">

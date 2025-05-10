@@ -284,7 +284,8 @@
                         <div class="d-flex flex-wrap justify-content-center">
                             <div class="text-center">
                                 <img class=" mt-3" src="/assets/img/wallet4a.png" width="auto" height="150px">
-                                <h1 class="font-weight-bold text-blue" style="margin: 0em; padding: 0em;">₦{{ walletBalance?.toLocaleString('en-US') }}</h1>
+                                <h1 v-if="walletBalanceLoading==true" class="font-weight-bold text-blue" style="margin: 0em; padding: 0em;">...loading</h1>
+                                <h1 v-else class="font-weight-bold text-blue" style="margin: 0em; padding: 0em;">₦{{ walletBalance?.toLocaleString('en-US') }}</h1>
                                 <small class=" font-weight-bold s-10 text-blue" style="margin: 0em; padding: 0em;" >Current Wallet Available Balance</small><br>
                                 <a v-if="payingWithWallet==true" class="btn btn-sm btn-success mb-3 mt-2 btn-lg"><i class="icon icon-credit-card"></i>...Processing</a>
                                 <a v-else class="btn btn-sm btn-success mb-3 mt-2 btn-lg" @click="payManually"><i class="icon icon-credit-card"></i>Pay with Wallet</a>
@@ -319,11 +320,12 @@
                                             <th class="font-weight-bold" scope="col">LOCATION</th>     
                                             <th class="font-weight-bold" scope="col">STATE</th>
                                             <th class="font-weight-bold" scope="col">CONTACT</th>
-                                            <th class="font-weight-bold" scope="col">POrder ID</th>
+                                            <th class="font-weight-bold" scope="col">Order ID</th>
                                             <th class="font-weight-bold" scope="col">Total QTY</th>
                                             <th class="font-weight-bold" scope="col">Total PRICE</th>
                                             <th class="font-weight-bold" scope="col">STATUS</th>
                                             <th class="font-weight-bold" scope="col">DATE/TIME</th>
+                                            <th class="font-weight-bold" scope="col">View Order Code</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -358,12 +360,12 @@
                                                     <td>₦{{ purchase.total_price.toLocaleString("en-US") }}</td>
                                                     <td><span class="badge badge-success" style="padding: 6px 10px;">{{ purchase.status }}</span></td>
                                                     <td>{{ purchase.created_at }}</td>
+                                                    <td><span class="badge badge-info" v-b-modal.order-code @click="setOrder(purchase.id)">view</span></td>
                                                 </tr>
                                             </template>
                                         </template>
                                     </tbody>
                                 </table>
-                                
                             </div>
                             <BasePaginator v-if="userPurchasesAction" :action="userPurchasesAction" :current_page="userPurchasesCurrentPage" :last_page="userPurchasesLastPage" :total_pages="userPurchasesTotalPages" :per_page="userPurchasesPerPage" :type="authUser.uuid"></BasePaginator>
                         </div>
@@ -390,6 +392,28 @@
                     <iframe id='ifr' frameborder="0" :src="payLink" scrolling="no" width="400" height="500"></iframe>
                 </div>
             </div>
+        </modal>
+
+        <modal modalId="order-code" modalTitle="View Order Code" modalSize="md" :link="payLink">
+            <form @submit.prevent="authorize">
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <div class="form-group">
+                            <input type="password" v-model="orderCodeForm.password" class="form-control form-control-lg no-b" placeholder="Password">
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+                        <span v-if="orderCodeFetching" class="btn btn-success btn-sm btn-block">...</span>
+                        <input v-else type="submit" class="btn btn-success btn-sm btn-block" value="Authorize"/>
+                    </div>
+                </div>
+                <br/>
+                <div>
+                    <h2>Enter password to view code</h2>
+                    <h3 v-if="orderCodeFetching==true">...loading</h3>
+                    <h3 v-else>Order Code : {{ orderCode }} </h3>
+                </div>
+            </form>
         </modal>
     </div>
 </template>
@@ -581,7 +605,13 @@ export default {
 
      pickupAmount:null,
      pickupAmountType:null,
-     pickupAmountLoading:false
+     pickupAmountLoading:false,
+     orderCodeFetching:false,
+     orderCodeForm:{
+        password:null,
+        order_id:null
+     },
+     orderCode:null
     };
   },
 
@@ -741,7 +771,7 @@ export default {
         }
     },
 
-    ...mapActions("productPurchaseStore",["userPurchase","getUserPurchases"]),
+    ...mapActions("productPurchaseStore",["userPurchase","getUserPurchases","fetchOrderCode"]),
     ...mapActions("settingStore", ["getSetting", "all"]),
     ...mapActions("productStore", ["getActiveProducts"]),
     ...mapActions('authStore',['getUser']),
@@ -830,7 +860,7 @@ export default {
             products:this.cartProducts,
             pickup_type:"repurchase"
         }
-        this.payWithWallet({data}).then(()=>this.payingWithWallet = false)
+        this.payWithWallet(data).then(()=>{this.payingWithWallet = false; this.walletBalanceLoading=true; this.getWalletBalance(this.authUser.uuid).then(()=>this.walletBalanceLoading = false); this.getUserPurchases({type:this.authUser.uuid,page:1})})
     },
 
     searchStockist(){
@@ -869,6 +899,20 @@ export default {
                 break;
         }
         
+    },
+
+    setOrder(id){
+        this.orderCodeForm.order_id = id;
+    },
+
+    authorize(){
+        this.orderCodeFetching = true
+        this.fetchOrderCode(this.orderCodeForm).then((res)=>{
+            if(res && res.status == 200){
+                this.orderCode = res.data.data
+            }
+            this.orderCodeFetching = false;
+        })
     }
 
     

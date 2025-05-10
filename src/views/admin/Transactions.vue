@@ -651,7 +651,7 @@
             </div>
         </div>-->
 
-        <Modal modal-id="stockist-pop" modal-title="Stockist POP" modal-size="md">
+        <Modal modal-id="stockist-pop" modal-title="Stockist POP" modal-size="lg">
             <template v-if="stockist==null">
                 <b-skeleton-table
                     :rows="3"
@@ -662,9 +662,9 @@
             <template v-else>
                 <div role="dialog" aria-hidden="true" >
                     <div class="modal-dialog modal-dialog-centered" role="document" style="background: transparent!important;">
-                        <div class="">
-                            <div class="">
-                                <img :src="imageURL(stockist.payment_receipt)" alt="Proof Of Payment"  style="height:200px; width: 200px">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <img :src="imageURL(stockist.payment_receipt)" alt="Proof Of Payment"  style="height:500px; width: 500px">
                             </div>
                         </div>
                     </div>

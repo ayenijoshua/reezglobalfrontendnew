@@ -15,7 +15,7 @@
                                             <th class="font-weight-bold text-white" scope="col">VIEW</th>
                                             <th class="font-weight-bold text-white" scope="col">PRODUCTS</th>
                                             <th class="font-weight-bold text-white" scope="col">PRICE</th>
-                                            <th class="font-weight-bold text-white" scope="col">POINT VALUE</th>
+                                            
                                             <!-- <th scope="col">Worth</th> -->
                                             <th class="font-weight-bold text-white" scope="col">QUANTITY</th>
                                             <!--<th class="font-weight-bold text-white" scope="col">SELECT</th>-->
@@ -40,14 +40,14 @@
                                                 <tr  v-for="produc,i in products" :key="i" >
                                                     <td>{{ ++i }}</td>
                                                     <td class="w-10">
-                                                        <img src="/assets/img/demo/products/product3.png"  height="70px" width="auto" alt="">
+                                                        <img :src="imageURI(produc.image)"  height="70px" width="70px" alt="">
                                                     </td>
                                                     <td>{{ produc.name }}</td>
                                                     <td>₦ {{ produc.worth.toLocaleString("en-US") }}</td>
-                                                    <td>{{ produc.points }}</td>
+                                                    
                                                     <td>
                                                         <div class="">
-                                                            <input :key="i" @change="(e)=>addToCart(e,produc)" class="form-control" type="number" min="1"  style="background-color: transparent; border: 2px solid #2E671A;">
+                                                            <input :id="'prod-'+produc.id" :key="i" @change="(e)=>addToCart(e,produc.id,produc)" class="form-control" type="number" min="1"  style="background-color: transparent; border: 2px solid #2E671A;">
                                                         </div>
                                                     </td>
                                                     <!--<td> <div class="form-check"><input class="form-check-input custom-checkbox" type="checkbox" value="" id="cb1" ></div></td>-->
@@ -73,46 +73,59 @@
                                 <template v-else>
                                     <div v-for="prod,i in cartProducts" :key="i" class="row column-row p-2" style="border-bottom: 1px solid #2E671A !important;">
                                         <div class="mt-2 ml-3" style="padding-right:15px">
-                                            <img src="/assets/img/demo/products/product3.png" width="80px" height="80px">
+                                            <button @click="removeProduct(prod.product.id)" class="btn btn-danger">x</button>
+                                        </div> 
+                                        <div class="mt-2 ml-3" style="padding-right:15px">
+                                            <img :src="imageURI(prod.product.image)" width="80px" height="80px">
                                         </div>  
-                                        <div class="mb-2 mt-4 ">
-                                            <h6 class="font-weight-bold text-green s-14" style="margin: 0em; padding: 0em;">{{ prod.product.name }} <br><small class="font-weight-bold"> {{prod.product.points}}PV | Qty:{{ prod.qty }}</small></h6>	
+                                        <div class="mb-2 mt-4">
+                                            <h6 class="font-weight-bold text-green s-14" style="margin: 0em; padding: 0em;">{{ prod.product.name }} <br><small class="font-weight-bold"> unit price : {{prod.product.worth}} | Qty:{{ prod.qty }}</small></h6>	
                                         </div>	
                                         <div class="mb-2 mt-4 ml-auto mr-2">
-                                            <span class="font-weight-bold float-right text-green">₦{{ prod.product.worth }}</span>
+                                            <span class="font-weight-bold float-right text-green">₦{{ (prod.product.worth * prod.qty)?.toLocaleString('en-US') }}</span>
                                         </div>
                                     </div>
 
-
                                     <div class="row column-row " style="border-bottom: 1px solid #2E671A !important;">
                                         <div class="mb-2 mt-2 ml-3">
-                                            <h6 class="font-weight-bold text-green s-12" style="margin: 0em; padding: 0em;">Total Point Value </h6>											
+                                            <h6 class="font-weight-bold text-green s-12" style="margin: 0em; padding: 0em;">Total Quantity </h6>											
                                         </div>	
                                         <div class="mb-2 mt-2 ml-auto mr-3">
-                                            <h6 class="font-weight-bold text-green s-12" style="margin: 0em; padding: 0em;">{{ cartTotalPoints?.toFixed(2) }} PV</h6>											
-                                        </div>
-                                    </div> 	
+                                            <h6 class="font-weight-bold text-green s-12" style="margin: 0em; padding: 0em;">{{ cartTotalQty }}</h6>											
+                                        </div> 
+                                    </div>
                                     <div class="row column-row" style="background-Color:#2E671A !important;">
                                         <div class="mb-2 mt-2 ml-3">
                                             <h6 class="font-weight-bold text-white s-12" style="margin: 0em; padding: 0em;">Total Price </h6>											
                                         </div>	
                                         <div class="mb-2 mt-2 ml-auto mr-3">
-                                            <h6 class="font-weight-bold text-white s-12" style="margin: 0em; padding: 0em;">₦ {{ cartTotalPrice.toLocaleString("en-US") }}</h6>											
+                                            <h6 class="font-weight-bold text-white s-12" style="margin: 0em; padding: 0em;">₦ {{ cartTotalPrice?.toLocaleString('en-US') }}</h6>											
                                         </div>
                                     </div>
                                      <!-- Cancel Order Button -->
                                     <div class="row column-row" >
                                         <div class="ml-auto mr-2">
-                                            <button @click="cancelOrder(userClaim.id)" class="btn btn-sm btn-danger  mt-2" ><i class="icon-cancel mr-2"></i> Cancel Selection</button>
+                                            <button @click="cancelOrder" class="btn btn-sm btn-danger  mt-2" ><i class="icon-cancel mr-2"></i> Cancel Selection</button>
+                                            <button @click="stockistPurchase"  type="submit" class="btn btn-sm btn-success mr-3 "><i class="icon-shopping-cart mr-2"></i>Submit Order</button>
                                         </div>    
                                     </div>
                                 </template>
-                                <!-- <div class="row column-row">
-                                    <div class="">
-                                        <h5>Previous Month Sales Sum</h5>
-                                        <span class="btn btn-sm btn-info  mt-2"><i class="icon-bulb mr-2"></i> {{ stockistPrevMonthSales }}</span>
-                                    </div>    
-                                </div>  -->
+                                
+                                <template>
+                                    <b-card v-if="prevMonthSaleLoading==true">
+                                        <b-skeleton width="85%"></b-skeleton>
+                                        <b-skeleton width="55%"></b-skeleton>
+                                        <b-skeleton width="70%"></b-skeleton>
+                                    </b-card>
+                                    <div v-else class="row column-row border-bottom">
+                                        <div class="mb-2 mt-5 ml-3">
+                                            <h6 class="font-weight-bold text-green s-12" style="margin: 0em; padding: 0em;">Previus Month Sales </h6>											
+                                        </div>	
+                                        <div class="mb-2 mt-5 ml-auto mr-3">
+                                            <h6 class="font-weight-bold text-green s-12" style="margin: 0em; padding: 0em;">₦{{ Number(stockistPrevMonthSales??0)?.toLocaleString('en-US') }} </h6>											
+                                        </div>
+                                    </div>
+                                </template>
                             </div>  
                         </div>
                     </div>
@@ -204,33 +217,7 @@
                 <div class="col-md-12 mt-5">
                     <div class="card shadow" style="background-color: transparent">
                         <div class="card-body" >
-                            <form id="stock-purchase-form" @submit.prevent="stockistPurchase">
-                                <!---<div class="card no-b no-r" style="background-color: transparent">
-                                    <div class="card-body">
-                                        <div class="form-row">
-                                            <div class="col-md-12">
-                                                <div class="form-row mb-2">
-                                                    <div class="form-group col-12 m-0">
-                                                        <div class="form-group m-0">
-                                                            <div class="dropbox" style="background-color: #ecf0f1; border: 2px solid #2E671A;">
-                                                                <input v-b-popover.hover.top="'Drag payment receipt here or click to browse'" type="file" title="payment receipt" name="payment_receipt"  class="form-control form-control-line input-file" style="background-color: #ecf0f1; border: 2px solid #2E671A;">
-                                                                <p id="img-preview">
-                                                                    Drag your photo here<br> or click to browse<br>
-                                                                    <span style="font-size: 10px;">Image size should not exceed 500kB</span>
-                                                                </p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>	
-                                </div>-->
-                                <div class="m-3">								
-                                    <button  type="submit" class="btn btn-sm btn-success mr-3 "><i class="icon-shopping-cart mr-2"></i>Submit Order</button>
-                                    <span class="btn btn-sm btn-danger "><i class="icon-cancel mr-2"></i>Cancel Order</span>                   
-                                </div> 
-                            </form>
+                            
                         </div>
                     </div>
                     
@@ -400,7 +387,8 @@ export default{
 
             selectedPaymentTypes:["offline","online"],
             selectedPaymentType:"",
-            gatewayTimeout:1000*60*0.5
+            gatewayTimeout:1000*60*0.5,
+            prevMonthSaleLoading:false
         }
     },
 
@@ -418,7 +406,7 @@ export default{
         ...mapGetters('settingStore',['settings']),
         ...mapGetters('productStore',['products']),
         ...mapGetters('stockistStore',['stockist']),
-        ...mapGetters('productPurchaseStore',['stockistPrevMonthSale']),
+        ...mapGetters('productPurchaseStore',['stockistPrevMonthSales']),
     },
 
     created(){
@@ -434,7 +422,8 @@ export default{
                     })
                     
                     if(this.stockistPrevMonthSale == null){
-                        this.fetchStockPrevMonthSales(res.data.uuid)
+                        this.prevMonthSaleLoading = true
+                        this.fetchStockPrevMonthSales(res.data.uuid).then(()=>this.prevMonthSaleLoading = false)
                     }
                 })
             }else{
@@ -445,7 +434,8 @@ export default{
                 })
 
                 if(this.stockistPrevMonthSale == null){
-                    this.fetchStockPrevMonthSales(this.authUser.uuid)
+                    this.prevMonthSaleLoading = true
+                    this.fetchStockPrevMonthSales(this.authUser.uuid).then(()=>this.prevMonthSaleLoading = false)
                 }
             }
         }
@@ -459,7 +449,12 @@ export default{
 
     methods:{
 
-        addToCart(e,product){
+        addToCart(e, id, product) {
+            //console.log(prod)
+            if(e.target.value < 1){
+                notification.warning("One of your selection has quantity less than 1")
+                return
+            }
             let data = {qty:e.target.value,id:product.id,price:product.worth,product:product}
 
             let pv = data.qty * product.points
@@ -485,6 +480,7 @@ export default{
             let index = this.cartProducts.findIndex(ele=>ele.id == product.id)
             if(index !== -1){
                 this.cartProducts[index].qty = data.qty
+                this.cartProducts[index].price = product.worth * data.qty
             }else{
                 this.cartProducts.push(data)
             }
@@ -574,6 +570,38 @@ export default{
                 that.$bvModal.hide('pay')
                 this.paySubmitting = false
             });
+        },
+
+        imageURI(img){
+            return img ? process.env.VUE_APP_IMAGE_PATH+'/'+img : '/assets/img/demo/products/product3.png';
+        },
+
+        removeProduct(id){
+            let prodIndex = this.cartProducts.findIndex((ele)=>ele.id == id)
+            if(prodIndex != -1){
+                this.cartProducts.splice(prodIndex,1);
+                this.cartPrices = { ...this.cartPrices, [id]: 0 };
+                let prices = Object.values(this.cartPrices)
+                let sumPrice = prices.reduce((res,val)=>res+val)
+                this.cartTotalPrice = sumPrice
+
+                this.cartQty = {...this.cartQty, [id]:0};
+                let qtys = Object.values(this.cartQty)
+                let sumQty = qtys.reduce((res,val)=>res+val)
+                this.cartTotalQty = sumQty
+
+                //this.cartQty -= 1
+                document.getElementById('prod-'+id).value = 0
+                //this.$refs['prod-'+id].value=0
+            }
+        },
+
+        cancelOrder(){
+            this.cartProducts = [];
+            this.cartTotalPrice = 0;
+            this.cartTotalPoints = 0;
+            this.cartQty = {}
+            this.cartTotalQty = 0;
         },
        
     }

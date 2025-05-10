@@ -61,5 +61,9 @@ export default {
 
     stockistPrevMonthSales(uuid){
         return http().get(`${endPoints.productPurchases}/stockist-prev-month-sales/${uuid}`)
+    },
+
+    orderCode(data){
+        return http().post(`${endPoints.productPurchases}/order-code`,data)
     }
 }
