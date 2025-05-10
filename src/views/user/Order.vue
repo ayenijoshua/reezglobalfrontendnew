@@ -337,7 +337,7 @@ color: #ecf0f1;
 import { notification } from '@/util/notification'
 import {mapActions,mapGetters,mapState} from 'vuex'
 export default{
-    name:"user-stockistprofile",
+    name:"user-order",
 
     data(){
         return {//ymCwA4hAsdNrUarA
@@ -376,9 +376,9 @@ export default{
             if(this.authUser.uuid == undefined){
                 this.getUser().then((res)=>{
                     this.processedOrdersLoading = true
-                    this.getVendorProcessedOrders(res.data.uuid).then((res)=>{
+                    this.getVendorProcessedOrders(res.data.uuid).then(()=>{
                         this.processedOrdersLoading=false
-                        this.vendorProcessedOrders = res.data.data.data
+                        //this.vendorProcessedOrders = res.data.data.data
                     })
                 })
             }else{
@@ -398,20 +398,22 @@ export default{
         getUserOrders(){
             this.orderLoading = true
             this.getOrders(this.orderCode).then((res)=>{
-                this.orders = res.data.data.products
-                this.member = res.data.data.user
+                if(res && res.status==200){
+                    this.orders = res.data.data.products
+                    this.member = res.data.data.user
 
-                this.totalPoints = this.orders.reduce((prev,curr)=>{
-                    return prev.points + curr.points
-                })
+                    this.totalPoints = this.orders.reduce((prev,curr)=>{
+                        return prev.points + curr.points
+                    })
 
-                this.totalPrice = this.orders.reduce((prev,curr)=>{
-                    return prev.price + curr.price
-                })
+                    this.totalPrice = this.orders.reduce((prev,curr)=>{
+                        return prev.price + curr.price
+                    })
 
-                this.purchaseId = this.orders[0].product_purchase_id
-
+                    this.purchaseId = this.orders[0].product_purchase_id
+                }
                 this.orderLoading = false
+                
             })
         },
 
