@@ -75,14 +75,14 @@
                                         </template>
                                     </div>
 
-                                    <div class="row column-row " style="border-bottom: 1px solid #2E671A !important;">
+                                    <!--<div class="row column-row " style="border-bottom: 1px solid #2E671A !important;">
                                         <div class="mb-2 mt-2 ml-3">
                                             <h6 class="font-weight-bold text-green s-12" style="margin: 0em; padding: 0em;">Total Point Value </h6>											
                                         </div>	
                                         <div class="mb-2 mt-2 ml-auto mr-3">
                                             <h6 class="font-weight-bold text-green s-12" style="margin: 0em; padding: 0em;">{{ totalPoints?.toFixed(2) }} PV</h6>											
                                         </div>
-                                    </div> 	
+                                    </div> -->	
                                     <div class="row column-row" style="background-Color:#2E671A !important;">
                                         <div class="mb-2 mt-2 ml-3">
                                             <h6 class="font-weight-bold text-white s-12" style="margin: 0em; padding: 0em;">Total Price </h6>											
