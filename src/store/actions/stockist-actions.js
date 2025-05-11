@@ -291,4 +291,63 @@ export default {
             LogError(commit,error,'loaded')
         }
     },
+
+    async fetchUpgrades({commit},page){
+        try {
+            commit('loading',null,{root:true})
+            const res = await api.upgrades(page)
+            if(res && res.status==200){
+                commit("stockistUpgrades",res.data.data.data)
+
+                commit('stockistUpgradesAction','stockistsStore/fetchUpgrades')
+                commit('stockistUpgradesState',res.data.data.data)
+                commit('stockistUpgradesCurrentPage',res.data.data.current_page)
+                commit('stockistUpgradesLastPage',res.data.data.last_page)
+                commit('stockistUpgradesPerPage',res.data.data.per_page)
+                commit('stockistUpgradesTotalPages',res.data.data.total)
+            }else{
+                toastr.warning(res.data.message)
+            }
+            commit('loaded',null,{root:true})
+            return res
+        } catch (error) {
+            LogError(commit,error,'loaded')
+        }
+    },
+
+    async approveUpgrade({commit},id){
+        try {
+            commit('submitting',null,{root:true})
+            const res = await api.approveUpgrade(id)
+            if(res && res.status==200){
+                //toastr.success(res.data.message)
+                //commit('stockistsOrders',res.data.data.data)
+                notification.success(res.data.message)
+            }else{
+                toastr.warning(res.data.message)
+            }
+            commit('submitted',null,{root:true})
+            return res
+        } catch (error) {
+            LogError(commit,error,'submitted')
+        }
+    },
+
+    async disapproveUpgrade({commit},id){
+        try {
+            commit('submitting',null,{root:true})
+            const res = await api.disapproveUpgrade(id)
+            if(res && res.status==200){
+                //toastr.success(res.data.message)
+                //commit('stockistsOrders',res.data.data.data)
+                notification.success(res.data.message)
+            }else{
+                toastr.warning(res.data.message)
+            }
+            commit('submitted',null,{root:true})
+            return res
+        } catch (error) {
+            LogError(commit,error,'submitted')
+        }
+    },
 }

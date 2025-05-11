@@ -57,7 +57,32 @@ export default {
     stockistsOrdersPerPage(state,data){
          state.stockistsOrdersPerPage = data
     },
+    
     stockistsOrdersTotalPages(state,data){
-         state.stockistsOrdersTotalPages = data
+        state.stockistsOrdersTotalPages = data
+    },
+
+    stockistUpgrades(state,data){
+         state.stockistUpgrades = data
+    },
+
+    stockistUpgradesAction(state,data){
+         state.stockistUpgradesAction = data
+    },
+
+    stockistUpgradesState(state,data){
+         state.stockistUpgradesState = data
+    },
+    stockistUpgradesCurrentPage(state,data){
+        state.stockistUpgradesCurrentPage = data
+    },
+    stockistUpgradesLastPage(state,data){
+        state.stockistUpgradesLastPage = data
+    },
+    stockistUpgradesPerPage(state,data){
+        state.stockistUpgradesPerPage = data
+    },
+    stockistUpgradesTotalPages(state,data){
+        state.stockistUpgradesTotalPages = data
     },
 }

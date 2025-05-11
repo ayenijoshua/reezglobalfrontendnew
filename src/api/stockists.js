@@ -67,6 +67,18 @@ export default {
 
     searchStockist(search,page){
         return http().get(`${endpoints.stockists}/search?page=${page}&search=${search}`)
+    },
+
+    upgrades(page){
+        return http().get(`${endpoints.stockists}/upgrades?page=${page}`)
+    },
+
+    approveUpgrade(id){
+        return http().patch(`${endpoints.stockists}/${id}/approve-upgrade`)
+    },
+
+    disapproveUpgrade(id){
+        return http().patch(`${endpoints.stockists}/${id}/disapprove-upgrade`)
     }
 
 

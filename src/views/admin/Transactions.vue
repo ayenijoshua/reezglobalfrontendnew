@@ -544,6 +544,102 @@
                                 </div>				
                             </div>
 
+                            <div class="row mt-4">
+                                <div class="col-md-12">
+                                    <div class="card shadow1 mb-3" style="background-color: transparent">
+                                        <div class="card-header">Pending Stockist Upgrades</div>
+                                        <div class="card-body ">
+                                            <div class="d-flex justify-content-left mb-2">
+                                                <!-- <input 
+                                                    class="form-control mr-2" 
+                                                    type="text" 
+                                                    placeholder="Search..." 
+                                                    style="width: 250px; background-color: transparent; border: 2px solid #2E671A !important;"/>
+                                                <button class="btn text-white" style="background-Color:#2E671A" >
+                                                    <i class="icon-search"></i>
+                                                </button> -->
+                                            </div>
+                                            <div class="table-responsive">
+                                                <table id="example2" class="table table-bordered table-hover data-tables" >
+                                                    <thead>
+                                                        <tr>
+                                                            <th class="font-weight-bold" scope="col">S/N</th>
+                                                            <th class="font-weight-bold" scope="col">STOCKIST</th>
+                                                            <th class="font-weight-bold" scope="col">USERNAME</th>
+                                                            <th class="font-weight-bold" scope="col">PACKAGE</th>     
+                                                            <th class="font-weight-bold" scope="col">ADDRESS</th>
+                                                            <th class="font-weight-bold" scope="col">STATE</th>
+                                                            <th class="font-weight-bold" scope="col">CONTACT</th>
+                                                            <th class="font-weight-bold" scope="col">STATUS</th>
+                                                            <th class="font-weight-bold" scope="col">DATE</th>
+                                                            <th class="font-weight-bold" scope="col">Actions</th>
+                                                            <!-- <th class="font-weight-bold" scope="col">TOTAL PURCHASE</th>
+                                                            <th class="font-weight-bold" scope="col">TOTAL SALES</th> -->
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr v-if="upgradesLoading==true">
+                                                            <td colspan="11">
+                                                                <b-skeleton-table
+                                                                    :rows="3"
+                                                                    :columns="8"
+                                                                    :table-props="{ bordered: true, striped: true }"
+                                                                ></b-skeleton-table>
+                                                            </td>
+                                                        </tr>
+                                                        <template v-else>
+                                                            <tr v-if="stockistUpgrades.length == 0">
+                                                                <td colspan="11">
+                                                                    <div class="alert alert info">There are no pending stockists Upgrades</div>
+                                                                </td>
+                                                            </tr>
+                                                            <tr v-for="stock,i in stockistUpgrades" :key="i">
+                                                                <td scope="row">{{ (stockistUpgradesPerPage * (stockistUpgradesCurrentPage - 1)) + ( ++i) }}</td>
+                                                                <td>{{ stock.store_name }}</td>
+                                                                <!-- <td>{{ claim.worth?.toLocaleString('en-US')}}</td> -->
+                                                                <td>{{stock.username}}</td>
+                                                                <td>{{ stock.stockist_package }} - ₦{{ stock.stockist_package_value }}</td>
+                                                                <td>{{ stock.store_address }}</td>
+                                                                <td>{{ stock.store_state }}</td>
+                                                                <td>{{stock.store_phone}}</td>
+                                                                <td>{{stock.payment_status}}</td>
+                                                                <td>{{stock.payment_date}}</td>
+                                                                <!-- <td>₦{{ stock.total_purchases.toLocaleString('en-US') }}</td>
+                                                                <td>₦{{ stock.total_sales.toLocaleString('en-US') }}</td> -->
+                                                                <td>
+                                                                    <div class="dropdown">
+                                                                        <button class="btn btn-sm btn-success dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                            <i class="caret"></i>
+                                                                        </button>
+                                                                        <div class="dropdown-menu"  style="background-color: #ecf0f1">
+                                                                            <a @click="setStockist(stock)" v-b-modal.stockist-pop class="dropdown-item text-green" ><i class="icon-barometer2"></i>&nbsp;&nbsp; View POP</a>
+
+                                                                            <template v-if="stock.payment_status == 'processing'">
+                                                                                <a @click="setStockist(stock)" v-b-modal.approve-upgrade class="dropdown-item text-green">
+                                                                                    <i class="icon-drivers-license-o"></i>&nbsp;&nbsp; Approve Upgrade
+                                                                                </a>
+                                                                                <a @click="setStockist(stock)" v-b-modal.disapprove-upgrade class="dropdown-item text-red">
+                                                                                    <i class="icon-drivers-license-o"></i>&nbsp;&nbsp; Disapprove Upgrade
+                                                                                </a>
+                                                                            </template>
+                                                                            <a @click="setStockist(stock)" v-b-modal.stockist-upgrade-history class="dropdown-item text-green"><i class="icon-sitemap"></i>&nbsp;&nbsp;Upgrade History</a>
+                                                                            <a @click="fetchSalesStats(stock.user_uuid)" v-b-modal.stockist-sales-stats class="dropdown-item text-green"><i class="icon-sitemap"></i>&nbsp;&nbsp;Sales Stats</a>
+                                                                        </div>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                        </template>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <div class="container">
+                                               <BasePaginator v-if="stockistUpgradesAction" :action="stockistUpgradesAction" :current_page="stockistUpgradesCurrentPage" :last_page="stockistUpgradesLastPage" :total_pages="stockistUpgradesTotalPages" :per_page="stockistUpgradesPerPage"></BasePaginator>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>				
+                            </div>
+
                             <div class="row mt-5">	
                                 <div class="col-md-12">
                                     <div class="">
@@ -564,7 +660,7 @@
                                                             </button> -->
                                                         </div>
                                                         <div class="form-row table-responsive  equal-width-table" style="overflow-x:auto;">
-                                                            <table class="table table-hover" >
+                                                            <table class="table table-hover">
                                                                 <thead>
                                                                     <tr>
                                                                         <th class="font-weight-bold" scope="col">S/N</th>
@@ -802,6 +898,50 @@
                 </div>
             </template>
         </Modal>
+
+        <Modal modal-id="disapprove-upgrade" modal-title="Disapprove Stockist Upgrade" modal-size="lg">
+            <template v-if="stockist==null">
+                <b-skeleton-table
+                    :rows="3"
+                    :columns="8"
+                    :table-props="{ bordered: true, striped: true }"
+                ></b-skeleton-table>
+            </template>
+            <template v-else>
+                <div class="row">
+                    <div class="col-md-6">
+                        <img :src="imageURL(stockist.payment_receipt)" width="200px" height="100px">
+                    </div>
+                    <div class="col-md-6">
+                        <p class="bg-info">Are you sure to disapprove Upgrade?</p>
+                        <button v-if="approvingUpgrade==true" class="btn btn-danger">...</button>
+                        <button v-else class="btn btn-danger" @click="disapproveStockistUpgrade(stockist.payment_id)">Disapprove</button>
+                    </div>
+                </div>
+            </template>
+        </Modal>
+
+        <Modal modal-id="approve-upgrade" modal-title="Approve Stockist Upgrade" modal-size="lg">
+            <template v-if="stockist==null">
+                <b-skeleton-table
+                    :rows="3"
+                    :columns="8"
+                    :table-props="{ bordered: true, striped: true }"
+                ></b-skeleton-table>
+            </template>
+            <template v-else>
+                <div class="row">
+                    <div class="col-md-6">
+                        <img :src="imageURL(stockist.payment_receipt)" width="200px" height="100px">
+                    </div>
+                    <div class="col-md-6">
+                        <p class="bg-info">Are you sure to Approve Upgrade?</p>
+                        <button v-if="approvingUpgrade==true" class="btn btn-primary">...</button>
+                        <button v-else class="btn btn-primary" @click="approveStockistUpgrade(stockist.payment_id)">Approve</button>
+                    </div>
+                </div>
+            </template>
+        </Modal>
     </div>
 </template>
 
@@ -976,7 +1116,9 @@ import StockistPackagePayment from '@/components/admin/StockistPackagePayment.vu
             stockistUpgradeHistoryLoading:false,
             stockistUpgradeHistory:[],
             updatingRegistration:false,
-            order:null
+            order:null,
+            upgradesLoading:false,
+            approvingUpgrade:false
         }
     },
 
@@ -994,7 +1136,8 @@ import StockistPackagePayment from '@/components/admin/StockistPackagePayment.vu
         ...mapGetters('stockistStore',['stockists','stockistsStats','stockistsOrders',
             'stockistsAction','stockistsCurrentPage','stockistsLastPage','stockistsPerPage','stockistsTotalPages',
             'stockistsOrdersAction','stockistsOrdersState','stockistsOrdersCurrentPage','stockistsOrdersLastPage',
-            'stockistsOrdersPerPage','stockistsOrdersTotalPages'
+            'stockistsOrdersPerPage','stockistsOrdersTotalPages','stockistUpgrades','stockistUpgradesAction','stockistUpgradesState',
+            'stockistUpgradesCurrentPage','stockistUpgradesLastPage','stockistUpgradesPerPage','stockistUpgradesTotalPages'
         ]),
        
         imageURI(image){
@@ -1045,6 +1188,11 @@ import StockistPackagePayment from '@/components/admin/StockistPackagePayment.vu
             this.stockistsOrdersLoading = true
             this.getStockistsOrders({page:1,type:null}).then(()=>this.stockistsOrdersLoading=false)
         }
+
+        if(this.stockistUpgrades.length == 0){
+            this.upgradLoading = true
+            this.fetchUpgrades().then(()=>this.upgradLoading = false)
+        }
         
     },
 
@@ -1053,7 +1201,8 @@ import StockistPackagePayment from '@/components/admin/StockistPackagePayment.vu
         ...mapActions('userStore',['getPaidUsers','getTotalPaidUsers',
         'getSumPaidUsers','searchPaidUsers','getUpgradedUsers']),
         ...mapActions('productPurchaseStore',['getSumTotalPrices','getMonthlyRepurchases',"approvePurchase","disapprovePurchase"]),
-        ...mapActions('stockistStore',['getStockists','getStockistsStats','getStockistsOrders','getSalesStats','approveStockist','disapproveStockist',
+        ...mapActions('stockistStore',['getStockists','getStockistsStats','getStockistsOrders',
+        'getSalesStats','approveStockist','disapproveStockist','fetchUpgrades','approveUpgrade','disapproveUpgrade'
         ]),
         //...mapActions("PaymentStore",["getStockistPackagePayment"]),
 
@@ -1105,7 +1254,17 @@ import StockistPackagePayment from '@/components/admin/StockistPackagePayment.vu
 
         setOrder(order){
             this.order = order
-        }
+        },
+
+        disapproveStockistUpgrade(id){
+            this.approvingUpgrade = true
+            this.disapproveUpgrade(id).then(()=>{this.approvingUpgrade = false; this.fetchUpgrades()})
+        },
+
+        approveStockistUpgrade(id){
+            this.approvingUpgrade = true
+            this.approveUpgrade(id).then(()=>{this.approvingUpgrade = false; this.fetchUpgrades()})
+        },
 
     }
  }
