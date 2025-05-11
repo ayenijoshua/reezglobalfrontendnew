@@ -106,7 +106,9 @@
                                     <div class="row column-row" >
                                         <div class="ml-auto mr-2">
                                             <button @click="cancelOrder" class="btn btn-sm btn-danger  mt-2" ><i class="icon-cancel mr-2"></i> Cancel Selection</button>
-                                            <button @click="stockistPurchase"  type="submit" class="btn btn-sm btn-success mr-3 "><i class="icon-shopping-cart mr-2"></i>Submit Order</button>
+
+                                            <button v-if="submittingOrder==true" @click="stockistPurchase"  type="submit" class="btn btn-sm btn-success mr-3 "><i class="icon-shopping-cart mr-2"></i>...</button>
+                                            <button v-else @click="stockistPurchase"  type="submit" class="btn btn-sm btn-success mr-3 "><i class="icon-shopping-cart mr-2"></i>Submit Order</button>
                                         </div>    
                                     </div>
                                 </template>
@@ -132,118 +134,7 @@
                 </div>
             </div>
             <br>
-            <div class="d-flex justify-content-center mt-5 mb-5"> <!-- Centering wrapper added -->
-                <div class="col-md-6 col-sm-12"> 
-                    <div class="card no-b shadow 1" style="background-color: transparent;">
-                        <div class="card-body">
-                            <span class="text-center text-green s-12 font-weight-bold">Select Your Preferred Payment Method</span>
-                            <div class="form-group m-0">                       
-                                <div class="input-group mb-2 mr-sm-2 mb-3">
-                                    <div class="input-group-prepend">
-                                        <div class="input-group-text" style="background-color: #2E671A; border: 2px solid #2E671A;"><i class="icon icon-payment float-left s-20 text-white" ></i></div>
-                                    </div>
-                                    <select required v-model="selectedPaymentType" class="form-control r-0 light s-12" style="background-color: transparent; border: 2px solid #1b4f72;">
-                                        <option value="">Select Payment type</option>
-                                        <option value="offline">Pay Offline</option>	
-                                        <!-- <option value="online">Pay Via Payment Gateway</option>													    -->
-                                    </select>
-                                </div>
-                            </div>
-                        </div>     
-                    </div>       
-                </div>
-            </div>
-    
-           <div v-if="selectedPaymentType === 'offline'" class="row"> 
-               <!--- <div class="col-md-12">
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div class="card shadow rounded" style="background-color: #2E671A">
-                                <div class="card-body">
-                                    <div class="d-flex justify-content-center">
-                                        <div class="text-center">  
-                                            <img src="/assets/img/bank-transfer.png" width="auto" height="100px">
-                                        </div>
-                                        <div class="card-body text-center">
-                                            <span  id="d1" class="text-white" style="font-size:10px">Bank Name</span>
-                                            <h5 class="font-weight-bold text-white"> Guaranty Trust Bank</h5>
-                                            <span  id="d1" class="text-white" style="font-size:10px">Account Name</span>
-                                            <h5 class="font-weight-bold text-white" id="d1">Star Twins Herbal Limited</h5>
-                                            <span  id="d1" class="text-white" style="font-size:10px">Account Number</span>
-                                            <h5 class="font-weight-bold text-white" id="d1">0013476690</h5>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="card shadow rounded" style="background-color: #2E671A">
-                                <div class="card-body">
-                                    <div class="d-flex justify-content-center">
-                                        <div class="text-center">  <img  src="/assets/img/bank-transfer.png" width="auto" height="100px"></div>
-                                            <div class="card-body text-center">
-                                                <span  id="d1" class="text-white" style="font-size:10px">Bank Name</span>
-                                                <h5 class="font-weight-bold text-white"> Jaiz Bank</h5>
-                                                <span  id="d1" class="text-white" style="font-size:10px">Account Name</span>
-                                                <h5 class="font-weight-bold text-white" id="d1">Star Twins Herbal Limited</h5>
-                                                <span  id="d1" class="text-white" style="font-size:10px">Account Number</span>
-                                                <h5 class="font-weight-bold text-white" id="d1">2017714690</h5>
-                                            </div>
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="card shadow rounded" style="background-color: #2E671A">
-                                <div class="card-body">
-                                    <div class="d-flex justify-content-center">
-                                        <div class="text-center">  <img  src="/assets/img/bank-transfer.png" width="auto" height="100px"></div>
-                                        <div class="card-body text-center">
-                                            <span  id="d1" class="text-white" style="font-size:10px">Bank Name</span>
-                                            <h5 class="font-weight-bold text-white"> United Bank Of Africa</h5>
-                                            <span  id="d1" class="text-white" style="font-size:10px">Account Name</span>
-                                            <h5 class="font-weight-bold text-white" id="d1">Star Twins Herbal Limited</h5>
-                                            <span  id="d1" class="text-white" style="font-size:10px">Account Number</span>
-                                            <h5 class="font-weight-bold text-white" id="d1">1113470690</h5>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>  --> 
-
-                <div class="col-md-12 mt-5">
-                    <div class="card shadow" style="background-color: transparent">
-                        <div class="card-body" >
-                            
-                        </div>
-                    </div>
-                    
-                </div>
-            </div>
-
-            <div v-if="selectedPaymentType === 'online'" class="row mb-2 mt-2">
-                <div class="col-md-12">
-                    <div class="d-flex flex-wrap justify-content-center mt-2">
-                        <div class="col-md-6 col-sm-12"> 
-                            <div class="card  mb-3 shadow1" style="background-color: #2E671A">                       
-                                <div class="d-flex flex-wrap justify-content-center">
-                                    <div class="text-center mt-5 mb-5" style="padding-bottom:10px; padding-top: 20px">
-                                        <img  src="/assets/img/pay_options1.png" width="300px">
-                                        <h6 class="font-weight-bold text-white" >Proceed To Payment<br><small>Kindly complete your  Product Purchase by clicking the button Below</small></h6>
-                                        <template v-if="paySubmitting">
-                                            <a class="btn btn-sm btn-custom mb-3 mt-2 btn-lg"><i class="icon icon-credit-card"></i>...Processing</a>
-                                        </template>
-                                        <a v-else class="btn btn-sm btn-custom mb-3 mt-2 btn-lg" @click="makePayment"><i class="icon icon-credit-card"></i>Pay Now</a>
-                                    </div>
-                                </div>	   
-                            </div>
-                        </div>    
-                    </div> 
-                </div> 
-            </div>          
+                     
         </div>
 
         <modal modalId="pay"  modalTitle="Make Payment" modalSize="md" :link="payLink">
@@ -388,7 +279,8 @@ export default{
             selectedPaymentTypes:["offline","online"],
             selectedPaymentType:"",
             gatewayTimeout:1000*60*0.5,
-            prevMonthSaleLoading:false
+            prevMonthSaleLoading:false,
+            submittingOrder:false
         }
     },
 
@@ -509,7 +401,8 @@ export default{
                 pickup_type:'purchase'
             }
 
-            this.pushStockistPurchase({uuid:this.authUser.uuid,data:form})
+            this.submittingOrder = true
+            this.pushStockistPurchase({uuid:this.authUser.uuid,data:form}).then(()=>this.submittingOrder = false)
         },
 
         makePayment(){

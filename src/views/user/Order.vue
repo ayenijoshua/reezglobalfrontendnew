@@ -57,7 +57,7 @@
                                     <div v-for="order,i in orders" :key="i" class="row column-row p-2" style="border-bottom: 1px solid #2E671A !important;">
                                         <template>
                                             <div class="mt-2 ml-3" style="padding-right:15px" :key="i">
-                                            <img src="/assets/img/demo/products/product3.png" width="80px" height="80px">
+                                            <img :src="imageURI(order.image)" width="80px" height="80px">
                                             </div>  
                                             <div class="mb-2 mt-4" :key="i">
                                                 <h6 class="font-weight-bold text-green s-14" style="margin: 0em; padding: 0em;">{{ order.name }} <br>
@@ -125,9 +125,10 @@
                         </div>
                         <hr>
                         <div v-if="orders.length !== 0" class=" mb-3 mt-3">	
-                            <!---<span  class="btn btn-sm btn-success">...</span>-->								
-                            <button @click="approvePurchase(purchaseId)" type="submit" class="btn btn-sm btn-success btn-lg mr-3"><i class="icon-shopping_cart mr-2"></i>Approve Order</button>
-                            <button type="submit" class="btn btn-sm btn-danger "><i class="icon-cancel mr-2"></i>Cancel Order</button>                   
+                            <!---<span  class="btn btn-sm btn-success">...</span>-->
+                            <button v-if="approvingOrder==true" @click="approvePurchase(purchaseId)" type="submit" class="btn btn-sm btn-success btn-lg mr-3"><i class="icon-shopping_cart mr-2"></i>...</button>								
+                            <button v-else @click="approvePurchase(purchaseId)" type="submit" class="btn btn-sm btn-success btn-lg mr-3"><i class="icon-shopping_cart mr-2"></i>Approve Order</button>
+                            <!-- <button type="submit" class="btn btn-sm btn-danger "><i class="icon-cancel mr-2"></i>Cancel Order</button>                    -->
                         </div> 
                     </div> 
                 </div>
@@ -406,9 +407,14 @@ export default{
                         return prev.points + curr.points
                     })
 
-                    this.totalPrice = this.orders.reduce((prev,curr)=>{
-                        return prev.price + curr.price
-                    })
+                    if(this.orders.length == 1){
+                        this.totalPrice = this.orders[0].price
+                    }else{
+                        this.totalPrice = this.orders.reduce((prev,curr)=>{
+                            return prev.price + curr.price
+                        })
+                    }
+                    
 
                     this.purchaseId = this.orders[0].product_purchase_id
                 }
@@ -437,7 +443,11 @@ export default{
             this.vendorApprovePurchase(purchaseId).then(()=>{
                 this.approvingOrder = false
             })
-        }
+        },
+
+        imageURI(img){
+            return img ? process.env.VUE_APP_IMAGE_PATH+'/'+img : '/assets/img/demo/products/product3.png';
+        },
     }
 
 }
