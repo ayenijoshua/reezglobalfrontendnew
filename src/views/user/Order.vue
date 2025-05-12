@@ -22,7 +22,10 @@
                                     </div>
                                 </div>
                                 <div class="d-flex justify-content-center">
-                                    <button @click="getUserOrders" type="submit" class="btn btn-sm btn-success btn-lg mr-3">
+                                    <button v-if="orderLoading==true" type="submit" class="btn btn-sm btn-success btn-lg mr-3">
+                                        <i class="icon-save mr-2"></i>...
+                                    </button>
+                                    <button v-else @click="getUserOrders" type="submit" class="btn btn-sm btn-success btn-lg mr-3">
                                         <i class="icon-save mr-2"></i>Confirm Selection
                                     </button>
                                 </div>
@@ -56,12 +59,12 @@
                                 <div v-else>
                                     <div v-for="order,i in orders" :key="i" class="row column-row p-2" style="border-bottom: 1px solid #2E671A !important;">
                                         <template>
-                                            <div class="mt-2 ml-3" style="padding-right:15px" :key="i">
+                                            <div class="mt-2 ml-3" style="padding-right:15px">
                                             <img :src="imageURI(order.image)" width="80px" height="80px">
                                             </div>  
-                                            <div class="mb-2 mt-4" :key="i">
+                                            <div class="mb-2 mt-4" >
                                                 <h6 class="font-weight-bold text-green s-14" style="margin: 0em; padding: 0em;">{{ order.name }} <br>
-                                                    <small class="font-weight-bold"> {{order.points}}PV | Qty:{{ order.product_qty }}</small>
+                                                    <small class="font-weight-bold"> unit price ₦{{(order.price/order.product_qty)}} | Qty:{{ order.product_qty }}</small>
                                                 </h6>
                                                 <h6>
                                                     <small :class="['font-weight-bold', order.in_stock ? 'text-info' : 'text-danger']">Instock : {{order.in_stock}}</small>  
@@ -69,7 +72,7 @@
                                                 </h6>	
 
                                             </div>	
-                                            <div class="mb-2 mt-4 ml-auto mr-2" :key="i">
+                                            <div class="mb-2 mt-4 ml-auto mr-2" >
                                                 <span class="font-weight-bold float-right text-green">₦{{ order.price.toLocaleString('en-US') }}</span>
                                             </div>
                                         </template>
@@ -100,7 +103,6 @@
                                     </div>
                                 </div>
                             </template>
-                            
                             
                             <hr>
                             <div v-if="member !== null" class="d-flex align-items-center mt-4">
@@ -411,10 +413,9 @@ export default{
                         this.totalPrice = this.orders[0].price
                     }else{
                         this.totalPrice = this.orders.reduce((prev,curr)=>{
-                            return prev.price + curr.price
+                            return prev.price??0 + curr.price??0 
                         })
                     }
-                    
 
                     this.purchaseId = this.orders[0].product_purchase_id
                 }
