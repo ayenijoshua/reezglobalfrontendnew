@@ -1,8 +1,35 @@
 <template>
     <div>
         <div class="">
-
-            <div class="row ">		
+            <div class="d-flex justify-content-center mt-5 mb-3"> <!-- Centering wrapper added -->
+                <div class="col-md-6 col-sm-12"> 
+                    <div class="card no-b shadow 1" style="background-color: transparent;">
+                        <div class="card-body">
+                            <span class="text-center text-blue s-12 font-weight-bold">Select Pick-up Type</span>
+                            <b-card v-if="stockist.id==undefined || packageLoading == true">
+                                <b-skeleton width="85%"></b-skeleton>
+                                <b-skeleton width="55%"></b-skeleton>
+                                <b-skeleton width="70%"></b-skeleton>
+                            </b-card>
+                            <div v-else class="form-group m-0">                       
+                                <div class="input-group mb-2 mr-sm-2 mb-3">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text" style="background-color: #2E671A; border: 2px solid #2E671A;"><i class="icon icon-shopping-cart float-left s-20 text-white" ></i></div>
+                                    </div>
+                                    
+                                    <select required v-model="selectedOrderType" @change="getPickupAmount" class="form-control r-0 light s-12" style="background-color: transparent; border: 2px solid #1b4f72;">
+                                        <template v-for="orderType,i in orderTypes">
+                                            <option :value="orderType" :key="i">{{orderType == '' ? 'Select' : orderType.replace('_'," ")}}</option>
+                                        </template>														   
+                                    </select>
+                                </div>
+                            </div>
+                        </div>     
+                    </div>       
+                </div>
+            </div> <br>
+            <div class="row ">
+                
                 <div class="col-md-8">
                     <div class="card no-b shadow" style="background-color:#ecf0f1">
                         <div class="card-header">Stock Purchase</div>
@@ -113,18 +140,18 @@
                                     </div>
                                 </template>
                                 
-                                <template>
-                                    <b-card v-if="prevMonthSaleLoading==true">
+                                <template v-if="selectedOrderType=='registration_pickup' || selectedOrderType=='upgrade_pickup' || selectedOrderType=='re-stock'">
+                                    <b-card v-if="pickupAmountLoading==true || packageLoading == true">
                                         <b-skeleton width="85%"></b-skeleton>
                                         <b-skeleton width="55%"></b-skeleton>
                                         <b-skeleton width="70%"></b-skeleton>
                                     </b-card>
                                     <div v-else class="row column-row border-bottom">
                                         <div class="mb-2 mt-5 ml-3">
-                                            <h6 class="font-weight-bold text-green s-12" style="margin: 0em; padding: 0em;">Previus Month Sales </h6>											
+                                            <h6 class="font-weight-bold text-green s-12" style="margin: 0em; padding: 0em;">{{ pickupAmountType }} </h6>											
                                         </div>	
                                         <div class="mb-2 mt-5 ml-auto mr-3">
-                                            <h6 class="font-weight-bold text-green s-12" style="margin: 0em; padding: 0em;">₦{{ Number(stockistPrevMonthSales??0)?.toLocaleString('en-US') }} </h6>											
+                                            <h6 class="font-weight-bold text-green s-12" style="margin: 0em; padding: 0em;">₦{{ Number(pickupAmount)?.toLocaleString('en-US') }} </h6>											
                                         </div>
                                     </div>
                                 </template>
@@ -250,7 +277,7 @@ import modal from '@/components/Modal.vue'
 import VueCountdown from '@chenfengyuan/vue-countdown';
 import { notification } from '@/util/notification';
 export default{
-    name:"user-repurchase",
+    name:"stockist-repurchase",
 
     components:{
         modal,
@@ -280,7 +307,14 @@ export default{
             selectedPaymentType:"",
             gatewayTimeout:1000*60*0.5,
             prevMonthSaleLoading:false,
-            submittingOrder:false
+            submittingOrder:false,
+
+            orderTypes : ["","upgrade_pickup","registration_pickup","re-stock"],
+
+            selectedOrderType: "",
+            pickupAmountLoading:false,
+            packageLoading:false,
+            stockistLoading:false
         }
     },
 
@@ -298,6 +332,7 @@ export default{
         ...mapGetters('settingStore',['settings']),
         ...mapGetters('productStore',['products']),
         ...mapGetters('stockistStore',['stockist']),
+        ...mapGetters('stockistPackageStore',['stockistPackage']),
         ...mapGetters('productPurchaseStore',['stockistPrevMonthSales']),
     },
 
@@ -310,7 +345,9 @@ export default{
                     this.stockistLoading = true
                     this.fetchStockistByUuid(res.data.uuid).then(()=>{
                         this.stockistLoading=false
-                        this.form = Object.assign({},this.stockist) 
+                        this.form = Object.assign({},this.stockist)
+                        this.packageLoading = true
+                        this.single(this.stockist.package_id).then(()=>this.packageLoading=false)
                     })
                     
                     if(this.stockistPrevMonthSale == null){
@@ -323,6 +360,8 @@ export default{
                 this.fetchStockistByUuid(this.authUser.uuid).then(()=>{
                     this.stockistLoading=false
                     this.form = Object.assign({},this.stockist)
+                    this.packageLoading = true
+                    this.single(this.stockist.package_id).then(()=>this.packageLoading = false)
                 })
 
                 if(this.stockistPrevMonthSale == null){
@@ -383,7 +422,8 @@ export default{
         ...mapActions('productStore',['getActiveProducts']),
         ...mapActions('productPurchaseStore',['pushStockistPurchase','fetchStockPrevMonthSales']),
         ...mapActions('paymentStore',['initiate','verify','initiatePayment']),
-        ...mapActions('stockistStore',['fetchStockistByUuid']),
+        ...mapActions('stockistStore',['fetchStockistByUuid','fetchPackageDifference']),
+        ...mapActions('stockistPackageStore',['single']),
 
         stockistPurchase(){
             //let ele = document.getElementById("stock-purchase-form")
@@ -392,13 +432,22 @@ export default{
             // form.append("total_price",this.cartTotalPrice)
             // form.append("total_quantity",this.cartTotalQty)
             // form.append("total_points",this.cartTotalPoints)
+            if(this.cartProducts.length == 0){
+                notification.warning("There are no Items in your cart")
+                return
+            }
+
+            if(this.cartTotalPrice > this.pickupAmount){
+                notification.warning("There selected Items total price is greater than the pickup amount")
+                return
+            }
 
             let form = {
                 products:this.cartProducts,
                 total_price:this.cartTotalPrice,
                 total_quantity:this.cartTotalQty,
                 total_points:this.cartTotalPoints,
-                pickup_type:'purchase'
+                pickup_type:this.selectedOrderType
             }
 
             this.submittingOrder = true
@@ -496,10 +545,41 @@ export default{
             this.cartQty = {}
             this.cartTotalQty = 0;
         },
-       
+
+        getPickupAmount(){
+            switch (this.selectedOrderType) {
+                case 'registration_pickup':
+                    this.pickupAmountType = "Registration Pickup Amount";
+                    this.pickupAmount = this.stockistPackage.pickup_amount
+                    break;
+                
+                case 'upgrade_pickup':
+                    this.pickupAmountType = "Upgrade Pickup Amount";
+                    this.pickupAmountLoading = true;
+                    this.fetchPackageDifference({packageId:this.stockist.package_id,isUpgradePickup:true}).then((res)=>{
+                        console.log("pack-upg",res.data.data)
+                        let currPackage = res.data.data.current_package
+                        let newPackage = res.data.data.new_package
+                        let diff = newPackage.pickup_amount - currPackage.pickup_amount;
+
+                        this.pickupAmount = diff;
+
+                        this.pickupAmountLoading = false;
+                    })
+                    break;
+
+                case 're-stock':
+                    this.pickupAmountType = "Previous Month Sales";
+                    this.pickupAmount = this.stockistPrevMonthSales;
+                    break;
+
+                default:
+                    this.pickupAmountType = "";
+                    this.pickupAmount = null
+                    break;
+            }
+        }
     }
-
-
 
 }
 </script>

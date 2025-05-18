@@ -94,7 +94,7 @@
                                                                         <td>₦{{ withdraw.amount?.toLocaleString('en-US') }}</td>
                                                                         <td>₦{{ withdraw.fee?.toLocaleString('en-US') }}</td>
                                                                         <td>{{ withdraw.status }}</td>
-                                                                        <td>{{ withdraw.created_at }}</td>
+                                                                        <td>{{(new Date(withdraw.created_at)).toLocaleDateString()  }}</td>
                                                                     </tr>
                                                                 </template>
                                                             </template>
@@ -182,7 +182,7 @@
                                                             </tr>
                                                         </thead>
                                                         <tbody>
-                                                            <tr v-if="loading && paidUsersLoading">
+                                                            <tr v-if="paidUsersLoading">
                                                                 <td colspan="6">
                                                                     <b-skeleton-table
                                                                         :rows="3"
@@ -206,7 +206,7 @@
                                                                         <td>{{ user.username }}</td>
                                                                         <td>{{ user.name }}</td>
                                                                         <td>₦{{ user.amount?.toLocaleString('en-US') }}</td>
-                                                                        <td>{{ user.created_at }}</td>
+                                                                        <td>{{(new Date(user.created_at)).toLocaleDateString() }}</td>
                                                                         <td>
                                                                             <button @click="setUser(user)" v-b-modal.user-upgrade-history class="badge badge-info">View</button>
                                                                         </td>
@@ -256,7 +256,7 @@
                                                             </tr>
                                                         </thead>
                                                         <tbody>
-                                                            <tr v-if="loading && upgradedUsersLoading">
+                                                            <tr v-if="upgradedUsersLoading==true">
                                                                 <td colspan="7">
                                                                     <b-skeleton-table
                                                                         :rows="3"
@@ -281,16 +281,14 @@
                                                                         <td>{{ user.package_name }}</td>
                                                                         <td>{{ user.package_name }}</td>
                                                                         <td>₦{{ user.amount?.toLocaleString('en-US') }}</td>
-                                                                        <td>{{ user.created_at }}</td>
+                                                                        <td>{{ (new Date(user.created_at)).toLocaleDateString() }}</td>
                                                                     </tr>
                                                                 </template>
-                                                                
                                                             </template>
                                                         </tbody>
                                                     </table>
                                                     <br>
                                                     <BasePaginator v-if="paidUserAction" :action="paidUserAction" :current_page="paidUsersCurrentPage" :last_page="paidUsersLastPage" :total_pages="paidUsersTotalPages" :per_page="paidUsersPerPage"></BasePaginator>
-                                                    
                                                 </div>
                                             </div>
                                         </div>
@@ -505,7 +503,7 @@
                                                                 <td>{{ stock.store_state }}</td>
                                                                 <td>{{stock.store_phone}}</td>
                                                                 <td>{{stock.stockist_status}}</td>
-                                                                <td>{{stock.reg_date}}</td>
+                                                                <td>{{(new Date(stock.reg_date).toLocaleDateString())}}</td>
                                                                 <!-- <td>₦{{ stock.total_purchases.toLocaleString('en-US') }}</td>
                                                                 <td>₦{{ stock.total_sales.toLocaleString('en-US') }}</td> -->
                                                                 <td>
@@ -603,7 +601,7 @@
                                                                 <td>{{ stock.store_state }}</td>
                                                                 <td>{{stock.store_phone}}</td>
                                                                 <td>{{stock.payment_status}}</td>
-                                                                <td>{{stock.payment_date}}</td>
+                                                                <td>{{(new Date(stock.payment_date)).toLocaleDateString()}}</td>
                                                                 <!-- <td>₦{{ stock.total_purchases.toLocaleString('en-US') }}</td>
                                                                 <td>₦{{ stock.total_sales.toLocaleString('en-US') }}</td> -->
                                                                 <td>
@@ -667,8 +665,8 @@
                                                                         <th class="font-weight-bold" scope="col">USERNAME</th>
                                                                         <th class="font-weight-bold" scope="col">STOCKIST NAME</th>
                                                                         <th class="font-weight-bold" scope="col">PACKAGE</th>
-                                                                        <th class="font-weight-bold" scope="col">PAYMENT TYPE</th>
-                                                                        <th class="font-weight-bold" scope="col">PAYMENT</th>
+                                                                        <th class="font-weight-bold" scope="col">PICKUP TYPE</th>
+                                                                        <th class="font-weight-bold" scope="col">ORDERS</th>
                                                                         <th class="font-weight-bold" scope="col">DATE & TIME</th>
                                                                         <th class="font-weight-bold" scope="col">ACTION</th>
                                                                         <th class="font-weight-bold" scope="col">STATUS</th>
@@ -676,17 +674,17 @@
                                                                 </thead>
                                                                 <tbody>
                                                                     <tr v-if="stockistsOrdersLoading==true">
-                                                                        <td colspan="11">
+                                                                        <td colspan="9">
                                                                             <b-skeleton-table
                                                                                 :rows="3"
-                                                                                :columns="8"
+                                                                                :columns="9"
                                                                                 :table-props="{ bordered: true, striped: true }"
                                                                             ></b-skeleton-table>
                                                                         </td>
                                                                     </tr>
                                                                     <template v-else>
                                                                         <tr v-if="stockistsOrders.length==0">
-                                                                            <td colspan="9">
+                                                                            <td colspan="8">
                                                                                 <div class="alert alert-info">There are no stockist orders</div>
                                                                             </td>
                                                                         </tr>
@@ -697,19 +695,19 @@
                                                                             <td>{{order.stockist_package}}</td>
                                                                             <td>{{order.pickup_type}}</td>
                                                                             <td>
-                                                                                <a class="btn-fab btn-fab-sm btn-success text-white" href="#" data-toggle="modal" data-target="#viewproductModal">
+                                                                                <a href="#" v-b-modal.view-products @click="fetchDetails(order.purchase_id)" class="btn-fab btn-fab-sm btn-success text-white">
                                                                                     <i class="icon-eye"></i>
                                                                                 </a>
                                                                             </td>
-                                                                            <td>{{order.created_at}}</td>
+                                                                            <td>{{(new Date(order.created_at)).toLocaleDateString()}}</td>
                                                                             <td>
-                                                                                <div class="dropdown"> 
+                                                                                <div v-if="order.status=='processing'" class="dropdown"> 
                                                                                     <button class="btn btn-sm btn-success  dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                                                     <i class="caret"></i>
                                                                                     </button>
-                                                                                    <div class="dropdown-menu " aria-labelledby="dropdownMenuButton" style="position:fixed; background-color: #ecf0f1">
-                                                                                        <a v-b-modal.approve-stockist-purchase @click="setOrder(order)" class="dropdown-item text-green" href="#"  ><i class="icon-check-circle"></i>&nbsp;&nbsp; Approve</a>
-                                                                                        <a v-b-modal.disapprove-stockist-purchase @click="setOrder(order)" class="dropdown-item text-green" href="#" ><i class="icon-times-circle"></i>&nbsp;&nbsp; Decline</a>	
+                                                                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="position:fixed; background-color: #ecf0f1">
+                                                                                        <a v-b-modal.approve-stockist-purchase @click="setOrder(order)" class="dropdown-item text-green" href="#"><i class="icon-check-circle"></i>&nbsp;&nbsp; Approve</a>
+                                                                                        <a v-b-modal.disapprove-stockist-purchase @click="setOrder(order)" class="dropdown-item text-green" href="#"><i class="icon-times-circle"></i>&nbsp;&nbsp; Decline</a>	
                                                                                     </div>
                                                                                 </div>													
                                                                             </td>
@@ -942,6 +940,36 @@
                 </div>
             </template>
         </Modal>
+
+        <Modal modal-id="view-products" modal-title="View Products" modal-size="lg">
+            <template v-if="orderDetailsLoading==true">
+                <b-skeleton-table
+                    :rows="3"
+                    :columns="8"
+                    :table-props="{ bordered: true, striped: true }"
+                ></b-skeleton-table>
+            </template>
+            <template v-else>
+                <div class="row">
+                    <div class="col-md-12">
+                        <table class="table table-hover">
+                            <tr>
+                                <th>S/N</th>
+                                <th>Product</th>
+                                <th>Image</th>
+                                <th>Quantity</th>
+                            </tr>
+                            <tr v-for="orde,i in orderDetails.products" :key="i">
+                                <td>{{ ++i }}</td>
+                                <td>{{ orde.name }}</td>
+                                <td> <img :src="imageURL(orde.image)" height="100" width="100"/></td>
+                                <td>{{ orde.product_qty }}</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </template>
+        </Modal>
     </div>
 </template>
 
@@ -1118,7 +1146,9 @@ import StockistPackagePayment from '@/components/admin/StockistPackagePayment.vu
             updatingRegistration:false,
             order:null,
             upgradesLoading:false,
-            approvingUpgrade:false
+            approvingUpgrade:false,
+            orderDetailsLoading:false,
+            orderDetails:[]
         }
     },
 
@@ -1163,7 +1193,7 @@ import StockistPackagePayment from '@/components/admin/StockistPackagePayment.vu
 
         if(this.upgradedUsers.length==0){
             this.upgradedUsersLoading = true
-            //this.getUpgradedUsers().then(()=>this.upgradedUsersLoading = false)
+            this.getUpgradedUsers().then(()=>this.upgradedUsersLoading = false)
         }
 
         this.sumTotalPricesLoading = true
@@ -1200,7 +1230,7 @@ import StockistPackagePayment from '@/components/admin/StockistPackagePayment.vu
         ...mapActions('withdrawalStore',['all','getTotal','searchWithdrawals']),
         ...mapActions('userStore',['getPaidUsers','getTotalPaidUsers',
         'getSumPaidUsers','searchPaidUsers','getUpgradedUsers']),
-        ...mapActions('productPurchaseStore',['getSumTotalPrices','getMonthlyRepurchases',"approvePurchase","disapprovePurchase"]),
+        ...mapActions('productPurchaseStore',['getSumTotalPrices','getMonthlyRepurchases',"approvePurchase","disapprovePurchase","fetchOrderDetails"]),
         ...mapActions('stockistStore',['getStockists','getStockistsStats','getStockistsOrders',
         'getSalesStats','approveStockist','disapproveStockist','fetchUpgrades','approveUpgrade','disapproveUpgrade'
         ]),
@@ -1265,6 +1295,17 @@ import StockistPackagePayment from '@/components/admin/StockistPackagePayment.vu
             this.approvingUpgrade = true
             this.approveUpgrade(id).then(()=>{this.approvingUpgrade = false; this.fetchUpgrades()})
         },
+
+        fetchDetails(purchaseId){
+            this.orderDetailsLoading = true
+            this.fetchOrderDetails(purchaseId).then((res)=>{
+                if(res && res.status==200){
+                    console.log('details',[res.data.data])
+                    this.orderDetails = res.data.data
+                }
+                this.orderDetailsLoading = false
+            })
+        }
 
     }
  }

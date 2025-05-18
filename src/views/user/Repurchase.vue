@@ -6,7 +6,12 @@
                     <div class="card no-b shadow 1" style="background-color: transparent;">
                         <div class="card-body">
                             <span class="text-center text-blue s-12 font-weight-bold">Select Pick-up Type</span>
-                            <div class="form-group m-0">                       
+                            <b-card v-if="authUser.uuid==undefined || packageLoading == true">
+                                <b-skeleton width="85%"></b-skeleton>
+                                <b-skeleton width="55%"></b-skeleton>
+                                <b-skeleton width="70%"></b-skeleton>
+                            </b-card>
+                            <div v-else class="form-group m-0">                       
                                 <div class="input-group mb-2 mr-sm-2 mb-3">
                                     <div class="input-group-prepend">
                                         <div class="input-group-text" style="background-color: #2E671A; border: 2px solid #2E671A;"><i class="icon icon-shopping-cart float-left s-20 text-white" ></i></div>

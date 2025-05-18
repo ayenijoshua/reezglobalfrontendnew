@@ -37,18 +37,18 @@ export default {
         }
     },
 
-    //admin approves stock
     async single({commit},id){
         try {
             commit('loading',null,{root:true})
             const res = await api.single(id)
             if(res && res.status==200){
-                toastr.success(res.data.message)
-                commit('stockist',res.data.data)
+                //toastr.success(res.data.message)
+                commit('stockistPackage',res.data.data)
             }else{
                 toastr.warning(res.data.message)
             }
             commit('loaded',null,{root:true})
+            return res
         } catch (error) {
             LogError(commit,error,'loaded')
         }

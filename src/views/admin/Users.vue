@@ -83,16 +83,17 @@
                                                     <td>{{ user.email }}</td>
                                                     <td>{{ user.username }}</td>
                                                     <td>{{ user.package_name }}</td>
-                                                    <td>{{ user.created_at }}</td>
+                                                    <td>{{ (new Date(user.created_at)).toLocaleDateString() }}</td>
                                                     <td>
                                                         <div class="dropdown">
                                                             <button class="btn btn-sm btn-success dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                                 <i class="caret"></i>
                                                             </button>
-                                                            <div class="dropdown-menu"  style="background-color: #ecf0f1">
+                                                            <div class="dropdown-menu" style="background-color: #ecf0f1">
                                                                 <a v-if="usersType !== 'inactive'" @click="setUser(user)" v-b-modal.user-dashboard class="dropdown-item text-green" ><i class="icon-barometer2"></i>&nbsp;&nbsp; Dashboard</a>
                                                                 <a v-if="usersType !== 'inactive'" @click="setUser(user)" v-b-modal.user-profile class="dropdown-item text-green" >
-                                                                    <i class="icon-drivers-license-o"></i>&nbsp;&nbsp; Profile</a>
+                                                                    <i class="icon-drivers-license-o"></i>&nbsp;&nbsp; Profile
+                                                                </a>
                                                                 <a v-if="usersType !== 'inactive'" @click="setUser(user)" v-b-modal.user-genealogy class="dropdown-item text-green" ><i class="icon-sitemap"></i>&nbsp;&nbsp;Geneology</a>
                                                                 <a v-if="usersType !== 'inactive'" @click="setUser(user)" v-b-modal.user-wallet class="dropdown-item text-green" ><i class="icon-account_balance_wallet"></i>&nbsp;&nbsp;Wallet</a>
                                                                 <a v-if="usersType !== 'inactive'" @click="setUser(user)" v-b-modal.user-order-history class="dropdown-item text-green" ><i class="icon-shopping-cart"></i>&nbsp;&nbsp;Repurchase History</a>

@@ -5,7 +5,7 @@ export default {
         state.stockistPackages = data
     },
 
-    stockist(state,data){
+    stockistPackage(state,data){
         state.stockistPackage = data
     }
 }
