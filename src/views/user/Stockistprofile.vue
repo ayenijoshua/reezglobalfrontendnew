@@ -2,7 +2,7 @@
     <div>
         <div>
             <div class="">
-                <div class="row ">	
+                <div class="row">	
                     <div class="col-md-8">
                         <div class="">
                             <div class="">
@@ -337,7 +337,7 @@ export default{
         },
 
         getPackageDifference(){
-            this.fetchPackageDifference(this.upgradeForm.package_id).then((res)=>{
+            this.fetchPackageDifference({packageId:this.upgradeForm.package_id,isUpgradePickup:false}).then((res)=>{
                 console.log('pac-diff',res.data.data)
                 this.upgradeData = res.data.data
             })

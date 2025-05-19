@@ -94,7 +94,7 @@
                                                                         <td>₦{{ withdraw.amount?.toLocaleString('en-US') }}</td>
                                                                         <td>₦{{ withdraw.fee?.toLocaleString('en-US') }}</td>
                                                                         <td>{{ withdraw.status }}</td>
-                                                                        <td>{{(new Date(withdraw.created_at)).toLocaleDateString()  }}</td>
+                                                                        <td>{{(new Date(withdraw.created_at)).toDateString()}} {{(new Date(withdraw.created_at)).toLocaleTimeString()}}</td>
                                                                     </tr>
                                                                 </template>
                                                             </template>
@@ -206,7 +206,7 @@
                                                                         <td>{{ user.username }}</td>
                                                                         <td>{{ user.name }}</td>
                                                                         <td>₦{{ user.amount?.toLocaleString('en-US') }}</td>
-                                                                        <td>{{(new Date(user.created_at)).toLocaleDateString() }}</td>
+                                                                        <td>{{(new Date(user.created_at)).toDateString() }} {{(new Date(user.created_at)).toLocaleTimeString() }}</td>
                                                                         <td>
                                                                             <button @click="setUser(user)" v-b-modal.user-upgrade-history class="badge badge-info">View</button>
                                                                         </td>
@@ -281,7 +281,7 @@
                                                                         <td>{{ user.package_name }}</td>
                                                                         <td>{{ user.package_name }}</td>
                                                                         <td>₦{{ user.amount?.toLocaleString('en-US') }}</td>
-                                                                        <td>{{ (new Date(user.created_at)).toLocaleDateString() }}</td>
+                                                                        <td>{{ (new Date(user.created_at)).toDateString() }} {{ (new Date(user.created_at)).toLocaleTimeString() }}</td>
                                                                     </tr>
                                                                 </template>
                                                             </template>
@@ -503,7 +503,7 @@
                                                                 <td>{{ stock.store_state }}</td>
                                                                 <td>{{stock.store_phone}}</td>
                                                                 <td>{{stock.stockist_status}}</td>
-                                                                <td>{{(new Date(stock.reg_date).toLocaleDateString())}}</td>
+                                                                <td>{{(new Date(stock.reg_date).toDateString())}} {{(new Date(stock.reg_date).toLocaleTimeString())}}</td>
                                                                 <!-- <td>₦{{ stock.total_purchases.toLocaleString('en-US') }}</td>
                                                                 <td>₦{{ stock.total_sales.toLocaleString('en-US') }}</td> -->
                                                                 <td>
@@ -601,7 +601,7 @@
                                                                 <td>{{ stock.store_state }}</td>
                                                                 <td>{{stock.store_phone}}</td>
                                                                 <td>{{stock.payment_status}}</td>
-                                                                <td>{{(new Date(stock.payment_date)).toLocaleDateString()}}</td>
+                                                                <td>{{(new Date(stock.payment_date)).toDateString()}} {{(new Date(stock.payment_date)).toLocaleTimeString()}}</td>
                                                                 <!-- <td>₦{{ stock.total_purchases.toLocaleString('en-US') }}</td>
                                                                 <td>₦{{ stock.total_sales.toLocaleString('en-US') }}</td> -->
                                                                 <td>
@@ -699,7 +699,7 @@
                                                                                     <i class="icon-eye"></i>
                                                                                 </a>
                                                                             </td>
-                                                                            <td>{{(new Date(order.created_at)).toLocaleDateString()}}</td>
+                                                                            <td>{{(new Date(order.created_at)).toDateString()}} {{(new Date(order.created_at)).toLocaleTimeString()}}</td>
                                                                             <td>
                                                                                 <div v-if="order.status=='processing'" class="dropdown"> 
                                                                                     <button class="btn btn-sm btn-success  dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -1220,8 +1220,8 @@ import StockistPackagePayment from '@/components/admin/StockistPackagePayment.vu
         }
 
         if(this.stockistUpgrades.length == 0){
-            this.upgradLoading = true
-            this.fetchUpgrades().then(()=>this.upgradLoading = false)
+            this.upgradesLoading = true
+            this.fetchUpgrades().then(()=>this.upgradesLoading = false)
         }
         
     },
