@@ -29,7 +29,7 @@
                         </div>
                         <div class="mt-1 text-dark-heading " ></div>
                         <h6 class="counter-title font-weight-bold">Stockist Rebate</h6><br>
-                        <span class="s-40 my-3 font-weight-lighter" style="font-size:35px"> {{ stats.rebate }}</span> 
+                        <span class="s-40 my-3 font-weight-lighter" style="font-size:35px"> {{ stats.rebate }}%</span> 
                     </div>
                 </div>
                 <div class="col-lg-4">
@@ -207,7 +207,7 @@
                                                     <!-- <td>{{ claim.worth?.toLocaleString('en-US')}}</td> -->
                                                     <td>₦{{ stock.cost_price }}</td>
                                                     <td>{{ stock.quantity }}</td>
-                                                    <td><span :class="['badge', stock.in_stock ? 'badge-success' : 'badge-danger']" style="padding: 6px 10px;">{{ stock.in_stock }}</span></td>
+                                                    <td><span :class="['badge', stock.in_stock ? 'badge-success' : 'badge-danger']" style="padding: 6px 10px;">{{ stock.in_stock==1 ? 'In-stock':'N/A' }}</span></td>
                                                 </tr>
                                             </template>
                                         </template>
