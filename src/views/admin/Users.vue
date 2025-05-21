@@ -563,7 +563,7 @@
         }
     },
     methods: {
-        ...mapActions("userStore", ["getUsers",'searchUsers','getUser']),
+        ...mapActions("userStore", ["getUsers",'searchUsers','getUser','getProfileDetails']),
         ...mapActions("paymentStore", ["makePayment"]),
 
         setUser(user) {

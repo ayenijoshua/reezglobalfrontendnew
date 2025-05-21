@@ -162,11 +162,11 @@
                                                 </div>
                                                 <div class="card-body" style="overflow-x:auto; background-color: #ecf0f1;">
                                                     <div class=" mb-3" style="float:right">
-                                                        <form class="form-inline my-2 my-lg-0" @submit.prevent=" searchRegs()">
-                                                            <input required v-model="regSearchParam" class="form-control mr-sm-2" type="search" placeholder="" aria-label="Search" style="background-color: #ecf0f1; border: 2px solid #2E671A;" >
+                                                       <!-- <form class="form-inline my-2 my-lg-0" @submit.prevent=" searchRegs()">
+                                                            <input required class="form-control mr-sm-2" type="search" placeholder="" aria-label="Search" style="background-color: #ecf0f1; border: 2px solid #2E671A;" >
                                                             <span v-if="loading" class="btn btn-success my-2 my-sm-0">...</span>
                                                             <button v-else class="btn btn-success my-2 my-sm-0" type="submit">Search</button>
-                                                        </form>
+                                                       </form>-->
                                                     </div>
                                                     <table id="example2" class="table table-bordered table-hover data-tables"
                                                         data-options='{ "paging": false; "searching":false}'>
@@ -175,7 +175,7 @@
                                                                 <th>S/N</th>
                                                                 <th>Full Name</th>
                                                                 <th>Username</th>
-                                                                <th>Package</th>
+                                                                <th>Registered Package</th>
                                                                 <th>Amount</th>
                                                                 <th>Registration Date</th>
                                                                 <th>Upgrade History</th>
@@ -236,11 +236,11 @@
                                                 </div>
                                                 <div class="card-body" style="overflow-x:auto;background-color: #ecf0f1;">
                                                     <div class=" mb-3" style="float:right">
-                                                        <form class="form-inline my-2 my-lg-0" @submit.prevent=" searchRegs()">
-                                                            <input required v-model="regSearchParam" class="form-control mr-sm-2" type="search" placeholder="" aria-label="Search" style="background-color: transparent; border: 2px solid #2E671A;" >
+                                                        <!--<form class="form-inline my-2 my-lg-0" @submit.prevent=" searchRegs()">
+                                                            <input required  class="form-control mr-sm-2" type="search" placeholder="" aria-label="Search" style="background-color: transparent; border: 2px solid #2E671A;" >
                                                             <span v-if="loading" class="btn btn-success my-2 my-sm-0">...</span>
                                                             <button v-else class="btn btn-success my-2 my-sm-0" type="submit">Search</button>
-                                                        </form>
+                                                        </form>-->
                                                     </div>
                                                     <table id="example2" class="table table-bordered table-hover data-tables"
                                                         data-options='{ "paging": false; "searching":false}'>
@@ -249,9 +249,8 @@
                                                                 <th>S/N</th>
                                                                 <th>Full Name</th>
                                                                 <th>Username</th>
-                                                                <th>Previous Package</th>
+                                                                <th>Previous Packages</th>
                                                                 <th>New Package</th>
-                                                                <th>Amount</th>
                                                                 <th>Registration Upgrade Date</th>
                                                             </tr>
                                                         </thead>
@@ -278,9 +277,8 @@
                                                                         <td>{{ (paidUsersPerPage * (paidUsersCurrentPage - 1)) +( ++i) }}</td>
                                                                         <td>{{ user.first_name }} {{ user.last_name }}</td>
                                                                         <td>{{ user.username }}</td>
-                                                                        <td>{{ user.package_name }}</td>
-                                                                        <td>{{ user.package_name }}</td>
-                                                                        <td>₦{{ user.amount?.toLocaleString('en-US') }}</td>
+                                                                        <td>{{ user.previous_packages.toString() }}</td>
+                                                                        <td>{{ user.package }}</td>
                                                                         <td>{{ (new Date(user.created_at)).toDateString() }} {{ (new Date(user.created_at)).toLocaleTimeString() }}</td>
                                                                     </tr>
                                                                 </template>
@@ -321,7 +319,7 @@
                                 <div class="col-md-12">
                                     <div class="card shadow1 mb-3" style="background-color: transparent">
                                         <div class="card-body ">
-                                            <div class="d-flex justify-content-left mb-2">
+                                            <!--<div class="d-flex justify-content-left mb-2">
                                                 <input 
                                                     
                                                     class="form-control mr-2" 
@@ -331,7 +329,7 @@
                                                 <button class="btn text-white" style="background-Color:#2E671A" >
                                                     <i class="icon-search"></i>
                                                 </button>
-                                            </div>
+                                            </div>-->
                                             <div class="table-responsive">
                                                 <table id="example2" class="table table-bordered table-hover data-tables" >
                                                     <thead >
@@ -1234,7 +1232,7 @@ import StockistPackagePayment from '@/components/admin/StockistPackagePayment.vu
         ...mapActions('stockistStore',['getStockists','getStockistsStats','getStockistsOrders',
         'getSalesStats','approveStockist','disapproveStockist','fetchUpgrades','approveUpgrade','disapproveUpgrade'
         ]),
-        //...mapActions("PaymentStore",["getStockistPackagePayment"]),
+        ...mapActions('packageStore',['getPackage']),
 
         searchWithdraws(){
             this.searchWithdrawals({page:1,query:this.searchParam})
@@ -1304,6 +1302,21 @@ import StockistPackagePayment from '@/components/admin/StockistPackagePayment.vu
                     this.orderDetails = res.data.data
                 }
                 this.orderDetailsLoading = false
+            })
+        },
+
+        transformPrevPackages(packages){
+            let packs = packages.split(',');
+            this.pac = null;
+            packs.map((ele)=>{
+             
+                return this.getPackage(ele).then((res)=> {
+                    this.pac = res.data.data.name
+                //console.log(res)
+                return this.pac
+                })
+                //console.log(this.pac)
+            
             })
         }
 

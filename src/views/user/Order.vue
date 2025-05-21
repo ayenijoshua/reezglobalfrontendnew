@@ -69,6 +69,7 @@
                                                 <h6>
                                                     <small :class="['font-weight-bold', order.in_stock ? 'text-info' : 'text-danger']">Instock : {{order.in_stock}}</small>  
                                                     <small :class="['font-weight-bold', order.stock_qty>0 ? 'text-info' : 'text-danger']"> | Stock Qty : {{ order.stock_qty }}</small>
+                                                    <small :class="['font-weight-bold', order.qualify == true ? 'text-info' : 'text-danger']"> | Qualify : {{ order.qualify }}</small>
                                                 </h6>	
 
                                             </div>	
