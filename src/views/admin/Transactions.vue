@@ -277,7 +277,7 @@
                                                                         <td>{{ (paidUsersPerPage * (paidUsersCurrentPage - 1)) +( ++i) }}</td>
                                                                         <td>{{ user.first_name }} {{ user.last_name }}</td>
                                                                         <td>{{ user.username }}</td>
-                                                                        <td>{{ user.previous_packages.toString() }}</td>
+                                                                        <td>{{ user.previous_packages?.toString() }}</td>
                                                                         <td>{{ user.package }}</td>
                                                                         <td>{{ (new Date(user.created_at)).toDateString() }} {{ (new Date(user.created_at)).toLocaleTimeString() }}</td>
                                                                     </tr>
