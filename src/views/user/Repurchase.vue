@@ -331,6 +331,7 @@
                                             <th class="font-weight-bold" scope="col">STATUS</th>
                                             <th class="font-weight-bold" scope="col">DATE/TIME</th>
                                             <th class="font-weight-bold" scope="col">View Order Code</th>
+                                            <th class="font-weight-bold" scope="col">View Order Details</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -355,17 +356,22 @@
                                                 <tr :key="i">
                                                     <td>{{ (userPurchasesPerPage * (userPurchasesCurrentPage - 1)) + ( ++i) }}</td>
                                                     <td>{{ purchase.pickup_type }}</td>
-                                                    <td>{{ purchase.stockist_name??'N/A' }}</td>
+                                                    <td>{{ purchase.store_name??'N/A' }}</td>
                                                     <!-- <td>{{ claim.worth?.toLocaleString('en-US')}}</td> -->
-                                                    <td>{{ purchase.stockist_address??'N/A' }}</td>
-                                                    <td>{{ purchase.stockist_state??'N/A' }}</td>
-                                                    <td>{{ purchase.stockist_phone??'N/A' }}</td>
+                                                    <td>{{ purchase.store_address??'N/A' }}</td>
+                                                    <td>{{ purchase.store_state??'N/A' }}</td>
+                                                    <td>{{ purchase.store_phone??'N/A' }}</td>
                                                     <td>#{{ purchase.id }}</td>
                                                     <td>{{ purchase.total_quantity }}</td>
                                                     <td>₦{{ purchase.total_price.toLocaleString("en-US") }}</td>
                                                     <td><span class="badge badge-success" style="padding: 6px 10px;">{{ purchase.status }}</span></td>
                                                     <td>{{ purchase.created_at }}</td>
                                                     <td><span class="badge badge-info" v-b-modal.order-code @click="setOrder(purchase.id)">view</span></td>
+                                                    <td>
+                                                        <a href="#" v-b-modal.view-products @click="fetchDetails(purchase.id)" class="btn-fab btn-fab-sm btn-success text-white">
+                                                            <i class="icon-eye"></i>
+                                                        </a>
+                                                    </td>
                                                 </tr>
                                             </template>
                                         </template>
@@ -419,6 +425,36 @@
                     <h3 v-else>Order Code : {{ orderCode }} </h3>
                 </div>
             </form>
+        </modal>
+
+        <modal modal-id="view-products" modal-title="View Products" modal-size="lg">
+            <template v-if="orderDetailsLoading==true">
+                <b-skeleton-table
+                    :rows="3"
+                    :columns="8"
+                    :table-props="{ bordered: true, striped: true }"
+                ></b-skeleton-table>
+            </template>
+            <template v-else>
+                <div class="row">
+                    <div class="col-md-12">
+                        <table class="table table-hover">
+                            <tr>
+                                <th>S/N</th>
+                                <th>Product</th>
+                                <th>Image</th>
+                                <th>Quantity</th>
+                            </tr>
+                            <tr v-for="orde,i in orderDetails.products" :key="i">
+                                <td>{{ ++i }}</td>
+                                <td>{{ orde.name }}</td>
+                                <td> <img :src="imageURL(orde.image)" height="100" width="100"/></td>
+                                <td>{{ orde.product_qty }}</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </template>
         </modal>
     </div>
 </template>
@@ -616,7 +652,9 @@ export default {
         password:null,
         order_id:null
      },
-     orderCode:null
+     orderCode:null,
+     orderDetailsLoading:false,
+     orderDetails:[]
     };
   },
 
@@ -776,7 +814,7 @@ export default {
         }
     },
 
-    ...mapActions("productPurchaseStore",["userPurchase","getUserPurchases","fetchOrderCode"]),
+    ...mapActions("productPurchaseStore",["userPurchase","getUserPurchases","fetchOrderCode","fetchOrderDetails"]),
     ...mapActions("settingStore", ["getSetting", "all"]),
     ...mapActions("productStore", ["getActiveProducts"]),
     ...mapActions('authStore',['getUser']),
@@ -852,6 +890,7 @@ export default {
             notification.warning("There are no Items in your cart")
             return
         }
+
         this.payingWithWallet = true;
         let data = {
             amount:this.cartTotalPrice,
@@ -918,7 +957,18 @@ export default {
             }
             this.orderCodeFetching = false;
         })
-    }
+    },
+
+    fetchDetails(purchaseId){
+        this.orderDetailsLoading = true
+        this.fetchOrderDetails(purchaseId).then((res)=>{
+            if(res && res.status==200){
+                //console.log('details',[res.data.data])
+                this.orderDetails = res.data.data
+            }
+            this.orderDetailsLoading = false
+        })
+    },
 
     
   },

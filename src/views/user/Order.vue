@@ -120,7 +120,7 @@
                                 <div class="mr-4 ml-auto ">
                                     <div class="avatar avatar-xl mb-3 ">
                                         <img v-if="member.photo_path"  class="user_avatar" :src="imageURL+'/'+member.photo_path" alt="User Image">
-										<img v-else class="user_avatar" src="/assets/img/dummy/default_avatar1.png" alt="User Image">
+										<img v-else class="user_avatar" src="/assets/img/dummy/default_avatar.png" alt="User Image">
 									</div>
                                 </div>
                             </div>
@@ -140,16 +140,17 @@
             <div class="row mt-4">
                 <div class="col-md-12">
                     <div class="card shadow-lg mb-3" style="background-color: transparent">
+                        <div calss="card-header">Processed Orders</div>
                         <div class="card-body ">
                             <div class="d-flex justify-content-left mb-2">
-                                <input
+                                <!-- <input
                                     class="form-control mr-2" 
                                     type="text" 
                                     placeholder="Search Orders..." 
                                     style="width: 250px; background-color: transparent; border: 2px solid #2E671A !important;"/>
                                 <button class="btn text-white" style="background-Color:#2E671A" >
                                     <i class="icon-search"></i>
-                                </button>
+                                </button> -->
                             </div>
                             <div class="table-responsive">
                                 <table id="example2" class="table table-hover data-tables" data-options='{ "paging": false; "searching":false}' >
@@ -432,7 +433,7 @@ export default{
                 return
             }
 
-            let check = this.orders.filter((order)=>order.in_stock==false || order.stock_qty==0)
+            let check = this.orders.filter((order)=>order.in_stock==false || order.stock_qty==0 || order.qualify==false)
 
             //console.log('check',check)
 

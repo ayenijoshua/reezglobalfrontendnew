@@ -426,15 +426,22 @@ export default{
         ...mapActions('stockistPackageStore',['single']),
 
         stockistPurchase(){
-            //let ele = document.getElementById("stock-purchase-form")
-            //let form  = new FormData(ele)
-            // form.append("products",this.cartProducts)
-            // form.append("total_price",this.cartTotalPrice)
-            // form.append("total_quantity",this.cartTotalQty)
-            // form.append("total_points",this.cartTotalPoints)
+
             if(this.cartProducts.length == 0){
                 notification.warning("There are no Items in your cart")
                 return
+            }
+
+            if(!this.selectedOrderType){
+                notification.warning("Order type not selected")
+                return
+            }
+
+            if(this.selectedOrderType == 'registration_pickup'){
+                if(this.cartTotalPrice > this.pickupAmount){
+                    notification.warning("Total selected product price is higher than pickup amount")
+                    return
+                }
             }
 
             if(this.cartTotalPrice > this.pickupAmount){
