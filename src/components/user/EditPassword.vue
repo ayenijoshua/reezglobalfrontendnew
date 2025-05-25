@@ -1,7 +1,7 @@
 <template>
-    <div class="card border-0 justify-content-center">
-        <div class="card-body border rounded"> 
-            <div class="card-body" >
+    <div class="card border-0 justify-content-center" style="background-color:#ded8c7">
+        <div class="card-body border rounded" style="background-color:#ded8c7"> 
+            <div class="card-body" style="background-color:#ded8c7" >
                 <div class="d-flex align-items-center border p-4">
                     <div class="avatar avatar-xl ml-3 mr-4 ">
                         <img class="user_avatar" src="/assets/img/dummy/u14.jpg" alt="User Image">
@@ -19,8 +19,8 @@
             </div>
 
             <form @submit.prevent="update()">
-                <div class="card no-b no-r">
-                    <div class="card-body no-gutters">
+                <div class="card no-b no-r" style="background-color:#ded8c7">
+                    <div class="card-body no-gutters" style="background-color:#ded8c7">
                         <div class="form-row">
                             <div class="col-md-12">
                                 <div class="input-group">

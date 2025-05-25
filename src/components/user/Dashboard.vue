@@ -145,7 +145,7 @@
                                                 <div v-if="currentRankBadge !== ''" class="text-dark-heading font-weight-bold green-text">
                                                     <img class="img-flui" :src="'/img/badges/'+currentRankBadge" style="{width:'20%', height:'auto'}" />
                                                 </div>
-                                                <p v-else class="alert alert-info">You are yet to qualify for an incentive</p>
+                                                <p v-else class="alert alert-info text-center">You are yet to qualify for an incentive</p>
                                             </div>
                                             <template v-else>
                                                 <div class="col-md-6" id="yourContainer">

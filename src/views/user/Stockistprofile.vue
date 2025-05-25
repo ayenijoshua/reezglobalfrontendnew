@@ -7,8 +7,8 @@
                         <div class="">
                             <div class="">
                                 <div class="">
-                                    <div>
-                                        <div>
+									 <div class="card shadow1" style="background-color: #ded8c7">
+										 <div class="card-body" style="background-color: #ded8c7">
                                             <template v-if="stockistLoading">
                                                 <b-card>
                                                     <b-skeleton width="85%"></b-skeleton>
@@ -44,9 +44,9 @@
                                                                         <div class="input-group-prepend">
                                                                             <div class="input-group-text" style="background-color: #2E671A; border: 2px solid #2E671A;"><i class="icon-room float-left s-20 text-white" ></i></div>
                                                                         </div>
-                                                                        <select v-model="form.store_state" class="form-control r-0 light s-12 shadow" style="background-color: transparent">
-                                                                            <option >Lagos</option>
-                                                                            <option >Oyo</option>														   
+                                                                        <select v-model="form.store_state" class="form-control r-0 light s-12 shadow" style="background-color: #ded8c7">
+                                                                            <option style="background-color: #ded8c7" >Lagos</option>
+                                                                            <option style="background-color: #ded8c7" >Oyo</option>														   
                                                                         </select>
                                                                     </div>
                                                                 </div>
@@ -77,15 +77,15 @@
                     </div>
 
                     <div class="col-md-4">
-                        <div class="">
+                        <div class="card mr-3 shadow1" style="background-color: #ded8c7">
                             <div class="row column-row">
                                 <div class="mt-4 ml-auto" style="padding-right:40px">
                                 
-                                    <img  src="/assets/img/preview.png"  width="auto" height="20px">&nbsp;&nbsp;
-                                    <span class=" float-right font-weight-bold" id="d1" style="font-size:17px">Preview Details</span>
+                                    <span class="border-left border-left-green"></span>&nbsp;&nbsp;
+                                    <span class=" float-right font-weight-bold text-green" id="d1" style="font-size:17px">Preview Details</span>
                                 </div> 
                             </div>
-                            <div class="">
+                             <div class="card-body">
                                 <div class="d-flex align-items-center">
                                     <div>
                                         <span id="d1" style="font-size:10px">Stockist Name</span>
@@ -102,7 +102,7 @@
                                         <h6 class="font-weight-bold" id="d1">{{ form.referrer }}</h6>
                                     </div>
                                     <div class="mr-4 ml-auto">
-                                        <img  src="/assets/img/shop-local.png"  width="auto" height="100px">
+                                        <img  src="/assets/img/personal-banking1.png"  width="auto" height="100px">
                                     </div>
                                 </div>
                             </div>
@@ -119,17 +119,17 @@
                     </b-card>
                     <template v-else>
                         <div v-for="bank,i in banks" class="col-md-4" :key="i">
-                            <div class="card shadow rounded" style="background-color: #2E671A">
+                            <div class="card shadow rounded" style="background-color: #ded8c7">
                                 <div class="card-body">
                                     <div class="d-flex justify-content-center">
-                                        <div class="text-center">  <img src="/assets/img/bank-transfer.png" width="auto" height="100px"></div>
+                                        <div class="text-center">  <img src="/assets/img/bankinghall2a.png" width="auto" height="150px"></div>
                                             <div class="card-body text-center">
-                                                <span  id="d1" class="text-white" style="font-size:10px">Bank Name</span>
-                                                <h5 class="font-weight-bold text-white"> {{ bank.bank_name }}</h5>
-                                                <span  id="d1" class="text-white" style="font-size:10px">Account Name</span>
-                                                <h5 class="font-weight-bold text-white" id="d1">{{ bank.bank_account_name }}</h5>
-                                                <span  id="d1" class="text-white" style="font-size:10px">Account Number</span>
-                                                <h5 class="font-weight-bold text-white" id="d1">{{ bank.bank_account_number }}</h5>
+                                                <span  id="d1" class="text-green" style="font-size:10px">Bank Name</span>
+                                                <h5 class="font-weight-bold text-green"> {{ bank.bank_name }}</h5>
+                                                <span  id="d1" class="text-green" style="font-size:10px">Account Name</span>
+                                                <h5 class="font-weight-bold text-green" id="d1">{{ bank.bank_account_name }}</h5>
+                                                <span  id="d1" class="text-green" style="font-size:10px">Account Number</span>
+                                                <h5 class="font-weight-bold text-green" id="d1">{{ bank.bank_account_number }}</h5>
                                             </div>
                                     </div>
                                 </div>
@@ -140,8 +140,8 @@
                 <br>
                 <div class="row">
                     <div class="col-md-8 col-sm-8">
-                        <div class="ml-4 mr-4 mt-4">
-                            <div>
+                        <div class="card mb-3 shadow1 ml-4 mr-4 mt-4" style="background-color:transparent;">
+                            <div class="card-body">
                                 <p class="font-weight-bold">Select Package Below</p>
                                 <div class="form"> 
                                     <template v-if="stockistPackages.lenght==0">
@@ -157,9 +157,9 @@
                                                 <div class="input-group-text" style="background-color: #2E671A; border: 2px solid #2E671A;"><i class="icon-user-plus float-left s-20 text-white" ></i></div>
                                             </div>
                                             <select name="package_id" v-model="upgradeForm.package_id" @change="getPackageDifference" class="form-control r-0 light s-12 shadow" style="background-color: transparent">
-                                                <option value="">Select Package</option>
+                                                <option value="" style="background-color: #ded8c7">Select Package</option>
                                                 <template v-for="packag,i in stockistPackages.filter((ele) => ele.id > stockist.package_id)">
-                                                    <option :value="packag.id" :key="i">{{ packag.name }} - ₦{{ packag.registration_value.toLocaleString('en-US') }}</option>
+                                                    <option :value="packag.id" :key="i" style="background-color: #ded8c7">{{ packag.name }} - ₦{{ packag.registration_value.toLocaleString('en-US') }}</option>
                                                 </template>														   
                                             </select>
                                         </div>
@@ -181,7 +181,7 @@
                                     <h6 class="text-center">Select a package to view upgrade data.</h6>
                                 </template>
                                 <div v-else class="d-flex justify-content-center">
-                                    <div class="text-center">  <img  src="/assets/img/best-shop.png" width="auto" height="150px"></div>
+                                    <div class="text-center">  <img  src="/assets/img/upgradestore.png" width="auto" height="150px"></div>
                                     <div class="card-body text-center">
                                         <span class="text-green" id="d1" style="font-size:10px">Selected Package</span>
                                         <h6 class="font-weight-bold text-black" id="d1">{{ upgradeData.package_name }} </h6>
@@ -211,7 +211,7 @@
                                         <div class="form-row mb-2">
                                             <div class="form-group col-12 m-0">
                                                 <div class="form-group m-0">
-                                                    <div class="dropbox" style="background-color: #ecf0f1; border: 2px solid #2E671A;">
+                                                    <div class="dropbox" style="background-color: #ded8c7; border: 2px solid #2E671A;">
                                                         <input v-b-popover.hover.top="'Drag your payment receipt here or click to browse'" name="payment_receipt" type="file" @change="filesChange($event.target.files);" title="payment receipt" class="form-control form-control-line input-file" style="background-color: #ecf0f1; border: 2px solid #2E671A;">
                                                         <p id="img-preview">
                                                             Drag your photo here<br> or click to browse<br>

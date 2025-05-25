@@ -3,7 +3,7 @@
         <aside class="main-sidebar fixed offcanvas shadow" data-toggle='offcanvas' >
             <section class="sidebar" style="height: 821px; overflow: hidden; width: auto;">
                 <div class="w-80px mt-3 mb-3 ml-3">
-                    <img src="/assets/img/logo2b.png" alt="" style="max-width: 300%;">
+                    <img src="/assets/img/logo1.png" alt="" style="max-width: 300%;">
                 </div>
                 <div class="relative ">
                     <a data-toggle="collapse" href="#userSettingsCollapse" role="button" aria-expanded="false"
@@ -25,10 +25,10 @@
                             <div class="list-group mt-3 shadow">
                                 <a href="#" class="list-group-item list-group-item-action shadow1">
                                     <i class="mr-2 icon icon-sign-out"></i>
-                                    <span class="text-blue" v-b-modal.logOut>Logout</span>
+                                    <span class="text-green" v-b-modal.logOut>Logout</span>
                                 </a>
                                 <router-link :to="{name:'user-security'}" class="list-group-item list-group-item-action shadow1">
-                                    <i class="mr-2 icon-lock3 text-blue"></i><span class="text-blue">Change Password</span>
+                                    <i class="mr-2 icon-lock3 text-green"></i><span class="text-green">Change Password</span>
                                 </router-link>
                             </div>
                         </div>
@@ -37,48 +37,48 @@
                 <ul class="sidebar-menu" >
                     <li :class="['treeview', 'shadow', activeMenu()=='user-dashboard' ? 'active' : ''] " @click="setMenu('user-dashboard')">
                         <router-link :to="{name:'user-dashboard'}" :style="{'text-decoration':'none'}">
-                            <i class="icon icon-barometer2 text-blue s-18"></i><span class="text-blue">Dashboard</span> 
+                            <i class="icon icon-barometer2 text-green s-18"></i><span class="text-green">Dashboard</span> 
                         </router-link>
                     </li>
                     <li :class="['treeview', 'shadow', activeMenu()=='user-profile' ? 'active' : '']" @click="setMenu('user-profile')">
                         <router-link :to="{name:'user-profile'}" :style="{'text-decoration':'none'}" >
-                            <i class="icon icon-vcard text-blue s-18"></i><span class="text-blue">Profile</span> 
+                            <i class="icon icon-vcard text-green s-18"></i><span class="text-green">Profile</span> 
                         </router-link>
                     </li>
                     <li :class="['treeview', 'shadow', activeMenu()=='user-downlines' ? 'active' : '']" @click="setMenu('user-downlines')">
                         <router-link :to="{name:'user-downlines'}" :style="{'text-decoration':'none'}">
-                            <i class="icon icon-people text-blue s-18"></i><span class="text-blue">Downlines</span> 
+                            <i class="icon icon-people text-green s-18"></i><span class="text-green">Downlines</span> 
                         </router-link>
                     </li>
                     <li :class="['treeview','shadow', activeMenu()=='user-genealogy' ? 'active' : '']" @click="setMenu('user-genealogy')">
                         <router-link :to="{name:'user-genealogy'}" :style="{'text-decoration':'none'}">
-                            <i class="icon icon-sitemap text-blue s-18"></i><span class="text-blue">Genealogy</span> 
+                            <i class="icon icon-sitemap text-green s-18"></i><span class="text-green">Genealogy</span> 
                         </router-link>
                     </li>
                     <li :class="['treeview','shadow', activeMenu()=='user-wallet' ? 'active' : '']" @click="setMenu('user-wallet')">
                         <router-link :to="{name:'user-wallet'}" :style="{'text-decoration':'none'}">
-                            <i class="icon icon-account_balance_wallet text-blue s-18"></i><span class="text-blue">Transactions</span> 
+                            <i class="icon icon-account_balance_wallet text-green s-18"></i><span class="text-green">Transactions</span> 
                         </router-link>
                     </li>
                     <!---Work on this-->
                     <li :class="['treeview','shadow', activeMenu() == 'user-repurchase' ? 'active' : '']" @click="setMenu('user-repurchase')">
                         <router-link :to="{ name: 'user-repurchase' }" :style="{ 'text-decoration': 'none' }">
-                        <i class="icon icon-shopping-cart text-blue s-18"></i>
-                        <span class="text-blue">Repurchase</span>
+                        <i class="icon icon-shopping-cart text-green s-18"></i>
+                        <span class="text-green">Repurchase</span>
                         </router-link>
                     </li>
 
                     <li v-if="authUser.is_stockist==0" :class="['treeview', 'shadow', activeMenu() == 'user-stockist_reg' ? 'active' : '']" @click="setMenu('user-stockist_reg')">
                         <router-link :to="{ name: 'user-stockist_reg' }" :style="{ 'text-decoration': 'none' }">
-                        <i class="icon icon-account_box text-blue s-18"></i>
-                        <span class="text-blue">Become a Stockist</span>
+                        <i class="icon icon-account_box text-green s-18"></i>
+                        <span class="text-green">Become a Stockist</span>
                         </router-link>
                     </li>
 
                     <li class="shadow" v-if="authUser.is_stockist==1">
                         <a href="#" style="text-decoration:none;">
-                            <i class="icon icon-web text-blue"></i>
-                            <span class="font-weight-bold text-blue">Stockist Portal</span>
+                            <i class="icon icon-web text-green"></i>
+                            <span class="font-weight-bold text-green">Stockist Portal</span>
                             <i class="icon icon-angle-left s-18 pull-right"></i>
                         </a>
 
@@ -116,8 +116,8 @@
 
                     <li :class="['treeview', 'shadow', activeMenu()=='user-security' ? 'active' : '']" @click="setMenu('user-security')">
                         <router-link :to="{name:'user-security'}" :style="{'text-decoration':'none'}">
-                            <i class="icon icon-lock3 text-blue s-18"></i>
-                            <span class="text-blue">Security</span>
+                            <i class="icon icon-lock3 text-green s-18"></i>
+                            <span class="text-green">Security</span>
                         </router-link>
                     </li>
                 </ul>
@@ -166,7 +166,7 @@
                      <!-- Conditionally Show Image When Sidebar is Hidden -->
                     <img
                         v-if="isSidebarHidden"
-                        src="/assets/img/logo2b.png"
+                        src="/assets/img/logo1.png"
                         class="img-responsive"
                         alt=""
                         style="width: 200px; height:auto"
@@ -216,10 +216,10 @@
 
         <div class="control-sidebar-bg shadow white fixed"></div>           
         <modal :modalId="'logOut'" :modalSize="'md'" :modalTitle="''" class="modal fade">
-            <div class="modal-dialog" style="background-color: #ecf0f1 !important;">
-                <div class="modal-content" style="background-color: #ecf0f1 !important;">
+            <div class="modal-dialog" style="background-color: #ded8c7 !important;">
+                <div class="modal-content" style="background-color: #ded8c7 !important;">
                     <div class="d-flex justify-content-center align-items-center mb-2" > <!-- Added styling and classes -->
-                        <img  src="/assets/img/exit1.png" width="auto" height="100px">
+                        <img  src="/assets/img/exit.png" width="auto" height="100px">
                     </div>
                     <div class="ibox-content modalContent text-center" id="modalContent">
                         <span class="font-weight-bold">Are you sure you want to log out?</span><br>
@@ -242,6 +242,44 @@
 
 
 <style scoped>
+
+
+/* Override the modal's background colors */
+.modal-dialog {
+    background-color: #ded8c7 !important;
+}
+
+.modal-content {
+    background-color: #ded8c7 !important;
+    border: none; /* Remove borders if any */
+}
+
+.modal-body {
+    background-color: #ded8c7 !important;
+    color: #333; /* Adjust text color if necessary */
+}
+
+.modal-footer {
+    background-color: #ded8c7 !important;
+    border-top: none; /* Remove top border if any */
+}
+
+/* Ensure any nested elements within modal-body also inherit the background */
+.modal-body .ibox-content,
+.modal-body #modalContent,
+.modal-body small {
+    background-color: #ded8c7 !important;
+}
+
+/* Optional: Adjust button color for consistency */
+.modal-footer .btn {
+    background-color: #2E671A; /* Example button color */
+    color: white;
+}
+
+
+
+
 .img-responsive {
   transition: opacity 0.3s ease-in-out; /* Smooth transition for visibility */
 } 
@@ -255,7 +293,7 @@
 }
 
 .offcanvas .sidebar-menu>li {
-    border-bottom: 1px solid #ecf0f1;
+    border-bottom: 1px solid #ded8c7;
 }
 
 /* Sidebar Menu Item Default State */
@@ -276,7 +314,7 @@
 /* Active Menu Item */
 .sidebar-menu .active > a {
     background-color: #2E671A; /* Active background */
-    color: #ecf0f1; /* Active text color */
+    color: #ded8c7; /* Active text color */
 }
 
 .sidebar-menu .active > a i {
@@ -303,21 +341,21 @@
 
 /* Override the modal's background colors */
 .modal-dialog {
-    background-color: #ecf0f1 !important;
+    background-color: #ded8c7 !important;
 }
 
 .modal-content {
-    background-color: #ecf0f1 !important;
+    background-color: #ded8c7 !important;
     border: none; /* Remove borders if any */
 }
 
 .modal-body {
-    background-color: #ecf0f1 !important;
+    background-color: #ded8c7 !important;
     color: #333; /* Adjust text color if necessary */
 }
 
 .modal-footer {
-    background-color: #ecf0f1 !important;
+    background-color: #ded8c7 !important;
     border-top: none; /* Remove top border if any */
 }
 
@@ -325,7 +363,8 @@
 .modal-body .ibox-content,
 .modal-body #modalContent,
 .modal-body small {
-    background-color: #ecf0f1 !important;
+    background-color: #ded8c7
+	!important;
 }
 
 /* Optional: Adjust button color for consistency */

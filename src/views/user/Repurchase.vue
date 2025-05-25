@@ -1,28 +1,27 @@
 <template>
     <div>
-        <div class="">     
-           <div class="d-flex justify-content-center mt-5 mb-3"> <!-- Centering wrapper added -->
-                <div class="col-md-6 col-sm-12"> 
-                    <div class="card no-b shadow 1" style="background-color: transparent;">
-                        <div class="card-body">
-                            <span class="text-center text-blue s-12 font-weight-bold">Select Pick-up Type</span>
-                            <div class="form-group m-0">                       
-                                <div class="input-group mb-2 mr-sm-2 mb-3">
-                                    <div class="input-group-prepend">
-                                        <div class="input-group-text" style="background-color: #2E671A; border: 2px solid #2E671A;"><i class="icon icon-shopping-cart float-left s-20 text-white" ></i></div>
-                                    </div>
-                                    <select required v-model="selectedOrderType" @change="getPickupAmount" class="form-control r-0 light s-12" style="background-color: transparent; border: 2px solid #1b4f72;">
-                                        <template v-for="orderType,i in orderTypes">
-                                            <option :value="orderType" :key="i">{{orderType == '' ? 'Select' : orderType.replace('_'," ")}}</option>
-                                        </template>														   
-                                    </select>
-                                </div>
-                            </div>
-                        </div>     
-                    </div>       
-                </div>
-            </div> 
-
+        <div class="">  
+		   <div class="d-flex justify-content-center"> <!-- Centering wrapper added -->
+				<div class="mt-5"> 
+					<span class="text-center text-green s-12 font-weight-bold">Select Pick-up Type</span>
+				</div>   
+			</div>      
+		   <div class="d-flex justify-content-center mt-2 mb-3"> <!-- Centering wrapper added -->
+				<div class="col-md-6 col-sm-12"> 
+					<div class="form-group m-0">                       
+						<div class="input-group mb-2 mr-sm-2 mb-3">
+							<div class="input-group-prepend">
+								<div class="input-group-text" style="background-color: #2E671A; border: 2px solid #2E671A;"><i class="icon icon-shopping-cart float-left s-20 text-white" ></i></div>
+							</div>
+								<select required v-model="selectedOrderType" @change="getPickupAmount" class="form-control r-0 light s-12" style="background-color: #ded8c7; border: 2px solid  #2E671A;">
+									<template v-for="orderType,i in orderTypes">
+										<option :value="orderType" :key="i">{{orderType == '' ? 'Select' : orderType.replace('_'," ")}}</option>
+									</template>														   
+								</select>
+						</div>
+					</div>        
+				</div>
+			</div> 
 
             <!--<div  v-if="selectedOrderType === 'upgrade_pickup'" class="d-flex justify-content-center mt-2 mb-3"> Centering wrapper added
                 <div class="col-md-6 col-sm-12"> 
@@ -54,25 +53,25 @@
             
             <div class="row mb-5">
                 <div class="col-md-8">
-                    <div class="card no-b shadow" style="background-color:#ecf0f1">
+                    <div class="card no-b shadow" style="background-color:#ded8c7">
                         <div class="card-body p-0">
                             <form id="product-claim-form" @submit.prevent="productClaim()">
                                 <div class="table-responsive">
-                                    <table class="table table-hover">
-                                        <thead style="background-color:#2E671A">
+                                    <table class="table table-hover" style="background-color:#ded8c7">
+                                        <thead style="background-color:#ded8c7; border-bottom: 2px solid #2e671a">
                                             <tr>
-                                                <th class="font-weight-bold text-white" scope="col">S/N</th>
-                                                <th class="font-weight-bold text-white" scope="col">VIEW</th>
-                                                <th class="font-weight-bold text-white" scope="col">PRODUCTS</th>
-                                                <th class="font-weight-bold text-white" scope="col">PRICE</th>
-                                                <!-- <th class="font-weight-bold text-white" scope="col">POINT VALUE</th> -->
+                                                <th class="font-weight-bold text-green" scope="col">S/N</th>
+                                                <th class="font-weight-bold text-green" scope="col">VIEW</th>
+                                                <th class="font-weight-bold text-green" scope="col">PRODUCTS</th>
+                                                <th class="font-weight-bold text-green" scope="col">PRICE</th>
+                                                <!-- <th class="font-weight-bold text-green" scope="col">POINT VALUE</th> -->
                                                 <!-- <th scope="col">Worth</th> -->
-                                                <th class="font-weight-bold text-white" scope="col">QUANTITY</th>
-                                                <!-- <th class="font-weight-bold text-white" scope="col">SELECT</th> -->
+                                                <th class="font-weight-bold text-green" scope="col">QUANTITY</th>
+                                                <!-- <th class="font-weight-bold text-green" scope="col">SELECT</th> -->
                                                 <!-- <th scope="col">Select</th> -->
                                             </tr>
                                         </thead>
-                                        <tbody>
+                                        <tbody style="background-color:#ded8c7;" >
                                             <tr v-if="prodLoading">
                                                 <td colspan="7">
                                                     <b-skeleton-table
@@ -84,7 +83,7 @@
                                             </tr>
                                             <template v-else>
                                                <tr v-if="products.length == 0" class="no-b">
-                                                    <td colspan="7">There are no products</td>
+                                                    <td colspan="7" class="text-center">There are no products</td>
                                                 </tr>
                                                 <template v-else>
                                                     <tr  v-for="produc,i in products" :key="i" >
@@ -116,9 +115,9 @@
                     <div class="card  mb-3 shadow" style="background-color: transparent">
                         <div class="float-left">
                             <div class="card-body">
-                                <div class="card-header">Cart History</div>
+                                <div class="mb-3 font-weight-bold s-14 text-green"><i class="icon-shopping-cart mr-2"></i> CART HISTORY</div>
                                 <template v-if="cartProducts.length==0">
-                                    <p class="alert alert-info">
+                                    <p class="alert alert-info text-center">
                                         There are no items in your cart
                                     </p>
                                 </template>
@@ -191,7 +190,6 @@
                 <div class="col-md-12">
                     <div class="card mr-3 shadow1" style="background-color: transparent">
                         <div class="card-body">
-                            <div calss="card-header">Available Stockists</div>
                             <div class="form-row" style="overflow-x:auto;">
                                 <div class="d-flex justify-content-end mb-2">
                                     <input v-model="search.search"
@@ -229,7 +227,7 @@
                                             <template v-if="stockists.length == 0">
                                                 <tr>
                                                     <td colspan="5">
-                                                        <div>Ther are no stockists</div>
+                                                        <div class="text-center">There are no stockists</div>
                                                     </td>
                                                 </tr>
                                             </template>
@@ -297,9 +295,8 @@
 
             <div class="row mt-4" style="padding-top: 50px">
                 <div class="col-md-12">
-                    <div class="card shadow-lg mb-3" style="background-color: transparent">
+                    <div class="card shadow1 mb-3" style="background-color: transparent">
                         <div class="card-body">
-                            <div calss="card-header">Purchase History</div>
                             <div class="d-flex justify-content-left mb-2">
                                 <!-- <input 
                                     class="form-control mr-2" 
@@ -320,12 +317,12 @@
                                             <th class="font-weight-bold" scope="col">LOCATION</th>     
                                             <th class="font-weight-bold" scope="col">STATE</th>
                                             <th class="font-weight-bold" scope="col">CONTACT</th>
-                                            <th class="font-weight-bold" scope="col">Order ID</th>
-                                            <th class="font-weight-bold" scope="col">Total QTY</th>
-                                            <th class="font-weight-bold" scope="col">Total PRICE</th>
+                                            <th class="font-weight-bold" scope="col">ORDER ID</th>
+                                            <th class="font-weight-bold" scope="col">TOTAL QTY</th>
+                                            <th class="font-weight-bold" scope="col">TOTAL PRICE</th>
                                             <th class="font-weight-bold" scope="col">STATUS</th>
                                             <th class="font-weight-bold" scope="col">DATE/TIME</th>
-                                            <th class="font-weight-bold" scope="col">View Order Code</th>
+                                            <th class="font-weight-bold" scope="col">VIEW ORDER CODE</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -342,7 +339,7 @@
                                             <template v-if="userPurchases.length == 0">
                                                 <tr>
                                                     <td colspan="11">
-                                                        <div>Ther are no orders</div>
+                                                        <div class="text-center">There are no orders</div>
                                                     </td>
                                                 </tr>
                                             </template>
@@ -358,9 +355,9 @@
                                                     <td>#{{ purchase.id }}</td>
                                                     <td>{{ purchase.total_quantity }}</td>
                                                     <td>₦{{ purchase.total_price.toLocaleString("en-US") }}</td>
-                                                    <td><span class="badge badge-success" style="padding: 6px 10px;">{{ purchase.status }}</span></td>
+                                                    <td><span class="badge badge-success" style="padding: 10px 10px;">{{ purchase.status }}</span></td>
                                                     <td>{{ purchase.created_at }}</td>
-                                                    <td><span class="badge badge-info" v-b-modal.order-code @click="setOrder(purchase.id)">view</span></td>
+                                                    <td><span class="badge badge-info" v-b-modal.order-code @click="setOrder(purchase.id)" style="padding: 10px 10px;">view</span></td>
                                                 </tr>
                                             </template>
                                         </template>

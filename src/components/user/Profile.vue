@@ -2,7 +2,7 @@
     <div>
         <div class="">
             <header class="blue accent-3 relative">
-                <div class="container-fluid text-blue">
+                <div class="container-fluid text-green">
                     <div class="row justify-content-between">
                         <ul class="nav nav-material nav-material-white responsive-tab" id="v-pills-tab" role="tablist">
                             <li>

@@ -315,7 +315,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="card-body no-p">
+                        <div class="card-body no-p" style="background-color: #ded8c7" >
                             <div class="tab-content">
                                 <div class="tab-pane show active" id="v-pills-w1-tab1" role="tabpanel" aria-labelledby="v-pills-w1-tab1">
                                     <div class="row p-3">
@@ -371,7 +371,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="card-body no-p">
+                        <div class="card-body no-p" style="background-color: #ded8c7">
                             <div class="tab-content">
                                 <div class="tab-pane show active" id="v-pills-w1-tab1" role="tabpanel" aria-labelledby="v-pills-w1-tab1">
                                     <div class="row p-3">

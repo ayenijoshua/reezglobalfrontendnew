@@ -35,7 +35,7 @@
                                 <template v-if="userPurchases.length == 0">
                                     <tr>
                                         <td colspan="11">
-                                            <div>Ther are no orders</div>
+                                            <div class="text-center">There are no orders</div>
                                         </td>
                                     </tr>
                                 </template>

@@ -1,53 +1,58 @@
 <template>
     <div>
         <div class="">
-            <div class="row">
-                <div class="col-lg-4">
-                    <!-- <b-card v-if="statsLoading==tr">
-                        <b-skeleton width="85%"></b-skeleton>
-                        <b-skeleton width="55%"></b-skeleton>
-                        <b-skeleton width="70%"></b-skeleton>
-                    </b-card> -->
-                    <div class="counter-box p-40   shadow1 r-5" style="background-color:transparent;">
-                        <div class="float-right">
-                            <img  src="/assets/img/access.png" alt="Generic placeholder image" width="70px" height="70px">
-                        </div>
-                        <div class="mt-1 text-dark-heading " ></div>
-                        <h6 class="counter-title font-weight-bold">Stockist Package</h6><br>
-                        <span class="s-40 my-3 font-weight-lighter" style="font-size:35px"> {{ stats.package }}</span> 
-                    </div>
-                </div>
-                <div class="col-lg-4">
-                    <b-card v-if="statsLoading==true">
+		  <div class="row my-3">
+                <div class="col-lg-12 pb-4">
+                    <b-card v-if="walletBalanceLoading && loading">
                         <b-skeleton width="85%"></b-skeleton>
                         <b-skeleton width="55%"></b-skeleton>
                         <b-skeleton width="70%"></b-skeleton>
                     </b-card>
-                    <div v-else class="counter-box p-40   shadow1 r-5" style="background-color:transparent;">
+                    <div v-else class="counter-box p-40 text-white shadow1 r-5" style="background-color: #2E671A">
                         <div class="float-right">
-                            <img  src="/assets/img/retailer.png" alt="Generic placeholder image" width="70px" height="70px">
+                            <img  src="/assets/img/stockist.png" width="auto" height="100px">
                         </div>
-                        <div class="mt-1 text-dark-heading " ></div>
-                        <h6 class="counter-title font-weight-bold">Stockist Rebate</h6><br>
-                        <span class="s-40 my-3 font-weight-lighter" style="font-size:35px"> {{ stats.rebate }}</span> 
+                        <h6 class="mt-0text-white" >Stockist Package</h6>
+                        <div class="text-dark-heading font-weight-bold text-white" >₦<span class="s-36">{{ stats.package }}</span></div>
                     </div>
                 </div>
-                <div class="col-lg-4">
-                    <b-card v-if="statsLoading==true">
+            </div>
+			<div class="row my-3">
+                <div class="col-lg-12 pb-4">
+                    <b-card v-if="walletBalanceLoading && loading">
                         <b-skeleton width="85%"></b-skeleton>
                         <b-skeleton width="55%"></b-skeleton>
                         <b-skeleton width="70%"></b-skeleton>
                     </b-card>
-                    <div v-else class="counter-box p-40   shadow1 r-5" style="background-color:transparent;">
+                    <div v-else class="counter-box p-40 text-white shadow1 r-5" style="background-color: #2E671A">
                         <div class="float-right">
-                            <img  src="/assets/img/wallet30.png" alt="Generic placeholder image" width="70px" height="70px">
+                            <img  src="/assets/img/retailer.png" width="auto" height="110px">
                         </div>
-                        <div class="mt-1 text-dark-heading " ></div>
-                        <h6 class="counter-title font-weight-bold">Stockist Rebate wallet</h6><br>
-                        <span class="s-40 my-3 font-weight-lighter" style="font-size:35px"> ₦ {{ stats.rebate_bonus }}</span> 
+                        <h6 class="mt-0text-white" >Stockist Rebate</h6>
+                        <div class="text-dark-heading font-weight-bold text-white" ><span class="s-36">{{ stats.rebate }}</span>%</div>
                     </div>
                 </div>
-            </div> 
+            </div>
+			
+			<div class="row my-3">
+                <div class="col-lg-12 pb-4">
+                    <b-card v-if="walletBalanceLoading && loading">
+                        <b-skeleton width="85%"></b-skeleton>
+                        <b-skeleton width="55%"></b-skeleton>
+                        <b-skeleton width="70%"></b-skeleton>
+                    </b-card>
+                    <div v-else class="counter-box p-40 text-white shadow1 r-5" style="background-color: #2E671A">
+                        <div class="float-right">
+                            <img  src="/assets/img/wallet30.png" width="auto" height="100px">
+                        </div>
+                        <h6 class="mt-0text-white" >Stockist Rebate wallet</h6>
+                        <div class="text-dark-heading font-weight-bold text-white" >₦<span class="s-36">{{ stats.rebate_bonus }}</span></div>
+                    </div>
+                </div>
+            </div>
+			
+			
+			
             <div class="row ">		
                 <div class="col-md-12">
                     <div class="">
@@ -99,7 +104,7 @@
                                                     </tr>
                                                     <template v-else>
                                                         <tr v-if="stockDetails.length==0">
-                                                            <td colspan="4">There are no purchases</td>
+                                                            <td colspan="4" class="text-center">There are no purchases</td>
                                                         </tr>
                                                         <template v-else>
                                                             <tr v-for="produc,i in stockDetails" :key="i">
@@ -108,7 +113,7 @@
                                                                 <td>{{ produc.product_qty }}</td>
                                                                 <td>₦ {{ produc.price }}</td>
                                                                 <td>{{ produc.created_at }}</td>
-                                                                <td><span :class="['badge ', produc.status=='processing' ? 'badge-info' : produc.status=='approved' ? 'badge-success' : 'badge-danger']" style="padding: 6px 10px;">{{ produc.status }}</span></td>
+                                                                <td><span :class="['badge ', produc.status=='processing' ? 'badge-info' : produc.status=='approved' ? 'badge-success' : 'badge-danger']" style="padding: 10px 10px;">{{ produc.status }}</span></td>
                                                                 <!-- <td>₦{{ produc.worth }}</td> -->
                                                                 <!-- <td> 
                                                                     <div class="form-check">
@@ -198,7 +203,7 @@
                                         </tr>
                                         <template v-else>
                                             <tr v-if="stocks.length == 0">
-                                                <td colspan="5">There are no stocks</td>
+                                                <td colspan="5" class="text-center">There are no stocks</td>
                                             </tr>
                                             <template v-else>
                                                 <tr v-for="stock,i in stocks" :key="i">
@@ -207,7 +212,7 @@
                                                     <!-- <td>{{ claim.worth?.toLocaleString('en-US')}}</td> -->
                                                     <td>₦{{ stock.cost_price }}</td>
                                                     <td>{{ stock.quantity }}</td>
-                                                    <td><span :class="['badge', stock.in_stock ? 'badge-success' : 'badge-danger']" style="padding: 6px 10px;">{{ stock.in_stock }}</span></td>
+                                                    <td><span :class="['badge', stock.in_stock ? 'badge-success' : 'badge-danger']" style="padding: 10px 10px;">{{ stock.in_stock }}</span></td>
                                                 </tr>
                                             </template>
                                         </template>
@@ -264,7 +269,7 @@
                                         </tr>
                                         <template v-else>
                                             <tr v-if="stockistPurchases.length ==0">
-                                                <td colspan="5">There are no purchases</td>
+                                                <td colspan="5" class="text-center">There are no purchases</td>
                                             </tr>
                                             <template v-else>
                                                 <tr v-for="purchase,i in stockistPurchases" :key="i">
@@ -272,7 +277,7 @@
                                                     <td>{{ purchase.total_quantity }}</td>
                                                     <td>₦{{ purchase.total_price }}</td>
                                                     <td>{{ purchase.payment_receipt == null ? "Debit Card" : "Manual Upload" }}</td>
-                                                    <td><span :class="['badge ', purchase.status=='processing' ? 'badge-info' : purchase.status=='approved' ? 'badge-success' : 'badge-danger']">{{ purchase.status }}</span></td>
+                                                    <td><span :class="['badge ', purchase.status=='processing' ? 'badge-info' : purchase.status=='approved' ? 'badge-success' : 'badge-danger']" style="padding: 10px 10px;">{{ purchase.status }}</span></td>
                                                     <td>{{ purchase.created_at }}</td>
                                                 </tr>
                                             </template>
@@ -355,7 +360,7 @@
                                         </tr>
                                         <template v-else>
                                             <tr v-if="rebateEarnings.length==0">
-                                                <td colspan="5">There are no rebate earnings</td>
+                                                <td colspan="5" class="text-center">There are no rebate earnings</td>
                                             </tr>
                                             <tr v-for="rebate,i in rebateEarnings" :key="i">
                                                 <th scope="row">{{ ++i }}</th>

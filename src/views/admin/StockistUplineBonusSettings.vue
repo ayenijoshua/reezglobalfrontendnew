@@ -4,10 +4,10 @@
             <div class="row my-3">
                 <div class="col-md-12">
                     <div class="card shadow1">
-                        <div class="card-header" style="background-color:#2E671A" >
-                            <h6 class="text-white"><strong class="font-weight-bold">STOCKIST UPLINE BONUS EARNING LEVEL</strong></h6>
+                        <div class="card-header" style="background-color:#ded8c7" >
+                            <h6 class="text-green"><strong class="font-weight-bold">STOCKIST UPLINE BONUS EARNING LEVEL</strong></h6>
                         </div>
-                        <div class="card-body" style="overflow-x:auto;">
+                        <div class="card-body" style="overflow-x:auto; background-color:#ded8c7">
                             <table class="table table-bordered table-hover">
                                 <thead>
                                     <tr>
@@ -39,7 +39,7 @@
                                     <template v-else>
                                         <tr v-if="stockistUplineBonusSetting.length == 0">
                                             <td colspan="13">
-                                                <div class="alert alert-info">There are no Upgrade bonus settings</div>
+                                                <div class="alert alert-info text-center">There are no Upgrade bonus settings</div>
                                             </td>
                                         </tr>
                                         <template v-else>

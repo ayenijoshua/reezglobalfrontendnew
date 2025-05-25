@@ -46,13 +46,13 @@
                                         <!-- bar charts group -->
                                         <div class="col-md-12">
                                             <div class="card shadow1">
-                                                <div class="card-header" style="background-color: #2E671A" >
-                                                    <h5 class="text-white"><strong class="font-weight-bold">Withdrawal Details</strong></h5>
+                                                <div class="card-header" style="background-color: #ded8c7" >
+                                                    <h5 class="text-green"><strong class="font-weight-bold">Withdrawal Details</strong></h5>
                                                 </div>
-                                                <div class="card-body" style="overflow-x:auto;background-color: #ecf0f1">
+                                                <div class="card-body" style="overflow-x:auto;background-color: #ded8c7">
                                                     <div class=" mb-3" style="float:right">
                                                         <form class="form-inline my-2 my-lg-0" @submit.prevent="searchWithdraws()">
-                                                            <input v-model="searchParam" class="form-control mr-sm-2" type="search" placeholder="" style="background-color: #ecf0f1; border: 2px solid #2E671A;" >
+                                                            <input v-model="searchParam" class="form-control mr-sm-2" type="search" placeholder="" style="background-color: #ded8c7; border: 2px solid #2E671A;" >
                                                             <span v-if="loading" class="btn btn-success my-2 my-sm-0">...</span>
                                                             <button v-else class="btn btn-success my-2 my-sm-0" type="submit">Search</button>
                                                         </form>
@@ -82,7 +82,7 @@
                                                             <template v-else>
                                                                 <tr v-if="withdrawals.length == 0">
                                                                     <td colspan="6">
-                                                                        <div class="alert alert-info">
+                                                                        <div class="alert alert-info text-center">
                                                                             There are no withdrawals
                                                                         </div>
                                                                     </td>
@@ -157,13 +157,13 @@
                                         <!-- bar charts group -->
                                         <div class="col-md-12">
                                             <div class="card shadow1">
-                                                <div class="card-header" style="background-color: #2E671A">
-                                                    <h6 class="text-white"><strong class="font-weight-bold">Registration Details</strong></h6>
+                                                <div class="card-header" style="background-color: #ded8c7">
+                                                    <h6 class="text-green"><strong class="font-weight-bold">Registration Details</strong></h6>
                                                 </div>
-                                                <div class="card-body" style="overflow-x:auto; background-color: #ecf0f1;">
+                                                <div class="card-body" style="overflow-x:auto; background-color: #ded8c7;">
                                                     <div class=" mb-3" style="float:right">
                                                         <form class="form-inline my-2 my-lg-0" @submit.prevent=" searchRegs()">
-                                                            <input required v-model="regSearchParam" class="form-control mr-sm-2" type="search" placeholder="" aria-label="Search" style="background-color: #ecf0f1; border: 2px solid #2E671A;" >
+                                                            <input required v-model="regSearchParam" class="form-control mr-sm-2" type="search" placeholder="" aria-label="Search" style="background-color: #ded8c7; border: 2px solid #2E671A;" >
                                                             <span v-if="loading" class="btn btn-success my-2 my-sm-0">...</span>
                                                             <button v-else class="btn btn-success my-2 my-sm-0" type="submit">Search</button>
                                                         </form>
@@ -194,7 +194,7 @@
                                                             <template v-else>
                                                                 <tr v-if="paidUsers.length == 0">
                                                                     <td colspan="6">
-                                                                        <div class="alert alert-info">
+                                                                        <div class="alert alert-info text-center">
                                                                             There are not active user registrations
                                                                         </div>
                                                                     </td>
@@ -208,7 +208,7 @@
                                                                         <td>₦{{ user.amount?.toLocaleString('en-US') }}</td>
                                                                         <td>{{ user.created_at }}</td>
                                                                         <td>
-                                                                            <button @click="setUser(user)" v-b-modal.user-upgrade-history class="badge badge-info">View</button>
+                                                                            <button @click="setUser(user)" v-b-modal.user-upgrade-history class="badge badge-success" style="padding: 10px 10px;">View</button>
                                                                         </td>
                                                                     </tr>
                                                                 </template>
@@ -231,13 +231,13 @@
                                         <!-- bar charts group -->
                                         <div class="col-md-12">
                                             <div class="card shadow1">
-                                                <div class="card-header" style="background-color: #2E671A">
-                                                    <h6 class="text-white"><strong class="font-weight-bold">Registration Upgrade</strong></h6>
+                                                <div class="card-header" style="background-color: #ded8c7">
+                                                    <h6 class="text-green"><strong class="font-weight-bold">Registration Upgrade</strong></h6>
                                                 </div>
-                                                <div class="card-body" style="overflow-x:auto;background-color: #ecf0f1;">
+                                                <div class="card-body" style="overflow-x:auto;background-color: #ded8c7;">
                                                     <div class=" mb-3" style="float:right">
                                                         <form class="form-inline my-2 my-lg-0" @submit.prevent=" searchRegs()">
-                                                            <input required v-model="regSearchParam" class="form-control mr-sm-2" type="search" placeholder="" aria-label="Search" style="background-color: transparent; border: 2px solid #2E671A;" >
+                                                            <input required v-model="regSearchParam" class="form-control mr-sm-2" type="search" placeholder="" aria-label="Search" style="background-color: #ded8c7; border: 2px solid #2E671A;" >
                                                             <span v-if="loading" class="btn btn-success my-2 my-sm-0">...</span>
                                                             <button v-else class="btn btn-success my-2 my-sm-0" type="submit">Search</button>
                                                         </form>
@@ -268,7 +268,7 @@
                                                             <template v-else>
                                                                 <tr v-if="upgradedUsers.length == 0">
                                                                     <td colspan="7">
-                                                                        <div class="alert alert-info">
+                                                                        <div class="alert alert-info text-center">
                                                                             There are no user registration upgrades
                                                                         </div>
                                                                     </td>
@@ -449,7 +449,9 @@
                             <div class="row mt-4">
                                 <div class="col-md-12">
                                     <div class="card shadow1 mb-3" style="background-color: transparent">
-                                        <div class="card-header">Stockist Registrations</div>
+                                        <div class="card-header">
+										    <h6 class="text-green"><strong class="font-weight-bold">Stockist Registrations</strong></h6>
+										</div>
                                         <div class="card-body ">
                                             <div class="d-flex justify-content-left mb-2">
                                                 <!-- <input 
@@ -547,7 +549,8 @@
                             <div class="row mt-4">
                                 <div class="col-md-12">
                                     <div class="card shadow1 mb-3" style="background-color: transparent">
-                                        <div class="card-header">Pending Stockist Upgrades</div>
+                                        <div class="card-header">
+										<h6 class="text-green"><strong class="font-weight-bold">Pending Stockist Upgrades</strong></h6></div>
                                         <div class="card-body ">
                                             <div class="d-flex justify-content-left mb-2">
                                                 <!-- <input 
@@ -646,7 +649,8 @@
                                         <div class="">
                                             <div class="" > 
                                                 <div class="card  mb-3 shadow" style="background-color: transparent">
-                                                    <div class="card-header">Stockist Purchases</div>
+                                                    <div class="card-header">
+													  <h6 class="text-green"><strong class="font-weight-bold">Stockist Purchases</strong></h6></div>
                                                     <div class="card-body">
                                                         <div class="d-flex justify-content-left mb-2">
                                                             <!-- <input 
@@ -947,42 +951,78 @@
 
 <style scoped>
 
-/* Dropdown Menu Styling */
-.dropdown-menu {
-    position: absolute !important; /* Make sure the dropdown is positioned absolutely */
-    top: auto; /* Allow it to adjust position */
-    left: auto; /* Allow it to adjust position */
-    z-index: 1050; /* Ensure it appears above other elements */
-    background-color: #ecf0f1; /* Your dropdown background color */
-    border: 1px solid #2E671A; /* Match your design style */
-    padding: 0.5rem 0; /* Adjust padding */
+::v-deep(.pagination .page-link) {
+  background-color: #ded8c7 !important;
+  color: #2E671A !important;
+  border: 1px solid #ded8c7 !important;
+  font-weight: 600;
+  box-shadow: none;
 }
 
-/* Default text and icon styles */
-.dropdown-menu .dropdown-item {
-    color: #2E671A !important; /* Ensure default text color */
-    font-weight: bold;
-    display: flex; /* Align icon and text together */
-    align-items: center;
-    gap: 8px; /* Space between icon and text */
-    padding: 10px 15px; /* Adjust padding for spacing */
+::v-deep(.pagination .page-item.active .page-link) {
+  background-color: #2E671A !important;
+  color: #fff !important;
+  border: 1px solid #2E671A !important;
 }
 
-/* Hover effect: Ensure all parts change */
-.dropdown-menu .dropdown-item:hover {
-    background-color: #2E671A !important; /* Background on hover */
-    color: white !important; /* Text color on hover */
-}
+    /* Dropdown Menu Styling */
+    .dropdown-menu {
+        position: absolute !important; /* Make sure the dropdown is positioned absolutely */
+        top: auto; /* Allow it to adjust position */
+        left: auto; /* Allow it to adjust position */
+        z-index: 1050; /* Ensure it appears above other elements */
+        background-color: #ded8c7; /* Your dropdown background color */
+        border: 1px solid #2E671A; /* Match your design style */
+        padding: 0.5rem 0; /* Adjust padding */
+    }
 
-/* Ensure icons also change color on hover */
-.dropdown-menu .dropdown-item:hover i {
-    color: white !important;
-}
+    /* Ensure dropdown is not clipped by the table */
+    .table-responsive {
+        overflow-x: visible !important;
+    }
 
-/* Add smooth transitions */
-.dropdown-menu .dropdown-item {
-    transition: background-color 0.3s ease, color 0.3s ease;
-}
+    /* Dropdown Menu Styling */
+    .dropdown-menu {
+        position: absolute !important; /* Ensure absolute positioning */
+        top: auto; /* Adjust position */
+        left: auto; /* Adjust position */
+        z-index: 1050; /* Place it above other elements */
+        background-color: #ded8c7; /* Background color */
+        border: 1px solid #2E671A; /* Match your design */
+        padding: 0.5rem 0; /* Adjust padding */
+    }
+
+    /* Prevent dropdown clipping */
+    .table-responsive {
+        overflow-x: visible !important;
+    }
+
+    /* Default text and icon styles */
+    .dropdown-menu .dropdown-item {
+        color: #2E671A !important; /* Ensure default text color */
+        font-weight: bold;
+        display: flex; /* Align icon and text together */
+        align-items: center;
+        gap: 8px; /* Space between icon and text */
+        padding: 10px 15px; /* Adjust padding for spacing */
+    }
+
+    /* Hover effect: Ensure all parts change */
+    .dropdown-menu .dropdown-item:hover {
+        background-color: #2E671A !important; /* Background on hover */
+        color: white !important; /* Text color on hover */
+    }
+
+    /* Ensure icons also change color on hover */
+    .dropdown-menu .dropdown-item:hover i {
+        color: white !important;
+    }
+
+    /* Add smooth transitions */
+    .dropdown-menu .dropdown-item {
+        transition: background-color 0.3s ease, color 0.3s ease;
+    }
+	
 
 
 

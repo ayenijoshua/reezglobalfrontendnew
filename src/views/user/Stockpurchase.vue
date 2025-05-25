@@ -1,11 +1,36 @@
 <template>
     <div>
         <div class="">
+		<div class="d-flex justify-content-center mt-5 mb-5">
+		    <div class="col-md-6 col-sm-12">
+			    <div class="card no-b shadow 1" style="background-color: transparent;">
+					<div class="card-body">
+						<span class="text-center text-green s-12 font-weight-bold">Select Pick-up Type</span>
+						<div class="form-group m-0">
+							<div  class="input-group mb-2 mr-sm-2 mb-3">
+								<div class="input-group-prepend" style="">
+									<div class="input-group-text" style="background-color: rgb(46, 103, 26); border: 2px solid rgb(46, 103, 26);">
+										<i class="icon icon-shopping-cart float-left s-20 text-white"></i>
+									</div>
+								</div>
+								<select required="required" class="form-control r-0 light s-12" style="background-color: #ded8c7; border: 2px solid rgb(27, 79, 114);">
+									<option  value="">Select</option>
+									<option  value="Stockist upgrade_pickup" style="background-color:#ded8c7">upgrade pickup</option>
+									<option  value="Stockist registration_pickup" style="background-color:#ded8c7">registration pickup</option>
+									<option  value="re-stock" style="background-color:#ded8c7">Monthly re-stock</option>
+								</select>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		
 
             <div class="row ">		
                 <div class="col-md-8">
-                    <div class="card no-b shadow" style="background-color:#ecf0f1">
-                        <div class="card-header">Stock Purchase</div>
+                    <div class="card no-b shadow" style="background-color:#ded8c7">
                         <div class="card-body p-0">
                             <div class="table-responsive">
                                 <table class="table table-hover">
@@ -34,7 +59,7 @@
                                         </tr>
                                         <template v-else>
                                             <tr v-if="products.length == 0" class="no-b">
-                                                <td colspan="4">There are no products</td>
+                                                <td class="text-center" colspan="4">There are no products</td>
                                             </tr>
                                             <template v-else>
                                                 <tr  v-for="produc,i in products" :key="i" >
@@ -106,7 +131,7 @@
                                     <div class="row column-row" >
                                         <div class="ml-auto mr-2">
                                             <button @click="cancelOrder" class="btn btn-sm btn-danger  mt-2" ><i class="icon-cancel mr-2"></i> Cancel Selection</button>
-                                            <button @click="stockistPurchase"  type="submit" class="btn btn-sm btn-success mr-3 "><i class="icon-shopping-cart mr-2"></i>Submit Order</button>
+                                            <button @click="stockistPurchase"  type="submit" class="btn btn-sm btn-success mt-2 mr-3 ml-3"><i class="icon-shopping-cart mr-2"></i>Submit Order</button>
                                         </div>    
                                     </div>
                                 </template>
@@ -132,27 +157,7 @@
                 </div>
             </div>
             <br>
-            <div class="d-flex justify-content-center mt-5 mb-5"> <!-- Centering wrapper added -->
-                <div class="col-md-6 col-sm-12"> 
-                    <div class="card no-b shadow 1" style="background-color: transparent;">
-                        <div class="card-body">
-                            <span class="text-center text-green s-12 font-weight-bold">Select Your Preferred Payment Method</span>
-                            <div class="form-group m-0">                       
-                                <div class="input-group mb-2 mr-sm-2 mb-3">
-                                    <div class="input-group-prepend">
-                                        <div class="input-group-text" style="background-color: #2E671A; border: 2px solid #2E671A;"><i class="icon icon-payment float-left s-20 text-white" ></i></div>
-                                    </div>
-                                    <select required v-model="selectedPaymentType" class="form-control r-0 light s-12" style="background-color: transparent; border: 2px solid #1b4f72;">
-                                        <option value="">Select Payment type</option>
-                                        <option value="offline">Pay Offline</option>	
-                                        <!-- <option value="online">Pay Via Payment Gateway</option>													    -->
-                                    </select>
-                                </div>
-                            </div>
-                        </div>     
-                    </div>       
-                </div>
-            </div>
+
     
            <div v-if="selectedPaymentType === 'offline'" class="row"> 
                <!--- <div class="col-md-12">

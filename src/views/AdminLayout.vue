@@ -3,7 +3,7 @@
         <aside class="main-sidebar fixed offcanvas shadow" data-toggle='offcanvas'>
             <section class="sidebar">
                 <div class="w-80px mt-3 mb-3 ml-3">
-                    <img src="/assets/img/logo2b.png" style="max-width: 300%;" alt="logo">
+                    <img src="/assets/img/logo1.png" style="max-width: 300%;" alt="logo">
                 </div>
                 <div class="relative">
                     <a data-toggle="collapse" href="#adminSettingsCollapse" role="button" aria-expanded="false"
@@ -25,10 +25,10 @@
                             <div class="list-group mt-3 shadow">
                                 <a href="#" class="list-group-item list-group-item-action shadow1">
                                     <i class="mr-2 icon icon-sign-out"></i>
-                                    <span class="text-blue" v-b-modal.logOut>Logout</span>
+                                    <span class="text-green" v-b-modal.logOut>Logout</span>
                                 </a>
                                 <router-link :to="{name:'user-security'}" class="list-group-item list-group-item-action shadow1">
-                                    <i class="mr-2 icon-lock3 text-blue"></i><span class="text-blue">Change Password</span>
+                                    <i class="mr-2 icon-lock3 text-green"></i><span class="text-green">Change Password</span>
                                 </router-link>
                             </div>
                         </div>
@@ -130,7 +130,7 @@
                         <ul class="treeview-menu">
                             <li>
                                 <router-link :to="{name:'referral-bonus-settings'}">
-                                    <i class="icon icon-arrow-right"></i> Referral Settings
+                                    <i class="icon icon-arrow-right"></i> Bonus Settings
                                 </router-link>
                             </li>
                             <li>
@@ -243,10 +243,13 @@
 
 <style scoped>
 .card {
-    background-color: #ecf0f1;
+    background-color: #ded8c7;
     background-clip: border-box;
 
 }
+
+
+</style>
 
 
 .img-responsive {

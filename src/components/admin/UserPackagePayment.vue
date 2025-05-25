@@ -27,7 +27,7 @@
                     <template v-else>
                         <tr v-if="packagePayments.length == 0">
                             <td colspan="8">
-                                <div class="alert alert-info">
+                                <div class="alert alert-info text-center">
                                     There are no upgrade History
                                 </div>
                             </td>
