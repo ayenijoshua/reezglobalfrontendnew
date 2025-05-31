@@ -237,7 +237,7 @@
                                                 <div v-if="currentRankBadge !== ''" class="text-dark-heading font-weight-bold green-text">
                                                     <img class="img-fluid" :src="'/img/badges/'+currentRankBadge" :style="{width:'30%', height:'30%'}" />
                                                 </div>
-                                                <p v-else class="alert alert-info">You are yet to qualify for an incentive</p>
+                                                <p v-else class="alert alert-info text-center">You are yet to qualify for an incentive</p>
                                             </div>
                                             <template v-else>
                                                 <div class="col-md-6" id="yourContainer">
@@ -246,11 +246,11 @@
                                                 <div class="col-md-6">
                                                     <div class="card-body pt-0 mt-5">
                                                         <!-- <h6 class="mt-0 green-text" >Cash Equivalent</h6>
-                                                        <div class="text-dark-heading font-weight-bold green-text" >₦<span class="s-36">{{ currentIncentive.worth?.toLocaleString('en-US') }}</span></div> -->
+                                                        <div class="text-dark-heading font-weight-bold green-text" >₦<span class="s-36">{{ currentIncentive.worth?.toLocaleString('en-US') }}</span></div>
                                                         <div class="text-dark-heading font-weight-bold green-text">
                                                             <img class="img-fluid" :src="'/img/badges/'+currentRankBadge" :style="{width:'30%', height:'30%'}" />
                                                         </div>
-                                                        <hr>
+                                                        <hr> -->
                                                         <h6 class="mt-0 green-text" >Cumulated Point Value (CPV)</h6>
                                                         <div class="text-dark-heading font-weight-bold green-text"><span class="s-36">{{ currentIncentive.points?.toLocaleString('en-US') }}PV</span></div>
                                                         <hr>
@@ -383,7 +383,7 @@
                                         </tr>
                                         <template v-else>
                                             <tr v-if="claims.length == 0">
-                                                <td colspan="5">There are no claimed incentives</td>
+                                                <td class="text-center" colspan="5">There are no claimed incentives</td>
                                             </tr>
                                             <template v-else>
                                                 <tr v-for="claim,i in claims" :key="i">

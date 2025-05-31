@@ -39,7 +39,7 @@
                         <div class="card-body">
                             <div class="d-flex align-items-center flex-row flex-wrap">
                                 <div class="row column-row ml-1 ">
-                                    <img class="mr-3  r-3" src="/assets/img/equil-green.png" alt="Generic placeholder image" width="70px" height="70px">
+                                    <img class="mr-3  r-3" src="/assets/img/checkout.png" alt="Generic placeholder image" width="70px" height="70px">
                                     <h6 class="mt-4 mb-1 font-weight-bold text-green" >Registration Products Pick-up<br> <small class="text-green">Total No. of Products pick-up</small></h6>
                                 </div>
                                 <div class="ml-auto">
@@ -66,7 +66,7 @@
                         <div class="card-body">
                             <div class="d-flex align-items-center flex-row flex-wrap">
                                 <div class="row column-row ml-1 ">
-                                    <img class="mr-3  r-3" src="/assets/img/equil-green.png" alt="Generic placeholder image" width="70px" height="70px">
+                                    <img class="mr-3  r-3" src="/assets/img/checkout.png" alt="Generic placeholder image" width="70px" height="70px">
                                     <h6 class="mt-4 mb-1 font-weight-bold text-green" >Upgrade Products Pick-up<br> <small class="text-green">Total No. of Products pick-up</small></h6>
                                 </div>
                                 <div class="ml-auto">
@@ -93,7 +93,7 @@
                         <div class="card-body" >
                             <div class="d-flex align-items-center flex-row flex-wrap">
                                 <div class="row column-row ml-1 ">
-                                    <img class="mr-3  r-3" src="/assets/img/loyalty-green.png" alt="Generic placeholder image" width="70px" height="70px">
+                                    <img class="mr-3  r-3" src="/assets/img/checkout.png" alt="Generic placeholder image" width="70px" height="70px">
                                     <h6 class="mt-4 mb-1 font-weight-bold text-green">Repurchase Products Pick-up<br> <small class="text-green">Total No. of Products pick-up</small></h6>
                                 </div>
                                 <div class="ml-auto">
@@ -119,14 +119,14 @@
                                 </div>
                                 <div class="ml-auto">
                                     <div class="d-flex flex-row mt-4 mb-4 ml-4">
-                                        <div class="border-right" style="padding-right:20px">
+                                        <div  style="padding-right:20px">
                                             <h6 class="mt-0 mb-1 font-weight-bold text-white" >Products Sold QTY</h6>
                                             <div class="mt-1 text-dark-heading text-white float-right" >{{ totalProductSold?.toLocaleString('en-US') }}</div>
                                         </div>
-                                        <div style="padding-left:20px">
+                                        <!----<div style="padding-left:20px">
                                             <h6 class="mt-0 mb-1 font-weight-bold text-white" >Total Products PV</h6>
                                             <div class="mt-1 text-dark-heading text-white float-left">{{ totalProductPV?.toLocaleString('en-US') }} PV</div>
-                                        </div>
+                                        </div>-->
                                     </div>
                                 </div>
                             </div>

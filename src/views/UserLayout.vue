@@ -219,7 +219,7 @@
             <div class="modal-dialog" style="background-color: #ecf0f1 !important;">
                 <div class="modal-content" style="background-color: #ecf0f1 !important;">
                     <div class="d-flex justify-content-center align-items-center mb-2" > <!-- Added styling and classes -->
-                        <img  src="/assets/img/exit1.png" width="auto" height="100px">
+                        <img  src="/assets/img/exit.png" width="auto" height="100px">
                     </div>
                     <div class="ibox-content modalContent text-center" id="modalContent">
                         <span class="font-weight-bold">Are you sure you want to log out?</span><br>

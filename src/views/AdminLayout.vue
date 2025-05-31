@@ -130,7 +130,7 @@
                         <ul class="treeview-menu">
                             <li>
                                 <router-link :to="{name:'referral-bonus-settings'}">
-                                    <i class="icon icon-arrow-right"></i> Referral Settings
+                                    <i class="icon icon-arrow-right"></i> Bonus Settings
                                 </router-link>
                             </li>
                             <li>

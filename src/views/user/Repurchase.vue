@@ -89,7 +89,7 @@
                                             </tr>
                                             <template v-else>
                                                <tr v-if="products.length == 0" class="no-b">
-                                                    <td colspan="7">There are no products</td>
+                                                    <td class="text-center" colspan="7">There are no products</td>
                                                 </tr>
                                                 <template v-else>
                                                     <tr  v-for="produc,i in products" :key="i" >
@@ -121,9 +121,9 @@
                     <div class="card  mb-3 shadow" style="background-color: transparent">
                         <div class="float-left">
                             <div class="card-body">
-                                <div class="card-header">Cart History</div>
+                                <div class="card-header text-white font-weight-bold" style="background-color: #2E671A">Cart History</div>
                                 <template v-if="cartProducts.length==0">
-                                    <p class="alert alert-info">
+                                    <p class="alert alert-info text-center">
                                         There are no items in your cart
                                     </p>
                                 </template>
@@ -233,8 +233,8 @@
                                         <template v-else>
                                             <template v-if="stockists.length == 0">
                                                 <tr>
-                                                    <td colspan="5">
-                                                        <div>Ther are no stockists</div>
+                                                    <td class="text-center" colspan="5">
+                                                        <div>There are no stockists</div>
                                                     </td>
                                                 </tr>
                                             </template>
@@ -347,8 +347,8 @@
                                         <template v-else>
                                             <template v-if="userPurchases.length == 0">
                                                 <tr>
-                                                    <td colspan="11">
-                                                        <div>Ther are no orders</div>
+                                                    <td class="text-center" colspan="11">
+                                                        <div>There are no orders</div>
                                                     </td>
                                                 </tr>
                                             </template>
@@ -399,7 +399,7 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-10 offset-md-1">
+                <div class="col-md-10 offset-md-1 mt-5">
                     <iframe id='ifr' frameborder="0" :src="payLink" scrolling="no" width="400" height="500"></iframe>
                 </div>
             </div>
@@ -419,7 +419,7 @@
                     </div>
                 </div>
                 <br/>
-                <div>
+                <div class="text-center">
                     <h2>Enter password to view code</h2>
                     <h3 v-if="orderCodeFetching==true">...loading</h3>
                     <h3 v-else>Order Code : {{ orderCode }} </h3>

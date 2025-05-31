@@ -56,12 +56,12 @@
                                                     <br>
                                                     <div class="" style="background-color:#ecf0f1" >
                                                         <ul class="list-group list-group-flush" style="background-color:#ecf0f1">
-                                                            <li class="list-group-item border-bottom"><i class="icon icon-vcard float-left s-20 text-blue border-right" ></i> <span class="float-right s-12 font-weight-medium text-green">{{ regPackage.name }}</span></li>
-                                                            <li class="list-group-item border-bottom"><i class="icon icon-person float-left s-20 text-blue border-right" ></i> <span class="float-right s-12 font-weight-medium text-green">{{ authUser.first_name }} {{ authUser.last_name }}</span></li>
-                                                            <li class="list-group-item border-bottom"><i class="icon icon-phone2 float-left s-20 text-blue border-right"></i> <span class="float-right s-12 font-weight-medium text-green">{{ authUser.phone }}</span></li>
-                                                            <li class="list-group-item border-bottom"><i class="icon icon-mail-envelope-closed4 float-left s-20 text-blue border-right"></i> <span class="float-right s-12 font-weight-medium text-green">{{ authUser.email }}</span></li>
-                                                            <li class="list-group-item border-bottom"><i class="icon icon-account_box float-left s-20 text-blue border-right"></i>  <span class="float-right s-12 font-weight-medium text-green">{{ authUser.username }}</span></li>
-                                                            <li class="list-group-item"><i class="icon icon-home float-left s-20 text-blue border-right"></i> <span class="float-right s-12 font-weight-medium text-blue text-right" style="width:130px">{{ profile.address }}</span></li>
+                                                            <li class="list-group-item border-bottom"><i class="icon icon-vcard float-left s-20 text-blue border-right" ></i> <span class="float-right s-12 font-weight-bold text-green">{{ regPackage.name }}</span></li>
+                                                            <li class="list-group-item border-bottom"><i class="icon icon-person float-left s-20 text-blue border-right" ></i> <span class="float-right s-12 font-weight-bold text-green">{{ authUser.first_name }} {{ authUser.last_name }}</span></li>
+                                                            <li class="list-group-item border-bottom"><i class="icon icon-phone2 float-left s-20 text-blue border-right"></i> <span class="float-right s-12 font-weight-bold text-green">{{ authUser.phone }}</span></li>
+                                                            <li class="list-group-item border-bottom"><i class="icon icon-mail-envelope-closed4 float-left s-20 text-blue border-right"></i> <span class="float-right s-12 font-weight-bold text-green">{{ authUser.email }}</span></li>
+                                                            <li class="list-group-item border-bottom"><i class="icon icon-account_box float-left s-20 text-blue border-right"></i>  <span class="float-right s-12 font-weight-bold text-green">{{ authUser.username }}</span></li>
+                                                            <li class="list-group-item"><i class="icon icon-home float-left s-20 text-blue border-right"></i> <span class="float-right s-12 font-weight-bold text-green text-right" style="width:130px">{{ profile.address }}</span></li>
                                                         </ul>
                                                     </div>
                                                 </template>
@@ -204,10 +204,10 @@
                                                     </div>
                                                     <div class="">
                                                         <ul class="list-group list-group-flush" >
-                                                            <li class="list-group-item border-bottom" style="background-color:#1b4f72;" ><i class="icon icon-vcard float-left s-20 text-white border-right" ></i> <span class="float-right s-12 font-weight-bold text-white">{{ uplineDetails.package }}</span></li>
-                                                            <li class="list-group-item border-bottom" style="background-color:#1b4f72;" ><i class="icon icon-person float-left s-20 text-white border-right" ></i> <span class="float-right s-22 font-weight-bold text-white ">{{ uplineDetails.first_name }} {{ uplineDetails.last_name }}</span></li>
-                                                            <li class="list-group-item border-bottom" style="background-color:#1b4f72;" ><i class="icon icon-mail-envelope-closed4 text-white float-left s-20  border-right"></i> <span class="float-right s-12 font-weight-bold text-white">{{ uplineDetails.email }}</span></li>
-                                                            <li class="list-group-item" style="background-color:#1b4f72;" ><i class="icon icon-account_box float-left s-20 text-white border-right"></i>  <span class="float-right s-12 font-weight-bold text-white">{{ uplineDetails.username }}</span></li>
+                                                            <li class="list-group-item border-bottom" style="background-color:#1b4f72;" ><i class="icon icon-vcard float-left s-20 text-white border-right" ></i> <span class="float-right s-12 font-weight-bold text-green">{{ uplineDetails.package }}</span></li>
+                                                            <li class="list-group-item border-bottom" style="background-color:#1b4f72;" ><i class="icon icon-person float-left s-20 text-white border-right" ></i> <span class="float-right s-14 font-weight-bold text-green ">{{ uplineDetails.first_name }} {{ uplineDetails.last_name }}</span></li>
+                                                            <li class="list-group-item border-bottom" style="background-color:#1b4f72;" ><i class="icon icon-mail-envelope-closed4 text-white float-left s-20  border-right"></i> <span class="float-right s-12 font-weight-bold text-green">{{ uplineDetails.email }}</span></li>
+                                                            <li class="list-group-item" style="background-color:#1b4f72;" ><i class="icon icon-account_box float-left s-20 text-white border-right"></i>  <span class="float-right s-12 font-weight-bold text-green">{{ uplineDetails.username }}</span></li>
                                                         </ul>
                                                     </div>
                                                 </template>
@@ -419,7 +419,7 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-10 offset-md-1">
+                <div class="col-md-10 offset-md-1 mt-5">
                     <iframe id='ifr' frameborder="0" :src="payLink" scrolling="no" width="400" height="500"></iframe>
                 </div>
             </div>

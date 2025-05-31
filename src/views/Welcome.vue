@@ -204,8 +204,8 @@
                                                                             <div class="input-group-text" style="background-color: #2E671A"><i class="icon icon-account_balance float-left s-20 text-white" ></i></div>
                                                                         </div>
                                                                         <select id="bank-select" @change="setBankCode" v-model="form.bank_name" required class="form-control r-1 light s-5" style="background-color:transparent; ; border: 2px solid #2E671A;">
-                                                                            <option :value="null" style="background-color: #ded8c7;">Select Bank</option>
-                                                                            <option v-for="bank,i in banks" :value="bank.bank" :key="i" :selected="profile?.bank_name == bank.bank" style="background-color: #ded8c7">{{ bank.bank }}
+                                                                            <option :value="null" style="background-color: #ecf0f1;">Select Bank</option>
+                                                                            <option v-for="bank,i in banks" :value="bank.bank" :key="i" :selected="profile?.bank_name == bank.bank" style="background-color: #ecf0f1">{{ bank.bank }}
                                                                                 
                                                                             </option>														   
                                                                         </select>	   
@@ -277,7 +277,7 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-10 offset-md-1">
+                <div class="col-md-10 offset-md-1 mt-5">
                     <iframe id='ifr' frameborder="0" :src="payLink" scrolling="no" width="400" height="500"></iframe>
                 </div>
             </div>

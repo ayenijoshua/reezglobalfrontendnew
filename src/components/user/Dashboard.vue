@@ -3,7 +3,7 @@
         <div class="">
             <div class="row mb-5">
                 <div class="col-md-4">
-                    <div class="card" style="background-color: #2E671A">
+                    <div class="card shadow1" >
                         <div class="card-body" >
                             <div class="d-flex align-items-center">
                                 <div class="mr-3">
@@ -11,38 +11,38 @@
                                         alt="Generic placeholder image" width="70px" height="70px">
                                 </div>
                                 <div class="ml-auto">
-                                    <h6 class="mt-0 mb-1 font-weight-bold text-white">Registration Package</h6>
-                                    <div class="mt-1 text-dark-heading text-white float-right" >{{ regPackage.name }} </div>
+                                    <h6 class="mt-0 mb-1 font-weight-bold text-green">Registration Package</h6>
+                                    <div class="mt-1 text-dark-heading text-green float-right" >{{ regPackage.name }} </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <div class="card" style="background-color: #2E671A" >
+                    <div class="card shadow1" >
                         <div class="card-body" >
                             <div class="d-flex align-items-center">
                                 <div class="mr-3">
                                     <img class="mr-3  r-3" src="/assets/img/hand-shake.png" alt="Generic placeholder image" width="70px" height="70px">
                                 </div>
                                 <div class="ml-auto">
-                                    <h6 class="mt-0 mb-1 font-weight-bold text-white" >Award Bonus</h6>
-                                    <div class="mt-1 text-dark-heading text-white float-right" >₦  {{ userBonusStats.award_bonus?.toLocaleString('en-US') }}</div>
+                                    <h6 class="mt-0 mb-1 font-weight-bold text-green" >Award Bonus</h6>
+                                    <div class="mt-1 text-dark-heading text-green float-right" >₦  {{ userBonusStats.award_bonus?.toLocaleString('en-US') }}</div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <div class="card" style="background-color: #2E671A">
+                    <div class="card shadow1" >
                         <div class="card-body" >
                             <div class="d-flex align-items-center">
                                 <div class="mr-3">
                                     <img class="mr-3  r-3" src="/assets/img/hand-shake.png" alt="Generic placeholder image" width="70px" height="70px">
                                 </div>
                                 <div class="ml-auto">
-                                    <h6 class="mt-0 mb-1 font-weight-bold text-white" >Referral Bonus</h6>
-                                    <div class="mt-1 text-dark-heading text-white float-right" >₦  {{ (referralBonus + placementBonus)?.toLocaleString('en-US') }}</div>
+                                    <h6 class="mt-0 mb-1 font-weight-bold text-green" >Referral Bonus</h6>
+                                    <div class="mt-1 text-dark-heading text-green float-right" >₦  {{ (referralBonus + placementBonus)?.toLocaleString('en-US') }}</div>
                                 </div>
                             </div>
                         </div>
@@ -51,44 +51,42 @@
             </div>	
             <!--States-->
             <div class="row my-5">
-                <div class="col-lg-3">
-                    <div class="counter-box p-40 white shadow2 r-5">
-                        <div class="float-right">
-                            <img src="/assets/img/equil.png" alt="Generic placeholder image" width="60px" height="60px">
-                        </div>
-                        <div class="mt-1 text-dark-heading text-green" >{{ userBonusStats.unilevel_bonus?.toLocaleString('en-US') }}</div>
-                        <h6 class="counter-title font-weight-bold" style="color:#2E671A">Unilevel (₦) </h6><br>
-                        <span class="badge text-white bg-green"><i class="icon icon-check"></i>&nbsp;&nbsp;Eligible</span>
-                    </div>
-                </div>
-                <div class="col-lg-3">
-                    <div class="counter-box p-40 white shadow2 r-5">
+                <div class="col-lg-4">
+                    <div class="counter-box p-40 white shadow1 r-5">
                         <div class="float-right">
                             <img src="/assets/img/bonus.png" alt="Generic placeholder image" width="60px" height="60px">
                         </div>
-                        <div class="mt-1 text-dark-heading text-green" >{{ userBonusStats.matching_bonus?.toLocaleString('en-US') }}</div>
-                        <h6 class="counter-title font-weight-bold" style="color:#2E671A">Matching Bonus (₦)</h6><br>
-                        <span class="badge text-white bg-green"><i class="icon icon-check"></i>&nbsp;&nbsp;Eligible</span>
+                        <div class="mt-1 text-dark-heading text-green" >{{ userBonusStats.unilevel_bonus?.toLocaleString('en-US') }}</div>
+                        <h6 class="counter-title font-weight-bold" style="color:#2E671A">Unilevel (₦) </h6><br>
                     </div>
                 </div>
-                <div class="col-lg-3">
-                    <div class="counter-box p-40 white shadow2 r-5">
+                <div class="col-lg-4">
+                    <div class="counter-box p-40 white shadow1 r-5">
+                        <div class="float-right">
+                            <img src="/assets/img/equil.png" alt="Generic placeholder image" width="60px" height="60px">
+                        </div>
+                        <div class="mt-1 text-dark-heading text-green" >{{ userBonusStats.matching_bonus?.toLocaleString('en-US') }}</div>
+                        <h6 class="counter-title font-weight-bold" style="color:#2E671A">Matching  (₦)</h6><br>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="counter-box p-40 white shadow1 r-5">
                         <div class="float-right">
                             <img  src="/assets/img/bars.png" alt="Generic placeholder image" width="60px" height="60px">
                         </div>
                         <div class="mt-1 text-dark-heading text-green" >{{ userBonusStats.upgrade_bonus?.toLocaleString('en-US') }}</div>
-                        <h6 class="counter-title font-weight-bold" style="color:#2E671A">Upgrade Bonus (₦) </h6><br>
-                        <span class="badge text-white bg-green"><i class="icon icon-check"></i>&nbsp;&nbsp;Eligible</span>
+                        <h6 class="counter-title font-weight-bold" style="color:#2E671A">Upgrade (₦) </h6><br>
                     </div>
                 </div>
-                <div class="col-lg-3">
-                    <div class="counter-box p-40  text-white shadow2 r-5" style="background-color: #2E671A">
+            </div>
+            <div class="row my-5">
+                <div class="col-lg-12">
+                    <div class="counter-box p-40 text-white shadow2 r-5" style="background-color: #2E671A">
                         <div class="float-right">
-                            <img  src="/assets/img/salary_white.png" alt="Generic placeholder image" width="60px" height="60px">
+                            <img  src="/assets/img/salary_white.png">
                         </div>
-                        <div class="mt-1 text-dark-heading text-white" >{{ globalProfit?.toLocaleString('en-US') }}</div>
                         <h6 class="counter-title font-weight-bold">Global Profit (₦)</h6><br>
-                        <span class="badge text-white bg-green"><i class="icon icon-check"></i>&nbsp;&nbsp;Eligible</span>
+                        <div class="text-dark-heading font-weight-bold text-white" >₦<span class="s-36">{{ globalProfit?.toLocaleString('en-US') }}</span></div>
                     </div>
                 </div>
             </div>
@@ -145,7 +143,7 @@
                                                 <div v-if="currentRankBadge !== ''" class="text-dark-heading font-weight-bold green-text">
                                                     <img class="img-flui" :src="'/img/badges/'+currentRankBadge" style="{width:'20%', height:'auto'}" />
                                                 </div>
-                                                <p v-else class="alert alert-info">You are yet to qualify for an incentive</p>
+                                                <p v-else class="alert alert-info text-center">You are yet to qualify for an incentive</p>
                                             </div>
                                             <template v-else>
                                                 <div class="col-md-6" id="yourContainer">
@@ -209,7 +207,7 @@
                                         </tr>
                                         <template v-else>
                                             <tr v-if="claims.length == 0">
-                                                <td colspan="4">There are no claimed incentives</td>
+                                                <td class="text-center" colspan="4">There are no claimed incentives</td>
                                             </tr>
                                             <tr v-else v-for="claim,i in claims" :key="i">
                                                 <th scope="row">{{ ++i }}</th>

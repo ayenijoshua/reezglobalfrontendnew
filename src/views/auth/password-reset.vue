@@ -9,7 +9,7 @@
                 <div class="p-t-b-100 height-full page-background" style="background-color: #98CC5A; opacity: 0.9;">
                     <div class="container">
                         <div class="row">
-                            <div class="col-lg-7 mx-auto">
+                            <div class="col-lg-7 mx-auto" style="padding-top: 50px;" >
                                 <div class="card shadow1" style="background-color: #ecf0f1">
                                     <div class="card-body" style="background-color: #ecf0f1">
                                         <div class="green-text text-center">

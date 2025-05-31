@@ -1,7 +1,7 @@
 <template>
     <div class="row mt-4" style="padding-top: 50px">
         <div class="col-md-12">
-            <div class="card shadow-lg mb-3" style="background-color: transparent">
+            <div class="card shadow1 mb-3" style="background-color: transparent">
                 <div class="card-body ">
                     <div class="d-flex justify-content-left mb-2">
                         <input 
@@ -35,7 +35,7 @@
                                 <template v-if="userPurchases.length == 0">
                                     <tr>
                                         <td colspan="11">
-                                            <div>Ther are no orders</div>
+                                            <div class="text-center">There are no orders</div>
                                         </td>
                                     </tr>
                                 </template>

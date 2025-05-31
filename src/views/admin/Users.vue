@@ -65,12 +65,12 @@
                                         </tr>
                                         <template v-else>
                                             <tr v-if="users.length == 0">
-                                                <td colspan="8"> 
+                                                <td class="text-center" colspan="8"> 
                                                     <template v-if="usersLoading">
                                                         <span>..loading</span>
                                                     </template>
                                                     <template v-else>
-                                                        <span v-if="usersType=='all'">There are no users</span>
+                                                        <span  v-if="usersType=='all'">There are no users</span>
                                                         <span v-else>There are no {{ usersType }} users</span>
                                                     </template>
                                                 </td>
@@ -100,7 +100,7 @@
                                                                 <a v-if="usersType !== 'inactive'" @click="setUser(user)" v-b-modal.user-bank-details class="dropdown-item text-green" data-toggle="modal" data-target="#popModal-1"><i class="icon-bank"></i>&nbsp;&nbsp;Enable Bank Account Change</a>	
                                                                 <a v-if="usersType !== 'inactive'" @click="setUser(user)" v-b-modal.user-password class="dropdown-item text-green" data-toggle="modal" data-target="#popModal-2"><i class="icon-lock"></i>&nbsp;&nbsp;Login Details Change</a>											
                                                                 <a @click="setUser(user)" v-b-modal.send-message class="dropdown-item text-green" data-toggle="modal" data-target="#popModal-3"><i class="icon-mail-envelope-open6"></i>&nbsp;&nbsp;Send Message</a>
-                                                                <a @click="setUser(user)" class="dropdown-item text-green" v-b-modal.make-transfer>Make Payout<i class="icon-mail-money"></i>&nbsp;&nbsp;</a>
+                                                                <a @click="setUser(user)" class="dropdown-item text-green" v-b-modal.make-transfer><i class="icon-money"></i>&nbsp;&nbsp;Make Payout</a>
                                                             </div>
                                                         </div>
                                                     </td>
@@ -144,7 +144,7 @@
                 <div v-if="userIsActive">
                     <Profile :user="user"/>
                 </div>
-                <div v-else class="alert alert-info">
+                <div v-else class="alert alert-info text-center">
                     <span v-if="userDataLoading">User data loading</span>
                     <span v-else>This user is Inactive</span>
                 </div>
@@ -162,7 +162,7 @@
                 <div v-if="userIsActive">
                     <Genealogy :user="user"/>
                 </div>
-                <div v-else class="alert alert-info">
+                <div v-else class="alert alert-info text-center">
                     <span v-if="userDataLoading">User data loading</span>
                     <span v-else>This user is Inactive</span>
                 </div>
@@ -181,7 +181,7 @@
                 <div v-if="userIsActive">
                     <EditBankDetails :user="user"/>
                 </div>
-                <div v-else class="alert alert-info">
+                <div v-else class="alert alert-info text-center">
                     <span v-if="userDataLoading">User data loading</span>
                     <span v-else>This user is Inactive</span>
                 </div>
@@ -199,7 +199,7 @@
                 <div v-if="userIsActive">
                     <EditPassword :user="user"/>
                 </div>
-                <div v-else class="alert alert-info">
+                <div v-else class="alert alert-info text-center">
                     <span v-if="userDataLoading">User data loading</span>
                     <span v-else>This user is Inactive</span>
                 </div>
@@ -217,7 +217,7 @@
                 <div v-if="userIsActive">
                     <Toggle2fa :user="user"/>
                 </div>
-                <div v-else class="alert alert-info">
+                <div v-else class="alert alert-info text-center">
                     <span v-if="userDataLoading">User data loading</span>
                     <span v-else>This user is Inactive</span>
                 </div>
@@ -245,7 +245,7 @@
                 <div v-if="userIsActive">
                     <Wallet :user="user"/>
                 </div>
-                <div v-else class="alert alert-info">
+                <div v-else class="alert alert-info text-center">
                     <span v-if="userDataLoading">User data loading</span>
                     <span v-else>This user is Inactive</span>
                 </div>
@@ -263,7 +263,7 @@
                 <div v-if="userIsActive">
                     <Dashboard :user="user"/>
                 </div>
-                <div v-else class="alert alert-info">
+                <div v-else class="alert alert-info text-center">
                     <span v-if="userDataLoading">User data loading</span>
                     <span v-else>This user is Inactive</span>
                 </div>
@@ -281,7 +281,7 @@
                 <div v-if="userIsActive">
                     <UserOrderHistory :user="user"/>
                 </div>
-                <div v-else class="alert alert-info">
+                <div v-else class="alert alert-info text-center">
                     <span v-if="userDataLoading">User data loading</span>
                     <span v-else>This user is Inactive</span>
                 </div>
@@ -300,7 +300,7 @@
                 <div v-if="userIsActive">
                     <StockistProfile :user="user"/>
                 </div>
-                <div v-else class="alert alert-info">
+                <div v-else class="alert alert-info text-center">
                     <span v-if="userDataLoading">User data loading</span>
                     <span v-else>This user is Inactive</span>
                 </div>
@@ -319,7 +319,7 @@
                 <div v-if="userIsActive">
                     <StockistRecord :user="user"/>
                 </div>
-                <div v-else class="alert alert-info">
+                <div v-else class="alert alert-info text-center">
                     <span v-if="userDataLoading">User data loading</span>
                     <span v-else>This user is Inactive</span>
                 </div>
@@ -338,7 +338,7 @@
                 <div v-if="userIsActive">
                     <StockistProcessedOrders :user="user"/>
                 </div>
-                <div v-else class="alert alert-info">
+                <div v-else class="alert alert-info text-center">
                     <span v-if="userDataLoading">User data loading</span>
                     <span v-else>This user is Inactive</span>
                 </div>
@@ -358,6 +358,7 @@
                     <form @submit.prevent="bankTransfer">
                         <div class="form-row mb-3 d-flex justify-content-center">
                             <div class="col-md-8">
+                                <div class="text-center mt-3 mb-3"><img src="/assets/img/wallet4a.png" class="bg-transparent" style="max-width:80px;"><br><span class="font-weight-bold">Proceed with Payment</span>	</div>
                                 <div class="input-group mb-2" >
                                     <div class="input-group-prepend">
                                         <div class="input-group-text"><i class="icon icon-money float-left s-20 text-white"></i></div>
@@ -366,7 +367,7 @@
                                 </div>
                                 <div class="input-group mb-2" >
                                     <div class="input-group-prepend">
-                                        <div class="input-group-text"><i class="icon icon-money float-left s-20 text-white"></i></div>
+                                        <div class="input-group-text"><i class="icon icon-edit float-left s-20 text-white"></i></div>
                                     </div>
                                     <textarea required v-model="bankTransferForm.reason" class="form-control r-1 light s-12" placeholder="Enter narration" style="background-color:transparent; border: 2px solid #2E671A;"></textarea> 
                                 </div>
@@ -378,7 +379,7 @@
                         </div>
                     </form>
                 </div>
-                <div v-else class="alert alert-info">
+                <div v-else class="alert alert-info text-center">
                     <span v-if="userDataLoading">User data loading</span>
                     <span v-else>This user is Inactive</span>
                 </div>

@@ -287,7 +287,7 @@
                         <div class="card-body" >
                             <div class="d-flex align-items-center flex-row flex-wrap">
                                 <div class="row column-row ml-1 ">
-                                    <img class="mr-3  r-3" src="/assets/img/profit_pool.png" alt="Generic placeholder image" width="70px" height="70px">
+                                    <img class="mr-3  r-3" src="/assets/img/comp_wallet.png" alt="Generic placeholder image" width="70px" height="70px">
                                     <h6 class="mt-4 mb-1 font-weight-bold text-green" >Total Company Wallet<br> <small class="text-green">Total Amount</small></h6>	
                                 </div>
                                 <div class="ml-auto">
@@ -307,7 +307,7 @@
                         <div class="card-body" >
                             <div class="d-flex align-items-center flex-row flex-wrap">
                                 <div class="row column-row ml-1 ">
-                                    <img class="mr-3  r-3" src="/assets/img/profit_pool.png" alt="Generic placeholder image" width="70px" height="70px">
+                                    <img class="mr-3  r-3" src="/assets/img/withdraw_comp.png" alt="Generic placeholder image" width="70px" height="70px">
                                     <h6 class="mt-4 mb-1 font-weight-bold text-green" >Total Withdrawals<br> <small class="text-green">Total Amount</small></h6>	
                                 </div>
                                 <div class="ml-auto">
@@ -327,7 +327,7 @@
                         <div class="card-body" >
                             <div class="d-flex align-items-center flex-row flex-wrap">
                                 <div class="row column-row ml-1 ">
-                                    <img class="mr-3  r-3" src="/assets/img/profit_pool.png" alt="Generic placeholder image" width="70px" height="70px">
+                                    <img class="mr-3  r-3" src="/assets/img/comp_wallet.png" alt="Generic placeholder image" width="70px" height="70px">
                                     <h6 class="mt-4 mb-1 font-weight-bold text-green" >	Company Wallet Balance<br> <small class="text-green">Total Amount</small></h6>	
                                 </div>
                                 <div class="ml-auto">

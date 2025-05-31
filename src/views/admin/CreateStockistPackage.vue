@@ -98,7 +98,7 @@
                         <div class="card no-b  no-r" style="background-color:transparent">
                             <div class="card-body no-gutters">
                                 <div class="text-center mb-3"><img  src="/assets/img/cash-withdrawal.png" width="80px"  height="80px">
-                                <h5 class="s-36 font-weight-bold mt-2 text-green">₦ {{ settings.stockist_referral_bonus_percentage?.toLocaleString('en-US') }}</h5>
+                                <h5 class="s-36 font-weight-bold mt-2 text-green">% {{ settings.stockist_referral_bonus_percentage?.toLocaleString('en-US') }}</h5>
                                 <h6 class="mt-1 s-8 font-weight-bold">STOCKIST REFERRAL BONUS %<br><small> Edit referral bonus percentage</small></h6></div>
                                 <div class="form-row mb-3">
                                     <div class="col-md-12">

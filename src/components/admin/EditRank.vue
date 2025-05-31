@@ -1,7 +1,7 @@
 <template>
     <div class="card border-0 justify-content-center" style="background-color: #ecf0f1">
         <div class="card-body rounded" style="background-color: #ecf0f1"> 
-            <div class="text-center"><img  src="/assets/img/registration.png" width="80px"  height="80px" style=" opacity: 0.5;">
+            <div class="text-center"><img  src="/assets/img/membership.png" width="80px"  height="80px" style=" opacity: 0.5;">
             <h6 class="mt-1 s-8 font-weight-bold text-green">OFFICIAL RANK<br><small> Edit Rank</small></h6></div>
             <form @submit.prevent="updateRank()">
                 <div class="card no-b  no-r">

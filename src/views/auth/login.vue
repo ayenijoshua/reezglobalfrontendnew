@@ -13,8 +13,8 @@
                                 <div class="card shadow1" style="background-color: #ecf0f1">
                                     <div class="card-body" style="background-color: #ecf0f1">
                                         <div class="text-center">
-                                            <a href="https://startwin.com">
-                                                <img class="img-responsive" src="assets/img/logo2b.png" width="300px" height="auto" alt="">
+                                            <a href="https://startwinsherbal.com/">
+                                                <img class="img-responsive" src="assets/img/logo2b.png" width="300px" height="auto" alt="" >
                                             </a>
                                             <p class="p-t-b-20 green-text font-weight-bold">Welcome back, signin...</p>
                                         </div>

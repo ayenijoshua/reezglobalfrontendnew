@@ -82,7 +82,7 @@
                                                             <template v-else>
                                                                 <tr v-if="withdrawals.length == 0">
                                                                     <td colspan="6">
-                                                                        <div class="alert alert-info">
+                                                                        <div class="alert alert-info text-center">
                                                                             There are no withdrawals
                                                                         </div>
                                                                     </td>
@@ -194,7 +194,7 @@
                                                             <template v-else>
                                                                 <tr v-if="paidUsers.length == 0">
                                                                     <td colspan="6">
-                                                                        <div class="alert alert-info">
+                                                                        <div class="alert alert-info text-center">
                                                                             There are not active user registrations
                                                                         </div>
                                                                     </td>
@@ -267,7 +267,7 @@
                                                             <template v-else>
                                                                 <tr v-if="upgradedUsers.length == 0">
                                                                     <td colspan="7">
-                                                                        <div class="alert alert-info">
+                                                                        <div class="alert alert-info text-center">
                                                                             There are no user registration upgrades
                                                                         </div>
                                                                     </td>
@@ -306,7 +306,7 @@
                                                 </div>
                                                 <small class="mt-0 ml-2"><span style="color:#ffffff!important;">Total Product Repurchase</span></small>
                                                 <p class="text-dark-heading font-weight-bold " style="color:#ffffff!important;">
-                                                    <span v-if="sumTotalPricesLoading ==true" style="color:#ffffff!important;font-size:20px">...loading...</span>
+                                                    <span v-if="sumTotalPricesLoading ==true" style="color:#ffffff!important;font-size:20px">...loading</span>
                                                     <span v-else style="color:#ffffff!important;font-size:32px">₦ {{ sumTotalPrices.toLocaleString('en-US') }}</span>
                                                 </p>
                                             </div>
@@ -353,7 +353,7 @@
                                                         <template v-else>
                                                             <tr v-if="monthlyRepurchases.length == 0">
                                                                 <td colspan="4">
-                                                                    <div class="alert alert-info">There are no repurchases</div>
+                                                                    <div class="alert alert-info text-center">There are no repurchases</div>
                                                                 </td>
                                                             </tr>
                                                             <tr v-for="val,i in monthlyRepurchases" :key="i">
@@ -488,7 +488,7 @@
                                                         <template v-else>
                                                             <tr v-if="stockists.length == 0">
                                                                 <td>
-                                                                    <div class="alert alert info">There are no stockists</div>
+                                                                    <div class="alert alert info text-center">There are no stockists</div>
                                                                 </td>
                                                             </tr>
                                                             <tr v-for="stock,i in stockists" :key="i">
@@ -510,11 +510,11 @@
                                                                             <i class="caret"></i>
                                                                         </button>
                                                                         <div class="dropdown-menu"  style="background-color: #ecf0f1">
-                                                                            <a @click="setStockist(stock)" v-b-modal.stockist-pop class="dropdown-item text-green" ><i class="icon-barometer2"></i>&nbsp;&nbsp; View POP</a>
+                                                                            <a @click="setStockist(stock)" v-b-modal.stockist-pop class="dropdown-item text-green" ><i class="icon-eye"></i>&nbsp;&nbsp; View POP</a>
 
                                                                             <template v-if="stock.stockist_status == 'pending'">
                                                                                 <a @click="setStockist(stock)" v-b-modal.approve-stockist class="dropdown-item text-green">
-                                                                                    <i class="icon-drivers-license-o"></i>&nbsp;&nbsp; Approve
+                                                                                    <i class="icon-arrow-up."></i>&nbsp;&nbsp; Approve
                                                                                 </a>
                                                                                 <a @click="setStockist(stock)" v-b-modal.disapprove-stockist class="dropdown-item text-red">
                                                                                     <i class="icon-drivers-license-o"></i>&nbsp;&nbsp; Disapprove
@@ -522,7 +522,7 @@
                                                                             </template>
                                                                             
                                                                             <a @click="setStockist(stock)" v-b-modal.stockist-upgrade-history class="dropdown-item text-green"><i class="icon-sitemap"></i>&nbsp;&nbsp;Upgrade History</a>
-                                                                            <a @click="fetchSalesStats(stock.user_uuid)" v-b-modal.stockist-sales-stats class="dropdown-item text-green"><i class="icon-sitemap"></i>&nbsp;&nbsp;Sales Stats</a>
+                                                                            <a @click="fetchSalesStats(stock.user_uuid)" v-b-modal.stockist-sales-stats class="dropdown-item text-green"><i class="icon-shopping-cart"></i>&nbsp;&nbsp;Sales Stats</a>
                                                                         </div>
                                                                     </div>
                                                                 </td>
@@ -586,7 +586,7 @@
                                                         <template v-else>
                                                             <tr v-if="stockistUpgrades.length == 0">
                                                                 <td colspan="11">
-                                                                    <div class="alert alert info">There are no pending stockists Upgrades</div>
+                                                                    <div class="alert alert info text-center">There are no pending stockists Upgrades</div>
                                                                 </td>
                                                             </tr>
                                                             <tr v-for="stock,i in stockistUpgrades" :key="i">
@@ -755,8 +755,12 @@
                 <div role="dialog" aria-hidden="true" >
                     <div class="modal-dialog modal-dialog-centered" role="document" style="background: transparent!important;">
                         <div class="row">
-                            <div class="col-md-12">
+                            <div class="col-md-12 text-center">
                                 <img :src="imageURL(stockist.payment_receipt)" alt="Proof Of Payment"  style="height:500px; width: 500px">
+                                 <br>
+                                <a :href="imageURL(stockist.payment_receipt)" download="  " class="btn btn-success mt-3" >
+                                    <i class="icon icon-download"></i> Download Image
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -776,7 +780,7 @@
                 <div v-if="user">
                     <UserPackagePayment :user="user"/>
                 </div>
-                <div v-else class="alert alert-info">
+                <div v-else class="alert alert-info text-center">
                     <span>This user is Inactive</span>
                 </div>
             </template>
@@ -795,7 +799,8 @@
             </template>
         </Modal>
 
-        <Modal modal-id="stockist-sales-stats" modal-title="Stockist Sales Stats" modal-size="md">
+        <!--The original-->
+          <!--<Modal modal-id="stockist-sales-stats" modal-title="Stockist Sales Stats" modal-size="md">
             <template v-if="salesStatsLoading==true || stockistSalesStats==null">
                 <b-skeleton-table
                     :rows="3"
@@ -811,6 +816,39 @@
                     <div class="col-md-12">
                         <p>Total Sales - {{ stockistSalesStats.total_sales }}</p>
                     </div>
+                </div>
+            </template>
+        </Modal>-->
+
+        <!--Newly added in a tabular form-->
+        <Modal modal-id="stockist-sales-stats" modal-title="Stockist Sales Stats" modal-size="md">
+            <template v-if="salesStatsLoading==true || stockistSalesStats==null">
+                <b-skeleton-table
+                    :rows="3"
+                    :columns="8"
+                    :table-props="{ bordered: true, striped: true }"
+                ></b-skeleton-table>
+            </template>
+            <template v-else>
+                <div class="table-responsive">
+                    <table class="table table-hover table-striped">
+                        <thead class="thead-light">
+                            <tr>
+                                <th>Metric</th>
+                                <th>Value</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Total Purchases</td>
+                                <td>{{ Number(stockistSalesStats.total_purchases ?? 0).toLocaleString('en-NG', { minimumFractionDigits: 2 }) }}</td>
+                            </tr>
+                            <tr>
+                                <td>Total Sales</td>
+                                <td>{{ Number(stockistSalesStats.total_sales ?? 0).toLocaleString('en-NG', { minimumFractionDigits: 2 }) }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </template>
         </Modal>
@@ -867,10 +905,10 @@
             </template>
             <template v-else>
                 <div class="row">
-                    <div class="col-md-12">
-                        <p class="bg-danger text-white">Are you sure to approve purchase?</p>
+                    <div class="col-md-12 text-center">
+                        <p class="text-red font-weight-bold s-18">"Are you sure you want to approve this purchase?"</p>
                         <button v-if="updatingRegistration==true" class="btn btn-danger">...</button>
-                        <button v-else class="btn btn-primary" @click="approveStockistPurchase(order.purchase_id)">Approve</button>
+                        <button v-else class="btn btn-primary" @click="approveStockistPurchase(order.purchase_id)"><i class="icon icon-check"></i>Approve</button>
                     </div>
                 </div>
             </template>
@@ -886,10 +924,10 @@
             </template>
             <template v-else>
                 <div class="row">
-                    <div class="col-md-12">
-                        <p class="bg-danger">Are you sure to disapprove purchase?</p>
+                    <div class="col-md-12 text-center">
+                        <p class="text-red font-weight-bold s-18">"Are you sure to disapprove this purchase?"</p>
                         <button v-if="updatingRegistration==true" class="btn btn-danger">...</button>
-                        <button v-else class="btn btn-primary" @click="disapproveStockistPurchase(order.purchase_id)">Decline</button>
+                        <button v-else class="btn btn-danger" @click="disapproveStockistPurchase(order.purchase_id)"><i class="icon icon-times"></i>Decline</button>
                     </div>
                 </div>
             </template>
@@ -973,42 +1011,63 @@
 
 <style scoped>
 
-/* Dropdown Menu Styling */
-.dropdown-menu {
-    position: absolute !important; /* Make sure the dropdown is positioned absolutely */
-    top: auto; /* Allow it to adjust position */
-    left: auto; /* Allow it to adjust position */
-    z-index: 1050; /* Ensure it appears above other elements */
-    background-color: #ecf0f1; /* Your dropdown background color */
-    border: 1px solid #2E671A; /* Match your design style */
-    padding: 0.5rem 0; /* Adjust padding */
-}
+ /* Dropdown Menu Styling */
+    .dropdown-menu {
+        position: absolute !important; /* Make sure the dropdown is positioned absolutely */
+        top: auto; /* Allow it to adjust position */
+        left: auto; /* Allow it to adjust position */
+        z-index: 1050; /* Ensure it appears above other elements */
+        background-color: #ecf0f1; /* Your dropdown background color */
+        border: 1px solid #2E671A; /* Match your design style */
+        padding: 0.5rem 0; /* Adjust padding */
+    }
 
-/* Default text and icon styles */
-.dropdown-menu .dropdown-item {
-    color: #2E671A !important; /* Ensure default text color */
-    font-weight: bold;
-    display: flex; /* Align icon and text together */
-    align-items: center;
-    gap: 8px; /* Space between icon and text */
-    padding: 10px 15px; /* Adjust padding for spacing */
-}
+    /* Ensure dropdown is not clipped by the table */
+    .table-responsive {
+        overflow-x: visible !important;
+    }
 
-/* Hover effect: Ensure all parts change */
-.dropdown-menu .dropdown-item:hover {
-    background-color: #2E671A !important; /* Background on hover */
-    color: white !important; /* Text color on hover */
-}
+    /* Dropdown Menu Styling */
+    .dropdown-menu {
+        position: absolute !important; /* Ensure absolute positioning */
+        top: auto; /* Adjust position */
+        left: auto; /* Adjust position */
+        z-index: 1050; /* Place it above other elements */
+        background-color: #ecf0f1; /* Background color */
+        border: 1px solid #2E671A; /* Match your design */
+        padding: 0.5rem 0; /* Adjust padding */
+    }
 
-/* Ensure icons also change color on hover */
-.dropdown-menu .dropdown-item:hover i {
-    color: white !important;
-}
+    /* Prevent dropdown clipping */
+    .table-responsive {
+        overflow-x: visible !important;
+    }
 
-/* Add smooth transitions */
-.dropdown-menu .dropdown-item {
-    transition: background-color 0.3s ease, color 0.3s ease;
-}
+    /* Default text and icon styles */
+    .dropdown-menu .dropdown-item {
+        color: #2E671A !important; /* Ensure default text color */
+        font-weight: bold;
+        display: flex; /* Align icon and text together */
+        align-items: center;
+        gap: 8px; /* Space between icon and text */
+        padding: 10px 15px; /* Adjust padding for spacing */
+    }
+
+    /* Hover effect: Ensure all parts change */
+    .dropdown-menu .dropdown-item:hover {
+        background-color: #2E671A !important; /* Background on hover */
+        color: white !important; /* Text color on hover */
+    }
+
+    /* Ensure icons also change color on hover */
+    .dropdown-menu .dropdown-item:hover i {
+        color: white !important;
+    }
+
+    /* Add smooth transitions */
+    .dropdown-menu .dropdown-item {
+        transition: background-color 0.3s ease, color 0.3s ease;
+    }
 
 
 

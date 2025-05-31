@@ -25,7 +25,7 @@
                             <div class="row">
                                 <div class="col-md-3">
                                     <div class=" my-3" >
-                                        <div class="card" >
+                                        <div class="card shadow1" >
                                             <div class="card-header bg-white">
                                                 <h6 class="green-text"><strong class="font-weight-bold">Profile Details</strong></h6>
                                             </div>
@@ -50,12 +50,12 @@
                                                 </div>
                                                 <div class="">
                                                     <ul class="list-group list-group-flush">
-                                                        <li class="list-group-item "><i class="icon icon-vcard float-left s-20 green-text border-right" ></i> <span class="float-right s-12 font-weight-medium green-text">{{ regPackage.vip }} - {{ regPackage.name }}</span></li>
-                                                        <li class="list-group-item "><i class="icon icon-person float-left s-20 green-text border-right" ></i> <span class="float-right s-12 font-weight-medium green-text">{{ form.first_name }} {{ form.last_name }}</span></li>
-                                                        <li class="list-group-item"><i class="icon icon-phone2 float-left s-20 green-text border-right"></i> <span class="float-right s-12 font-weight-medium green-text">{{ form.phone }}</span></li>
-                                                        <li class="list-group-item"><i class="icon icon-mail-envelope-closed4 float-left s-20 green-text border-right"></i> <span class="float-right s-12 font-weight-medium green-text">{{ form.email }}</span></li>
-                                                        <li class="list-group-item"><i class="icon icon-account_box float-left s-20 green-text border-right"></i>  <span class="float-right s-12 font-weight-medium green-text">{{ user.username }}</span></li>
-                                                        <li class="list-group-item"><i class="icon icon-home float-left s-20 green-text border-right"></i> <span class="float-right s-12 font-weight-medium green-text text-right" style="width:130px">{{ form.address }}</span></li>
+                                                        <li class="list-group-item "><i class="icon icon-vcard float-left s-20 green-text border-right" ></i> <span class="float-right s-12 font-weight-bold green-text"> {{ regPackage.name }}</span></li>
+                                                        <li class="list-group-item "><i class="icon icon-person float-left s-20 green-text border-right" ></i> <span class="float-right s-12 font-weight-bold green-text">{{ form.first_name }} {{ form.last_name }}</span></li>
+                                                        <li class="list-group-item"><i class="icon icon-phone2 float-left s-20 green-text border-right"></i> <span class="float-right s-12 font-weight-bold green-text">{{ form.phone }}</span></li>
+                                                        <li class="list-group-item"><i class="icon icon-mail-envelope-closed4 float-left s-20 green-text border-right"></i> <span class="float-right s-12 font-weight-bold green-text">{{ form.email }}</span></li>
+                                                        <li class="list-group-item"><i class="icon icon-account_box float-left s-20 green-text border-right"></i>  <span class="float-right s-12 font-weight-bold green-text">{{ user.username }}</span></li>
+                                                        <li class="list-group-item"><i class="icon icon-home float-left s-20 green-text border-right"></i> <span class="float-right s-12 font-weight-bold green-text text-right" style="width:130px">{{ form.address }}</span></li>
                                                     </ul>
                                                 </div>
                                             </div>
@@ -67,7 +67,7 @@
                                     <div class="row my-3">
                                         <!-- bar charts group -->
                                         <div class="col-md-12">
-                                            <div class="card">
+                                            <div class="card shadow1">
                                                 <div class="card-header bg-white">
                                                     <h6 class="green-text"><strong class="font-weight-bold">Edit Profile</strong></h6>
                                                 </div>
@@ -81,7 +81,7 @@
                                                                             <div class="form-group col-6 m-0">
                                                                                 <div class="input-group mb-2 mr-sm-2 mb-3">
                                                                                     <div class="input-group-prepend">
-                                                                                        <div class="input-group-text"><i class="icon icon-person float-left s-20 green-text " ></i></div>
+                                                                                        <div class="input-group-text"><i class="icon icon-person float-left s-20 text-white " ></i></div>
                                                                                     </div>
                                                                                     <input name="first_name" :value="form.first_name" type="text" class="form-control r-0 light s-12" placeholder="First Name">
                                                                                 </div>
@@ -89,7 +89,7 @@
                                                                             <div class="form-group col-6 m-0">
                                                                                 <div class="input-group mb-2 mr-sm-2 mb-3">
                                                                                     <div class="input-group-prepend">
-                                                                                        <div class="input-group-text"><i class="icon icon-person float-left s-20 green-text " ></i></div>
+                                                                                        <div class="input-group-text"><i class="icon icon-person float-left s-20 text-white " ></i></div>
                                                                                     </div>
                                                                                     <input name="last_name" :value="form.last_name" type="text" class="form-control r-0 light s-12" placeholder="Last Name">
                                                                                 </div>
@@ -100,7 +100,7 @@
                                                                             <div class="form-group col-6 m-0">
                                                                                 <div class="input-group mb-2 mr-sm-2">
                                                                                     <div class="input-group-prepend">
-                                                                                        <div class="input-group-text"><i class="icon icon-phone float-left s-20 green-text " ></i></div>
+                                                                                        <div class="input-group-text"><i class="icon icon-phone float-left s-20 text-white " ></i></div>
                                                                                     </div>
                                                                                     <input name="phone" :value="form.phone" type="text" class="form-control r-0 light s-12"
                                                                                         placeholder="Phone Number">
@@ -109,7 +109,7 @@
                                                                             <div class="form-group col-6 m-0">
                                                                                 <div class="input-group mb-2 mr-sm-2">
                                                                                     <div class="input-group-prepend">
-                                                                                        <div class="input-group-text"><i class="icon icon-mail-envelope-closed4 float-left s-20 green-text"></i></div>
+                                                                                        <div class="input-group-text"><i class="icon icon-mail-envelope-closed4 float-left s-20 text-white"></i></div>
                                                                                     </div>
                                                                                     <input type="text" name="email" readonly :value="form.email" class="form-control r-0 light s-12"
                                                                                         placeholder="Email Address">
@@ -122,7 +122,7 @@
                                                                                 <div class="form-group m-0">
                                                                                     <div class="input-group  mr-sm-2 mb-3">
                                                                                         <div class="input-group-prepend">
-                                                                                            <div class="input-group-text"><i class="icon icon-person float-left s-20 green-text " ></i></div>
+                                                                                            <div class="input-group-text"><i class="icon icon-person float-left s-20 text-white " ></i></div>
                                                                                         </div>
                                                                                         <select name="gender" class="form-control r-0 light s-12">
                                                                                             <option value="" :selected="!profile?.gender">Select gender</option>
@@ -162,9 +162,9 @@
                                 </div>
                                 <div class="col-md-3">
                                     <div class=" my-3" >
-                                        <div class="card" style="background-color:#2E671A;" >
+                                        <div class="card bg-white shadow1" >
                                             <div class="card-header">
-                                                <h6 class="text-white"><strong class="font-weight-bold">Upline Details</strong></h6>
+                                                <h6 class="text-green"><strong class="font-weight-bold">Upline Details</strong></h6>
                                             </div>
                                             <div class="card-body text-center">
                                                 <div class="avatar avatar-xl mb-3 ">
@@ -172,10 +172,10 @@
                                                 </div>
                                                 <div class="">
                                                     <ul class="list-group list-group-flush" >
-                                                        <li class="list-group-item"  style="background-color:#2E671A;"><i class="icon icon-vcard float-left s-20 text-white border-right" ></i> <span class="float-right s-22 font-weight-medium text-white">{{ uplineDetails.package }}</span></li>
-                                                        <li class="list-group-item "  style="background-color:#2E671A;"><i class="icon icon-person float-left s-20 text-white border-right" ></i> <span class="float-right s-22 font-weight-medium text-white ">{{ uplineDetails.first_name }} {{ uplineDetails.last_name }}</span></li>
-                                                        <li class="list-group-item"  style="background-color:#2E671A;"><i class="icon icon-mail-envelope-closed4 text-white float-left s-20  border-right"></i> <span class="float-right s-12 font-weight-medium text-white">{{ uplineDetails.email }}</span></li>
-                                                        <li class="list-group-item"  style="background-color:#2E671A;"><i class="icon icon-account_box float-left s-20 text-white border-right"></i>  <span class="float-right s-12 font-weight-medium text-white">{{ uplineDetails.username }}</span></li>
+                                                        <li class="list-group-item"  ><i class="icon icon-vcard float-left s-20 text-white border-right" ></i> <span class="float-right s-22 font-weight-bold text-green">{{ uplineDetails.package }}</span></li>
+                                                        <li class="list-group-item "  ><i class="icon icon-person float-left s-20 text-white border-right" ></i> <span class="float-right s-22 font-weight-bold text-green ">{{ uplineDetails.first_name }} {{ uplineDetails.last_name }}</span></li>
+                                                        <li class="list-group-item"  ><i class="icon icon-mail-envelope-closed4 text-white float-left s-20  border-right"></i> <span class="float-right s-12 font-weight-bold text-green">{{ uplineDetails.email }}</span></li>
+                                                        <li class="list-group-item"  ><i class="icon icon-account_box float-left s-20 text-white border-right"></i>  <span class="float-right s-12 font-weight-bold text-green">{{ uplineDetails.username }}</span></li>
                                                     </ul>
                                                 </div>
                                             </div>
@@ -187,7 +187,7 @@
                         <div class="tab-pane fade" id="v-pills-payments" role="tabpanel" aria-labelledby="v-pills-payments-tab">
                             <div class="row">
                                 <div class="col-md-12">
-                                    <div class="card no-b">
+                                    <div class="card no-b shadow1">
                                         <div class="card-header bg-white text-green">
                                             <h4 class="card-title green-text"><strong class="font-weight-bold">Bank Account Details</strong></h4>
                                         </div>
@@ -235,7 +235,7 @@
                                                                     <div class="form-group m-0">
                                                                         <div class="input-group mb-2 mr-sm-2 mb-3">
                                                                             <div class="input-group-prepend">
-                                                                                <div class="input-group-text"><i class="icon icon-account_balance float-left s-20 green-text " ></i></div>
+                                                                                <div class="input-group-text"><i class="icon icon-account_balance float-left s-20 text-white " ></i></div>
                                                                             </div>
                                                                             <input v-model="bank.bank_name" type="text" class="form-control r-0 light s-12"
                                                                                 placeholder="Bank Name">
@@ -245,7 +245,7 @@
                                                                         <div class="form-group col-6 m-0">
                                                                             <div class="input-group mb-2 mr-sm-2 mb-3">
                                                                                 <div class="input-group-prepend">
-                                                                                    <div class="input-group-text"><i class="icon icon-person float-left s-20 green-text " ></i></div>
+                                                                                    <div class="input-group-text"><i class="icon icon-person float-left s-20 text-white " ></i></div>
                                                                                 </div>
                                                                                 <input v-model="bank.bank_account_name" type="text" class="form-control r-0 light s-12"
                                                                                     placeholder="Account Name">
@@ -254,7 +254,7 @@
                                                                         <div class="form-group col-6 m-0">
                                                                             <div class="input-group mb-2 mr-sm-2 mb-3">
                                                                                 <div class="input-group-prepend">
-                                                                                    <div class="input-group-text"><i class="icon icon-address-card-o float-left s-20 green-text " ></i></div>
+                                                                                    <div class="input-group-text"><i class="icon icon-address-card-o float-left s-20 text-white " ></i></div>
                                                                                 </div>
                                                                                 <input v-model="bank.bank_account_number" type="text" class="form-control r-0 light s-12"
                                                                                     placeholder="Account Number">

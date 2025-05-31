@@ -24,8 +24,8 @@
                                     <div class="row my-3">
                                         <!-- bar charts group -->
                                         <div class="col-md-12">
-                                            <div class="card">
-                                                <div class="card-header bg-white">
+                                            <div class="card bg-white shadow1">
+                                                <div class="card-header ">
                                                     <h4 class="green-text"><strong class="font-weight-bold">Wallet Summary</strong></h4>
                                                 </div>
                                                 <div class="card-body" style="overflow-x:auto;">
@@ -72,7 +72,7 @@
                                     <div class="row my-3">
                                         <!-- bar charts group -->
                                         <div class="col-md-12">
-                                            <div class="card">
+                                            <div class="card shadow1">
                                                 <div class="card-header bg-white">
                                                     <h4 class="green-text"><strong class="font-weight-bold">Global Profit Sharing</strong></h4>
                                                 </div>
@@ -118,7 +118,7 @@
                         <div class="tab-pane fade" id="v-pills-Withdrawal-History" role="tabpanel" aria-labelledby="v-pills-Withdrawal-History-tab">
                             <div class="row">
                                 <div class="col-md-4">
-                                    <div class="card no-b mb-3">
+                                    <div class="card no-b mb-3 shadow1">
                                         <div class="card-header bg-white">
                                             <h4 class="green-text"><strong class="font-weight-bold">Wallet Balance</strong></h4>
                                         </div>
@@ -138,7 +138,7 @@
                                     
                                 </div>
                                 <div class="col-md-8">
-                                    <div class="card no-b">
+                                    <div class="card no-b shadow1">
                                         <div class="card-header bg-white">
                                             <h4 class="green-text"><strong class="font-weight-bold">Withdrawal History</strong></h4>
                                         </div>

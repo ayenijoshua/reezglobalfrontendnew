@@ -140,7 +140,7 @@
             <div class="row mt-4">
                 <div class="col-md-12">
                     <div class="card shadow-lg mb-3" style="background-color: transparent">
-                        <div calss="card-header">Processed Orders</div>
+                        <div calss="card-header"></div>
                         <div class="card-body ">
                             <div class="d-flex justify-content-left mb-2">
                                 <!-- <input
@@ -181,7 +181,7 @@
                                         </tr>
                                         <template v-else>
                                             <tr v-if="vendorProcessedOrders.length==0">
-                                                <td colspan="5">There are no processed Orders</td>
+                                                <td class="text-center" colspan="5">There are no processed Orders</td>
                                             </tr>
                                             <tr v-for="order,i in vendorProcessedOrders" :key="i">
                                                 <th scope="row">{{ ++i }}</th>
