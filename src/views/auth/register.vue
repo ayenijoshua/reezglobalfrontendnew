@@ -11,11 +11,11 @@
                 <div class="p-t-b-100 height-full page-background " style="background-color: #98CC5A; opacity: 0.9;">
                     <div class="container" >
                         <div class="row">
-                            <div class="col-lg-9 mx-md-auto">
+                            <div class="col-lg-9 mx-md-auto"  style="padding-top: 30px;">
                                 <div class="card shadow1" style="background-color: #ecf0f1">
                                     <div class="card-body" style="background-color: #ecf0f1">
                                         <div class="text-center">
-                                            <a href="https://startwins.com">
+                                            <a href="https://startwinsherbal.com/">
                                                 <img class="img-responsive" src="assets/img/logo2b.png" width="300px" height="auto" alt="">
                                             </a>
                                             <p class="mt-3 green-text font-weight-bold">Let the Journey Begin...</p>
@@ -269,7 +269,7 @@
                     <div class="footer-copyright">					
                     </div>
                     <div class="col-auto text-center">
-                        <p class="text-center">© Copyright 2024. Star Twins All Rights Reserved.</p>							
+                        <p class="text-center">© Copyright 2025. Star Twins All Rights Reserved.</p>							
                     </div>
                     <div class="col-auto mr-2 text-center">
                         <button type="button" class="btn btn-lg btn-success px-4" @click="closeModal()" data-dismiss="modal">Click to accepted the Terms and Conditions</button>

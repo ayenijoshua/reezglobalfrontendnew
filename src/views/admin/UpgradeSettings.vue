@@ -39,7 +39,7 @@
                                     <template v-else>
                                         <tr v-if="upgradeBonusSetting.length == 0">
                                             <td colspan="13">
-                                                <div class="alert alert-info">There are no Upgrade bonus settings</div>
+                                                <div class="alert alert-info text-center">There are no Upgrade bonus settings</div>
                                             </td>
                                         </tr>
                                         <template v-else>

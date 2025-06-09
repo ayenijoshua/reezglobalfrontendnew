@@ -9,11 +9,11 @@
             <div class="p-t-b-100 height-full page-background" style="background-color: #98CC5A; opacity: 0.9;">
                 <div class="container">
                     <div class="row">
-                        <div class="col-lg-7 mx-md-auto">
+                        <div class="col-lg-7 mx-md-auto" style="padding-top: 30px;" >
                             <div class="card shadow1" style="background-color: #ecf0f1">
                                 <div class="card-body" style="background-color: #ecf0f1">
                                     <div class="green-text text-center ">
-                                        <a href="https://startwins.com"><img class="img-responsive" src="/assets/img/logo2b.png" width="300px" height="auto" alt=""></a><br>
+                                        <a href="https://startwinsherbal.com/"><img class="img-responsive" src="/assets/img/logo2b.png" width="300px" height="auto" alt=""></a><br>
                                         <img class="img-responsive" src="/assets/img/protection1.png" style= "max-width:100px" alt="">
                                         <p class=" font-weight-bold">2FA Authentication (Enter code sent to your mail)</p>
                                     </div>

@@ -23,7 +23,7 @@
                                                             <h6 class="text-white"><strong class="font-weight-bold">Direct Downlines</strong></h6>
                                                         </div>
                                                         <div class="card-body text-center ">
-                                                            <div class="alert alert-info">
+                                                            <div class="alert alert-info text-center">
                                                                 <p>There are no direct downlines</p>
                                                             </div>
                                                         </div>
@@ -31,7 +31,7 @@
                                                 </div>
                                                 <template v-else>
                                                     <div v-for="dirDown,i in directDownlines" class="card mb-3" :key="i" style="background-color: transparent; border: 2px solid #2E671A !important;" >
-                                                        <div class="card-header" style="background-color: transparent; border: 2px solid #2E671A !important;">
+                                                        <div class="card-header" style="background-color: #2E671A; border: 2px solid #2E671A !important;">
                                                             <h6 class="text-white"><strong class="font-weight-bold">Referral-{{ dirDown.username }} | Direct Downline</strong></h6>
                                                         </div>
                                                         <div class="card-body text-center" style="background-color: transparent; border: 2px solid #1b4f72 !important;">
@@ -40,10 +40,10 @@
                                                             </div>
                                                             <div class="">
                                                                 <ul class="list-group list-group-flush">
-                                                                    <li class="list-group-item"><i class="icon icon-vcard float-left s-20 text-green border-right" ></i> <span class="float-right s-12 font-weight-medium text-green">{{ dirDown.package }}</span></li>
-                                                                    <li class="list-group-item"><i class="icon icon-person float-left s-20 text-green border-right" ></i> <span class="float-right s-12 font-weight-medium text-green ">{{ dirDown.name }}</span></li>
-                                                                    <li class="list-group-item"><i class="icon icon-mail-envelope-closed4 text-green float-left s-20  border-right"></i> <span class="float-right s-12 font-weight-medium text-green">{{ dirDown.email }}</span></li>
-                                                                    <li class="list-group-item"><i class="icon icon-account_box float-left s-20 text-green border-right"></i>  <span class="float-right s-12 font-weight-medium text-green">{{ dirDown.username }}</span></li>
+                                                                    <li class="list-group-item"><i class="icon icon-vcard float-left s-20 text-green border-right" ></i> <span class="float-right s-12 font-weight-bold text-green">{{ dirDown.package }}</span></li>
+                                                                    <li class="list-group-item"><i class="icon icon-person float-left s-20 text-green border-right" ></i> <span class="float-right s-12 font-weight-bold text-green ">{{ dirDown.name }}</span></li>
+                                                                    <li class="list-group-item"><i class="icon icon-mail-envelope-closed4 text-green float-left s-20  border-right"></i> <span class="float-right s-12 font-weight-bold text-green">{{ dirDown.email }}</span></li>
+                                                                    <li class="list-group-item"><i class="icon icon-account_box float-left s-20 text-green border-right"></i>  <span class="float-right s-12 font-weight-bold text-green">{{ dirDown.username }}</span></li>
                                                                 </ul>
                                                             </div>
                                                         </div>

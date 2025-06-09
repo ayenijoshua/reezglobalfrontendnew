@@ -9,11 +9,11 @@
             <div class="p-t-b-100 height-full page-background" style="background-color: #98CC5A; opacity: 0.9;" >
                 <div class="container">
                     <div class="row">
-                        <div class="col-lg-7 mx-md-auto">
+                        <div class="responsive-card-wrapper mx-auto" style="padding-top: 50px;">
                             <div class="card shadow1" style="background-color: #ecf0f1">
                                 <div class="card-body" style="background-color: #ecf0f1">
                                     <div class="text-center">
-                                    <a href="">
+                                    <a href="https://startwinsherbal.com/">
                                         <img class="img-responsive" src="/assets/img/logo2b.png" width="300px" height="auto" style= "padding-bottom:40px" alt="">
                                         </a> 
                                         <h3 class="green-text">Email Confirmation</h3>
@@ -94,6 +94,39 @@
     z-index: 2;
     font-size: 20px;
 }
+
+/* Wrapper for responsiveness */
+.responsive-card-wrapper {
+    max-width: 90%;
+    width: 100%;
+    padding: 0 15px;
+}
+
+@media (min-width: 768px) {
+    .responsive-card-wrapper {
+        max-width: 600px;
+    }
+}
+
+@media (min-width: 992px) {
+    .responsive-card-wrapper {
+        max-width: 700px;
+    }
+}
+
+/* Make card full width within wrapper */
+.responsive-card-wrapper .card {
+    width: 100%;
+}
+
+/* Make logo image scale */
+.responsive-card-wrapper img.img-responsive {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
+
 </style>
 
 <script>

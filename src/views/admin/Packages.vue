@@ -3,7 +3,7 @@
         <div class="animated">
             <div class="row my-3">
                 <div class="col-md-12">
-                    <div class="card">
+                    <div class="card shadow1">
                         <div class="card-header" style="background-color: #2E671A;">
                             <h6 class="text-white"><strong class="font-weight-bold">OFFICIAL REGISTRATION PACKAGE RATES</strong></h6>
                         </div>

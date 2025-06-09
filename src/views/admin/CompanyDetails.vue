@@ -135,7 +135,7 @@
                                     <template v-else>
                                         <tr v-if="banks.lenght==0">
                                             <td colspan="5">
-                                                <div class="alert alert-info">There no banks</div>
+                                                <div class="alert alert-info text-center">There no banks</div>
                                             </td>
                                         </tr>
                                         <tr v-for="bank,i in banks" :key=i>
@@ -144,9 +144,9 @@
                                             <td>{{ bank.bank_account_name }}</td>
                                             <td>{{ bank.bank_account_number }}</td>
                                             <td>
-                                                <span @click="setBank(bank)" v-b-modal.edit-bank type="button" class="btn-small btn-info rounded mr-3">
-                                                    <i class="icon-pen mr-2"></i>Edit</span> 
-                                                <span  @click="setBank(bank)" v-b-modal.delete-bank type="button" class="btn-small btn-danger rounded">
+                                                <span @click="setBank(bank)" v-b-modal.edit-bank type="button" class="btn-small btn-info rounded mr-3" style="padding-left: 10px; padding-right: 10px;">
+                                                    <i class="icon-edit mr-2"></i>Edit</span> 
+                                                <span  @click="setBank(bank)" v-b-modal.delete-bank type="button" class="btn-small btn-danger rounded" style="padding-left: 10px; padding-right: 10px;">
                                                 <i class="icon-times mr-2"></i>Delete</span>  
                                             </td>
                                         </tr>
@@ -178,11 +178,14 @@
                     :table-props="{ bordered: true, striped: true }"
                 ></b-skeleton-table>
             </template>
-            <p class="alert alert-danger">Are sure to delete this bank</p>
-            <span type="button" v-if="deletingBank==true" class="btn-small btn-danger rounded">...</span>
-            <button  v-else type="button" @click="destroyBank(bank.id)" class="btn-small btn-danger rounded">
-                <i class="icon-times mr-2"></i>Yes Delete
-            </button>
+            <div class="text-center">
+                <img  src="/assets/img/online-banking1.png"  width="80px"  height="80px" style=" opacity: 0.5; padding-bottom: 10px;">
+                <p class="alert alert-danger">Are sure to delete this bank</p>
+                <span type="button" v-if="deletingBank==true" class="btn-small btn-danger rounded" style="padding-left: 20px; padding-right: 20px;">...</span>
+                <button  v-else type="button" @click="destroyBank(bank.id)" class="btn-small btn-danger rounded">
+                    <i class="icon-times mr-2"></i>Yes Delete
+                </button>
+            </div>
         </Modal>
     </div>
 </template>

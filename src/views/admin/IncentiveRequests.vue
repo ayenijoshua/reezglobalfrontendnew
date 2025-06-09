@@ -45,7 +45,7 @@
                                 <template v-else>
                                     <tr v-if="incentiveClaims.length == 0">
                                         <td colspan="10">
-                                            <div class="alert alert-info">There are no requests</div>
+                                            <div class="alert alert-info text-center">There are no requests</div>
                                         </td>
                                     </tr>
                                     <tr v-else v-for="claim,i in incentiveClaims" :key="i">

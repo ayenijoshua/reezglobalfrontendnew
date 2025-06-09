@@ -239,7 +239,7 @@
                                 </button>
                             </div>
                             <div class="table-responsive">
-                                <table id="example2" class="table table-hover data-tables" data-options='{ "paging": false; "searching":false}' >
+                                <table id="example2" class="table table-hover data-tables" data-options='{ "paging": false; "searching":false}' style="padding: 6px 10px;" >
                                     <thead >
                                         <tr>
                                             <th class="font-weight-bold" scope="col">S/N</th>
@@ -263,7 +263,7 @@
                                         </tr>
                                         <template v-else>
                                             <tr v-if="stockistPurchases.length ==0">
-                                                <td colspan="5">There are no purchases</td>
+                                                <td class="text-center" colspan="5">There are no purchases</td>
                                             </tr>
                                             <template v-else>
                                                 <tr v-for="purchase,i in stockistPurchases" :key="i">
@@ -272,7 +272,7 @@
                                                     <td>{{ purchase.total_quantity }}</td>
                                                     <td>₦{{ purchase.total_price }}</td>
                                                     <td>{{ purchase.payment_receipt == null ? "Debit Card" : "Manual Upload" }}</td>
-                                                    <td><span :class="['badge ', purchase.status=='processing' ? 'badge-info' : purchase.status=='approved' ? 'badge-success' : 'badge-danger']">{{ purchase.status }}</span></td>
+                                                    <td><span :class="['badge ', purchase.status=='processing' ? 'badge-info' : purchase.status=='approved' ? 'badge-success' : 'badge-danger']" style="padding: 6px 10px;">{{ purchase.status }}</span></td>
                                                     <td>{{ purchase.created_at }}</td>
                                                 </tr>
                                             </template>

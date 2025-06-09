@@ -1,7 +1,7 @@
 <template>
-    <div class="card border-0 justify-content-center">
+    <div class="card border-0 justify-content-center shadow1">
         <div v-if="!userHasProfile" class="card-body">
-            <div class="alert alert-info">User has not submitted bank details</div>
+            <div class="alert alert-info text-center">User has not submitted bank details</div>
         </div>
         <div v-else class="card-body"> 
             <div class=" form-row mb-3">  
@@ -9,7 +9,7 @@
                     <div class="form-group col-12 m-0">
                         <div class="input-group mb-2 mr-sm-2 mb-3">
                             <div class="input-group-prepend">
-                                <div class="input-group-text"><i class="icon icon-account_balance float-left s-20 green-text " ></i></div>
+                                <div class="input-group-text"><i class="icon icon-account_balance float-left s-20 text-white " ></i></div>
                             </div>
                             <select id="bank-select" v-model="form.bank_name" required class="form-control r-0 light s-12">
                                 <option :value="null">Select Bank</option>
@@ -21,7 +21,7 @@
                         <div class="form-group col-6 m-0">
                             <div class="input-group mb-2 mr-sm-2 mb-3">
                                 <div class="input-group-prepend">
-                                    <div class="input-group-text"><i class="icon icon-person float-left s-20 green-text " ></i></div>
+                                    <div class="input-group-text"><i class="icon icon-person float-left s-20 text-white " ></i></div>
                                 </div>
                                 <input v-model="form.bank_account_name" readonly type="text" class="form-control r-0 light s-12" required placeholder="Account Name">
                             </div>
@@ -29,7 +29,7 @@
                         <div class="form-group col-6 m-0">
                             <div class="input-group mb-2 mr-sm-2 mb-3">
                                 <div class="input-group-prepend">
-                                    <div class="input-group-text"><i class="icon icon-address-card-o float-left s-20 green-text " ></i></div>
+                                    <div class="input-group-text"><i class="icon icon-address-card-o float-left s-20 text-white " ></i></div>
                                 </div>
                                 <input v-model="form.bank_account_number" type="text" class="form-control r-0 light s-12" required placeholder="Account Number">
                             </div>

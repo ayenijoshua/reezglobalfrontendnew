@@ -29,7 +29,7 @@
                                 <template v-else>
                                     <tr v-if="ranks.length == 0">
                                         <td colspan="6">
-                                            <div class="alert alert-info">There are no ranks</div>
+                                            <div class="alert alert-info text-center">There are no ranks</div>
                                         </td>
                                     </tr>
                                     <template v-else>
