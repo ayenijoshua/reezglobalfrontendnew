@@ -1,12 +1,12 @@
 <template>
-    <div class="card border-0 justify-content-center" style="background-color: #ecf0f1">
-        <div class="card-body rounded" style="background-color: #ecf0f1"> 
+    <div class="card border-0 justify-content-center" style="background-color: #ded8c7">
+        <div class="card-body rounded" style="background-color: #ded8c7"> 
             <div class="text-center"><img  src="/assets/img/pv1.png" width="80px"  height="80px" style=" opacity: 0.5;">
                 <h6 class="mt-1 s-8 font-weight-bold text-green">OFFICIAL RANKS AND INCENTIVES<br><small> Edit preferred Ranks and incentives packages</small></h6>
             </div>
             <form id="incentive-form" @submit.prevent="updateIncentive()">
                 <div class="card no-b no-r">
-                    <div class="card-body no-gutters" style="background-color: #ecf0f1">
+                    <div class="card-body no-gutters" style="background-color: #ded8c7">
                         <div class="form-row">
                             <div class="col-md-12">
                                 <div class="input-group">
@@ -37,20 +37,20 @@
                                         <div class="input-group-text"><i class="icon icon-gift float-left s-20 text-white " ></i></div>
                                     </div>
                                     <input name="incentive" :value="incentive.incentive" type="text" class="form-control r-0 light s-12"
-                                            placeholder="Incentive" style="border: 1px solid #2E671A; background-color: #ecf0f1;">
+                                            placeholder="Incentive" style="border: 1px solid #2E671A; background-color: #ded8c7;">
                                 </div>
                                 <div class="input-group mt-3 mb-3">
                                     <div class="input-group-prepend">
                                         <div class="input-group-text"><i class="icon icon-money-bag float-left s-20 text-white " ></i></div>
                                     </div>
                                     <input name="worth" :value="incentive.worth" type="text" class="form-control r-0 light s-12"
-                                            placeholder="Cash Equivalent" style="border: 1px solid #2E671A; background-color: #ecf0f1;">
+                                            placeholder="Cash Equivalent" style="border: 1px solid #2E671A; background-color: #ded8c7;">
                                 </div>
                                 <div class="input-group mt-3 mb-3">
                                     <div class="input-group-prepend">
                                         <div class="input-group-text"><i class="icon icon-file float-left s-20 text-white " ></i></div>
                                     </div>
-                                         <input type="file" id="file"  style="background-color: #ecf0f1;" name="file_path"/>
+                                         <input type="file" id="file"  style="background-color: #ded8c7;" name="file_path"/>
                                 </div>
                                 <!-- <div class="dropzone dropzone-file-area p-3 m-3 bg-light" id="fileUpload">
                                     <div class="dz-default dz-message">

@@ -3,10 +3,10 @@
         <div class="">
                 <div class="d-flex justify-content-center mt-5 pb-4"> <!-- Centering wrapper added -->
                     <div class="col-md-6 col-sm-12"> 
-                        <div >
-                            <div >
+                        <div class="card mb-3 shadow1" style="background-color:transparent;">
+                            <div class="card-body">
                                 <div class="d-flex justify-content-center align-items-center" > <!-- Added styling and classes -->
-                                    <img  src="/assets/img/list-items.png" width="auto" height="150px">
+                                   <img  src="/assets/img/order.png" width="auto" height="150px">
                                 </div>
                                 
                                 <div class="d-flex justify-content-center"><p class="font-weight-bold">Input order code to process the order associated with it.</p></div>
@@ -21,7 +21,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="d-flex justify-content-center">
+                                <div class="d-flex justify-content-center mb-4">
                                     <button @click="getUserOrders" type="submit" class="btn btn-sm btn-success btn-lg mr-3">
                                         <i class="icon-save mr-2"></i>Confirm Selection
                                     </button>
@@ -32,7 +32,7 @@
 
                 <div class="d-flex justify-content-center mt-3"> <!-- Centering wrapper added -->
                     <div class="col-md-9 col-sm-12"> 
-                        <div >
+                       <div class="card mb-3 shadow1" style="background-color:transparent;">
                             <div class="row column-row" >
                                 <div class="mt-4 ml-auto" style="padding-right:40px">
                                     <img  src="/assets/img/order-details.png"  width="auto" height="24px">&nbsp;&nbsp;
@@ -40,7 +40,7 @@
                                 </div> 
                             </div>
                             <hr>
-                        <div>
+                        <div class="card-body">
                             <template v-if="orderLoading">
                                 <b-skeleton-table
                                     :rows="3"
@@ -176,7 +176,7 @@
                                         </tr>
                                         <template v-else>
                                             <tr v-if="vendorProcessedOrders.length==0">
-                                                <td colspan="5">There are no processed Orders</td>
+                                                <td colspan="5" class="text-center">There are no processed Orders</td>
                                             </tr>
                                             <tr v-for="order,i in vendorProcessedOrders" :key="i">
                                                 <th scope="row">{{ ++i }}</th>

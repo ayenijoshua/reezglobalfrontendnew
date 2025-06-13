@@ -4,10 +4,10 @@
             <div class="row my-3">
                 <div class="col-md-12">
                     <div class="card">
-                        <div class="card-header" style="background-color: #2E671A;">
-                            <h6 class="text-white"><strong class="font-weight-bold">OFFICIAL REGISTRATION PACKAGE RATES</strong></h6>
+                        <div class="card-header" style="background-color: #ded8c7;">
+                            <h6 class="text-green"><strong class="font-weight-bold">OFFICIAL REGISTRATION PACKAGE RATES</strong></h6>
                         </div>
-                        <div class="card-body" style="overflow-x:auto;">
+                        <div class="card-body" style="overflow-x:auto; background-color: #ded8c7;">
                             <table class="table table-hover">
                                 <tr>
                                     <th>S/N</th>
@@ -30,7 +30,7 @@
                                 <template v-else>
                                     <tr v-if="regPackages.length == 0">
                                         <td colspan="7">
-                                            <div class="alert alert-info">There are no packages</div>
+                                            <div class="alert alert-info text-center">There are no packages</div>
                                         </td>
                                     </tr>
                                     <template v-else>

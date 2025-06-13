@@ -109,7 +109,7 @@
                                                                 <td>{{ produc.product_qty }}</td>
                                                                 <td>₦ {{ produc.price }}</td>
                                                                 <td>{{ produc.created_at }}</td>
-                                                                <td><span :class="['badge ', produc.status=='processing' ? 'badge-info' : produc.status=='approved' ? 'badge-success' : 'badge-danger']" style="padding: 6px 10px;">{{ produc.status }}</span></td>
+                                                                <td><span :class="['badge ', produc.status=='processing' ? 'badge-info' : produc.status=='approved' ? 'badge-success' : 'badge-danger']" style="padding: 8px 10px;">{{ produc.status }}</span></td>
                                                                 <!-- <td>₦{{ produc.worth }}</td> -->
                                                                 <!-- <td> 
                                                                     <div class="form-check">

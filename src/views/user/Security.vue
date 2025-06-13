@@ -47,7 +47,7 @@
                                                         :checked="profile.enable_2fa" 
                                                         data-width="100"  
                                                         data-onstyle="success" 
-                                                        style="accent-color: #2E671A; background-color:#ecf0f1 ;"
+                                                        style="accent-color: #2E671A; background-color:#ded8c7;"
                                                     />
                                                     Check to Enable | Uncheck to disable
                                                 </h6>
@@ -193,13 +193,13 @@
   height: 20px;
   border: 2px solid #2E671A;
   border-radius: 4px;
-  background-color: #ecf0f1;
+  background-color: #ded8c7;
   cursor: pointer;
 }
 
 /* Checkbox checked state */
 .custom-checkbox:checked {
-  background-color: #ecf0f1;
+  background-color: #ded8c7;
   border-color: #2E671A;
 }
 

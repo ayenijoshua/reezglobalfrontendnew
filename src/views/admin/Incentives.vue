@@ -4,10 +4,10 @@
             <div class="row my-3">
                 <div class="col-md-12">
                     <div class="card shadow1">
-                        <div class="card-header" style="background-color:#2E671A;">
-                            <h6 class="text-white"><strong class="font-weight-bold">OFFICIAL RANKS AND INCENTIVES</strong></h6>
+                        <div class="card-header" style="background-color:#ded8c7;">
+                            <h6 class="text-green"><strong class="font-weight-bold">OFFICIAL RANKS AND INCENTIVES</strong></h6>
                         </div>
-                        <div class="card-body" style="overflow-x:auto;">
+                        <div class="card-body" style="overflow-x:auto; background-color:#ded8c7;">
                             <table class="table table-bordered table-hover">
                                 <tr>
                                     <th>S/N</th>
@@ -31,7 +31,7 @@
                                 <template v-else>
                                     <tr v-if="incentives.length == 0">
                                         <td colspan="8">
-                                            <div class="alert alert-info">There are no incentives</div>
+                                            <div class="alert alert-info text-center">There are no incentives</div>
                                         </td>
                                     </tr>
                                     <template v-else>
@@ -71,10 +71,10 @@
             <!-- <div class="row my-3">
                 <div class="col-md-12">
                     <div class="card">
-                        <div class="card-header bg-white">
+                        <div class="card-header" style="background-color:#ded8c7">
                             <h6 class="green-text"><strong class="font-weight-bold">OFFICIAL PROFIT POOL BONUS</strong></h6>
                         </div>
-                        <div class="card-body" style="overflow-x:auto;">
+                        <div class="card-body" style="overflow-x:auto;background-color:#ded8c7">
                             <table class="table table-bordered table-hover">
                                 <tr>
                                     <th>Package</th>
@@ -104,8 +104,8 @@
                         <div class="card-header bg-white">
                             <h6 class="green-text"><strong class="font-weight-bold">OFFICIAL GLOBAL PROFIT SHARING</strong></h6>
                         </div>
-                        <div class="card-body" style="overflow-x:auto;">
-                            <div class="card-body no-gutters" style="overflow-x:auto;">
+                        <div class="card-body" style="overflow-x:auto;background-color:#ded8c7">
+                            <div class="card-body no-gutters" style="overflow-x:auto;background-color:#ded8c7">
                                 <table class="table table-bordered table-hover">
                                     <tr>
                                         <th>1st percentage(%)</th>

@@ -1,6 +1,6 @@
 <template>
-    <div>
-        <div class="height-full light">
+    <div >
+        <div class="height-full" style="background-color: #ded8c7">
     <div id="primary" class="content-area"
          data-bg-possition="center"
          data-bg-repeat="false"
@@ -10,7 +10,7 @@
                 <header class="text-center mb-5">
                     <h1>oops!</h1>
                     <p class="section-subtitle">Something went wrong. The page you are looking for is not found</p>
-                    <span class="btn btn-primary btn-sm">Back to home</span>
+                    <span class="btn btn-success btn-sm">Back to home</span>
                 </header>
                 <div class="pt-5 p-t-100 text-center">
                     <p class="s-256">404</p>

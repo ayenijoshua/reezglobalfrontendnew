@@ -42,7 +42,7 @@
                                 </tr>
                                 <template v-else>
                                     <tr v-if="vendorProcessedOrders.length==0">
-                                        <td colspan="5">There are no processed Orders</td>
+                                        <td class="text-center" colspan="5">There are no processed Orders</td>
                                     </tr>
                                     <tr v-for="order,i in vendorProcessedOrders" :key="i">
                                         <th scope="row">{{ ++i }}</th>

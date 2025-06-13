@@ -14,8 +14,8 @@
 				
         <div class="row my-5">
             <div class="col-md-12">
-                <div class="card shadow1" style="border: 1px solid #2E671A !important;">
-                    <div class="card-body p-4" >
+                <div class="card shadow1" style="border: 1px solid #2E671A !important; background-color: #ded8c7;">
+                    <div class="card-body p-4" style="background-color: #ded8c7;" >
                         <form id="create-product-form" @submit.prevent="create()">
                             <div class="row column-row"> 
                                 <div class="col-md-2 ml-3 mt-3">
@@ -27,7 +27,7 @@
                                         <div class="input-group-prepend" >
                                             <div class="input-group-text" style="background-color: #2E671A; border:1px solid #2E671A !important" ><i class="icon icon-add_shopping_cart float-left s-20 text-white"></i></div>
                                         </div>
-                                        <input v-model="form.name" name="name" required type="text" class="form-control r-0 light s-12" placeholder="Product Name" style="background-color: #ecf0f1; border:1px solid #2E671A !important">
+                                        <input v-model="form.name" name="name" required type="text" class="form-control r-0 light s-12" placeholder="Product Name" style="background-color: #ded8c7; border:1px solid #2E671A !important">
                                     </div>
                                 </div>
                                 <!--<div class="col-md-3">
@@ -35,7 +35,7 @@
                                         <div class="input-group-prepend" >
                                             <div class="input-group-text" style="background-color: #2E671A; border:1px solid #2E671A !important" ><i class="icon icon-add_shopping_cart float-left s-20 text-white"></i></div>
                                         </div>
-                                        <input v-model="form.points" name="points" value="1" type="hidden" class="form-control r-0 light s-12" placeholder="Product PV" style="background-color: #ecf0f1; border:1px solid #2E671A !important">
+                                        <input v-model="form.points" name="points" value="1" type="hidden" class="form-control r-0 light s-12" placeholder="Product PV" style="background-color: #ded8c7; border:1px solid #2E671A !important">
                                     </div>
                                 </div>-->
                                 <div class="col-md-3">
@@ -43,7 +43,7 @@
                                         <div class="input-group-prepend">
                                             <div class="input-group-text" style="background-color: #2E671A; border:1px solid #2E671A !important" ><i class="icon icon-tag3 float-left s-20 text-white " ></i></div>
                                         </div>
-                                        <input v-model="form.worth" name="worth" required type="text" class="form-control r-0 light s-12" placeholder="Price" style="background-color: #ecf0f1; border:1px solid #2E671A !important">
+                                        <input v-model="form.worth" name="worth" required type="text" class="form-control r-0 light s-12" placeholder="Price" style="background-color: #ded8c7; border:1px solid #2E671A !important">
                                     </div>
                                 </div>
                             </div>
@@ -51,13 +51,13 @@
                                 <div class="col-md-12 mb-3">
                                     <div class="form-group m-0">
                                         <textarea name="description" value="" rows="5" type="text" class="form-control r-0 light s-12" id="address"
-                                        placeholder="Product Description" style="background-color: #ecf0f1; border: 2px solid #2E671A;"></textarea>
+                                        placeholder="Product Description" style="background-color: #ded8c7; border: 2px solid #2E671A;"></textarea>
                                     </div>	
                                 </div>
                                 <div class="col-md-12 mt-3 mb-3">
                                     <div class="form-group m-0">
-                                        <div class="dropbox" style="background-color: #ecf0f1; border: 2px solid #2E671A;">
-                                            <input v-b-popover.hover.top="'Drag your photo here or click to browse'" type="file" id="profile-img" title="profile photo" name="image" @change="filesChange($event.target.files);"  class="form-control form-control-line input-file" style="background-color: #ecf0f1; border: 2px solid #2E671A;">
+                                        <div class="dropbox" style="background-color: #ded8c7; border: 2px solid #2E671A;">
+                                            <input v-b-popover.hover.top="'Drag your photo here or click to browse'" type="file" id="profile-img" title="profile photo" name="image" @change="filesChange($event.target.files);"  class="form-control form-control-line input-file" style="background-color: #ded8c7; border: 2px solid #2E671A;">
                                             <p id="img-preview" >
                                                 Drag an image here<br> or click to browse<br>
                                                 <span style="font-size: 10px;">Image size should not exceed 500kB</span>
@@ -79,22 +79,22 @@
 
         <div class="row my-3">
             <div class="col-md-12">
-                <div class="card border shadow1" style="border: 1px solid #2E671A !important;">
-                    <div class="card-header" style="background-color: #2E671A">
+                <div class="card border shadow1" style="border: 1px solid #ded8c7 !important;">
+                    <div class="card-header" style="background-color: #ded8c7">
                         <div class="row justify-content-end">
                             <div class="col">
                                 <ul class="nav nav-tabs card-header-tabs nav-material">
                                     <li class="nav-item">
-                                        <a class="nav-link text-white font-weight-bold" id="w1-tab1" data-toggle="tab" >COMPANY PRODUCTS</a>
+                                        <a class="nav-link text-green font-weight-bold" id="w1-tab1" data-toggle="tab" >COMPANY PRODUCTS</a>
                                     </li>	
                                 </ul>
                             </div>
                         </div>
                     </div>
                     <div class="collapse show" id="invoiceCard">
-                        <div class="card-body p-0"> 
-                            <div class="card no-b no-r">
-                                <div class="card-body">
+                        <div class="card-body p-0" style="background-color: #ded8c7"> 
+                            <div class="card no-b no-r" style="background-color: #ded8c7">
+                                <div class="card-body" style="background-color: #ded8c7">
                                     <div class="form-row" style="overflow-x:auto;">
                                         <table class="table table-bordered equal-width-table">
                                             <thead>

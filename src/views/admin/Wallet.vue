@@ -12,7 +12,7 @@
                     </div>
                     <!-- <div class="row my-3">
                         <div class="col-md-12">
-                            <div class="card shadow1">
+                            <div class="card shadow1" >
                                 <div class="card-header">
                                     <h4 class="green-text"><strong class="font-weight-bold">System Net Balance</strong></h4>
                                 </div>
@@ -283,7 +283,7 @@
             
             <div class="row mb-5">
                 <div class="col-md-4 ">
-                    <div class="card shadow1">
+                    <div class="card shadow1" style="background-color:#ded8c7">
                         <div class="card-body" >
                             <div class="d-flex align-items-center flex-row flex-wrap">
                                 <div class="row column-row ml-1 ">
@@ -303,7 +303,7 @@
                     </div>
                 </div>
                 <div class="col-md-4 ">
-                    <div class="card shadow1">
+                    <div class="card shadow1" style="background-color:#ded8c7">
                         <div class="card-body" >
                             <div class="d-flex align-items-center flex-row flex-wrap">
                                 <div class="row column-row ml-1 ">
@@ -323,7 +323,7 @@
                     </div>
                 </div>
                 <div class="col-md-4 ">
-                    <div class="card shadow1">
+                    <div class="card shadow1" style="background-color:#ded8c7">
                         <div class="card-body" >
                             <div class="d-flex align-items-center flex-row flex-wrap">
                                 <div class="row column-row ml-1 ">

@@ -11,9 +11,9 @@
                                         <!-- bar charts group -->
                                         <div class="col-md-12">
                                             <div class="card shadow1" style="background-color: transparent">
-                                                <div class="card-header"  style="background-color: #2E671A">
-                                                    <h4 class="text-white"><strong class="font-weight-bold"><i class="icon icon-sitemap mr-2" ></i>Network Structure</strong></h4>
-                                                    <small class="text-white">View tree structure of your direct downlines</small>
+                                                <div class="card-header"  >
+                                                    <h4 class="text-green"><strong class="font-weight-bold"><i class="icon icon-sitemap mr-2" ></i>Network Structure</strong></h4>
+                                                    <small class="text-green">View tree structure of your direct downlines</small>
                                                 </div>
                                                 <template v-if="loading">
                                                     <b-skeleton-table
@@ -76,10 +76,10 @@
         -moz-user-select: none;
         -ms-user-select: none;
         user-select: none;
-        background-image: -webkit-gradient(linear,left top,right top,color-stop(10%,#1b4f72),color-stop(0,transparent)),-webkit-gradient(linear,left top,left bottom,color-stop(10%,rgba(200,0,0,.15)),color-stop(0,transparent));
+        background-image: -webkit-gradient(linear,left top,right top,color-stop(10%,rgba(200,0,0,.15)),color-stop(0,transparent)),-webkit-gradient(linear,left top,left bottom,color-stop(10%,rgba(200,0,0,.15)),color-stop(0,transparent));
         background-image: 
-        linear-gradient(90deg, #ecf0f1 10%, transparent 0), 
-        linear-gradient(#ecf0f1 10%, transparent 0) !important;
+        linear-gradient(90deg, rgb(222, 216, 199) 10%, transparent 0), 
+        linear-gradient(rgb(222, 216, 199) 10%, transparent 0) !important;
         background-size: 10px 10px;
         border: 0px dashed transparent;
         padding: 20px;

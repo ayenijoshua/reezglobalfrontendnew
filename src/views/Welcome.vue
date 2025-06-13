@@ -3,7 +3,7 @@
         <div class="">	
             <div class="navbar navbar-expand d-flex navbar-dark justify-content-between bd-navbar blue accent-3 shadow">
                 <div class="relative">
-                    <img src="/assets/img/logo2b.png" alt="" style="width: 200px;">
+                    <img src="/assets/img/logo1.png" alt="" style="width: 200px;">
                 </div>
                 <!--Top Menu Start -->
                 <div class="navbar-custom-menu">
@@ -57,8 +57,8 @@
                     <div class="row mb-3">
                         <div class="col-md-12">
                             <div class="text-center mt-3">
-                                <img src="/assets/img/welcome-back.png" alt="" width="150px" height="auto">
-                                <h6 class="font-weight-bold mt-2" style="color:#353935;">Thanks for registering!<br><small>We're thrilled to have you as a partner.</small></h6>
+                                <img src="/assets/img/success.png" alt="" width="100px" height="100px">
+                                <h6 class="font-weight-bold mt-2" style="color:#2E671A;">Thanks for registering!<br><small>We're thrilled to have you as a partner.</small></h6>
                             </div>
                         </div>
                     </div>	
@@ -68,7 +68,7 @@
                             <div class="card r-1 shadow1" style="background-color: transparent">
                                 <div class="card-body">
                                     <div class="d-flex justify-content-center">
-                                        <div class="p-3">
+                                        <div class="p-3 text-green">
                                             <p>
                                                 <template v-if="loading">...</template>
                                                 <template v-else>
@@ -90,16 +90,16 @@
                     
                     <div class="row mt-2">
                         <div class="col-md-12">
-                            <div class="text-center mt-3">
+                            <div class="text-center mt-3 text-green">
                                 <small class=" mt-4 mb-3">kindly be reminded that there is a <span class="font-weight-bold">7-day time limit</span> for completing your registration,so please finish the remaining part as soon as possible to avoid missing out.</small>
                                 <div class="text-center mt-3">
                                     <div id="" class="timer flex-wrap d-flex justify-content-center mt-3"  style="padding-top: 30px;">
                                         <VueCountdown v-if="!loading" :time="getTime">
                                             <template slot-scope="props">
-                                                <div style="width: 200px !important; padding-right:20px; padding-left:20px; padding-top:20px; padding-bottom:20px; background-color: #353935" id="days" class="align-items-center flex-column d-flex justify-content-center shadow1 text-white">{{7 - props.days }}&nbsp;&nbsp;DAYS</div>  
-                                                <div style="width: 200px !important; padding-right:20px; padding-left:20px; padding-top:20px; padding-bottom:20px; background-color: #353935"  id="hours" class="align-items-center flex-column d-flex justify-content-center shadow1 text-white">{{ props.hours }}&nbsp;&nbsp;HOURS</div>
-                                                <div style="width: 200px !important; padding-right:20px; padding-left:20px; padding-top:20px; padding-bottom:20px; background-color: #353935" id="minutes" class="align-items-center flex-column d-flex justify-content-center shadow1 text-white">{{ props.minutes }}&nbsp;&nbsp;MINUTES</div>
-                                                <div style="width: 200px !important; padding-right:20px; padding-left:20px; padding-top:20px; padding-bottom:20px; background-color: #353935" id="seconds" class="align-items-center flex-column d-flex justify-content-center shadow1 text-white">{{ props.seconds }}&nbsp;&nbsp;SECONDS</div>
+                                                <div style="width: 200px !important; padding-right:20px; padding-left:20px; padding-top:20px; padding-bottom:20px; background-color: transparent" id="days" class="align-items-center flex-column d-flex justify-content-center shadow1 text-green">{{7 - props.days }}&nbsp;&nbsp;DAYS</div>  
+                                                <div style="width: 200px !important; padding-right:20px; padding-left:20px; padding-top:20px; padding-bottom:20px; background-color: transparent"  id="hours" class="align-items-center flex-column d-flex justify-content-center shadow1 text-green">{{ props.hours }}&nbsp;&nbsp;HOURS</div>
+                                                <div style="width: 200px !important; padding-right:20px; padding-left:20px; padding-top:20px; padding-bottom:20px; background-color: transparent" id="minutes" class="align-items-center flex-column d-flex justify-content-center shadow1 text-green">{{ props.minutes }}&nbsp;&nbsp;MINUTES</div>
+                                                <div style="width: 200px !important; padding-right:20px; padding-left:20px; padding-top:20px; padding-bottom:20px; background-color: transparent" id="seconds" class="align-items-center flex-column d-flex justify-content-center shadow1 text-green">{{ props.seconds }}&nbsp;&nbsp;SECONDS</div>
                                             </template>
                                             <!---<template slot-scope="props">Time Remaining：{{ props.days }} days, {{ props.hours }} hours, {{ props.minutes }} minutes, {{ props.seconds }} seconds.</template>-->
                                         </VueCountdown>
@@ -277,7 +277,7 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-10 offset-md-1">
+                <div class="col-md-10 offset-md-1 mt-5">
                     <iframe id='ifr' frameborder="0" :src="payLink" scrolling="no" width="400" height="500"></iframe>
                 </div>
             </div>
@@ -306,17 +306,17 @@
 <style>
 /* Override the modal's background colors */
 .modal-dialog {
-    background-color: #ecf0f1 !important;
+    background-color: #ded8c7 !important;
 }
 
 .modal-content {
-    background-color: #ecf0f1 !important;
+    background-color: #ded8c7 !important;
     border: none; /* Remove borders if any */
 }
 
 .modal-body,
 .modal-footer {
-    background-color: #ecf0f1 !important;
+    background-color: #ded8c7 !important;
     color: #333; /* Adjust text color if necessary */
 }
 

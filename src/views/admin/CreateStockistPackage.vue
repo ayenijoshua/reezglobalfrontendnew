@@ -3,8 +3,8 @@
         <div class="animated">
             <div class="row my-3">
                 <div class="col-md-12">
-                <div class="card shadow1" style="background-color:transparent">
-                    <div class="card-body p-4" style="background-color:transparent" >
+                <div class="card shadow1" style="background-color:#ded8c7">
+                    <div class="card-body p-4" style="background-color:#ded8c7" >
                        <!-- <form>
                             <div class="row column-row"> 
                                 <div class="col-md-2 ml-3 mt-3">
@@ -24,7 +24,7 @@
                                         <div class="input-group-prepend" >
                                             <div class="input-group-text" style="background-color: #2E671A; border:1px solid #2E671A !important" ><i class="icon icon-add_shopping_cart float-left s-20 text-white"></i></div>
                                         </div>
-                                        <input required v-model="form.registration_value" type="number" class="form-control r-0 light s-12" placeholder="Stockist Package Fee" style="background-color: #ecf0f1; border:1px solid #2E671A !important">
+                                        <input required v-model="form.registration_value" type="number" class="form-control r-0 light s-12" placeholder="Stockist Package Fee" style="background-color: #ded8c7; border:1px solid #2E671A !important">
                                     </div>
                                 </div>
                                 <div class="col-md-3">
@@ -32,7 +32,7 @@
                                         <div class="input-group-prepend">
                                             <div class="input-group-text" style="background-color: #2E671A; border:1px solid #2E671A !important" ><i class="icon icon-tag3 float-left s-20 text-white " ></i></div>
                                         </div>
-                                        <input required v-model="form.sales_bonus_percentage" type="text" class="form-control r-0 light s-12" placeholder="Rebate" style="background-color: #ecf0f1; border:1px solid #2E671A !important">
+                                        <input required v-model="form.sales_bonus_percentage" type="text" class="form-control r-0 light s-12" placeholder="Rebate" style="background-color: #ded8c7; border:1px solid #2E671A !important">
                                     </div>
                                 </div>
                             </div>
@@ -48,9 +48,9 @@
             
         <div class="row my-3">
                 <div class="col-md-12">
-                    <div class="card">
-                        <div class="card-header" style="background-color:#2E671A">
-                            <h6 class="text-white"><strong class="font-weight-bold">OFFICIAL STOCKIST PACKAGE RATES</strong></h6>
+                    <div class="card" style="background-color:#ded8c7">
+                        <div class="card-header" style="background-color:#ded8c7">
+                            <h6 class="text-green"><strong class="font-weight-bold">OFFICIAL STOCKIST PACKAGE RATES</strong></h6>
                         </div>
                         <div class="card-body" style="overflow-x:auto;">
                             <table class="table table-hover">
@@ -92,10 +92,10 @@
 
         <div class="row">
             <div class="col-md-6">
-                <div class="card shadow1" style="background-color:transparent">
+                <div class="card shadow1" style="background-color:#ded8c7">
                     <div class="card-body" style="overflow-x:auto;">
                     <form @submit.prevent="updateRefBonus()">
-                        <div class="card no-b  no-r" style="background-color:transparent">
+                        <div class="card no-b  no-r" style="background-color:#ded8c7">
                             <div class="card-body no-gutters">
                                 <div class="text-center mb-3"><img  src="/assets/img/cash-withdrawal.png" width="80px"  height="80px">
                                 <h5 class="s-36 font-weight-bold mt-2 text-green">₦ {{ settings.stockist_referral_bonus_percentage?.toLocaleString('en-US') }}</h5>
@@ -106,7 +106,7 @@
                                             <div class="input-group-prepend">
                                                 <div class="input-group-text"><i class="icon icon-money-3 float-left s-20 text-white " ></i></div>
                                             </div>
-                                            <input v-model="stockistReferralBonusPercentage.stockist_referral_bonus_percentage" type="number" class="form-control r-0 light s-12" placeholder="Referral bonus %"  style="background-color:#ecf0f1; border: 1px solid #2E671A">
+                                            <input v-model="stockistReferralBonusPercentage.stockist_referral_bonus_percentage" type="number" class="form-control r-0 light s-12" placeholder="Referral bonus %"  style="background-color:#ded8c7; border: 1px solid #2E671A">
                                         </div>
                                     </div>
                                 </div>

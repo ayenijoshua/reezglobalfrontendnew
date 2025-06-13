@@ -8,16 +8,16 @@
                 Your browser does not support the video tag.
             </video>
             <div class="content-overlay">
-                <div class="p-t-b-100 height-full page-background " style="background-color: #98CC5A; opacity: 0.9;">
+                <div class="p-t-b-100 height-full page-background" style="background-image: url('assets/img/bg-wall3b.png'); background-color: #ded8c7">
                     <div class="container" >
                         <div class="row">
                             <div class="col-lg-9 mx-md-auto">
-                                <div class="card shadow1" style="background-color: #ecf0f1">
-                                    <div class="card-body" style="background-color: #ecf0f1">
+                                <div >
+                                    <div >
                                         <div class="text-center">
-                                            <a href="https://startwins.com">
-                                                <img class="img-responsive" src="assets/img/logo2b.png" width="300px" height="auto" alt="">
-                                            </a>
+											<a href="https://reezglobal.com">
+												<img class="img-responsive" src="assets/img/logo1.png" style= "max-width: 100%;" alt="">
+											</a>
                                             <p class="mt-3 green-text font-weight-bold">Let the Journey Begin...</p>
                                         </div>
                                 <form @submit.prevent="submit()" id="regForm">
@@ -198,8 +198,8 @@
                                 <div class="header-column">
                                     <div class="header-row">
                                         <div class="header-logo mb-3">
-                                            <a href="https://startwins.com">
-                                                <img alt="Porto" width="300px" height="auto" data-sticky-width="100%" data-sticky-height="48" src="/assets/img/logo2b.png">
+                                            <a href="https://reezglobal.com">
+                                                <img alt="Porto" width="300px" height="auto" data-sticky-width="100%" data-sticky-height="48" src="/assets/img/logo1.png">
                                             </a>
                                         </div>
                                     </div>
@@ -224,10 +224,10 @@
                     <div class="container py-2">
                         <div class="row">
                             <div class="col green-text">
-                                <p>Thank you for choosing Star Twins. These terms and conditions outline the rules and regulations for the use of Star Twins's website located at https://startwins.com/. By accessing this website, we assume you accept these terms and conditions in full. If you disagree with any part of these terms and conditions, do not use our website.</p>
+                                <p>Thank you for choosing Reez Global. These terms and conditions outline the rules and regulations for the use of Reez Global's website located at https://reezglobal.com/. By accessing this website, we assume you accept these terms and conditions in full. If you disagree with any part of these terms and conditions, do not use our website.</p>
                                                             
                                 <h5 class="font-weight-bold green-text">1. General Information</h5>
-                                <p>Star Twins is a website owned and operated by Star Twins Nigeria Limited, a company registered in Nigeria. Our platform offers online sales of health and wellness products as well as a compensation plan for registered members.</p>
+                                <p>Reez Global is a website owned and operated by Reez Global Nigeria Limited, a company registered in Nigeria. Our platform offers online sales of health and wellness products as well as a compensation plan for registered members.</p>
 
                                 <h5 class="font-weight-bold green-text">2. User Eligibility</h5>
                                 <p>You must be 18 years or older to use our website and purchase our products. By registering on our website, you confirm that you are of legal age to enter into a binding agreement with us. If you are registering on behalf of a company, you represent and warrant that you have the authority to bind the company to these terms and conditions.</p>
@@ -242,7 +242,7 @@
                                 <p>We make every effort to provide accurate and up-to-date information about our products. However, we do not guarantee that the product descriptions, images, or other content on our website are accurate, complete, or error-free. We reserve the right to modify the content of our website at any time without prior notice.</p>
                                                             
                                 <h5 class="font-weight-bold green-text">6. Intellectual Property</h5>
-                                <p>All content on our website, including text, images, graphics, logos, and software, is the property of Star Twins Limited and is protected by Nigerian and international copyright laws. You may not reproduce, distribute, or transmit any content from our website without our prior written consent.</p>
+                                <p>All content on our website, including text, images, graphics, logos, and software, is the property of Reez Global Limited and is protected by Nigerian and international copyright laws. You may not reproduce, distribute, or transmit any content from our website without our prior written consent.</p>
                                 
                                 <h5 class="font-weight-bold green-text">7. Compensation Plan</h5>
                                 <p>As a registered member, you are eligible to participate in our compensation plan. The details of the compensation plan are available on our website. By participating in our compensation plan, you agree to comply with all rules and regulations governing the plan.</p>
@@ -251,7 +251,7 @@
                                 <p>We reserve the right to terminate your access to our website and our compensation plan at any time without prior notice. We may also terminate your account if we suspect that you have violated these terms and conditions or any applicable law.</p>
                                 
                                 <h5 class="font-weight-bold green-text">9. Limitation of Liability</h5>
-                                <p>Star Twins Limited shall not be liable for any direct, indirect, incidental, special, or consequential damages arising from your use of our website, including but not limited to damages for loss of profits, data, or other intangible losses. You agree to indemnify and hold us harmless from any claim or demand, including reasonable attorneys' fees, made by any third party due to or arising out of your breach of these terms and conditions.</p>
+                                <p>Reez Global Limited shall not be liable for any direct, indirect, incidental, special, or consequential damages arising from your use of our website, including but not limited to damages for loss of profits, data, or other intangible losses. You agree to indemnify and hold us harmless from any claim or demand, including reasonable attorneys' fees, made by any third party due to or arising out of your breach of these terms and conditions.</p>
                                 
                                 <h5 class="font-weight-bold green-text">10. Governing Law</h5>
                                 <p>These terms and conditions shall be governed by and construed in accordance with the laws of Nigeria. Any disputes arising from these terms and conditions shall be subject to the exclusive jurisdiction of the courts of Nigeria.</p>
@@ -260,8 +260,9 @@
                                 <p>We reserve the right to modify these terms and conditions at any time without prior notice. You are responsible for regularly reviewing these terms and conditions to ensure that you are aware of any changes. Your continued use of our website after any modifications indicate your acceptance of the modified terms and conditions.</p>
                                 
                                 <h5 class="font-weight-bold green-text">Contact Us</h5>
-                                <p>If you have any questions or concerns about our Privacy Policy or our use of your personal information, please contact us at <b>support@startwins.com.</b></p>
+                                <p>If you have any questions or concerns about our Privacy Policy or our use of your personal information, please contact us at <b>support@reezglobal.com.</b></p>
                             </div>
+							
                         </div>
                     </div>
                 </div>
@@ -269,7 +270,7 @@
                     <div class="footer-copyright">					
                     </div>
                     <div class="col-auto text-center">
-                        <p class="text-center">© Copyright 2024. Star Twins All Rights Reserved.</p>							
+                        <p class="text-center">© Copyright 2024. Reezglobal All Rights Reserved.</p>							
                     </div>
                     <div class="col-auto mr-2 text-center">
                         <button type="button" class="btn btn-lg btn-success px-4" @click="closeModal()" data-dismiss="modal">Click to accepted the Terms and Conditions</button>
@@ -337,7 +338,58 @@
   text-align: center;
   line-height: 20px;
 }
+
+.modal-header {
+    background-color: #ded8c7 !important;
+    border-bottom: none !important;
+}
+
+.modal-content {
+    background-color: transparent !important; /* Let child parts show their bg */
+    border: none !important;
+}
+
+.modal-content .main,
+.modal-content .body {
+    background-color: #ded8c7 !important;
+    color: #333 !important;
+}
+
+.modal-footer {
+    background-color: #ded8c7 !important;
+    border-top: none !important;
+}
+
+.modal-footer .btn {
+    background-color: #2E671A;
+    color: white;
+}
+
+#terms .modal-dialog,
+#terms .modal-content,
+#terms .modal-header,
+#terms .modal-body,
+#terms .modal-footer {
+    background-color: #ded8c7 !important;
+    color: #333 !important;
+}
+
+
 </style>
+
+<style scoped>
+::v-deep(.modal-content) {
+    background-color: #ded8c7 !important;
+    border: none !important;
+}
+::v-deep(.modal-header),
+::v-deep(.modal-body),
+::v-deep(.modal-footer) {
+    background-color: #ded8c7 !important;
+    color: #333 !important;
+}
+</style>
+
 
 <script>
 

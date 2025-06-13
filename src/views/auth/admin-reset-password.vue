@@ -6,14 +6,14 @@
                 Your browser does not support the video tag.
         </video>
         <div class="content-overlay">
-            <div class="p-t-b-100 height-full page-background" style="background-color: #98CC5A; opacity: 0.9;" >
+            <div class="p-t-b-100 height-full page-background" style="background-image: url('assets/img/bg-wall3b.png');background-color: #ded8c7" >
                 <div class="container">
                     <div class="row">
                         <div class="col-lg-7 mx-md-auto">
-                            <div class="card shadow1" style="background-color: #ecf0f1">
-                                <div class="card-body" style="background-color: #ecf0f1">
+                            <div style="padding-top:100px" >
+                                <div>
                                     <div class="text-center">
-                                        <a href="https://startwins.com"><img class="img-responsive" src="/assets/img/logo2b.png" width="300px" height="auto" alt=""></a> 
+                                        <a href="https://reezglobal.com"><img class="img-responsive" src="/assets/img/logo1.png" style= "max-width: 100%" alt=""></a>
                                         <p class="p-t-b-20 green-text font-weight-bold">Reset Password</p>
                                     </div>
                                     <form @submit.prevent="submit()">

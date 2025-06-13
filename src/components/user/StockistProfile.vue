@@ -4,7 +4,7 @@
             <div class="row column-row">
                 <div class="mt-4 ml-auto" style="padding-right:40px">
                     
-                    <img  src="/assets/img/preview.png"  width="auto" height="20px">&nbsp;&nbsp;
+                    <img  src="/assets/img/personal-banking1.png"  width="auto" height="20px">&nbsp;&nbsp;
                     <span class=" float-right font-weight-bold" id="d1" style="font-size:17px">Preview Details</span>
                 </div> 
             </div>
