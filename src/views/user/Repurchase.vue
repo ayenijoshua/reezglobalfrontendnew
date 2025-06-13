@@ -1,30 +1,25 @@
 <template>
     <div>
-        <div class="">     
-           <div class="d-flex justify-content-center mt-5 mb-3"> <!-- Centering wrapper added -->
+        <div class="">  
+            <div class="d-flex justify-content-center"> <!-- Centering wrapper added -->
+                <div class="mt-5"> 
+                    <span class="text-center text-green s-12 font-weight-bold">Select Pick-up Type</span>
+                </div>   
+            </div>     
+           <div class="d-flex justify-content-center mt-2 mb-3"> <!-- Centering wrapper added -->
                 <div class="col-md-6 col-sm-12"> 
-                    <div class="card no-b shadow 1" style="background-color: transparent;">
-                        <div class="card-body">
-                            <span class="text-center text-blue s-12 font-weight-bold">Select Pick-up Type</span>
-                            <b-card v-if="authUser.uuid==undefined || packageLoading == true">
-                                <b-skeleton width="85%"></b-skeleton>
-                                <b-skeleton width="55%"></b-skeleton>
-                                <b-skeleton width="70%"></b-skeleton>
-                            </b-card>
-                            <div v-else class="form-group m-0">                       
-                                <div class="input-group mb-2 mr-sm-2 mb-3">
-                                    <div class="input-group-prepend">
-                                        <div class="input-group-text" style="background-color: #2E671A; border: 2px solid #2E671A;"><i class="icon icon-shopping-cart float-left s-20 text-white" ></i></div>
-                                    </div>
-                                    <select required v-model="selectedOrderType" @change="getPickupAmount" class="form-control r-0 light s-12" style="background-color: transparent; border: 2px solid #1b4f72;">
-                                        <template v-for="orderType,i in orderTypes">
-                                            <option :value="orderType" :key="i">{{orderType == '' ? 'Select' : orderType.replace('_'," ")}}</option>
-                                        </template>														   
-                                    </select>
-                                </div>
+                    <div class="form-group m-0">                       
+                        <div class="input-group mb-2 mr-sm-2 mb-3">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text" style="background-color: #2E671A; border: 2px solid #2E671A;"><i class="icon icon-shopping-cart float-left s-20 text-white" ></i></div>
                             </div>
-                        </div>     
-                    </div>       
+                                <select required v-model="selectedOrderType" @change="getPickupAmount" class="form-control r-0 light s-12" style="background-color: #ded8c7; border: 2px solid  #2E671A;">
+                                    <template v-for="orderType,i in orderTypes">
+                                        <option :value="orderType" :key="i">{{orderType == '' ? 'Select' : orderType.replace('_'," ")}}</option>
+                                    </template>														   
+                                </select>
+                        </div>
+                    </div>        
                 </div>
             </div> 
 
@@ -59,20 +54,20 @@
             
             <div class="row mb-5">
                 <div class="col-md-8">
-                    <div class="card no-b shadow" style="background-color:#ecf0f1">
+                    <div class="card no-b shadow" style="background-color:#ded8c7">
                         <div class="card-body p-0">
                             <form id="product-claim-form" @submit.prevent="productClaim()">
                                 <div class="table-responsive">
                                     <table class="table table-hover">
-                                        <thead style="background-color:#2E671A">
+                                        <thead style="background-color:#ded8c7">
                                             <tr>
-                                                <th class="font-weight-bold text-white" scope="col">S/N</th>
-                                                <th class="font-weight-bold text-white" scope="col">VIEW</th>
-                                                <th class="font-weight-bold text-white" scope="col">PRODUCTS</th>
-                                                <th class="font-weight-bold text-white" scope="col">PRICE</th>
+                                                <th class="font-weight-bold text-green" scope="col">S/N</th>
+                                                <th class="font-weight-bold text-green" scope="col">VIEW</th>
+                                                <th class="font-weight-bold text-green" scope="col">PRODUCTS</th>
+                                                <th class="font-weight-bold text-green" scope="col">PRICE</th>
                                                 <!-- <th class="font-weight-bold text-white" scope="col">POINT VALUE</th> -->
                                                 <!-- <th scope="col">Worth</th> -->
-                                                <th class="font-weight-bold text-white" scope="col">QUANTITY</th>
+                                                <th class="font-weight-bold text-green" scope="col">QUANTITY</th>
                                                 <!-- <th class="font-weight-bold text-white" scope="col">SELECT</th> -->
                                                 <!-- <th scope="col">Select</th> -->
                                             </tr>
@@ -121,7 +116,7 @@
                     <div class="card  mb-3 shadow" style="background-color: transparent">
                         <div class="float-left">
                             <div class="card-body">
-                                <div class="card-header text-white font-weight-bold" style="background-color: #2E671A">Cart History</div>
+                                <div class="card-header text-green font-weight-bold" style="background-color: transparent" ><i class="icon-shopping-cart mr-2"></i>Cart History</div>
                                 <template v-if="cartProducts.length==0">
                                     <p class="alert alert-info text-center">
                                         There are no items in your cart
@@ -196,7 +191,7 @@
                 <div class="col-md-12">
                     <div class="card mr-3 shadow1" style="background-color: transparent">
                         <div class="card-body">
-                            <div calss="card-header">Available Stockists</div>
+                            <div calss="card-header"></div>
                             <div class="form-row" style="overflow-x:auto;">
                                 <div class="d-flex justify-content-end mb-2">
                                     <input v-model="search.search"
@@ -255,7 +250,7 @@
                         </div>
                         <br>
                     </div>
-				</div>
+                </div>
             </div>
                     
             <!--<div class="row mb-2 mt-2" v-if="selectedOrderType === 'registration_pickup' || selectedOrderType === 'upgrade_pickup'">
@@ -289,9 +284,9 @@
                         <div class="d-flex flex-wrap justify-content-center">
                             <div class="text-center">
                                 <img class=" mt-3" src="/assets/img/wallet4a.png" width="auto" height="150px">
-                                <h1 v-if="walletBalanceLoading==true" class="font-weight-bold text-blue" style="margin: 0em; padding: 0em;">...loading</h1>
-                                <h1 v-else class="font-weight-bold text-blue" style="margin: 0em; padding: 0em;">₦{{ walletBalance?.toLocaleString('en-US') }}</h1>
-                                <small class=" font-weight-bold s-10 text-blue" style="margin: 0em; padding: 0em;" >Current Wallet Available Balance</small><br>
+                                <h1 v-if="walletBalanceLoading==true" class="font-weight-bold text-green" style="margin: 0em; padding: 0em;">...loading</h1>
+                                <h1 v-else class="font-weight-bold text-green" style="margin: 0em; padding: 0em;">₦{{ walletBalance?.toLocaleString('en-US') }}</h1>
+                                <small class=" font-weight-bold s-10 text-green" style="margin: 0em; padding: 0em;" >Current Wallet Available Balance</small><br>
                                 <a v-if="payingWithWallet==true" class="btn btn-sm btn-success mb-3 mt-2 btn-lg"><i class="icon icon-credit-card"></i>...Processing</a>
                                 <a v-else class="btn btn-sm btn-success mb-3 mt-2 btn-lg" @click="payManually"><i class="icon icon-credit-card"></i>Pay with Wallet</a>
                             </div>    
@@ -304,7 +299,7 @@
                 <div class="col-md-12">
                     <div class="card shadow-lg mb-3" style="background-color: transparent">
                         <div class="card-body">
-                            <div calss="card-header">Purchase History</div>
+                            <div calss="card-header"></div>
                             <div class="d-flex justify-content-left mb-2">
                                 <!-- <input 
                                     class="form-control mr-2" 
@@ -423,6 +418,7 @@
                     <h2>Enter password to view code</h2>
                     <h3 v-if="orderCodeFetching==true">...loading</h3>
                     <h3 v-else>Order Code : {{ orderCode }} </h3>
+                    <input type="button" class="btn btn-success mt-2" @click="myFunction()" value="Copy Order Code" id="button">
                 </div>
             </form>
         </modal>
@@ -813,6 +809,24 @@ export default {
             //this.$refs['prod-'+id].value=0
         }
     },
+
+    myFunction() {
+    if (!this.orderCode) {
+        notification.warning("Order code is empty or not loaded");
+        return;
+    }
+
+    navigator.clipboard.writeText(this.orderCode)
+        .then(() => {
+        notification.success("Order code copied to clipboard!");
+        })
+        .catch(err => {
+        console.error("Clipboard copy failed:", err);
+        notification.error("Failed to copy order code. Try manually.");
+        });
+    },
+
+
 
     ...mapActions("productPurchaseStore",["userPurchase","getUserPurchases","fetchOrderCode","fetchOrderDetails"]),
     ...mapActions("settingStore", ["getSetting", "all"]),

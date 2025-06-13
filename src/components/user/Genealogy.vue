@@ -10,8 +10,8 @@
                                     <div class="row my-3">
                                         <!-- bar charts group -->
                                         <div class="col-md-12">
-                                            <div class="card bg-transparent shadow1">
-                                                <div class="card-header bg-white">
+                                            <div class="card bg-transparent shadow1" style="background-color:#ded8c7">
+                                                <div class="card-header " style="background-color:#ded8c7" >
                                                     <h4 class="green-text"><strong class="font-weight-bold"><i class="icon icon-sitemap mr-2" ></i>Network Structure</strong></h4>
                                                     <small>View tree structure of your direct downlines</small>
                                                 </div>
@@ -77,10 +77,8 @@
         -moz-user-select: none;
         -ms-user-select: none;
         user-select: none;
-        background-image: -webkit-gradient(linear,left top,right top,color-stop(10%,#1b4f72),color-stop(0,transparent)),-webkit-gradient(linear,left top,left bottom,color-stop(10%,rgba(200,0,0,.15)),color-stop(0,transparent));
-        background-image: 
-        linear-gradient(90deg, #ecf0f1 10%, transparent 0), 
-        linear-gradient(#ecf0f1 10%, transparent 0) !important;
+        background-image: -webkit-gradient(linear,left top,right top,color-stop(10%,rgba(200,0,0,.15)),color-stop(0,transparent)),-webkit-gradient(linear,left top,left bottom,color-stop(10%,rgba(200,0,0,.15)),color-stop(0,transparent));
+        background-image: linear-gradient(90deg,rgb(255,255,255) 10%,transparent 0),linear-gradient(rgb(255,255,255) 10%,transparent 0);
         background-size: 10px 10px;
         border: 0px dashed transparent;
         padding: 20px;

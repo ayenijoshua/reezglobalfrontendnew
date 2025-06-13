@@ -8,7 +8,7 @@
                         <b-skeleton width="55%"></b-skeleton>
                         <b-skeleton width="70%"></b-skeleton>
                     </b-card>
-                    <div v-else class="counter-box p-40   shadow1 r-5" style="background-color:transparent;">
+                    <div v-else class="counter-box p-40   shadow1 r-5" style="background-color:#ded8c7">
                         <div class="float-right">
                             <img  src="/assets/img/access.png" alt="Generic placeholder image" width="70px" height="70px">
                         </div>
@@ -23,7 +23,7 @@
                         <b-skeleton width="55%"></b-skeleton>
                         <b-skeleton width="70%"></b-skeleton>
                     </b-card>
-                    <div v-else class="counter-box p-40   shadow1 r-5" style="background-color:transparent;">
+                    <div v-else class="counter-box p-40   shadow1 r-5" style="background-color:#ded8c7">
                         <div class="float-right">
                             <img  src="/assets/img/retailer.png" alt="Generic placeholder image" width="70px" height="70px">
                         </div>
@@ -38,7 +38,7 @@
                         <b-skeleton width="55%"></b-skeleton>
                         <b-skeleton width="70%"></b-skeleton>
                     </b-card>
-                    <div v-else class="counter-box p-40   shadow1 r-5" style="background-color:transparent;">
+                    <div v-else class="counter-box p-40   shadow1 r-5" style="background-color:#ded8c7">
                         <div class="float-right">
                             <img  src="/assets/img/wallet30.png" alt="Generic placeholder image" width="70px" height="70px">
                         </div>
@@ -59,7 +59,7 @@
                                 </div> 
                             </div>
                             <div class="" > 
-                                <div class="card shadow" style="background-color: transparent">
+                                <div class="card shadow" style="background-color:#ded8c7">
                                     <div class="card-body" >
                                         
                                         <div class="d-flex justify-content-left mb-2">
@@ -67,7 +67,7 @@
                                                 class="form-control mr-2" 
                                                 type="text" 
                                                 placeholder="Search..." 
-                                                style="width: 250px; background-color: transparent; border: 2px solid #2E671A !important;"
+                                                style="width: 250px; background-color:#ded8c7; border: 2px solid #2E671A !important;"
                                             />
                                             <button class="btn text-white" style="background-Color:#2E671A" >
                                                 <i class="icon-search"></i>
@@ -99,7 +99,7 @@
                                                     </tr>
                                                     <template v-else>
                                                         <tr v-if="stockDetails.lenght==0">
-                                                            <td colspan="4">There are no purchases</td>
+                                                            <td class="text-center" colspan="4">There are no purchases</td>
                                                         </tr>
                                                         <template v-else>
                                                             <tr v-for="produc,i in stockDetails" :key="i">
@@ -174,7 +174,7 @@
                             <span class=" float-right font-weight-bold" id="d1" style="font-size:17px">Stock Record</span>
                         </div> 
                     </div>
-                    <div class="card shadow-lg mb-3" style="background-color: transparent">
+                    <div class="card shadow-lg mb-3" style="background-color:#ded8c7">
                         <div class="card-body ">
                             <div class="table-responsive">
                                 <table id="example2" class="table table-bordered table-hover data-tables" data-options='{ "paging": false; "searching":false}' style="border: 2px solid #2E671A !important;">
@@ -226,14 +226,14 @@
                             <span class=" float-right font-weight-bold" id="d1" style="font-size:17px">Purchase History (Order History)</span>
                         </div> 
                     </div>
-                    <div class="card shadow-lg mb-3" style="background-color: transparent">
+                    <div class="card shadow-lg mb-3" style="background-color:#ded8c7">
                         <div class="card-body ">
                             <div class="d-flex justify-content-left mb-2">
                                 <input 
                                     class="form-control mr-2" 
                                     type="text" 
                                     placeholder="Search..." 
-                                    style="width: 250px; background-color: transparent; border: 2px solid #2E671A !important;"/>
+                                    style="width: 250px; background-color:#ded8c7; border: 2px solid #2E671A !important;"/>
                                 <button class="btn text-white" style="background-Color:#2E671A" >
                                     <i class="icon-search"></i>
                                 </button>
@@ -321,7 +321,7 @@
                             <span class=" float-right font-weight-bold" id="d1" style="font-size:17px">Rebate Earnings</span>
                         </div> 
                     </div>
-                    <div class="card shadow-lg mb-3" style="background-color: transparent">
+                    <div class="card shadow-lg mb-3" style="background-color:#ded8c7">
                         <div class="card-body ">
                             <div class="d-flex justify-content-left mb-2">
                                 <input 
@@ -418,13 +418,13 @@
   height: 20px;
   border: 2px solid #2E671A;
   border-radius: 4px;
-  background-color: #ecf0f1;
+  background-color: #ded8c7;
   cursor: pointer;
 }
 
 /* Checkbox checked state */
 .custom-checkbox:checked {
-  background-color: #ecf0f1;
+  background-color: #ded8c7;
   border-color: #2E671A;
 }
 
@@ -473,7 +473,7 @@ font-weight: 500;
 .container .pagination li a:hover,
 .container .pagination li.active a {
 background: #2E671A;
-color: #ecf0f1;
+color: #ded8c7;
 
 }
 </style>

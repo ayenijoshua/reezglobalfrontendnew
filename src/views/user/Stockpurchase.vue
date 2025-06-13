@@ -5,7 +5,7 @@
                 <div class="col-md-6 col-sm-12"> 
                     <div class="card no-b shadow 1" style="background-color: transparent;">
                         <div class="card-body">
-                            <span class="text-center text-blue s-12 font-weight-bold">Select Pick-up Type</span>
+                            <span class="text-center text-green s-12 font-weight-bold">Select Pick-up Type</span>
                             <b-card v-if="stockist.id==undefined || packageLoading == true">
                                 <b-skeleton width="85%"></b-skeleton>
                                 <b-skeleton width="55%"></b-skeleton>
@@ -31,20 +31,20 @@
             <div class="row ">
                 
                 <div class="col-md-8">
-                    <div class="card no-b shadow" style="background-color:#ecf0f1">
-                        <div class="card-header">Stock Purchase</div>
+                    <div class="card no-b shadow" style="background-color:#ded8c7">
+                        <div class="card-header"></div>
                         <div class="card-body p-0">
                             <div class="table-responsive">
                                 <table class="table table-hover">
-                                    <thead style="background-color:#2E671A">
+                                    <thead style="background-color:#ded8c7">
                                         <tr>
-                                            <th class="font-weight-bold text-white" scope="col">S/N</th>
-                                            <th class="font-weight-bold text-white" scope="col">VIEW</th>
-                                            <th class="font-weight-bold text-white" scope="col">PRODUCTS</th>
-                                            <th class="font-weight-bold text-white" scope="col">PRICE</th>
+                                            <th class="font-weight-bold text-green" scope="col">S/N</th>
+                                            <th class="font-weight-bold  text-green" scope="col">VIEW</th>
+                                            <th class="font-weight-bold text-green" scope="col">PRODUCTS</th>
+                                            <th class="font-weight-bold text-green" scope="col">PRICE</th>
                                             
                                             <!-- <th scope="col">Worth</th> -->
-                                            <th class="font-weight-bold text-white" scope="col">QUANTITY</th>
+                                            <th class="font-weight-bold text-green" scope="col">QUANTITY</th>
                                             <!--<th class="font-weight-bold text-white" scope="col">SELECT</th>-->
                                             <!-- <th scope="col">Select</th> -->
                                         </tr>
@@ -93,7 +93,7 @@
                         <div class="float-left">
                             <div class="card-body">
                                 <template v-if="cartProducts.length==0">
-                                    <p class="alert alert-info">
+                                    <p class="alert alert-info text-center">
                                         There are no items in your cart
                                     </p>
                                 </template>

@@ -3,8 +3,8 @@
         <div class="">
             <div class="row mb-5">
                 <div class="col-md-4">
-                    <div class="card shadow1" >
-                        <div class="card-body" >
+                    <div class="card shadow1" style="background-color:#ded8c7" >
+                        <div class="card-body" style="background-color:#ded8c7">
                             <div class="d-flex align-items-center">
                                 <div class="mr-3">
                                     <img class="mr-3  r-3" src="/assets/img/membership.png"
@@ -19,8 +19,8 @@
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <div class="card shadow1" >
-                        <div class="card-body" >
+                    <div class="card shadow1" style="background-color:#ded8c7">
+                        <div class="card-body" style="background-color:#ded8c7" >
                             <div class="d-flex align-items-center">
                                 <div class="mr-3">
                                     <img class="mr-3  r-3" src="/assets/img/hand-shake.png" alt="Generic placeholder image" width="70px" height="70px">
@@ -34,8 +34,8 @@
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <div class="card shadow1" >
-                        <div class="card-body" >
+                    <div class="card shadow1" style="background-color:#ded8c7" >
+                        <div class="card-body" style="background-color:#ded8c7">
                             <div class="d-flex align-items-center">
                                 <div class="mr-3">
                                     <img class="mr-3  r-3" src="/assets/img/hand-shake.png" alt="Generic placeholder image" width="70px" height="70px">
@@ -51,8 +51,8 @@
             </div>	
             <!--States-->
             <div class="row my-5">
-                <div class="col-lg-4">
-                    <div class="counter-box p-40 white shadow1 r-5">
+                <div class="col-lg-4" style="background-color:#ded8c7">
+                    <div class="counter-box p-40 shadow1 r-5" style="background-color:#ded8c7">
                         <div class="float-right">
                             <img src="/assets/img/bonus.png" alt="Generic placeholder image" width="60px" height="60px">
                         </div>
@@ -61,7 +61,7 @@
                     </div>
                 </div>
                 <div class="col-lg-4">
-                    <div class="counter-box p-40 white shadow1 r-5">
+                    <div class="counter-box p-40  shadow1 r-5" style="background-color:#ded8c7">
                         <div class="float-right">
                             <img src="/assets/img/equil.png" alt="Generic placeholder image" width="60px" height="60px">
                         </div>
@@ -70,7 +70,7 @@
                     </div>
                 </div>
                 <div class="col-lg-4">
-                    <div class="counter-box p-40 white shadow1 r-5">
+                    <div class="counter-box p-40  shadow1 r-5" style="background-color:#ded8c7">
                         <div class="float-right">
                             <img  src="/assets/img/bars.png" alt="Generic placeholder image" width="60px" height="60px">
                         </div>
@@ -104,8 +104,8 @@
             </div>
             <div class="d-flex row row-eq-height my-3">
                 <div class="col-md-4">
-                    <div class="card">
-                        <div class="card-body ">
+                    <div class="card shadow1" style="background-color:#ded8c7">
+                        <div class="card-body" style="background-color:#ded8c7">
                             <div class="float-up text-center">
                                 <img  src="/assets/img/pv1.png">
                             </div>
@@ -115,19 +115,19 @@
                     </div>
                 </div>
                 <div class="col-md-8">
-                    <div class="card">
-                        <div class="card-header white">
+                    <div class="card shadow1" style="background-color:#ded8c7">
+                        <div class="card-header" style="background-color:#ded8c7">
                             <div class="row justify-content-end">
                                 <div class="col">
-                                    <ul class="nav nav-tabs card-header-tabs nav-material">
+                                    <ul class="nav nav-tabs card-header-tabs nav-material" style="background-color:#ded8c7">
                                         <li class="nav-item">
-                                            <a class="nav-link active show" id="w1-tab1" data-toggle="tab" href="#v-pills-w1-tab1">Incentives</a>
+                                            <a class="nav-link active show " id="w1-tab1" data-toggle="tab" href="#v-pills-w1-tab1">Incentives</a>
                                         </li>
                                     </ul>
                                 </div>
                             </div>
                         </div>
-                        <div class="card-body no-p">
+                        <div class="card-body no-p" style="background-color:#ded8c7">
                             <div class="tab-content">
                                 <div class="tab-pane show active" id="v-pills-w1-tab1" role="tabpanel" aria-labelledby="v-pills-w1-tab1">
                                     <div class="row p-3">
@@ -180,8 +180,8 @@
             
             <div class="row">
                 <div class="col-md-12">
-                    <div class="card mb-3">
-                        <div class="card-header white text-green">CLAIMED INCENTIVES</div>
+                    <div class="card mb-3" style="background-color:#ded8c7">
+                        <div class="card-header  text-green" style="background-color:#ded8c7">CLAIMED INCENTIVES</div>
                         <div class="card-body ">
                             <div class="table-responsive">
                                 <table id="example2" class="table table-bordered table-hover data-tables" data-options='{ "paging": false; "searching":false}'>

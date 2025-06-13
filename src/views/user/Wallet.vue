@@ -19,55 +19,55 @@
                 <div class="animated">
                     <div class="tab-content" id="v-pills-tabContent">
                         <div class="tab-pane fade show active" id="v-pills-wallet-summary" role="tabpanel" aria-labelledby="v-pills-wallet-summary-tab">
-                               
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <div class="card mb-3 shadow1" style="background-color: transparent">
-                                        <div class="card-body">
-                                            <div class="d-flex justify-content-between align-items-center">
-                                                <div><img class="mr-3  r-3" src="/assets/img/user.png"
-                                                    alt="Generic placeholder image" width="50px" height="auto"></div>
-                                                <div><img class="mr-3  r-3" src="/assets/img/earn2.png"
-                                                    alt="Generic placeholder image" width="50px" height="auto"></div>
-                                            </div>
-                                            <div class="text-center">
-                                                <div class="s-40 my-3 font-weight-lighter" style="font-size:35px">₦ {{ totalBonus?.toLocaleString('en-US') }}</div>
-                                                <span class=" font-weight-bold">Total Bonus </span> 
-                                            </div>
+                        
+                        
+                             <div class="row my-3">
+                                <div class="col-lg-12 pb-4">
+                                    <b-card v-if="walletBalanceLoading && loading">
+                                        <b-skeleton width="85%"></b-skeleton>
+                                        <b-skeleton width="55%"></b-skeleton>
+                                        <b-skeleton width="70%"></b-skeleton>
+                                    </b-card>
+                                    <div v-else class="counter-box p-40 text-white shadow1 r-5" style="background-color: #2E671A">
+                                        <div class="float-right">
+                                            <img  src="/assets/img/wallet2.png">
                                         </div>
+                                        <h6 class="mt-0text-white" >Total Bonus</h6>
+                                        <div class="text-dark-heading font-weight-bold text-white" >₦<span class="s-36">{{ totalBonus?.toLocaleString('en-US') }}</span></div>
                                     </div>
                                 </div>
-                                <div class="col-md-4">
-                                    <div class="card mb-3 shadow1" style="background-color: transparent">
-                                        <div class="card-body">
-                                            <div class="d-flex justify-content-between align-items-center">
-                                                <div><img class="mr-3  r-3" src="/assets/img/user.png"
-                                                    alt="Generic placeholder image" width="50px" height="auto"></div>
-                                                <div><img class="mr-3  r-3" src="/assets/img/payout.png"
-                                                    alt="Generic placeholder image" width="50px" height="auto"></div>
-                                            </div>
-                                            <div class="text-center">
-                                                <div class="s-40 my-3 font-weight-lighter" style="font-size:35px">₦ {{ userTotalWithdrawals?.toLocaleString('en-US') }}</div>
-                                                <span class=" font-weight-bold">Total withdrawals (TW) </span> 
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="card no-b shadow-lg" style="background-color:#2E671A; border: 1px solid #2E671A !important;">
-
-                                        <div class="pt-5 pb-5 pl-5 pr-5" >
-                                            <h5 class="font-weight-bold text-white s-14">Wallet balance (TB - TW)</h5>
-                                            <span class="s-48 font-weight-lighter text-white">
-                                            <small>₦</small>{{ walletBalance?.toLocaleString('en-US') }}</span>
-                                            <div class="float-right">
-                                                <span class="icon icon-money-bag text-white" style="font-size: 100px;"></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div> 
-                            </div>
                                 
+                                <div class="col-lg-12 pb-4">
+                                    <b-card v-if="walletBalanceLoading && loading">
+                                        <b-skeleton width="85%"></b-skeleton>
+                                        <b-skeleton width="55%"></b-skeleton>
+                                        <b-skeleton width="70%"></b-skeleton>
+                                    </b-card>
+                                    <div v-else class="counter-box p-40 text-white shadow1 r-5" style="background-color: #2E671A">
+                                        <div class="float-right">
+                                            <img  src="/assets/img/wallet2.png">
+                                        </div>
+                                        <h6 class="mt-0text-white" >Total withdrawals</h6>
+                                        <div class="text-dark-heading font-weight-bold text-white" >₦<span class="s-36">{{ userTotalWithdrawals?.toLocaleString('en-US') }}</span></div>
+                                    </div>
+                                </div>
+                                
+                                <div class="col-lg-12 pb-4">
+                                    <b-card v-if="walletBalanceLoading && loading">
+                                        <b-skeleton width="85%"></b-skeleton>
+                                        <b-skeleton width="55%"></b-skeleton>
+                                        <b-skeleton width="70%"></b-skeleton>
+                                    </b-card>
+                                    <div v-else class="counter-box p-40 text-white shadow1 r-5" style="background-color: #2E671A">
+                                        <div class="float-right">
+                                            <img  src="/assets/img/wallet2.png">
+                                        </div>
+                                        <h6 class="mt-0text-white" >Wallet Balance</h6>
+                                        <div class="text-dark-heading font-weight-bold text-white" >₦<span class="s-36">{{ walletBalance?.toLocaleString('en-US') }}</span></div>
+                                    </div>
+                                </div>
+                            </div> 
+                                                          
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="row my-3">
@@ -75,7 +75,7 @@
                                         <div class="col-md-12">
                                             <div class="card shadow" style="background-color: transparent">
                                                 <div class="card-body" style="overflow-x:auto;">
-                                                    <table class="table table-hover">
+                                                    <table class="table table-bordered table-hover">
                                                         <thead>
                                                         <tr>
                                                             <th class="font-weight-bold" scope="col">Recieved Months</th>
@@ -95,7 +95,7 @@
                                                             </tr>
                                                             <template v-else>
                                                                 <tr v-if="globalProfits.length == 0">
-                                                                    <td class="text-center" colspan="4">There are no global profits</td>
+                                                                    <td colspan="4" class="text-center">There are no global profits</td>
                                                                 </tr>
                                                                 <template v-else>
                                                                     <tr v-for="globProfit,i in globalProfits" :key="i">
@@ -137,7 +137,7 @@
                                         </div>
                                     </div>
                                     <br>
-                                    <div class="card shadow1">
+                                    <div class="card shadow1" style="background-color: transparent">
                                         <b-card v-if="settingsLoading">
                                             <b-skeleton width="85%"></b-skeleton>
                                             <b-skeleton width="55%"></b-skeleton>
@@ -147,9 +147,8 @@
                                         </b-card>
                                         <div v-else class="collapse show text-center" id="invoiceCard">
                                             <div class="card-body  text-center">
-                                                <img  src="/assets/img/payout.png"  width="auto" height="200px">
-                                                <div class="text-center font-weight-bold h3"> <h5 class="font-weight-bold">Withdrawal Amount </h5> ₦{{ authUser.withdrawal_amount?.toLocaleString('en-US') }}</div>
-                                                
+                                                <img  src="/assets/img/wallet4.png"  width="auto" height="200px">
+                                                <div class="text-center"> <h5 class="font-weight-bold">Withdrawal Amount </h5> ₦<span class="s-30">{{ authUser.withdrawal_amount?.toLocaleString('en-US') }}</span></div>
                                                 <form @submit.prevent="submitWithdrawalAmount">
                                                     <div class="form-row">
                                                         <div class="col-md-12 mb-3">
@@ -157,12 +156,14 @@
                                                         </div>
                                                     </div>
                                                     <span v-if="submittingAmt==true" class="btn btn-success">...</span>
-                                                    <button v-else class="btn btn-success" type="submit">Submit</button>
+                                                    <button v-else class="btn btn-success" type="submit"><i class="icon-account_balance_wallet mr-2"></i>Submit</button>
                                                 </form>
                                             </div>                                            
                                         </div>
                                     </div>
                                 </div>
+                                                                
+                                
                                 <div class="col-md-8">
                                     <div class="card shadow" style="background-color: transparent" >
                                         <div class="collapse show" id="invoiceCard">
@@ -177,7 +178,6 @@
                                                                     <th scope="col">Amount <i class="icon icon-money-bag s-10"></i></th>
                                                                     <th scope="col">Charge <i class="icon icon-money-bag s-10"></i></th>
                                                                     <th scope="col">Status <i class="icon icon-money-bag s-10"></i></th>
-                                                                    <th scope="col">Withdrawal Type <i class="icon icon-money-bag s-10"></i></th>
                                                                     <th scope="col">Date <i class="icon icon-date_range s-10"></i></th>
                                                                 </tr>
                                                                 </thead>
@@ -199,13 +199,12 @@
                                                                                 <td>₦{{ withdraw.amount?.toLocaleString('en-US') }}</td>
                                                                                 <td>₦{{ withdraw.fee?.toLocaleString('en-US') }}</td>
                                                                                 <td>{{ withdraw.txn_status }}</td>
-                                                                                 <td>Wallet Payment or Wallet Payout</td>
                                                                                 <td>{{ withdraw.created_at }}</td>
                                                                             </tr>
                                                                         </template>
                                                                         <template>
                                                                             <tr v-if="userWithdrawals.length == 0 && userPendingWithdrawals.length == 0">
-                                                                                <td class="text-center" colspan="5">There are no withdrawals</td>
+                                                                                <td colspan="5">There are no withdrawals</td>
                                                                             </tr>
                                                                             <template v-else>
                                                                                 <tr v-for="withdraw,i in userWithdrawals" :key="i">

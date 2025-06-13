@@ -1,6 +1,6 @@
 <template>
-    <div class="card border-0 justify-content-center shadow1 ">
-        <div class="card-body border rounded"> 
+    <div class="card border-0 justify-content-center shadow1 " style="background-color:#ded8c7">
+        <div class="card-body border rounded" style="background-color:#ded8c7"> 
             <div class="card-body" >
                 <div class="d-flex align-items-center border p-4">
                     <div class="avatar avatar-xl ml-3 mr-4 ">
@@ -19,15 +19,15 @@
             </div>
 
             <form @submit.prevent="update()">
-                <div class="card no-b no-r">
-                    <div class="card-body no-gutters">
+                <div class="card no-b no-r" style="background-color:#ded8c7">
+                    <div class="card-body no-gutters" style="background-color:#ded8c7">
                         <div class="form-row">
                             <div class="col-md-12">
                                 <div class="input-group">
                                     <div class="input-group-prepend">
                                         <div class="input-group-text"><i class="icon icon-lock float-left s-20 text-white " ></i></div>
                                     </div>
-                                    <input v-model="form.password" type="text" required class="form-control r-0 light s-12"  placeholder="Password">
+                                    <input v-model="form.password" type="text" required class="form-control r-0 light s-12 shadow1"  placeholder="Password" style="background-color:#ded8c7">
                                 </div>
                             </div>
                             <div class="ml-1 mt-3">

@@ -14,7 +14,7 @@
 				
         <div class="row my-5">
             <div class="col-md-12">
-                <div class="card shadow1" style="border: 1px solid #2E671A !important;">
+                <div class="card shadow1" style="background-color:#ded8c7;">
                     <div class="card-body p-4" >
                         <form id="create-product-form" @submit.prevent="create()">
                             <div class="row column-row"> 
@@ -27,7 +27,7 @@
                                         <div class="input-group-prepend" >
                                             <div class="input-group-text" style="background-color: #2E671A; border:1px solid #2E671A !important" ><i class="icon icon-add_shopping_cart float-left s-20 text-white"></i></div>
                                         </div>
-                                        <input v-model="form.name" name="name" required type="text" class="form-control r-0 light s-12" placeholder="Product Name" style="background-color: #ecf0f1; border:1px solid #2E671A !important">
+                                        <input v-model="form.name" name="name" required type="text" class="form-control r-0 light s-12" placeholder="Product Name" style="background-color: #ded8c7; border:1px solid #2E671A !important">
                                     </div>
                                 </div>
                                 <!--<div class="col-md-3">
@@ -43,7 +43,7 @@
                                         <div class="input-group-prepend">
                                             <div class="input-group-text" style="background-color: #2E671A; border:1px solid #2E671A !important" ><i class="icon icon-tag3 float-left s-20 text-white " ></i></div>
                                         </div>
-                                        <input v-model="form.worth" name="worth" required type="text" class="form-control r-0 light s-12" placeholder="Price" style="background-color: #ecf0f1; border:1px solid #2E671A !important">
+                                        <input v-model="form.worth" name="worth" required type="text" class="form-control r-0 light s-12" placeholder="Price" style="background-color: #ded8c7; border:1px solid #2E671A !important">
                                     </div>
                                 </div>
                             </div>
@@ -51,12 +51,12 @@
                                 <div class="col-md-12 mb-3">
                                     <div class="form-group m-0">
                                         <textarea name="description" value="" rows="5" type="text" class="form-control r-0 light s-12" id="address"
-                                        placeholder="Product Description" style="background-color: #ecf0f1; border: 2px solid #2E671A;"></textarea>
+                                        placeholder="Product Description" style="background-color: #ded8c7; border: 2px solid #2E671A;"></textarea>
                                     </div>	
                                 </div>
                                 <div class="col-md-12 mt-3 mb-3">
                                     <div class="form-group m-0">
-                                        <div class="dropbox" style="background-color: #ecf0f1; border: 2px solid #2E671A;">
+                                        <div class="dropbox" style="background-color: #ded8c7; border: 2px solid #2E671A;">
                                             <input v-b-popover.hover.top="'Drag your photo here or click to browse'" type="file" id="profile-img" title="profile photo" name="image" @change="filesChange($event.target.files);"  class="form-control form-control-line input-file" style="background-color: #ecf0f1; border: 2px solid #2E671A;">
                                             <p id="img-preview" >
                                                 Drag an image here<br> or click to browse<br>
@@ -79,22 +79,22 @@
 
         <div class="row my-3">
             <div class="col-md-12">
-                <div class="card border shadow1" style="border: 1px solid #2E671A !important;">
-                    <div class="card-header" style="background-color: #2E671A">
+                <div class="card border shadow1" style="background-color: #ded8c7">
+                    <div class="card-header" style="background-color: #ded8c7">
                         <div class="row justify-content-end">
                             <div class="col">
                                 <ul class="nav nav-tabs card-header-tabs nav-material">
                                     <li class="nav-item">
-                                        <a class="nav-link text-white font-weight-bold" id="w1-tab1" data-toggle="tab" >COMPANY PRODUCTS</a>
+                                        <a class="nav-link text-green font-weight-bold" id="w1-tab1" data-toggle="tab" >COMPANY PRODUCTS</a>
                                     </li>	
                                 </ul>
                             </div>
                         </div>
                     </div>
                     <div class="collapse show" id="invoiceCard">
-                        <div class="card-body p-0"> 
-                            <div class="card no-b no-r">
-                                <div class="card-body">
+                        <div class="card-body p-0" style="background-color: #ded8c7"> 
+                            <div class="card no-b no-r" style="background-color: #ded8c7">
+                                <div class="card-body" style="background-color: #ded8c7">
                                     <div class="form-row" style="overflow-x:auto;">
                                         <table class="table table-bordered equal-width-table">
                                             <thead>
@@ -124,7 +124,7 @@
                                                 <template v-else>
                                                     <tr v-if="products.length==0">
                                                         <td colspan="7">
-                                                            <div class="alert alert-info">There are no products</div>
+                                                            <div class="alert alert-info text-center">There are no products</div>
                                                         </td>
                                                     </tr>
                                                     <template v-else>
@@ -132,7 +132,7 @@
                                                             <td>{{ ++i }}</td>
                                                             <td>{{ prod.name }}</td>
                                                             <td> 
-                                                                <textarea :value="prod.description"></textarea>
+                                                                <textarea :value="prod.description" style="background-color: #ded8c7"></textarea>
                                                             </td>
                                                             <td><img :src="imageURL+'/'+prod.image" width="50px" height="100px"></td>
                                                             <!-- <td>{{ prod.points }}</td> -->
@@ -149,9 +149,9 @@
                                                                     <button class="btn btn-sm btn-success  dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                                     <i class="caret"></i>
                                                                     </button>
-                                                                    <div class="dropdown-menu " aria-labelledby="dropdownMenuButton" style="position:fixed">
-                                                                        <button @click="enable(prod.id)" class="dropdown-item text-green" ><i class="icon-check-circle"></i>&nbsp;&nbsp; Enable</button>
-                                                                        <button @click="disable(prod.id)" class="dropdown-item text-green"><i class="icon-times-circle"></i>&nbsp;&nbsp; Disable</button>	
+                                                                    <div class="dropdown-menu " aria-labelledby="dropdownMenuButton" style="position:fixed; background-color: #ded8c7">
+                                                                        <button @click="enable(prod.id)" class="dropdown-item text-green" style="background-color: #ded8c7"><i class="icon-check-circle"></i>&nbsp;&nbsp; Enable</button>
+                                                                        <button @click="disable(prod.id)" class="dropdown-item text-green" style="background-color: #ded8c7"><i class="icon-times-circle"></i>&nbsp;&nbsp; Disable</button>	
                                                                     </div>
                                                                 </div>
                                                             </td>

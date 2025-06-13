@@ -25,7 +25,7 @@
                                                         <input required type="file" name="image" @change="filesChange($event.target.name, $event.target.files);" class="form-control form-control-line input-file">
                                                         <input type="hidden" name="payment_mode" value="pop">
                                                         <p>
-                                                          Drag your POP here to begin<br> or click to browse
+                                                          Drag your POP here to begin<br> or click to browse...500kb Image Max
                                                         </p>
                                                     </div>
                                                 </div>

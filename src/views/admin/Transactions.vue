@@ -33,7 +33,7 @@
                                                 <div class="float-right">
                                                     <img  src="/assets/img/cash-withdrawal.png" width="70px" height="70px">
                                                 </div>
-                                                <small class="mt-0 ml-2"><span style="color:#ffff!important;">Total Withdrawals</span></small>
+                                                <small class="mt-0 ml-2"><span style="color:#2E671A!important;">Total Withdrawals</span></small>
                                                 <p class="text-dark-heading font-weight-bold " style="color:#ffff!important;">₦<span style="color:#ffff!important;font-size:32px">{{ totalWithdrawals?.toLocaleString('en-US') }}</span></p>
                                             </div>
                                         </div>
@@ -45,14 +45,14 @@
                                     <div class="row my-3">
                                         <!-- bar charts group -->
                                         <div class="col-md-12">
-                                            <div class="card shadow1">
-                                                <div class="card-header" style="background-color: #2E671A" >
-                                                    <h5 class="text-white"><strong class="font-weight-bold">Withdrawal Details</strong></h5>
+                                            <div class="card shadow1" style="background-color: #ded8c7">
+                                                <div class="card-header" style="background-color: #ded8c7" >
+                                                    <h5 class="text-green"><strong class="font-weight-bold">Withdrawal Details</strong></h5>
                                                 </div>
-                                                <div class="card-body" style="overflow-x:auto;background-color: #ecf0f1">
+                                                <div class="card-body" style="overflow-x:auto;background-color: #ded8c7">
                                                     <div class=" mb-3" style="float:right">
                                                         <form class="form-inline my-2 my-lg-0" @submit.prevent="searchWithdraws()">
-                                                            <input v-model="searchParam" class="form-control mr-sm-2" type="search" placeholder="" style="background-color: #ecf0f1; border: 2px solid #2E671A;" >
+                                                            <input v-model="searchParam" class="form-control mr-sm-2" type="search" placeholder="" style="background-color: #ded8c7; border: 2px solid #2E671A;" >
                                                             <span v-if="loading" class="btn btn-success my-2 my-sm-0">...</span>
                                                             <button v-else class="btn btn-success my-2 my-sm-0" type="submit">Search</button>
                                                         </form>
@@ -156,14 +156,14 @@
                                     <div class="row my-3">
                                         <!-- bar charts group -->
                                         <div class="col-md-12">
-                                            <div class="card shadow1">
-                                                <div class="card-header" style="background-color: #2E671A">
-                                                    <h6 class="text-white"><strong class="font-weight-bold">Registration Details</strong></h6>
+                                            <div class="card shadow1" style="background-color:#ded8c7">
+                                                <div class="card-header" style="background-color:#ded8c7">
+                                                    <h6 class="text-green"><strong class="font-weight-bold">Registration Details</strong></h6>
                                                 </div>
-                                                <div class="card-body" style="overflow-x:auto; background-color: #ecf0f1;">
+                                                <div class="card-body" style="overflow-x:auto; background-color: #ded8c7;">
                                                     <div class=" mb-3" style="float:right">
                                                        <!-- <form class="form-inline my-2 my-lg-0" @submit.prevent=" searchRegs()">
-                                                            <input required class="form-control mr-sm-2" type="search" placeholder="" aria-label="Search" style="background-color: #ecf0f1; border: 2px solid #2E671A;" >
+                                                            <input required class="form-control mr-sm-2" type="search" placeholder="" aria-label="Search" style="background-color: #ded8c7; border: 2px solid #2E671A;" >
                                                             <span v-if="loading" class="btn btn-success my-2 my-sm-0">...</span>
                                                             <button v-else class="btn btn-success my-2 my-sm-0" type="submit">Search</button>
                                                        </form>-->
@@ -230,11 +230,11 @@
                                     <div class="row my-3">
                                         <!-- bar charts group -->
                                         <div class="col-md-12">
-                                            <div class="card shadow1">
-                                                <div class="card-header" style="background-color: #2E671A">
-                                                    <h6 class="text-white"><strong class="font-weight-bold">Registration Upgrade</strong></h6>
+                                            <div class="card shadow1" style="background-color:#ded8c7">
+                                                <div class="card-header" style="background-color:#ded8c7">
+                                                    <h6 class="text-green"><strong class="font-weight-bold">Registration Upgrade</strong></h6>
                                                 </div>
-                                                <div class="card-body" style="overflow-x:auto;background-color: #ecf0f1;">
+                                                <div class="card-body" style="overflow-x:auto;background-color: #ded8c7;">
                                                     <div class=" mb-3" style="float:right">
                                                         <!--<form class="form-inline my-2 my-lg-0" @submit.prevent=" searchRegs()">
                                                             <input required  class="form-control mr-sm-2" type="search" placeholder="" aria-label="Search" style="background-color: transparent; border: 2px solid #2E671A;" >
@@ -509,7 +509,7 @@
                                                                         <button class="btn btn-sm btn-success dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                                             <i class="caret"></i>
                                                                         </button>
-                                                                        <div class="dropdown-menu"  style="background-color: #ecf0f1">
+                                                                        <div class="dropdown-menu"  style="background-color: #ded8c7">
                                                                             <a @click="setStockist(stock)" v-b-modal.stockist-pop class="dropdown-item text-green" ><i class="icon-eye"></i>&nbsp;&nbsp; View POP</a>
 
                                                                             <template v-if="stock.stockist_status == 'pending'">
@@ -607,7 +607,7 @@
                                                                         <button class="btn btn-sm btn-success dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                                             <i class="caret"></i>
                                                                         </button>
-                                                                        <div class="dropdown-menu"  style="background-color: #ecf0f1">
+                                                                        <div class="dropdown-menu"  style="background-color: #ded8c7">
                                                                             <a @click="setStockist(stock)" v-b-modal.stockist-pop class="dropdown-item text-green" ><i class="icon-barometer2"></i>&nbsp;&nbsp; View POP</a>
 
                                                                             <template v-if="stock.payment_status == 'processing'">
@@ -703,7 +703,7 @@
                                                                                     <button class="btn btn-sm btn-success  dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                                                     <i class="caret"></i>
                                                                                     </button>
-                                                                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="position:fixed; background-color: #ecf0f1">
+                                                                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="position:fixed; background-color: #ded8c7">
                                                                                         <a v-b-modal.approve-stockist-purchase @click="setOrder(order)" class="dropdown-item text-green" href="#"><i class="icon-check-circle"></i>&nbsp;&nbsp; Approve</a>
                                                                                         <a v-b-modal.disapprove-stockist-purchase @click="setOrder(order)" class="dropdown-item text-green" href="#"><i class="icon-times-circle"></i>&nbsp;&nbsp; Decline</a>	
                                                                                     </div>
@@ -841,11 +841,11 @@
                         <tbody>
                             <tr>
                                 <td>Total Purchases</td>
-                                <td>{{ Number(stockistSalesStats.total_purchases ?? 0).toLocaleString('en-NG', { minimumFractionDigits: 2 }) }}</td>
+                                <td>₦{{ Number(stockistSalesStats.total_purchases ?? 0).toLocaleString('en-NG', { minimumFractionDigits: 2 }) }}</td>
                             </tr>
                             <tr>
                                 <td>Total Sales</td>
-                                <td>{{ Number(stockistSalesStats.total_sales ?? 0).toLocaleString('en-NG', { minimumFractionDigits: 2 }) }}</td>
+                                <td>₦{{ Number(stockistSalesStats.total_sales ?? 0).toLocaleString('en-NG', { minimumFractionDigits: 2 }) }}</td>
                             </tr>
                         </tbody>
                     </table>
@@ -1017,7 +1017,7 @@
         top: auto; /* Allow it to adjust position */
         left: auto; /* Allow it to adjust position */
         z-index: 1050; /* Ensure it appears above other elements */
-        background-color: #ecf0f1; /* Your dropdown background color */
+        background-color: #ded8c7; /* Your dropdown background color */
         border: 1px solid #2E671A; /* Match your design style */
         padding: 0.5rem 0; /* Adjust padding */
     }
@@ -1033,7 +1033,7 @@
         top: auto; /* Adjust position */
         left: auto; /* Adjust position */
         z-index: 1050; /* Place it above other elements */
-        background-color: #ecf0f1; /* Background color */
+        background-color: #ded8c7; /* Background color */
         border: 1px solid #2E671A; /* Match your design */
         padding: 0.5rem 0; /* Adjust padding */
     }
@@ -1090,13 +1090,13 @@
   height: 20px;
   border: 2px solid #2E671A;
   border-radius: 4px;
-  background-color: #ecf0f1;
+  background-color: #ded8c7;
   cursor: pointer;
 }
 
 /* Checkbox checked state */
 .custom-checkbox:checked {
-  background-color: #ecf0f1;
+  background-color: #ded8c7;
   border-color: #2E671A;
 }
 
@@ -1144,7 +1144,7 @@ font-weight: 500;
 .container .pagination li a:hover,
 .container .pagination li.active a {
 background: #2E671A;
-color: #ecf0f1;
+color: #ded8c7;
 
 }
 

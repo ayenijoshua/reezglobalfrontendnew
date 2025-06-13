@@ -43,7 +43,7 @@
                                                 <div class="input-group-prepend">
                                                     <div class="input-group-text"><i class="icon icon-money-3 float-left s-20 text-white " ></i></div>
                                                 </div>
-                                                <input v-model="minWithdrawal.minimum_withdrawal" type="number" class="form-control r-0 light s-12" placeholder="Minimum Withdrawal Limit"  style="background-color:#ecf0f1; border: 1px solid #2E671A">
+                                                <input v-model="minWithdrawal.minimum_withdrawal" type="number" class="form-control r-0 light s-12" placeholder="Minimum Withdrawal Limit"  style="background-color:#ded8c7; border: 1px solid #2E671A">
                                             </div>
                                         </div>
                                     </div>
@@ -73,7 +73,7 @@
                                                 <div class="input-group-prepend">
                                                     <div class="input-group-text"><i class="icon icon-money-3 float-left s-20 text-white" ></i></div>
                                                 </div>
-                                                <input v-model="maxWithdrawal.maximum_withdrawal" type="number" class="form-control r-0 light s-12" placeholder="Maximum Withdrawal Limit"  style="background-color:#ecf0f1; border: 1px solid #2E671A">
+                                                <input v-model="maxWithdrawal.maximum_withdrawal" type="number" class="form-control r-0 light s-12" placeholder="Maximum Withdrawal Limit"  style="background-color:#ded8c7; border: 1px solid #2E671A">
                                             </div>
                                         </div>
                                     </div>
@@ -121,13 +121,13 @@
                                                     <div class="input-group-prepend">
                                                         <div class="input-group-text"><i class="icon icon-money-3 float-left s-20 text-white" ></i></div>
                                                     </div>
-                                                    <select v-model="withdrawalCharge.withdrawal_charge_type" class="form-control r-0 light s-12"  style="background-color:#ecf0f1; border: 1px solid #2E671A">
+                                                    <select v-model="withdrawalCharge.withdrawal_charge_type" class="form-control r-0 light s-12"  style="background-color:#ded8c7; border: 1px solid #2E671A">
                                                         <template v-if="!settings.withdrawal_charge_type">
-                                                            <option :value="null">Select charge type</option>
+                                                            <option :value="null" style="background-color: #ded8c7">Select charge type</option>
                                                         </template>
                                                         <template>
-                                                            <option :selected="settings.withdrawal_charge_type=='percentage'" value="percentage">Percentage</option>
-                                                            <option :selected="settings.withdrawal_charge_type=='flat'" value="flat">Flat</option>
+                                                            <option :selected="settings.withdrawal_charge_type=='percentage'" value="percentage" style="background-color: #ded8c7">Percentage</option>
+                                                            <option :selected="settings.withdrawal_charge_type=='flat'" value="flat" style="background-color: #ded8c7">Flat</option>
                                                         </template>
                                                     </select>
                                                 </div>
@@ -137,7 +137,7 @@
                                                     <div class="input-group-prepend">
                                                         <div class="input-group-text"><i class="icon icon-money-3 float-left s-20 text-white " ></i></div>
                                                     </div>
-                                                    <input v-model="withdrawalCharge.charge" class="form-control r-0 light s-12" required placeholder="Withdrawal Charge"  style="background-color:#ecf0f1; border: 1px solid #2E671A" >
+                                                    <input v-model="withdrawalCharge.charge" class="form-control r-0 light s-12" required placeholder="Withdrawal Charge"  style="background-color:#ded8c7; border: 1px solid #2E671A" >
                                                 </div>
                                             </div>
                                             <div v-if="withdrawalCharge.withdrawal_charge_type=='percentage'" class="col-md-12 mb-2">
@@ -185,9 +185,9 @@
                                         <div class="input-group-text" style="background-color: #2E671A; border: 2px solid #2E671A;"><i class="icon icon-date_range float-left s-20 text-white" ></i></div>
                                     </div>
                                     <select required v-model="form.withdrawal_type" class="form-control r-0 light s-12" style="background-color: transparent; border: 2px solid #1b4f72;">
-                                        <option value="">Select withdrawal type</option>
-                                        <option value="weekly">Weekly Automated Payout</option>
-                                        <option value="monthly">Monthly Automated Payout</option>														   
+                                        <option value="" style="background-color: #ded8c7">Select withdrawal type</option>
+                                        <option value="weekly" style="background-color: #ded8c7">Weekly Automated Payout</option>
+                                        <option value="monthly" style="background-color: #ded8c7">Monthly Automated Payout</option>														   
                                     </select>
                                 </div>
                             </div>
@@ -211,15 +211,15 @@
                                                     <div class="input-group-prepend">
                                                         <div class="input-group-text"><i class="icon icon-date_range float-left s-20 text-white" ></i></div>
                                                     </div>
-                                                    <select v-model="form.withdrawal_period" class="form-control r-0 light s-12"  style="background-color:#ecf0f1; border: 1px solid #2E671A">                                                       
-                                                        <option value="">Select Day of the week</option>
-                                                        <option value="1">Sunday</option>
-                                                        <option value="2">Monday</option>
-                                                        <option value="3">Tuesday</option>
-                                                        <option value="4">Wednesday</option>
-                                                        <option value="5">Thursday</option>
-                                                        <option value="6">Friday</option>
-                                                        <option value="7">Saturday</option>                                
+                                                    <select v-model="form.withdrawal_period" class="form-control r-0 light s-12"  style="background-color:#ded8c7; border: 1px solid #2E671A">                                                       
+                                                        <option value="" style="background-color: #ded8c7">Select Day of the week</option>
+                                                        <option value="1" style="background-color: #ded8c7">Sunday</option>
+                                                        <option value="2" style="background-color: #ded8c7">Monday</option>
+                                                        <option value="3" style="background-color: #ded8c7">Tuesday</option>
+                                                        <option value="4" style="background-color: #ded8c7">Wednesday</option>
+                                                        <option value="5" style="background-color: #ded8c7">Thursday</option>
+                                                        <option value="6" style="background-color: #ded8c7">Friday</option>
+                                                        <option value="7" style="background-color: #ded8c7">Saturday</option>                                
                                                     </select>
                                                 </div>
                                             </div>
@@ -251,37 +251,37 @@
                                                         <div class="input-group-text"><i class="icon icon-date_range float-left s-20 text-white" ></i></div>
                                                     </div>
                                                     <select v-model="form.withdrawal_period" class="form-control r-0 light s-12"  style="background-color:#ecf0f1; border: 1px solid #2E671A">                                                       
-                                                        <option value="">Select Day of the Month</option>
-                                                        <option value="1">1st</option>
-                                                        <option value="2">2nd</option>
-                                                        <option value="3">3rd</option>
-                                                        <option value="4">4th</option>
-                                                        <option value="5">5th</option>
-                                                        <option value="6">6th</option>
-                                                        <option value="7">7th</option>
-                                                        <option value="8">8th</option>
-                                                        <option value="9">9th</option>
-                                                        <option value="10">10th</option>
-                                                        <option value="11">11th</option>
-                                                        <option value="12">12th</option>
-                                                        <option value="13">13th</option>
-                                                        <option value="14">14th</option>
-                                                        <option value="15">15th</option>
-                                                        <option value="16">16th</option>
-                                                        <option value="17">17th</option>
-                                                        <option value="18">18th</option>
-                                                        <option value="19">19th</option>
-                                                        <option value="20">20th</option>
-                                                        <option value="21">21st</option>
-                                                        <option value="22">22nd</option>
-                                                        <option value="23">23rd</option>
-                                                        <option value="24">24th</option>
-                                                        <option value="25">25th</option> 
-                                                        <option value="26">26th</option> 
-                                                        <option value="27">27th</option>
-                                                        <option value="28">28th</option>
-                                                        <option value="29">29th</option>
-                                                        <option value="30">30th</option>                              
+                                                        <option value="" style="background-color: #ded8c7">Select Day of the Month</option>
+                                                        <option value="1" style="background-color: #ded8c7">1st</option>
+                                                        <option value="2" style="background-color: #ded8c7">2nd</option>
+                                                        <option value="3" style="background-color: #ded8c7">3rd</option>
+                                                        <option value="4" style="background-color: #ded8c7">4th</option>
+                                                        <option value="5" style="background-color: #ded8c7">5th</option>
+                                                        <option value="6" style="background-color: #ded8c7">6th</option>
+                                                        <option value="7" style="background-color: #ded8c7">7th</option>
+                                                        <option value="8" style="background-color: #ded8c7">8th</option>
+                                                        <option value="9" style="background-color: #ded8c7">9th</option>
+                                                        <option value="10" style="background-color: #ded8c7">10th</option>
+                                                        <option value="11" style="background-color: #ded8c7">11th</option>
+                                                        <option value="12" style="background-color: #ded8c7">12th</option>
+                                                        <option value="13" style="background-color: #ded8c7">13th</option>
+                                                        <option value="14" style="background-color: #ded8c7">14th</option>
+                                                        <option value="15" style="background-color: #ded8c7">15th</option>
+                                                        <option value="16" style="background-color: #ded8c7">16th</option>
+                                                        <option value="17" style="background-color: #ded8c7">17th</option>
+                                                        <option value="18" style="background-color: #ded8c7">18th</option>
+                                                        <option value="19" style="background-color: #ded8c7">19th</option>
+                                                        <option value="20" style="background-color: #ded8c7">20th</option>
+                                                        <option value="21" style="background-color: #ded8c7">21st</option>
+                                                        <option value="22" style="background-color: #ded8c7">22nd</option>
+                                                        <option value="23" style="background-color: #ded8c7">23rd</option>
+                                                        <option value="24" style="background-color: #ded8c7">24th</option>
+                                                        <option value="25" style="background-color: #ded8c7">25th</option> 
+                                                        <option value="26" style="background-color: #ded8c7">26th</option> 
+                                                        <option value="27" style="background-color: #ded8c7">27th</option>
+                                                        <option value="28" style="background-color: #ded8c7">28th</option>
+                                                        <option value="29" style="background-color: #ded8c7">29th</option>
+                                                        <option value="30" style="background-color: #ded8c7">30th</option>                              
                                                     </select>
                                                 </div>
                                             </div>
@@ -312,13 +312,13 @@
                                             <div class="input-group-prepend">
                                                 <div class="input-group-text"><i class="icon icon-sitemap float-left s-20 text-white" ></i></div>
                                             </div>
-                                            <input  disabled value="1 PV" type="text" class="form-control r-0 light s-12" placeholder="Point Value"  style="background-color:#ecf0f1; border: 1px solid #2E671A" >
+                                            <input  disabled value="1 PV" type="text" class="form-control r-0 light s-12" placeholder="Point Value"  style="background-color:#ded8c7; border: 1px solid #2E671A" >
                                         </div>
                                         <div class="input-group">
                                             <div class="input-group-prepend">
                                                 <div class="input-group-text"><i class="icon icon-exchange float-left s-20 text-white" ></i></div>
                                             </div>
-                                            <input v-model="unitPV.unit_point_value" required min="1" type="text" class="form-control r-0 light s-12" placeholder="Exchange Amount"  style="background-color:#ecf0f1; border: 1px solid #2E671A">
+                                            <input v-model="unitPV.unit_point_value" required min="1" type="text" class="form-control r-0 light s-12" placeholder="Exchange Amount"  style="background-color:#ded8c7; border: 1px solid #2E671A">
                                         </div>
                                     </div>
                                 </div>

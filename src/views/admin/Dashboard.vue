@@ -35,7 +35,7 @@
                             <b-skeleton width="70%"></b-skeleton>
                         </b-card>
                     </template>
-                    <div v-else class="card shadow1">
+                    <div v-else class="card shadow1" style="background-color: #ded8c7;">
                         <div class="card-body">
                             <div class="d-flex align-items-center flex-row flex-wrap">
                                 <div class="row column-row ml-1 ">
@@ -62,7 +62,7 @@
                             <b-skeleton width="70%"></b-skeleton>
                         </b-card>
                     </template>
-                    <div v-else class="card shadow1">
+                    <div v-else class="card shadow1" style="background-color: #ded8c7;">
                         <div class="card-body">
                             <div class="d-flex align-items-center flex-row flex-wrap">
                                 <div class="row column-row ml-1 ">
@@ -89,7 +89,7 @@
                             <b-skeleton width="70%"></b-skeleton>
                         </b-card>
                     </template>
-                    <div v-else class="card shadow1">
+                    <div v-else class="card shadow1" style="background-color: #ded8c7;">
                         <div class="card-body" >
                             <div class="d-flex align-items-center flex-row flex-wrap">
                                 <div class="row column-row ml-1 ">
@@ -144,7 +144,7 @@
                             <b-skeleton width="70%"></b-skeleton>
                         </b-card>
                     </template>
-                    <div v-else class="counter-box p-40 text-white shadow1 r-5 flex-wrap" style="background-color: #ffff">
+                    <div v-else class="counter-box p-40 text-white shadow1 r-5 flex-wrap" style="background-color: #ded8c7">
                         <div class="float-right">
                             <img src="/assets/img/accounts.png">
                         </div>
@@ -178,7 +178,7 @@
                 </template>
                 <template v-else>
                     <div class="col-md-6 ">
-                        <div class="card shadow1">
+                        <div class="card shadow1" style="background-color: #ded8c7">
                             <div class="card-body" >
                                 <div class="d-flex align-items-center flex-row flex-wrap">
                                     <div class="row column-row ml-1 ">
@@ -202,7 +202,7 @@
                         </div>
                     </div>
                     <div class="col-md-6">
-                        <div class="card shadow1">
+                        <div class="card shadow1" style="background-color: #ded8c7">
                             <div class="card-body" >
                                 <div class="d-flex align-items-center flex-row flex-wrap">
                                     <div class="row column-row ml-1 ">
@@ -238,7 +238,7 @@
                 </template>
                 <template v-else>
                     <div class="col-md-6 ">
-                        <div class="card shadow1">
+                        <div class="card shadow1" style="background-color: #ded8c7">
                             <div class="card-body" >
                                 <div class="d-flex align-items-center flex-row flex-wrap">
                                     <div class="row column-row ml-1 ">
@@ -262,7 +262,7 @@
                         </div>
                     </div>
                     <div class="col-md-6">
-                        <div class="card shadow1">
+                        <div class="card shadow1" style="background-color: #ded8c7">
                             <div class="card-body" >
                                 <div class="d-flex align-items-center flex-row flex-wrap">
                                     <div class="row column-row ml-1 ">
@@ -303,13 +303,13 @@
             </div>
             <div class="d-flex row row-eq-height my-3">
                 <div class="col-md-6 rounded mb-3">
-                    <div class="card shadow1">
-                        <div class="card-header" style="background-color: #2E671A;">
+                    <div class="card shadow1" style="background-color: #ded8c7">
+                        <div class="card-header" style="background-color: #ded8c7;">
                             <div class="row justify-content-end">
                                 <div class="col">
                                     <ul class="nav nav-tabs card-header-tabs nav-material" >
                                         <li class="nav-item">
-                                            <a class="nav-link text-white font-weight-bold" id="w1-tab1" data-toggle="tab">Front Page Notification</a>
+                                            <a class="nav-link text-green font-weight-bold" id="w1-tab1" data-toggle="tab">Front Page Notification</a>
                                         </li>	
                                     </ul>
                                 </div>
@@ -359,13 +359,13 @@
                 </div>
                 
                 <div class="col-md-6 rounded">
-                    <div class="card shadow1">
-                        <div class="card-header" style="background-color: #2E671A;">
+                    <div class="card shadow1" style="background-color: #ded8c7">
+                        <div class="card-header" style="background-color: #ded8c7">
                             <div class="row justify-content-end">
                                 <div class="col">
                                     <ul class="nav nav-tabs card-header-tabs nav-material">
                                         <li class="nav-item">
-                                            <a class="nav-link text-white font-weight-bold" id="w1-tab1" data-toggle="tab" >Send General Message</a>
+                                            <a class="nav-link text-green font-weight-bold" id="w1-tab1" data-toggle="tab" >Send General Message</a>
                                         </li>
                                     </ul>
                                 </div>

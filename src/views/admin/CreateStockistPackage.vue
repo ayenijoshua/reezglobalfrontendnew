@@ -48,9 +48,9 @@
             
         <div class="row my-3">
                 <div class="col-md-12">
-                    <div class="card">
-                        <div class="card-header" style="background-color:#2E671A">
-                            <h6 class="text-white"><strong class="font-weight-bold">OFFICIAL STOCKIST PACKAGE RATES</strong></h6>
+                    <div class="card" style="background-color: #ded8c7">
+                        <div class="card-header" style="background-color: #ded8c7">
+                            <h6 class="text-green"><strong class="font-weight-bold">OFFICIAL STOCKIST PACKAGE RATES</strong></h6>
                         </div>
                         <div class="card-body" style="overflow-x:auto;">
                             <table class="table table-hover">
@@ -106,7 +106,7 @@
                                             <div class="input-group-prepend">
                                                 <div class="input-group-text"><i class="icon icon-money-3 float-left s-20 text-white " ></i></div>
                                             </div>
-                                            <input v-model="stockistReferralBonusPercentage.stockist_referral_bonus_percentage" type="number" class="form-control r-0 light s-12" placeholder="Referral bonus %"  style="background-color:#ecf0f1; border: 1px solid #2E671A">
+                                            <input v-model="stockistReferralBonusPercentage.stockist_referral_bonus_percentage" type="number" class="form-control r-0 light s-12" placeholder="Referral bonus %"  style="background-color:#ded8c7; border: 1px solid #2E671A">
                                         </div>
                                     </div>
                                 </div>

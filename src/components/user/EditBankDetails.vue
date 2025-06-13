@@ -1,9 +1,9 @@
 <template>
-    <div class="card border-0 justify-content-center shadow1">
-        <div v-if="!userHasProfile" class="card-body">
+    <div class="card border-0 justify-content-center shadow1" style="background-color:#ded8c7">
+        <div v-if="!userHasProfile" class="card-body" style="background-color:#ded8c7">
             <div class="alert alert-info text-center">User has not submitted bank details</div>
         </div>
-        <div v-else class="card-body"> 
+        <div v-else class="card-body" style="background-color:#ded8c7"> 
             <div class=" form-row mb-3">  
                 <form @submit.prevent="profileUpdate()">                      
                     <div class="form-group col-12 m-0">
@@ -11,9 +11,9 @@
                             <div class="input-group-prepend">
                                 <div class="input-group-text"><i class="icon icon-account_balance float-left s-20 text-white " ></i></div>
                             </div>
-                            <select id="bank-select" v-model="form.bank_name" required class="form-control r-0 light s-12">
-                                <option :value="null">Select Bank</option>
-                                <option v-for="bank,i in banks" :value="bank.bank" :key="i" :selected="profile.bank_name == bank.bank">{{ bank.bank }}</option>														   
+                            <select id="bank-select" v-model="form.bank_name" required class="form-control r-0 light s-12 shadow1" style="background-color:#ded8c7">
+                                <option :value="null" style="background-color:#ded8c7">Select Bank</option>
+                                <option v-for="bank,i in banks" :value="bank.bank" :key="i" :selected="profile.bank_name == bank.bank" style="background-color:#ded8c7">{{ bank.bank }}</option>														   
                             </select>
                         </div>
                     </div>
@@ -23,7 +23,7 @@
                                 <div class="input-group-prepend">
                                     <div class="input-group-text"><i class="icon icon-person float-left s-20 text-white " ></i></div>
                                 </div>
-                                <input v-model="form.bank_account_name" readonly type="text" class="form-control r-0 light s-12" required placeholder="Account Name">
+                                <input v-model="form.bank_account_name" readonly type="text" class="form-control r-0 light s-12 shadow1" required placeholder="Account Name" style="background-color:#ded8c7">
                             </div>
                         </div>
                         <div class="form-group col-6 m-0">
@@ -31,7 +31,7 @@
                                 <div class="input-group-prepend">
                                     <div class="input-group-text"><i class="icon icon-address-card-o float-left s-20 text-white " ></i></div>
                                 </div>
-                                <input v-model="form.bank_account_number" type="text" class="form-control r-0 light s-12" required placeholder="Account Number">
+                                <input v-model="form.bank_account_number" type="text" class="form-control r-0 light s-12 shadow1" required placeholder="Account Number" style="background-color:#ded8c7">
                             </div>
                         </div>
                     </div>
@@ -63,7 +63,7 @@
                             <span class="text-white float-right" id="d1" style="font-size:10px" >Widthrawal Account Details</span>
                     </div> 
                 </div>
-                <div class="card-body" >
+                <div class="card-body shadow1" >
                     <div class="d-flex align-items-center">
                         <div class="avatar avatar-xl mr-4 ">
                             <img class="user_avatar" :src="imageURL" alt="User Image">

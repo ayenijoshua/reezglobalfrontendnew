@@ -1,5 +1,5 @@
 <template>
-    <div class="col-md-12">
+    <div class="col-md-12" style="background-color:#ded8c7">
         <div class="">
             <div class="row column-row">
                 <div class="mt-4 ml-auto" style="padding-right:40px">

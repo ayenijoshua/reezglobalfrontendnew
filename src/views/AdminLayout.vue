@@ -3,7 +3,7 @@
         <aside class="main-sidebar fixed offcanvas shadow" data-toggle='offcanvas'>
             <section class="sidebar">
                 <div class="w-80px mt-3 mb-3 ml-3">
-                    <img src="/assets/img/logo2b.png" style="max-width: 300%;" alt="logo">
+                    <img src="/assets/img/logo1.png" style="max-width: 300%;" alt="logo">
                 </div>
                 <div class="relative">
                     <a data-toggle="collapse" href="#adminSettingsCollapse" role="button" aria-expanded="false"
@@ -25,10 +25,10 @@
                             <div class="list-group mt-3 shadow">
                                 <a href="#" class="list-group-item list-group-item-action shadow1">
                                     <i class="mr-2 icon icon-sign-out"></i>
-                                    <span class="text-blue" v-b-modal.logOut>Logout</span>
+                                    <span class="text-green" v-b-modal.logOut>Logout</span>
                                 </a>
                                 <router-link :to="{name:'user-security'}" class="list-group-item list-group-item-action shadow1">
-                                    <i class="mr-2 icon-lock3 text-blue"></i><span class="text-blue">Change Password</span>
+                                    <i class="mr-2 icon-lock3 text-green"></i><span class="text-green">Change Password</span>
                                 </router-link>
                             </div>
                         </div>
@@ -219,21 +219,21 @@
 
         <div class="control-sidebar-bg shadow white fixed"></div>
          <modal :modalId="'logOut'" :modalSize="'md'" :modalTitle="''" >
-            <div class="card no-b" style="background-image: #ecf0f1 !important">
+            <div class="card no-b" style="background-image: #ded8c7 !important">
 
-                <div class="card-body px-sm-4 mb-2 pt-1 pb-0" style="background-image: #ecf0f1"> 
+                <div class="card-body px-sm-4 mb-2 pt-1 pb-0" style="background-image: #ded8c7"> 
                     <div class="d-flex justify-content-center align-items-center" > <!-- Added styling and classes -->
                         <img  src="/assets/img/exit.png" width="auto" height="100px">
                         <h6 ><span class="font-weight-bold green-text"> Are you sure you want to signout ?</span>
-                            <br><small class="font-weight-normal green-text">Confirm this is not a mistake.</small></h6>
+                            <br><small class="font-weight-normal green-text ml-4" >Confirm this is not a mistake.</small></h6>
                     </div>
                     <div class="row justify-content-center no-gutters">
                         <div class="col-auto mr-2">
                             <button type="button" class="btn btn-sm btn-success px-4" @click="logOut()" data-dismiss="modal">Confirm</button>
                         </div>
-                        <!-- <div class="col-auto">
+                       <div v-if="false" class="col-auto">
                             <button type="button" class="btn btn-sm btn-light text-muted" data-dismiss="modal">Cancel</button>
-                        </div> -->
+                        </div> 
                     </div>
                 </div>
             </div>  
@@ -243,10 +243,13 @@
 
 <style scoped>
 .card {
-    background-color: #ecf0f1;
+    background-color: #ded8c7;
     background-clip: border-box;
 
 }
+
+
+
 
 
 .img-responsive {
@@ -262,7 +265,7 @@
 }
 
 .offcanvas .sidebar-menu>li {
-    border-bottom: 1px solid #ecf0f1;
+    border-bottom: 1px solid #ded8c7;
 }
 
 /* Sidebar Menu Item Default State */
@@ -283,7 +286,7 @@
 /* Active Menu Item */
 .sidebar-menu .active > a {
     background-color: #2E671A; /* Active background */
-    color: #ecf0f1; /* Active text color */
+    color: #ded8c7; /* Active text color */
 }
 
 .sidebar-menu .active > a i {
@@ -310,21 +313,21 @@
 
 /* Override the modal's background colors */
 .modal-dialog {
-    background-color: #ecf0f1 !important;
+    background-color: #ded8c7 !important;
 }
 
 .modal-content {
-    background-color: #ecf0f1 !important;
+    background-color: #ded8c7 !important;
     border: none; /* Remove borders if any */
 }
 
 .modal-body {
-    background-color: #ecf0f1 !important;
+    background-color: #ded8c7 !important;
     color: #333; /* Adjust text color if necessary */
 }
 
 .modal-footer {
-    background-color: #ecf0f1 !important;
+    background-color: #ded8c7 !important;
     border-top: none; /* Remove top border if any */
 }
 
@@ -332,7 +335,7 @@
 .modal-body .ibox-content,
 .modal-body #modalContent,
 .modal-body small {
-    background-color: #ecf0f1 !important;
+    background-color: #ded8c7 !important;
 }
 
 /* Optional: Adjust button color for consistency */

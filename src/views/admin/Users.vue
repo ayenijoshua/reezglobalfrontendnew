@@ -3,25 +3,25 @@
         <div class="animated">
             <div class="row mb-5">
                 <div class="col-md-12">
-                    <div class="card shadow1 mb-3" style="">
-                        <div class="card-header" style="background-color: #2E671A;">
+                    <div class="card shadow1 mb-3" style="background-color: #ded8c7;">
+                        <div class="card-header" style="background-color: #ded8c7;">
                             <div class="row justify-content-end">
                                 <div class="col">
                                     <ul class="nav nav-tabs card-header-tabs nav-material">
                                         <li class="nav-item">
-                                            <a class="nav-link text-white font-weight-bold" id="w1-tab1" data-toggle="tab" >MEMBERS INFORMATION</a>
+                                            <a class="nav-link text-green font-weight-bold" id="w1-tab1" data-toggle="tab" >MEMBERS INFORMATION</a>
                                         </li>
                                     </ul>
                                 </div>
                             </div>
                         </div>
-                        <div class="card-body" style="background-color: #ecf0f1">
+                        <div class="card-body" style="background-color: #ded8c7">
                             <div class=" mb-3" style="float:left">
                                 <div class="dropdown">
                                     <button class="btn btn-sm btn-success dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         <i class="caret"></i>{{usersType.charAt(0).toUpperCase() + usersType.slice(1) }} Users
                                     </button>
-                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="position:fixed; background-color: #ecf0f1;">
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="position:fixed; background-color: #ded8c7;">
                                         <button @click="loadUsers('all')" class="dropdown-item text-green"> All Members</button>
                                         <button @click="loadUsers('active')" class="dropdown-item text-green"> Active Members</button>
                                         <button @click="loadUsers('inactive')" class="dropdown-item text-green">Inactive Users</button>
@@ -31,7 +31,7 @@
                             </div>
                             <div class=" mb-3" style="float:right">
                                 <form class="form-inline my-2 my-lg-0" @submit.prevent="search()">
-                                    <input v-model="searche" v-b-popover.hover.top="'first name/ last name/ username/ email/ package'" class="form-control float-left mr-sm-2" type="text" placeholder="" aria-label="Search" style="background-color: #ecf0f1; border: 2px solid #2E671A;">
+                                    <input v-model="searche" v-b-popover.hover.top="'first name/ last name/ username/ email/ package'" class="form-control float-left mr-sm-2" type="text" placeholder="" aria-label="Search" style="background-color: #ded8c7; border: 2px solid #2E671A;">
                                     <span v-if="loading" class="btn btn-success my-2 my-sm-0">...</span>
                                     <button v-else class="btn btn-success my-2 my-sm-0" type="submit">Search</button>
                                 </form>
@@ -70,7 +70,7 @@
                                                         <span>..loading</span>
                                                     </template>
                                                     <template v-else>
-                                                        <span  v-if="usersType=='all'">There are no users</span>
+                                                        <span  v-if="usersType=='all'" class="text-center">There are no users</span>
                                                         <span v-else>There are no {{ usersType }} users</span>
                                                     </template>
                                                 </td>
@@ -89,7 +89,7 @@
                                                             <button class="btn btn-sm btn-success dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                                 <i class="caret"></i>
                                                             </button>
-                                                            <div class="dropdown-menu" style="background-color: #ecf0f1">
+                                                            <div class="dropdown-menu" style="background-color: #ded8c7">
                                                                 <a v-if="usersType !== 'inactive'" @click="setUser(user)" v-b-modal.user-dashboard class="dropdown-item text-green" ><i class="icon-barometer2"></i>&nbsp;&nbsp; Dashboard</a>
                                                                 <a v-if="usersType !== 'inactive'" @click="setUser(user)" v-b-modal.user-profile class="dropdown-item text-green" >
                                                                     <i class="icon-drivers-license-o"></i>&nbsp;&nbsp; Profile
@@ -110,7 +110,7 @@
                                                             <button class="btn btn-sm btn-success dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                                 <i class="caret"></i> Active
                                                             </button>
-                                                            <div class="dropdown-menu" style="background-color: #ecf0f1">
+                                                            <div class="dropdown-menu" style="background-color: #ded8c7">
                                                                 <a v-if="usersType !== 'inactive'" @click="setUser(user)" v-b-modal.stockist-profile class="dropdown-item text-green" ><i class="icon-account_box"></i>&nbsp;&nbsp; Stockist Profile</a>
                                                                 <a v-if="usersType !== 'inactive'" @click="setUser(user)" v-b-modal.stockist-record class="dropdown-item text-green" ><i class="icon-clipboard-list"></i>&nbsp;&nbsp; Stockist Record</a>
                                                                 <a v-if="usersType !== 'inactive'" @click="setUser(user)" v-b-modal.stockist-processed-orders class="dropdown-item text-green" ><i class="icon-payment"></i>&nbsp;&nbsp; Processed Orders</a>

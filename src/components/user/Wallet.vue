@@ -24,11 +24,11 @@
                                     <div class="row my-3">
                                         <!-- bar charts group -->
                                         <div class="col-md-12">
-                                            <div class="card bg-white shadow1">
-                                                <div class="card-header ">
+                                            <div class="card shadow1" style="background-color:#ded8c7">
+                                                <div class="card-header " style="background-color:#ded8c7">
                                                     <h4 class="green-text"><strong class="font-weight-bold">Wallet Summary</strong></h4>
                                                 </div>
-                                                <div class="card-body" style="overflow-x:auto;">
+                                                <div class="card-body" style="overflow-x:auto; background-color:#ded8c7">
                                                     <table class="table table-bordered table-hover">
                                                         <thead>
                                                             <tr>
@@ -72,11 +72,11 @@
                                     <div class="row my-3">
                                         <!-- bar charts group -->
                                         <div class="col-md-12">
-                                            <div class="card shadow1">
-                                                <div class="card-header bg-white">
+                                            <div class="card shadow1" style="background-color:#ded8c7">
+                                                <div class="card-header" style="background-color:#ded8c7">
                                                     <h4 class="green-text"><strong class="font-weight-bold">Global Profit Sharing</strong></h4>
                                                 </div>
-                                                <div class="card-body" style="overflow-x:auto;">
+                                                <div class="card-body" style="overflow-x:auto; background-color:#ded8c7">
                                                     <table class="table table-bordered table-hover">
                                                         <thead>
                                                         <tr>
@@ -118,17 +118,17 @@
                         <div class="tab-pane fade" id="v-pills-Withdrawal-History" role="tabpanel" aria-labelledby="v-pills-Withdrawal-History-tab">
                             <div class="row">
                                 <div class="col-md-4">
-                                    <div class="card no-b mb-3 shadow1">
-                                        <div class="card-header bg-white">
+                                    <div class="card no-b mb-3 shadow1" style="background-color:#ded8c7">
+                                        <div class="card-header" style="background-color:#ded8c7">
                                             <h4 class="green-text"><strong class="font-weight-bold">Wallet Balance</strong></h4>
                                         </div>
                                         <div class="collapse show text-center" id="invoiceCard">
                                             <div class="col-md-4">
-                                                <div class="card-body p-0">
+                                                <div class="card-body p-0" style="background-color:#ded8c7">
                                                 <img src="/assets/img/withdraw3.png">
                                                 </div>
                                             </div>
-                                            <div class="card-body text-center">
+                                            <div class="card-body text-center" style="background-color:#ded8c7">
                                                 <h1 class="font-weight-bold text-green" style="margin: 0em; padding: 0em;">₦{{ walletBalance }}</h1>
                                                 <small class="s-8" style="margin: 0em; padding: 0em;" >Available Balance</small>
                                             </div>  
@@ -138,14 +138,14 @@
                                     
                                 </div>
                                 <div class="col-md-8">
-                                    <div class="card no-b shadow1">
-                                        <div class="card-header bg-white">
+                                    <div class="card no-b shadow1" style="background-color:#ded8c7">
+                                        <div class="card-header" style="background-color:#ded8c7">
                                             <h4 class="green-text"><strong class="font-weight-bold">Withdrawal History</strong></h4>
                                         </div>
                                         <div class="collapse show" id="invoiceCard">
-                                            <div class="card-body p-0"> 
-                                                <div class="card no-b  no-r">
-                                                    <div class="card-body">
+                                            <div class="card-body p-0" style="background-color:#ded8c7"> 
+                                                <div class="card no-b  no-r" style="background-color:#ded8c7">
+                                                    <div class="card-body" style="background-color:#ded8c7">
                                                         <div class="form-row" style="overflow-x:auto;">
                                                             <table class="table table-bordered">
                                                                 <thead>

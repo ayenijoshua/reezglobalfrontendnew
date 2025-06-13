@@ -3,10 +3,10 @@
         <div class="">
                 <div class="d-flex justify-content-center mt-5 pb-4"> <!-- Centering wrapper added -->
                     <div class="col-md-6 col-sm-12"> 
-                        <div >
-                            <div >
+                        <div class="card mb-3 shadow1" style="background-color:transparent;">
+                            <div class="card-body">
                                 <div class="d-flex justify-content-center align-items-center" > <!-- Added styling and classes -->
-                                    <img  src="/assets/img/list-items.png" width="auto" height="150px">
+                                   <img  src="/assets/img/order.png" width="auto" height="150px">
                                 </div>
                                 
                                 <div class="d-flex justify-content-center"><p class="font-weight-bold">Input order code to process the order associated with it.</p></div>
@@ -21,11 +21,8 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="d-flex justify-content-center">
-                                    <button v-if="orderLoading==true" type="submit" class="btn btn-sm btn-success btn-lg mr-3">
-                                        <i class="icon-save mr-2"></i>...
-                                    </button>
-                                    <button v-else @click="getUserOrders" type="submit" class="btn btn-sm btn-success btn-lg mr-3">
+                                <div class="d-flex justify-content-center mb-4">
+                                    <button @click="getUserOrders" type="submit" class="btn btn-sm btn-success btn-lg mr-3">
                                         <i class="icon-save mr-2"></i>Confirm Selection
                                     </button>
                                 </div>
@@ -35,7 +32,7 @@
 
                 <div class="d-flex justify-content-center mt-3"> <!-- Centering wrapper added -->
                     <div class="col-md-9 col-sm-12"> 
-                        <div >
+                       <div class="card mb-3 shadow1" style="background-color:transparent;">
                             <div class="row column-row" >
                                 <div class="mt-4 ml-auto" style="padding-right:40px">
                                     <img  src="/assets/img/order-details.png"  width="auto" height="24px">&nbsp;&nbsp;
@@ -43,7 +40,7 @@
                                 </div> 
                             </div>
                             <hr>
-                        <div>
+                        <div class="card-body">
                             <template v-if="orderLoading">
                                 <b-skeleton-table
                                     :rows="3"
@@ -59,34 +56,33 @@
                                 <div v-else>
                                     <div v-for="order,i in orders" :key="i" class="row column-row p-2" style="border-bottom: 1px solid #2E671A !important;">
                                         <template>
-                                            <div class="mt-2 ml-3" style="padding-right:15px">
-                                            <img :src="imageURI(order.image)" width="80px" height="80px">
+                                            <div class="mt-2 ml-3" style="padding-right:15px" :key="i">
+                                            <img src="/assets/img/demo/products/product3.png" width="80px" height="80px">
                                             </div>  
-                                            <div class="mb-2 mt-4" >
+                                            <div class="mb-2 mt-4" :key="i">
                                                 <h6 class="font-weight-bold text-green s-14" style="margin: 0em; padding: 0em;">{{ order.name }} <br>
-                                                    <small class="font-weight-bold"> unit price ₦{{(order.price/order.product_qty)}} | Qty:{{ order.product_qty }}</small>
+                                                    <small class="font-weight-bold"> {{order.points}}PV | Qty:{{ order.product_qty }}</small>
                                                 </h6>
                                                 <h6>
                                                     <small :class="['font-weight-bold', order.in_stock ? 'text-info' : 'text-danger']">Instock : {{order.in_stock}}</small>  
                                                     <small :class="['font-weight-bold', order.stock_qty>0 ? 'text-info' : 'text-danger']"> | Stock Qty : {{ order.stock_qty }}</small>
-                                                    <small :class="['font-weight-bold', order.qualify == true ? 'text-info' : 'text-danger']"> | Qualify : {{ order.qualify }}</small>
                                                 </h6>	
 
                                             </div>	
-                                            <div class="mb-2 mt-4 ml-auto mr-2" >
+                                            <div class="mb-2 mt-4 ml-auto mr-2" :key="i">
                                                 <span class="font-weight-bold float-right text-green">₦{{ order.price.toLocaleString('en-US') }}</span>
                                             </div>
                                         </template>
                                     </div>
 
-                                    <!--<div class="row column-row " style="border-bottom: 1px solid #2E671A !important;">
+                                    <div class="row column-row " style="border-bottom: 1px solid #2E671A !important;">
                                         <div class="mb-2 mt-2 ml-3">
                                             <h6 class="font-weight-bold text-green s-12" style="margin: 0em; padding: 0em;">Total Point Value </h6>											
                                         </div>	
                                         <div class="mb-2 mt-2 ml-auto mr-3">
                                             <h6 class="font-weight-bold text-green s-12" style="margin: 0em; padding: 0em;">{{ totalPoints?.toFixed(2) }} PV</h6>											
                                         </div>
-                                    </div> -->	
+                                    </div> 	
                                     <div class="row column-row" style="background-Color:#2E671A !important;">
                                         <div class="mb-2 mt-2 ml-3">
                                             <h6 class="font-weight-bold text-white s-12" style="margin: 0em; padding: 0em;">Total Price </h6>											
@@ -105,6 +101,7 @@
                                 </div>
                             </template>
                             
+                            
                             <hr>
                             <div v-if="member !== null" class="d-flex align-items-center mt-4">
                                 <div>
@@ -120,7 +117,7 @@
                                 <div class="mr-4 ml-auto ">
                                     <div class="avatar avatar-xl mb-3 ">
                                         <img v-if="member.photo_path"  class="user_avatar" :src="imageURL+'/'+member.photo_path" alt="User Image">
-										<img v-else class="user_avatar" src="/assets/img/dummy/default_avatar.png" alt="User Image">
+										<img v-else class="user_avatar" src="/assets/img/dummy/default_avatar1.png" alt="User Image">
 									</div>
                                 </div>
                             </div>
@@ -128,10 +125,9 @@
                         </div>
                         <hr>
                         <div v-if="orders.length !== 0" class=" mb-3 mt-3">	
-                            <!---<span  class="btn btn-sm btn-success">...</span>-->
-                            <button v-if="approvingOrder==true" @click="approvePurchase(purchaseId)" type="submit" class="btn btn-sm btn-success btn-lg mr-3"><i class="icon-shopping_cart mr-2"></i>...</button>								
-                            <button v-else @click="approvePurchase(purchaseId)" type="submit" class="btn btn-sm btn-success btn-lg mr-3"><i class="icon-shopping_cart mr-2"></i>Approve Order</button>
-                            <!-- <button type="submit" class="btn btn-sm btn-danger "><i class="icon-cancel mr-2"></i>Cancel Order</button>                    -->
+                            <!---<span  class="btn btn-sm btn-success">...</span>-->								
+                            <button @click="approvePurchase(purchaseId)" type="submit" class="btn btn-sm btn-success btn-lg mr-3"><i class="icon-shopping_cart mr-2"></i>Approve Order</button>
+                            <button type="submit" class="btn btn-sm btn-danger "><i class="icon-cancel mr-2"></i>Cancel Order</button>                   
                         </div> 
                     </div> 
                 </div>
@@ -140,17 +136,16 @@
             <div class="row mt-4">
                 <div class="col-md-12">
                     <div class="card shadow-lg mb-3" style="background-color: transparent">
-                        <div calss="card-header"></div>
                         <div class="card-body ">
                             <div class="d-flex justify-content-left mb-2">
-                                <!-- <input
+                                <input
                                     class="form-control mr-2" 
                                     type="text" 
                                     placeholder="Search Orders..." 
                                     style="width: 250px; background-color: transparent; border: 2px solid #2E671A !important;"/>
                                 <button class="btn text-white" style="background-Color:#2E671A" >
                                     <i class="icon-search"></i>
-                                </button> -->
+                                </button>
                             </div>
                             <div class="table-responsive">
                                 <table id="example2" class="table table-hover data-tables" data-options='{ "paging": false; "searching":false}' >
@@ -181,7 +176,7 @@
                                         </tr>
                                         <template v-else>
                                             <tr v-if="vendorProcessedOrders.length==0">
-                                                <td class="text-center" colspan="5">There are no processed Orders</td>
+                                                <td colspan="5" class="text-center">There are no processed Orders</td>
                                             </tr>
                                             <tr v-for="order,i in vendorProcessedOrders" :key="i">
                                                 <th scope="row">{{ ++i }}</th>
@@ -411,13 +406,9 @@ export default{
                         return prev.points + curr.points
                     })
 
-                    if(this.orders.length == 1){
-                        this.totalPrice = this.orders[0].price
-                    }else{
-                        this.totalPrice = this.orders.reduce((prev,curr)=>{
-                            return prev.price??0 + curr.price??0 
-                        })
-                    }
+                    this.totalPrice = this.orders.reduce((prev,curr)=>{
+                        return prev.price + curr.price
+                    })
 
                     this.purchaseId = this.orders[0].product_purchase_id
                 }
@@ -433,7 +424,7 @@ export default{
                 return
             }
 
-            let check = this.orders.filter((order)=>order.in_stock==false || order.stock_qty==0 || order.qualify==false)
+            let check = this.orders.filter((order)=>order.in_stock==false || order.stock_qty==0)
 
             //console.log('check',check)
 
@@ -446,11 +437,7 @@ export default{
             this.vendorApprovePurchase(purchaseId).then(()=>{
                 this.approvingOrder = false
             })
-        },
-
-        imageURI(img){
-            return img ? process.env.VUE_APP_IMAGE_PATH+'/'+img : '/assets/img/demo/products/product3.png';
-        },
+        }
     }
 
 }
