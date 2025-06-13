@@ -15,7 +15,7 @@
                                     <div class="text-center">
                                         <img class="img-responsive" src="/assets/img/logo2b.png" width="300px" height="auto" alt="">
                                         <p class="p-t-b-10 green-text font-weight-bold">Back Office, signin...</p>
-                                    </div>
+                                    </div>    
                                     <form @submit.prevent="loginUser()">
                                         <div class="row">
                                             <div class="col-lg-6">
