@@ -19,8 +19,8 @@
                                             <template v-else>
                                                 <div v-if="directDownlines.length==0" class="card shadow  mb-3" style="background-color: transparent" >
                                                     <div class="card  mb-3" style="background-color: transparent">
-                                                        <div class="card-header " style="background-color: #2E671A">
-                                                            <h6 class="text-white"><strong class="font-weight-bold">Direct Downlines</strong></h6>
+                                                        <div class="card-header " style="background-color:transparent">
+                                                            <h6 class="text-green"><strong class="font-weight-bold">Direct Downlines</strong></h6>
                                                         </div>
                                                         <div class="card-body text-center ">
                                                             <div class="alert alert-info">
@@ -31,8 +31,8 @@
                                                 </div>
                                                 <template v-else>
                                                     <div v-for="dirDown,i in directDownlines" class="card mb-3" :key="i" style="background-color: transparent; border: 2px solid #2E671A !important;" >
-                                                        <div class="card-header" style="background-color: transparent; border: 2px solid #2E671A !important;">
-                                                            <h6 class="text-white"><strong class="font-weight-bold">Referral-{{ dirDown.username }} | Direct Downline</strong></h6>
+                                                        <div class="card-header" style="background-color: transparent;">
+                                                            <h6 class="text-green"><strong class="font-weight-bold">Referral-{{ dirDown.username }} | Direct Downline</strong></h6>
                                                         </div>
                                                         <div class="card-body text-center" style="background-color: transparent; border: 2px solid #1b4f72 !important;">
                                                             <div class="avatar avatar-xl mb-3 ">
@@ -54,11 +54,11 @@
                                         <!-- bar charts group -->
                                         <div class="col-md-8">
                                             <div class="card shadow" style="background-color: transparent">
-                                                <div class="card-header" style="background-color: #2E671A">
-                                                    <h6 class="text-white"><strong class="font-weight-bold">Downlines</strong></h6>
+                                                <div class="card-header" style="background-color: transparent">
+                                                    <h6 class="text-green"><strong class="font-weight-bold">Downlines</strong></h6>
                                                 </div>
                                                 <div class="card-body" style="overflow-x:auto;">
-                                                    <table id="example2" class="table table-hover data-tables"
+                                                    <table id="example2" class="table table-bordered table-hover data-tables"
                                                     data-options='{ "paging": false; "searching":false}'>
                                                     <thead>
                                                         <tr>
@@ -82,7 +82,7 @@
 
                                                         <template v-else>
                                                             <tr v-if="downlines.length == 0">
-                                                                <td colspan="4">There are no downlines</td>
+                                                                <td colspan="4" class="text-center">There are no downlines</td>
                                                             </tr>
                                                             <template v-else>
                                                                 <tr v-for="user,i in downlines" :key="i">
@@ -110,7 +110,6 @@
         </div>
     </div>
 </template>
-
 
 
 <script>

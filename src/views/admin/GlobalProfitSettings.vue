@@ -17,7 +17,7 @@
                                                 <div class="input-group-prepend">
                                                     <div class="input-group-text"><i class="icon icon-money-3 float-left s-20 text-white " ></i></div>
                                                 </div>
-                                                <input v-model="globalProfitAmount.global_profit_value" type="" class="form-control r-0 light s-12" placeholder="Global profit amount" style="background-color: #ecf0f1; border: 1px solid #2E671A" required>
+                                                <input v-model="globalProfitAmount.global_profit_value" type="" class="form-control r-0 light s-12" placeholder="Global profit amount" style="background-color: #ded8c7; border: 1px solid #2E671A" required>
                                             </div>
                                         </div>
                                     </div>
@@ -46,7 +46,7 @@
                                                 <div class="input-group-prepend">
                                                     <div class="input-group-text"><i class="icon icon-money-3 float-left s-20 text-white " ></i></div>
                                                 </div>
-                                                <input v-model="globalFirstPerc.global_profit_first_percentage" type="" class="form-control r-0 light s-12" placeholder="First percentage" style="background-color: #ecf0f1; border: 1px solid #2E671A" required>
+                                                <input v-model="globalFirstPerc.global_profit_first_percentage" type="" class="form-control r-0 light s-12" placeholder="First percentage" style="background-color: #ded8c7; border: 1px solid #2E671A" required>
                                             </div>
                                         </div>
                                     </div>
@@ -80,7 +80,7 @@
                                                     <div class="input-group-text"><i class="icon icon-calendar float-left s-20 text-white " ></i></div>
                                                 </div>
                                                 <input required v-model="globalShareMonth.next_global_profit_share_month" type="number" min="1" max="12" class="form-control r-0 light s-12" placeholder="Profit share month"
-                                                v-b-popover.hover.top="'Use numeric value for month. e.g 1 for January, 10 for October'" title="Global Profit Month" style="background-color: #ecf0f1; border: 1px solid #2E671A">
+                                                v-b-popover.hover.top="'Use numeric value for month. e.g 1 for January, 10 for October'" title="Global Profit Month" style="background-color: #ded8c7; border: 1px solid #2E671A">
                                             </div>
                                         </div>
                                     </div>
@@ -109,7 +109,7 @@
                                                 <div class="input-group-prepend">
                                                     <div class="input-group-text"><i class="icon icon-calendar float-left s-20 text-white " ></i></div>
                                                 </div>
-                                                <input v-model="globalShareDay.next_global_profit_share_day" type="number" min="1" max="31" class="form-control r-0 light s-12" placeholder="Profit Share day" style="background-color: #ecf0f1; border: 1px solid #2E671A" required>
+                                                <input v-model="globalShareDay.next_global_profit_share_day" type="number" min="1" max="31" class="form-control r-0 light s-12" placeholder="Profit Share day" style="background-color: #ded8c7; border: 1px solid #2E671A" required>
                                             </div>
                                         </div>
                                     </div>

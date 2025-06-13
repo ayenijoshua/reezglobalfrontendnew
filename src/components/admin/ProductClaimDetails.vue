@@ -1,6 +1,6 @@
 <template>
-    <div class="card border-0 justify-content-center" style="background-color: #ecf0f1">
-        <div class="card-body rounded" style="background-color: #ecf0f1"> 
+    <div class="card border-0 justify-content-center" style="background-color: #ded8c7">
+        <div class="card-body rounded" style="background-color: #ded8c7"> 
             <div class="float-center">
                 <div v-for="userClaim,i in userProductClaims" :key="i" class="row column-row border-bottom">
                     <div class="mt-2 ml-3" style="padding-right:15px">

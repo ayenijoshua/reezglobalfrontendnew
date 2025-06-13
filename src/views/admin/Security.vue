@@ -20,9 +20,9 @@
                 <div class="tab-pane fade show active" id="v-pills-Wallet-Detailed-Calculation" role="tabpanel" aria-labelledby="v-pills-Wallet-Detailed-Calculation-tab">
                     <div class="row my-3 d-flex justify-content-center">
                         <div class="col-md-8">
-                            <div class="card shadow1">
-                                <div class="card border justify-content-center">
-                                    <div class="card-body center-align-container"> 
+                            <div class="card shadow1" style="background-color: #ded8c7;">
+                                <div class="card border justify-content-center" style="background-color: #ded8c7;">
+                                    <div class="card-body center-align-container" style="background-color: #ded8c7;"> 
                                         <div class="text-center mt-2 mb-4"><img  src="/assets/img/security1.png" width="auto" height="200px" alt=""></div>
                                         <div class="text-center mb-4">
                                             <h6 class="font-weight-bold text-green"><i class="icon-lock mr-2"></i>Login 2Factor Authentication</h6>
@@ -48,8 +48,8 @@
                 <div class="tab-pane fade" id="v-pills-Withdrawal-History" role="tabpanel" aria-labelledby="v-pills-Withdrawal-History-tab">
                     <div class="row my-3">
                         <div class="col-md-6">
-                            <div class="card">
-                                <div class="card-body">
+                            <div class="card" style="background-color: #ded8c7;">
+                                <div class="card-body" style="background-color: #ded8c7;">
                                     <div class="d-flex justify-content-center align-items-center" > <!-- Added styling and classes -->
                                         <img  src="/assets/img/security1.png" width="auto" height="150px"><br>
                                     </div>
@@ -63,13 +63,13 @@
                                                     <div class="input-group-prepend">
                                                         <div class="input-group-text" ><i class="icon icon-email float-left s-20 text-white " ></i></div>
                                                     </div>
-                                                    <input type="email" required v-model="form.email" readonly class="form-control r-1 light s-12" placeholder="Email" style="background-color:transparent; border: 2px solid #2E671A;"> 
+                                                    <input type="email" required v-model="form.email" readonly class="form-control r-1 light s-12" placeholder="Email" style="background-color:#ded8c7; border: 2px solid #2E671A;"> 
                                                 </div>
                                                 <div class="input-group mb-2" >
                                                     <div class="input-group-prepend">
                                                         <div class="input-group-text"><i class="icon icon-lock3 float-left s-20 text-white "  ></i></div>
                                                     </div>
-                                                    <input type="password" required v-model="form.old_password" class="form-control r-1 light s-12" placeholder="Old Password" style="background-color:transparent !important; border: 2px solid #2E671A"> 
+                                                    <input type="password" required v-model="form.old_password" class="form-control r-1 light s-12" placeholder="Old Password" style="background-color:#ded8c7 !important; border: 2px solid #2E671A"> 
                                                 </div>
                                             
                                                 <span class="btn btn-success btn-sm" v-if="submitting && codeSubmitting">...</span>
@@ -84,8 +84,8 @@
                         </div>
 
                         <div class="col-md-6">
-                            <div class="card">
-                                <div class="card-body">
+                            <div class="card" style="background-color: #ded8c7;">
+                                <div class="card-body" style="background-color: #ded8c7;">
                                     <div class="d-flex justify-content-center align-items-center" > <!-- Added styling and classes -->
                                         <img  src="/assets/img/security2.png" width="auto" height="150px"><br>
                                     </div>
@@ -100,7 +100,7 @@
                                                     <div class="input-group-prepend">
                                                         <div class="input-group-text"><i class="icon icon-lock3 float-left s-20 text-white" ></i></div>
                                                     </div>
-                                                    <input type="password" required v-model="changeForm.code" class="form-control r-1 light s-12" placeholder="Confirmation code" style="background-color:transparent; border: 2px solid #2E671A;"> 
+                                                    <input type="password" required v-model="changeForm.code" class="form-control r-1 light s-12" placeholder="Confirmation code" style="background-color:#ded8c7; border: 2px solid #2E671A;"> 
                                                 </div>
 
                                                 <div class="text-center mt-4 ">
@@ -110,7 +110,7 @@
                                                     <div class="input-group-prepend">
                                                         <div class="input-group-text"><i class="icon icon-lock3 float-left s-20 text-white" ></i></div>
                                                     </div>
-                                                    <input type="password" required v-model="changeForm.password" class="form-control r-1 light s-12" placeholder="New Password" style="background-color:transparent; border: 2px solid #2E671A;"> 
+                                                    <input type="password" required v-model="changeForm.password" class="form-control r-1 light s-12" placeholder="New Password" style="background-color:#ded8c7; border: 2px solid #2E671A;"> 
                                                 </div>
 
                                                 <span class="btn btn-success btn-sm" v-if="submitting && changePassSumitting">...</span>
@@ -159,6 +159,13 @@
 }
 
 
+/* Makes the checkbox more visible and centered */
+.center-align-container input[type="checkbox"] {
+    transform: scale(1.2); /* Slightly increases the checkbox size */
+    accent-color: #2E671A; /* Sets the checkbox color */
+}
+
+
 /* Hide default checkbox */
 .custom-checkbox {
   appearance: none;
@@ -167,13 +174,13 @@
   height: 20px;
   border: 2px solid #2E671A;
   border-radius: 4px;
-  background-color: #ecf0f1;
+  background-color: #ded8c7;
   cursor: pointer;
 }
 
 /* Checkbox checked state */
 .custom-checkbox:checked {
-  background-color: #ecf0f1;
+  background-color: #ded8c7;
   border-color: #2E671A;
 }
 
