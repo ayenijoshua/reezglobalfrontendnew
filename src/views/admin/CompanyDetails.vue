@@ -62,8 +62,8 @@
                                         </div>
                                         <select v-model="bankForm.bank_name" id="bank-select"  class="form-control r-1 light s-5" style="background-color:transparent; ; border: 2px solid #2E671A;">
                                             <option  :value="null"  style="background-color: #ded8c7">Select Bank</option>
-                                            <template v-for="bank,i in bankList">
-                                                <option :value="bank.bank" :key="i" style="background-color: #ded8c7">{{ bank.bank }}</option>
+                                            <template v-for="bank,i in bankList" :key="i">
+                                                <option :value="bank.bank"  style="background-color: #ded8c7">{{ bank.bank }}</option>
                                             </template>                 
                                         </select>	
                                     </div>  
@@ -75,7 +75,7 @@
                                                 <i class="icon icon-bank float-left s-20 text-white"></i>
                                             </div>
                                         </div>
-                                        <input required v-model="bankForm.bank_account_name" type="text" class="form-control r-0 light s-12" placeholder="Account Name" style="border:1px solid #2E671A !important; background-color:#ded8c7">
+                                        <input required v-model="bankForm.bank_account_name" type="text" class="form-control r-0 light s-12" placeholder="Account Name" style="background-color:#ded8c7; border:1px solid #2E671A !important">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -85,7 +85,7 @@
                                                 <i class="icon icon-bank float-left s-20 text-white"></i>
                                             </div>
                                         </div>
-                                        <input required v-model="bankForm.bank_account_number" type="text" class="form-control r-0 light s-12" placeholder="Account Number" style="border:1px solid #2E671A !important; background-color:#ded8c7">
+                                        <input required v-model="bankForm.bank_account_number" type="text" class="form-control r-0 light s-12" placeholder="Account Number" style="background-color:#ded8c7; border:1px solid #2E671A !important">
                                     </div>
                                 </div>     
                             </div>
@@ -135,7 +135,7 @@
                                     <template v-else>
                                         <tr v-if="banks.lenght==0">
                                             <td colspan="5">
-                                                <div class="alert alert-info">There no banks</div>
+                                                <div class="alert alert-info text-center">There no banks</div>
                                             </td>
                                         </tr>
                                         <tr v-for="bank,i in banks" :key=i>
@@ -143,10 +143,10 @@
                                             <td>{{ bank.bank_name }}</td>
                                             <td>{{ bank.bank_account_name }}</td>
                                             <td>{{ bank.bank_account_number }}</td>
-                                            <td style="padding: 10px 10px;">
-                                                <span @click="setBank(bank)" v-b-modal.edit-bank type="button" class="btn-small btn-info rounded mr-3" style="padding: 7px 10px;">
+                                            <td>
+                                                <span @click="setBank(bank)" v-b-modal.edit-bank type="button" class="btn-small btn-info rounded mr-3" style="padding-left: 10px; padding-right: 10px;">
                                                     <i class="icon-edit mr-2"></i>Edit</span> 
-                                                <span  @click="setBank(bank)" v-b-modal.delete-bank type="button" class="btn-small btn-danger rounded" style="padding: 7px 10px;">
+                                                <span  @click="setBank(bank)" v-b-modal.delete-bank type="button" class="btn-small btn-danger rounded" style="padding-left: 10px; padding-right: 10px;">
                                                 <i class="icon-times mr-2"></i>Delete</span>  
                                             </td>
                                         </tr>
@@ -178,11 +178,14 @@
                     :table-props="{ bordered: true, striped: true }"
                 ></b-skeleton-table>
             </template>
-            <p class="alert alert-danger">Are sure to delete this bank</p>
-            <span type="button" v-if="deletingBank==true" class="btn-small btn-danger rounded">...</span>
-            <button  v-else type="button" @click="destroyBank(bank.id)" class="btn-small btn-danger rounded">
-                <i class="icon-times mr-2"></i>Yes Delete
-            </button>
+            <div class="text-center">
+                <img  src="/assets/img/online-banking1.png"  width="80px"  height="80px" style=" opacity: 0.5; padding-bottom: 10px;">
+                <p class="alert alert-danger">Are sure to delete this bank</p>
+                <span type="button" v-if="deletingBank==true" class="btn-small btn-danger rounded" style="padding-left: 20px; padding-right: 20px;">...</span>
+                <button  v-else type="button" @click="destroyBank(bank.id)" class="btn-small btn-danger rounded">
+                    <i class="icon-times mr-2"></i>Yes Delete
+                </button>
+            </div>
         </Modal>
     </div>
 </template>

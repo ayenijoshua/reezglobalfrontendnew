@@ -1,8 +1,8 @@
 <template>
     <div>
         <div class="">
-		
-		   <div class="row mb-5">
+        
+           <div class="row mb-5">
                  <!--- Registration bonus-->
                 <div class="col-md-4">
                     <b-card v-if="packageLoading && loading">
@@ -70,8 +70,8 @@
                     </div>
                 </div>	
             </div>
-		
-		   <div class="row mb-5">
+        
+           <div class="row mb-5">
                 <!--- Matching bonus-->
                 <div class="col-md-4">
                     <b-card v-if="packageLoading && loading">
@@ -137,10 +137,10 @@
                         </div>
                     </div>
                 </div>
-	
+    
             </div>
-		
-		        <div class="row my-5">
+        
+                <div class="row my-5">
                 <div class="col-lg-4 pb-4">
                     <b-card v-if="walletBalanceLoading && loading">
                         <b-skeleton width="85%"></b-skeleton>
@@ -188,7 +188,7 @@
                     </div>
                 </div>
             </div>
-		
+        
         </div>
 
 
@@ -243,7 +243,7 @@
                                                 <div v-if="currentRankBadge !== ''" class="text-dark-heading font-weight-bold green-text">
                                                     <img class="img-fluid" :src="'/img/badges/'+currentRankBadge" :style="{width:'30%', height:'30%'}" />
                                                 </div>
-                                                <p v-else class="alert alert-info">You are yet to qualify for an incentive</p>
+                                                <p v-else class="alert alert-info text-center">You are yet to qualify for an incentive</p>
                                             </div>
                                             <template v-else>
                                                 <div class="col-md-6" id="yourContainer">
@@ -333,7 +333,7 @@
                 
                 <div class="col-md-6">
                     <div class="card shadow1" style="background-color: transparent">
-					    <div class="card-header text-green font-weight-bold">GENERAL MESSAGE</div>
+                        <div class="card-header text-green font-weight-bold">GENERAL MESSAGE</div>
 
                         <div class="card-body no-p">
                             <div class="tab-content">
@@ -354,7 +354,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="card shadow1 mb-3" style="background-color: transparent">
-						<div class="card-header text-green font-weight-bold">CLAIMED INCENTIVES</div>
+                        <div class="card-header text-green font-weight-bold">CLAIMED INCENTIVES</div>
                         <div class="card-body ">
                             <div class="table-responsive">
                                 <table id="example2" class="table table-bordered table-hover data-tables" data-options='{ "paging": false; "searching":false}' style="border: 2px solid #2E671A !important;">
@@ -458,7 +458,7 @@
                                                                             <input :key="i" @change="(e)=>logClaim(e,produc.id,produc.points)" class="form-control" type="number" min="1"  style="background-color: #ded8c7; border: 2px solid #2E671A;">
                                                                         </div>
                                                                     </td>
-                                                                    <!<td>
+                                                                    <td>
                                                                         <div class="form-check">
                                                                             <input v-model="product_ids" class="form-check-input" type="checkbox" :value="{id:product.id,qty:2}" id="cb1" :style="{'accent-color': '#2E671A'}">
                                                                         </div>
@@ -554,7 +554,7 @@
                 </div>
             </div>--->
         </div>
-    </div>
+
 </template>
 
 <style scoped>

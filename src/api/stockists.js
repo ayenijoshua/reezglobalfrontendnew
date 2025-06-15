@@ -29,8 +29,8 @@ export default {
         return http().post(`${endPoints.stockists}/${id}/upgrade`,data)
     },
 
-    packageDifference(newPackageId){
-        return http().get(`${endPoints.stockists}/package/${newPackageId}/difference`)
+    packageDifference(newPackageId,isUpgradePickup=false){
+        return http().get(`${endPoints.stockists}/package/${newPackageId}/difference?is_upgrade_pickup=${isUpgradePickup}`)
     },
 
     stats(uuid){

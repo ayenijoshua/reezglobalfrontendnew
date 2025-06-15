@@ -1,48 +1,50 @@
 <template>
     <div>
         <div class="">
-		<div class="d-flex justify-content-center mt-5 mb-5">
-		    <div class="col-md-6 col-sm-12">
-			    <div class="card no-b shadow 1" style="background-color: transparent;">
-					<div class="card-body">
-						<span class="text-center text-green s-12 font-weight-bold">Select Pick-up Type</span>
-						<div class="form-group m-0">
-							<div  class="input-group mb-2 mr-sm-2 mb-3">
-								<div class="input-group-prepend" style="">
-									<div class="input-group-text" style="background-color: rgb(46, 103, 26); border: 2px solid rgb(46, 103, 26);">
-										<i class="icon icon-shopping-cart float-left s-20 text-white"></i>
-									</div>
-								</div>
-								<select required="required" class="form-control r-0 light s-12" style="background-color: #ded8c7; border: 2px solid rgb(27, 79, 114);">
-									<option  value="">Select</option>
-									<option  value="Stockist upgrade_pickup" style="background-color:#ded8c7">upgrade pickup</option>
-									<option  value="Stockist registration_pickup" style="background-color:#ded8c7">registration pickup</option>
-									<option  value="re-stock" style="background-color:#ded8c7">Monthly re-stock</option>
-								</select>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		
-		
-
-            <div class="row ">		
+            <div class="d-flex justify-content-center mt-5 mb-3"> <!-- Centering wrapper added -->
+                <div class="col-md-6 col-sm-12"> 
+                    <div class="card no-b shadow 1" style="background-color: transparent;">
+                        <div class="card-body">
+                            <span class="text-center text-green s-12 font-weight-bold">Select Pick-up Type</span>
+                            <b-card v-if="stockist.id==undefined || packageLoading == true">
+                                <b-skeleton width="85%"></b-skeleton>
+                                <b-skeleton width="55%"></b-skeleton>
+                                <b-skeleton width="70%"></b-skeleton>
+                            </b-card>
+                            <div v-else class="form-group m-0">                       
+                                <div class="input-group mb-2 mr-sm-2 mb-3">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text" style="background-color: #2E671A; border: 2px solid #2E671A;"><i class="icon icon-shopping-cart float-left s-20 text-white" ></i></div>
+                                    </div>
+                                    
+                                    <select required v-model="selectedOrderType" @change="getPickupAmount" class="form-control r-0 light s-12" style="background-color: transparent; border: 2px solid #1b4f72;">
+                                        <template :key="i" v-for="orderType,i in orderTypes">
+                                            <option :value="orderType" >{{orderType == '' ? 'Select' : orderType.replace('_'," ")}}</option>
+                                        </template>														   
+                                    </select>
+                                </div>
+                            </div>
+                        </div>     
+                    </div>       
+                </div>
+            </div> <br>
+            <div class="row ">
+                
                 <div class="col-md-8">
                     <div class="card no-b shadow" style="background-color:#ded8c7">
+                        <div class="card-header"></div>
                         <div class="card-body p-0">
                             <div class="table-responsive">
                                 <table class="table table-hover">
-                                    <thead style="background-color:#2E671A">
+                                    <thead style="background-color:#ded8c7">
                                         <tr>
-                                            <th class="font-weight-bold text-white" scope="col">S/N</th>
-                                            <th class="font-weight-bold text-white" scope="col">VIEW</th>
-                                            <th class="font-weight-bold text-white" scope="col">PRODUCTS</th>
-                                            <th class="font-weight-bold text-white" scope="col">PRICE</th>
+                                            <th class="font-weight-bold text-green" scope="col">S/N</th>
+                                            <th class="font-weight-bold  text-green" scope="col">VIEW</th>
+                                            <th class="font-weight-bold text-green" scope="col">PRODUCTS</th>
+                                            <th class="font-weight-bold text-green" scope="col">PRICE</th>
                                             
                                             <!-- <th scope="col">Worth</th> -->
-                                            <th class="font-weight-bold text-white" scope="col">QUANTITY</th>
+                                            <th class="font-weight-bold text-green" scope="col">QUANTITY</th>
                                             <!--<th class="font-weight-bold text-white" scope="col">SELECT</th>-->
                                             <!-- <th scope="col">Select</th> -->
                                         </tr>
@@ -91,7 +93,7 @@
                         <div class="float-left">
                             <div class="card-body">
                                 <template v-if="cartProducts.length==0">
-                                    <p class="alert alert-info">
+                                    <p class="alert alert-info text-center">
                                         There are no items in your cart
                                     </p>
                                 </template>
@@ -131,23 +133,25 @@
                                     <div class="row column-row" >
                                         <div class="ml-auto mr-2">
                                             <button @click="cancelOrder" class="btn btn-sm btn-danger  mt-2" ><i class="icon-cancel mr-2"></i> Cancel Selection</button>
-                                            <button @click="stockistPurchase"  type="submit" class="btn btn-sm btn-success mt-2 mr-3 ml-3"><i class="icon-shopping-cart mr-2"></i>Submit Order</button>
+
+                                            <button v-if="submittingOrder==true" @click="stockistPurchase"  type="submit" class="btn btn-sm btn-success mr-3 "><i class="icon-shopping-cart mr-2"></i>...</button>
+                                            <button v-else @click="stockistPurchase"  type="submit" class="btn btn-sm btn-success ml-3 mt-2 "><i class="icon-shopping-cart mr-2"></i>Submit Order</button>
                                         </div>    
                                     </div>
                                 </template>
                                 
-                                <template>
-                                    <b-card v-if="prevMonthSaleLoading==true">
+                                <template v-if="selectedOrderType=='registration_pickup' || selectedOrderType=='upgrade_pickup' || selectedOrderType=='re-stock'">
+                                    <b-card v-if="pickupAmountLoading==true || packageLoading == true">
                                         <b-skeleton width="85%"></b-skeleton>
                                         <b-skeleton width="55%"></b-skeleton>
                                         <b-skeleton width="70%"></b-skeleton>
                                     </b-card>
                                     <div v-else class="row column-row border-bottom">
                                         <div class="mb-2 mt-5 ml-3">
-                                            <h6 class="font-weight-bold text-green s-12" style="margin: 0em; padding: 0em;">Previus Month Sales </h6>											
+                                            <h6 class="font-weight-bold text-green s-12" style="margin: 0em; padding: 0em;">{{ pickupAmountType }} </h6>											
                                         </div>	
                                         <div class="mb-2 mt-5 ml-auto mr-3">
-                                            <h6 class="font-weight-bold text-green s-12" style="margin: 0em; padding: 0em;">₦{{ Number(stockistPrevMonthSales??0)?.toLocaleString('en-US') }} </h6>											
+                                            <h6 class="font-weight-bold text-green s-12" style="margin: 0em; padding: 0em;">₦{{ Number(pickupAmount)?.toLocaleString('en-US') }} </h6>											
                                         </div>
                                     </div>
                                 </template>
@@ -157,98 +161,7 @@
                 </div>
             </div>
             <br>
-
-    
-           <div v-if="selectedPaymentType === 'offline'" class="row"> 
-               <!--- <div class="col-md-12">
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div class="card shadow rounded" style="background-color: #2E671A">
-                                <div class="card-body">
-                                    <div class="d-flex justify-content-center">
-                                        <div class="text-center">  
-                                            <img src="/assets/img/bank-transfer.png" width="auto" height="100px">
-                                        </div>
-                                        <div class="card-body text-center">
-                                            <span  id="d1" class="text-white" style="font-size:10px">Bank Name</span>
-                                            <h5 class="font-weight-bold text-white"> Guaranty Trust Bank</h5>
-                                            <span  id="d1" class="text-white" style="font-size:10px">Account Name</span>
-                                            <h5 class="font-weight-bold text-white" id="d1">Star Twins Herbal Limited</h5>
-                                            <span  id="d1" class="text-white" style="font-size:10px">Account Number</span>
-                                            <h5 class="font-weight-bold text-white" id="d1">0013476690</h5>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="card shadow rounded" style="background-color: #2E671A">
-                                <div class="card-body">
-                                    <div class="d-flex justify-content-center">
-                                        <div class="text-center">  <img  src="/assets/img/bank-transfer.png" width="auto" height="100px"></div>
-                                            <div class="card-body text-center">
-                                                <span  id="d1" class="text-white" style="font-size:10px">Bank Name</span>
-                                                <h5 class="font-weight-bold text-white"> Jaiz Bank</h5>
-                                                <span  id="d1" class="text-white" style="font-size:10px">Account Name</span>
-                                                <h5 class="font-weight-bold text-white" id="d1">Star Twins Herbal Limited</h5>
-                                                <span  id="d1" class="text-white" style="font-size:10px">Account Number</span>
-                                                <h5 class="font-weight-bold text-white" id="d1">2017714690</h5>
-                                            </div>
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="card shadow rounded" style="background-color: #2E671A">
-                                <div class="card-body">
-                                    <div class="d-flex justify-content-center">
-                                        <div class="text-center">  <img  src="/assets/img/bank-transfer.png" width="auto" height="100px"></div>
-                                        <div class="card-body text-center">
-                                            <span  id="d1" class="text-white" style="font-size:10px">Bank Name</span>
-                                            <h5 class="font-weight-bold text-white"> United Bank Of Africa</h5>
-                                            <span  id="d1" class="text-white" style="font-size:10px">Account Name</span>
-                                            <h5 class="font-weight-bold text-white" id="d1">Star Twins Herbal Limited</h5>
-                                            <span  id="d1" class="text-white" style="font-size:10px">Account Number</span>
-                                            <h5 class="font-weight-bold text-white" id="d1">1113470690</h5>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>  --> 
-
-                <div class="col-md-12 mt-5">
-                    <div class="card shadow" style="background-color: transparent">
-                        <div class="card-body" >
-                            
-                        </div>
-                    </div>
-                    
-                </div>
-            </div>
-
-            <div v-if="selectedPaymentType === 'online'" class="row mb-2 mt-2">
-                <div class="col-md-12">
-                    <div class="d-flex flex-wrap justify-content-center mt-2">
-                        <div class="col-md-6 col-sm-12"> 
-                            <div class="card  mb-3 shadow1" style="background-color: #2E671A">                       
-                                <div class="d-flex flex-wrap justify-content-center">
-                                    <div class="text-center mt-5 mb-5" style="padding-bottom:10px; padding-top: 20px">
-                                        <img  src="/assets/img/pay_options1.png" width="300px">
-                                        <h6 class="font-weight-bold text-white" >Proceed To Payment<br><small>Kindly complete your  Product Purchase by clicking the button Below</small></h6>
-                                        <template v-if="paySubmitting">
-                                            <a class="btn btn-sm btn-custom mb-3 mt-2 btn-lg"><i class="icon icon-credit-card"></i>...Processing</a>
-                                        </template>
-                                        <a v-else class="btn btn-sm btn-custom mb-3 mt-2 btn-lg" @click="makePayment"><i class="icon icon-credit-card"></i>Pay Now</a>
-                                    </div>
-                                </div>	   
-                            </div>
-                        </div>    
-                    </div> 
-                </div> 
-            </div>          
+                     
         </div>
 
         <modal modalId="pay"  modalTitle="Make Payment" modalSize="md" :link="payLink">
@@ -364,7 +277,7 @@ import modal from '@/components/Modal.vue'
 import VueCountdown from '@chenfengyuan/vue-countdown';
 import { notification } from '@/util/notification';
 export default{
-    name:"user-repurchase",
+    name:"stockist-repurchase",
 
     components:{
         modal,
@@ -393,7 +306,15 @@ export default{
             selectedPaymentTypes:["offline","online"],
             selectedPaymentType:"",
             gatewayTimeout:1000*60*0.5,
-            prevMonthSaleLoading:false
+            prevMonthSaleLoading:false,
+            submittingOrder:false,
+
+            orderTypes : ["","upgrade_pickup","registration_pickup","re-stock"],
+
+            selectedOrderType: "",
+            pickupAmountLoading:false,
+            packageLoading:false,
+            stockistLoading:false
         }
     },
 
@@ -411,6 +332,7 @@ export default{
         ...mapGetters('settingStore',['settings']),
         ...mapGetters('productStore',['products']),
         ...mapGetters('stockistStore',['stockist']),
+        ...mapGetters('stockistPackageStore',['stockistPackage']),
         ...mapGetters('productPurchaseStore',['stockistPrevMonthSales']),
     },
 
@@ -423,7 +345,9 @@ export default{
                     this.stockistLoading = true
                     this.fetchStockistByUuid(res.data.uuid).then(()=>{
                         this.stockistLoading=false
-                        this.form = Object.assign({},this.stockist) 
+                        this.form = Object.assign({},this.stockist)
+                        this.packageLoading = true
+                        this.single(this.stockist.package_id).then(()=>this.packageLoading=false)
                     })
                     
                     if(this.stockistPrevMonthSale == null){
@@ -436,6 +360,8 @@ export default{
                 this.fetchStockistByUuid(this.authUser.uuid).then(()=>{
                     this.stockistLoading=false
                     this.form = Object.assign({},this.stockist)
+                    this.packageLoading = true
+                    this.single(this.stockist.package_id).then(()=>this.packageLoading = false)
                 })
 
                 if(this.stockistPrevMonthSale == null){
@@ -496,25 +422,43 @@ export default{
         ...mapActions('productStore',['getActiveProducts']),
         ...mapActions('productPurchaseStore',['pushStockistPurchase','fetchStockPrevMonthSales']),
         ...mapActions('paymentStore',['initiate','verify','initiatePayment']),
-        ...mapActions('stockistStore',['fetchStockistByUuid']),
+        ...mapActions('stockistStore',['fetchStockistByUuid','fetchPackageDifference']),
+        ...mapActions('stockistPackageStore',['single']),
 
         stockistPurchase(){
-            //let ele = document.getElementById("stock-purchase-form")
-            //let form  = new FormData(ele)
-            // form.append("products",this.cartProducts)
-            // form.append("total_price",this.cartTotalPrice)
-            // form.append("total_quantity",this.cartTotalQty)
-            // form.append("total_points",this.cartTotalPoints)
+
+            if(this.cartProducts.length == 0){
+                notification.warning("There are no Items in your cart")
+                return
+            }
+
+            if(!this.selectedOrderType){
+                notification.warning("Order type not selected")
+                return
+            }
+
+            if(this.selectedOrderType == 'registration_pickup'){
+                if(this.cartTotalPrice > this.pickupAmount){
+                    notification.warning("Total selected product price is higher than pickup amount")
+                    return
+                }
+            }
+
+            if(this.cartTotalPrice > this.pickupAmount){
+                notification.warning("There selected Items total price is greater than the pickup amount")
+                return
+            }
 
             let form = {
                 products:this.cartProducts,
                 total_price:this.cartTotalPrice,
                 total_quantity:this.cartTotalQty,
                 total_points:this.cartTotalPoints,
-                pickup_type:'purchase'
+                pickup_type:this.selectedOrderType
             }
 
-            this.pushStockistPurchase({uuid:this.authUser.uuid,data:form})
+            this.submittingOrder = true
+            this.pushStockistPurchase({uuid:this.authUser.uuid,data:form}).then(()=>this.submittingOrder = false)
         },
 
         makePayment(){
@@ -608,10 +552,41 @@ export default{
             this.cartQty = {}
             this.cartTotalQty = 0;
         },
-       
+
+        getPickupAmount(){
+            switch (this.selectedOrderType) {
+                case 'registration_pickup':
+                    this.pickupAmountType = "Registration Pickup Amount";
+                    this.pickupAmount = this.stockistPackage.pickup_amount
+                    break;
+                
+                case 'upgrade_pickup':
+                    this.pickupAmountType = "Upgrade Pickup Amount";
+                    this.pickupAmountLoading = true;
+                    this.fetchPackageDifference({packageId:this.stockist.package_id,isUpgradePickup:true}).then((res)=>{
+                        console.log("pack-upg",res.data.data)
+                        let currPackage = res.data.data.current_package
+                        let newPackage = res.data.data.new_package
+                        let diff = newPackage.pickup_amount - currPackage.pickup_amount;
+
+                        this.pickupAmount = diff;
+
+                        this.pickupAmountLoading = false;
+                    })
+                    break;
+
+                case 're-stock':
+                    this.pickupAmountType = "Previous Month Sales";
+                    this.pickupAmount = this.stockistPrevMonthSales;
+                    break;
+
+                default:
+                    this.pickupAmountType = "";
+                    this.pickupAmount = null
+                    break;
+            }
+        }
     }
-
-
 
 }
 </script>

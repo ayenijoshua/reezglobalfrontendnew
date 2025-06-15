@@ -1,10 +1,10 @@
 <template>
-    <div class="card border-0 justify-content-center" style="background-color:#ded8c7">
+    <div class="card border-0 justify-content-center shadow1 " style="background-color:#ded8c7">
         <div class="card-body border rounded" style="background-color:#ded8c7"> 
-            <div class="card-body" style="background-color:#ded8c7" >
+            <div class="card-body" >
                 <div class="d-flex align-items-center border p-4">
                     <div class="avatar avatar-xl ml-3 mr-4 ">
-                        <img class="user_avatar" src="/assets/img/dummy/u14.jpg" alt="User Image">
+                        <img class="user_avatar" :src="imageURL" alt="User Image" style="width:80px">
                     </div>
                     <div class="border-left">
                         <span class="ml-5 text-green" id="d1" style="font-size:10px" >Full Name</span>
@@ -25,9 +25,9 @@
                             <div class="col-md-12">
                                 <div class="input-group">
                                     <div class="input-group-prepend">
-                                        <div class="input-group-text"><i class="icon icon-lock float-left s-20 green-text " ></i></div>
+                                        <div class="input-group-text"><i class="icon icon-lock float-left s-20 text-white " ></i></div>
                                     </div>
-                                    <input v-model="form.password" type="text" required class="form-control r-0 light s-12"  placeholder="Password">
+                                    <input v-model="form.password" type="text" required class="form-control r-0 light s-12 shadow1"  placeholder="Password" style="background-color:#ded8c7">
                                 </div>
                             </div>
                             <div class="ml-1 mt-3">
@@ -43,37 +43,44 @@
 </template>
 
 <script>
-import { mapActions, mapState } from 'vuex';
+import { mapActions, mapState, mapGetters } from 'vuex';
 
-    export default{
-        name:'edit-password',
-        props:{
-            user:{
-                type:Object,
-                required:true
+export default {
+    name: 'edit-password',
+    props: {
+        user: {
+            type: Object,
+            required: true
+        }
+    },
+
+    data() {
+        return {
+            form: {
+                password: null
             }
-        },
+        };
+    },
 
-        data(){
-            return{
-                form:{
-                    password:null
-                }
-            }
-        },
+    computed: {
+        ...mapState({
+            submitting: state => state.submitting
+        }),
 
-        computed:{
-            ...mapState({
-                submitting:state=>state.submitting
-            })
-        },
+        ...mapGetters('userStore', ['profile']),
 
-        methods:{
-            ...mapActions('authStore',['changeUserPassword']),
+        imageURL() {
+            let img = this.profile?.photo_path;
+            return img ? process.env.VUE_APP_IMAGE_PATH + '/' + img : '/assets/img/mock-image.jpeg';
+        }
+    },
 
-            update(){
-                this.changeUserPassword({uuid:this.user.uuid,data:this.form})
-            }
+    methods: {
+        ...mapActions('authStore', ['changeUserPassword']),
+
+        update() {
+            this.changeUserPassword({ uuid: this.user.uuid, data: this.form });
         }
     }
+};
 </script>

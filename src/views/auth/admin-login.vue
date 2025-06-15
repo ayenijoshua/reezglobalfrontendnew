@@ -15,7 +15,7 @@
                                     <div class="text-center">
                                         <a href="https://reezglobal.com"><img class="img-responsive" src="/assets/img/logo1.png" style= "max-width: 100%" alt=""></a>
                                         <p class="p-t-b-10 green-text font-weight-bold">Back Office, signin...</p>
-                                    </div>
+                                    </div>    
                                     <form @submit.prevent="loginUser()">
                                         <div class="row">
                                             <div class="col-lg-6">

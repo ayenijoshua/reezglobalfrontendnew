@@ -1,27 +1,28 @@
 <template>
     <div>
         <div class="">  
-		   <div class="d-flex justify-content-center"> <!-- Centering wrapper added -->
-				<div class="mt-5"> 
-					<span class="text-center text-green s-12 font-weight-bold">Select Pick-up Type</span>
-				</div>   
-			</div>      
-		   <div class="d-flex justify-content-center mt-2 mb-3"> <!-- Centering wrapper added -->
-				<div class="col-md-6 col-sm-12"> 
-					<div class="form-group m-0">                       
-						<div class="input-group mb-2 mr-sm-2 mb-3">
-							<div class="input-group-prepend">
-								<div class="input-group-text" style="background-color: #2E671A; border: 2px solid #2E671A;"><i class="icon icon-shopping-cart float-left s-20 text-white" ></i></div>
-							</div>
-								<select required v-model="selectedOrderType" @change="getPickupAmount" class="form-control r-0 light s-12" style="background-color: #ded8c7; border: 2px solid  #2E671A;">
-									<template v-for="orderType,i in orderTypes">
-										<option :value="orderType" :key="i">{{orderType == '' ? 'Select' : orderType.replace('_'," ")}}</option>
-									</template>														   
-								</select>
-						</div>
-					</div>        
-				</div>
-			</div> 
+            <div class="d-flex justify-content-center"> <!-- Centering wrapper added -->
+                <div class="mt-5"> 
+                    <span class="text-center text-green s-12 font-weight-bold">Select Pick-up Type</span>
+                </div>   
+            </div>     
+           <div class="d-flex justify-content-center mt-2 mb-3"> <!-- Centering wrapper added -->
+                <div class="col-md-6 col-sm-12"> 
+                    <div class="form-group m-0">                       
+                        <div class="input-group mb-2 mr-sm-2 mb-3">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text" style="background-color: #2E671A; border: 2px solid #2E671A;"><i class="icon icon-shopping-cart float-left s-20 text-white" ></i></div>
+                            </div>
+                                <select required v-model="selectedOrderType" @change="getPickupAmount" class="form-control r-0 light s-12" style="background-color: #ded8c7; border: 2px solid  #2E671A;">
+                                    <template :key="i" v-for="orderType,i in orderTypes">
+                                        <option :value="orderType" >{{orderType == '' ? 'Select' : orderType.replace('_'," ")}}</option>
+                                    </template>														   
+                                </select>
+                        </div>
+                    </div>        
+                </div>
+            </div> 
+
 
             <!--<div  v-if="selectedOrderType === 'upgrade_pickup'" class="d-flex justify-content-center mt-2 mb-3"> Centering wrapper added
                 <div class="col-md-6 col-sm-12"> 
@@ -57,17 +58,17 @@
                         <div class="card-body p-0">
                             <form id="product-claim-form" @submit.prevent="productClaim()">
                                 <div class="table-responsive">
-                                    <table class="table table-hover" style="background-color:#ded8c7">
-                                        <thead style="background-color:#ded8c7; border-bottom: 2px solid #2e671a">
+                                    <table class="table table-hover">
+                                        <thead style="background-color:#ded8c7">
                                             <tr>
                                                 <th class="font-weight-bold text-green" scope="col">S/N</th>
                                                 <th class="font-weight-bold text-green" scope="col">VIEW</th>
                                                 <th class="font-weight-bold text-green" scope="col">PRODUCTS</th>
                                                 <th class="font-weight-bold text-green" scope="col">PRICE</th>
-                                                <!-- <th class="font-weight-bold text-green" scope="col">POINT VALUE</th> -->
+                                                <!-- <th class="font-weight-bold text-white" scope="col">POINT VALUE</th> -->
                                                 <!-- <th scope="col">Worth</th> -->
                                                 <th class="font-weight-bold text-green" scope="col">QUANTITY</th>
-                                                <!-- <th class="font-weight-bold text-green" scope="col">SELECT</th> -->
+                                                <!-- <th class="font-weight-bold text-white" scope="col">SELECT</th> -->
                                                 <!-- <th scope="col">Select</th> -->
                                             </tr>
                                         </thead>
@@ -83,7 +84,7 @@
                                             </tr>
                                             <template v-else>
                                                <tr v-if="products.length == 0" class="no-b">
-                                                    <td colspan="7" class="text-center">There are no products</td>
+                                                    <td class="text-center" colspan="7">There are no products</td>
                                                 </tr>
                                                 <template v-else>
                                                     <tr  v-for="produc,i in products" :key="i" >
@@ -115,7 +116,7 @@
                     <div class="card  mb-3 shadow" style="background-color: transparent">
                         <div class="float-left">
                             <div class="card-body">
-                                <div class="mb-3 font-weight-bold s-14 text-green"><i class="icon-shopping-cart mr-2"></i> CART HISTORY</div>
+                                <div class="card-header text-green font-weight-bold" style="background-color: transparent" ><i class="icon-shopping-cart mr-2"></i>Cart History</div>
                                 <template v-if="cartProducts.length==0">
                                     <p class="alert alert-info text-center">
                                         There are no items in your cart
@@ -190,6 +191,7 @@
                 <div class="col-md-12">
                     <div class="card mr-3 shadow1" style="background-color: transparent">
                         <div class="card-body">
+                            <div calss="card-header"></div>
                             <div class="form-row" style="overflow-x:auto;">
                                 <div class="d-flex justify-content-end mb-2">
                                     <input v-model="search.search"
@@ -226,13 +228,13 @@
                                         <template v-else>
                                             <template v-if="stockists.length == 0">
                                                 <tr>
-                                                    <td colspan="5">
-                                                        <div class="text-center">There are no stockists</div>
+                                                    <td class="text-center" colspan="5">
+                                                        <div>There are no stockists</div>
                                                     </td>
                                                 </tr>
                                             </template>
-                                            <template v-else v-for="stockist,i in stockists">
-                                                <tr :key="i">
+                                            <template :key="i" v-else v-for="stockist,i in stockists">
+                                                <tr>
                                                     <td>{{ (stockistsPerPage * (stockistsCurrentPage - 1)) + ( ++i) }}</td>
                                                     <td>{{ stockist.store_name }}</td>
                                                     <td>{{ stockist.store_address }}</td>
@@ -248,7 +250,7 @@
                         </div>
                         <br>
                     </div>
-				</div>
+                </div>
             </div>
                     
             <!--<div class="row mb-2 mt-2" v-if="selectedOrderType === 'registration_pickup' || selectedOrderType === 'upgrade_pickup'">
@@ -282,9 +284,9 @@
                         <div class="d-flex flex-wrap justify-content-center">
                             <div class="text-center">
                                 <img class=" mt-3" src="/assets/img/wallet4a.png" width="auto" height="150px">
-                                <h1 v-if="walletBalanceLoading==true" class="font-weight-bold text-blue" style="margin: 0em; padding: 0em;">...loading</h1>
-                                <h1 v-else class="font-weight-bold text-blue" style="margin: 0em; padding: 0em;">₦{{ walletBalance?.toLocaleString('en-US') }}</h1>
-                                <small class=" font-weight-bold s-10 text-blue" style="margin: 0em; padding: 0em;" >Current Wallet Available Balance</small><br>
+                                <h1 v-if="walletBalanceLoading==true" class="font-weight-bold text-green" style="margin: 0em; padding: 0em;">...loading</h1>
+                                <h1 v-else class="font-weight-bold text-green" style="margin: 0em; padding: 0em;">₦{{ walletBalance?.toLocaleString('en-US') }}</h1>
+                                <small class=" font-weight-bold s-10 text-green" style="margin: 0em; padding: 0em;" >Current Wallet Available Balance</small><br>
                                 <a v-if="payingWithWallet==true" class="btn btn-sm btn-success mb-3 mt-2 btn-lg"><i class="icon icon-credit-card"></i>...Processing</a>
                                 <a v-else class="btn btn-sm btn-success mb-3 mt-2 btn-lg" @click="payManually"><i class="icon icon-credit-card"></i>Pay with Wallet</a>
                             </div>    
@@ -297,6 +299,7 @@
                 <div class="col-md-12">
                     <div class="card shadow1 mb-3" style="background-color: transparent">
                         <div class="card-body">
+                            <div calss="card-header"></div>
                             <div class="d-flex justify-content-left mb-2">
                                 <!-- <input 
                                     class="form-control mr-2" 
@@ -322,7 +325,8 @@
                                             <th class="font-weight-bold" scope="col">TOTAL PRICE</th>
                                             <th class="font-weight-bold" scope="col">STATUS</th>
                                             <th class="font-weight-bold" scope="col">DATE/TIME</th>
-                                            <th class="font-weight-bold" scope="col">VIEW ORDER CODE</th>
+                                            <th class="font-weight-bold" scope="col">View Order Code</th>
+                                            <th class="font-weight-bold" scope="col">View Order Details</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -338,26 +342,31 @@
                                         <template v-else>
                                             <template v-if="userPurchases.length == 0">
                                                 <tr>
-                                                    <td colspan="11">
-                                                        <div class="text-center">There are no orders</div>
+                                                    <td class="text-center" colspan="11">
+                                                        <div>There are no orders</div>
                                                     </td>
                                                 </tr>
                                             </template>
-                                            <template v-else v-for="purchase,i in userPurchases">
-                                                <tr :key="i">
+                                            <template :key="i" v-else v-for="purchase,i in userPurchases">
+                                                <tr >
                                                     <td>{{ (userPurchasesPerPage * (userPurchasesCurrentPage - 1)) + ( ++i) }}</td>
                                                     <td>{{ purchase.pickup_type }}</td>
-                                                    <td>{{ purchase.stockist_name??'N/A' }}</td>
+                                                    <td>{{ purchase.store_name??'N/A' }}</td>
                                                     <!-- <td>{{ claim.worth?.toLocaleString('en-US')}}</td> -->
-                                                    <td>{{ purchase.stockist_address??'N/A' }}</td>
-                                                    <td>{{ purchase.stockist_state??'N/A' }}</td>
-                                                    <td>{{ purchase.stockist_phone??'N/A' }}</td>
+                                                    <td>{{ purchase.store_address??'N/A' }}</td>
+                                                    <td>{{ purchase.store_state??'N/A' }}</td>
+                                                    <td>{{ purchase.store_phone??'N/A' }}</td>
                                                     <td>#{{ purchase.id }}</td>
                                                     <td>{{ purchase.total_quantity }}</td>
                                                     <td>₦{{ purchase.total_price.toLocaleString("en-US") }}</td>
                                                     <td><span class="badge badge-success" style="padding: 10px 10px;">{{ purchase.status }}</span></td>
                                                     <td>{{ purchase.created_at }}</td>
-                                                    <td><span class="badge badge-info" v-b-modal.order-code @click="setOrder(purchase.id)" style="padding: 10px 10px;">view</span></td>
+                                                    <td><span class="badge badge-info" v-b-modal.order-code @click="setOrder(purchase.id)">view</span></td>
+                                                    <td>
+                                                        <a href="#" v-b-modal.view-products @click="fetchDetails(purchase.id)" class="btn-fab btn-fab-sm btn-success text-white">
+                                                            <i class="icon-eye"></i>
+                                                        </a>
+                                                    </td>
                                                 </tr>
                                             </template>
                                         </template>
@@ -385,7 +394,7 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-10 offset-md-1">
+                <div class="col-md-10 offset-md-1 mt-5">
                     <iframe id='ifr' frameborder="0" :src="payLink" scrolling="no" width="400" height="500"></iframe>
                 </div>
             </div>
@@ -405,12 +414,43 @@
                     </div>
                 </div>
                 <br/>
-                <div>
+                <div class="text-center">
                     <h2>Enter password to view code</h2>
                     <h3 v-if="orderCodeFetching==true">...loading</h3>
                     <h3 v-else>Order Code : {{ orderCode }} </h3>
+                    <input type="button" class="btn btn-success mt-2" @click="myFunction()" value="Copy Order Code" id="button">
                 </div>
             </form>
+        </modal>
+
+        <modal modal-id="view-products" modal-title="View Products" modal-size="lg">
+            <template v-if="orderDetailsLoading==true">
+                <b-skeleton-table
+                    :rows="3"
+                    :columns="8"
+                    :table-props="{ bordered: true, striped: true }"
+                ></b-skeleton-table>
+            </template>
+            <template v-else>
+                <div class="row">
+                    <div class="col-md-12">
+                        <table class="table table-hover">
+                            <tr>
+                                <th>S/N</th>
+                                <th>Product</th>
+                                <th>Image</th>
+                                <th>Quantity</th>
+                            </tr>
+                            <tr v-for="orde,i in orderDetails.products" :key="i">
+                                <td>{{ ++i }}</td>
+                                <td>{{ orde.name }}</td>
+                                <td> <img :src="imageURL(orde.image)" height="100" width="100"/></td>
+                                <td>{{ orde.product_qty }}</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </template>
         </modal>
     </div>
 </template>
@@ -608,7 +648,9 @@ export default {
         password:null,
         order_id:null
      },
-     orderCode:null
+     orderCode:null,
+     orderDetailsLoading:false,
+     orderDetails:[]
     };
   },
 
@@ -768,7 +810,25 @@ export default {
         }
     },
 
-    ...mapActions("productPurchaseStore",["userPurchase","getUserPurchases","fetchOrderCode"]),
+    myFunction() {
+    if (!this.orderCode) {
+        notification.warning("Order code is empty or not loaded");
+        return;
+    }
+
+    navigator.clipboard.writeText(this.orderCode)
+        .then(() => {
+        notification.success("Order code copied to clipboard!");
+        })
+        .catch(err => {
+        console.error("Clipboard copy failed:", err);
+        notification.error("Failed to copy order code. Try manually.");
+        });
+    },
+
+
+
+    ...mapActions("productPurchaseStore",["userPurchase","getUserPurchases","fetchOrderCode","fetchOrderDetails"]),
     ...mapActions("settingStore", ["getSetting", "all"]),
     ...mapActions("productStore", ["getActiveProducts"]),
     ...mapActions('authStore',['getUser']),
@@ -844,6 +904,7 @@ export default {
             notification.warning("There are no Items in your cart")
             return
         }
+
         this.payingWithWallet = true;
         let data = {
             amount:this.cartTotalPrice,
@@ -910,7 +971,18 @@ export default {
             }
             this.orderCodeFetching = false;
         })
-    }
+    },
+
+    fetchDetails(purchaseId){
+        this.orderDetailsLoading = true
+        this.fetchOrderDetails(purchaseId).then((res)=>{
+            if(res && res.status==200){
+                //console.log('details',[res.data.data])
+                this.orderDetails = res.data.data
+            }
+            this.orderDetailsLoading = false
+        })
+    },
 
     
   },

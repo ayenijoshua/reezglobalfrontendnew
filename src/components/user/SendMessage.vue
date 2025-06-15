@@ -1,5 +1,5 @@
 <template>
-    <div class="card border-0 justify-content-center" style="background-color:#ded8c7">
+    <div class="card border-0 justify-content-center shadow1" style="background-color:#ded8c7">
         <div class="card-body border rounded" style="background-color:#ded8c7"> 
             <div class="text-center image border p-4 rounded">
                 <img class="user_avatar" :src="imageURL" alt="User Image" style="width:90px">
@@ -7,20 +7,20 @@
                 <small class="">Full Name</small>
             </div>
             <form @submit.prevent="send()">
-                <div class="card no-b  no-r">
-                    <div class="card-body no-gutters" style="background-color:#ded8c7; border: 1px solid #2E671A">
+                <div class="card no-b  no-r" style="background-color:#ded8c7">
+                    <div class="card-body no-gutters" style="background-color:#ded8c7">
                         <div class="form-row">
                             <div class="col-md-12">
                                 <div class="input-group mb-2 mr-sm-2 mb-3">
                                     <div class="input-group-prepend">
                                         <div class="input-group-text"><i class="icon icon-message float-left s-20 text-white " ></i></div>
                                     </div>
-                                    <input v-model="form.subject" type="text" class="form-control r-0 light s-12" 
-                                            placeholder="Message Subject" style="background-color:#ded8c7; border: 1px solid #2E671A">
+                                    <input v-model="form.subject" type="text" class="form-control r-0 light s-12 shadow1" 
+                                            placeholder="Message Subject" style="background-color:#ded8c7">
                                 </div>
                                 <div class="form-group m-0 mb-3">
-                                    <textarea v-model="form.body" name="address" rows="5" type="text" class="form-control  light s-12"
-                                    placeholder="Compose..." style="background-color:#ded8c7; border: 1px solid #2E671A " ></textarea>
+                                    <textarea v-model="form.body" name="address" rows="5" type="text" class="form-control  light s-12 shadow1"
+                                    placeholder="Compose..." style="background-color:#ded8c7"></textarea>
                                 </div>	
                             </div>
                             <div class="form-group ml-2">

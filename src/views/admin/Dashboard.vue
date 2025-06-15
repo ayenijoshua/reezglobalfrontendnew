@@ -35,11 +35,11 @@
                             <b-skeleton width="70%"></b-skeleton>
                         </b-card>
                     </template>
-                    <div v-else class="card shadow1">
+                    <div v-else class="card shadow1" style="background-color: #ded8c7;">
                         <div class="card-body">
                             <div class="d-flex align-items-center flex-row flex-wrap">
                                 <div class="row column-row ml-1 ">
-                                    <img class="mr-3  r-3" src="/assets/img/equil-green.png" alt="Generic placeholder image" width="70px" height="70px">
+                                    <img class="mr-3  r-3" src="/assets/img/checkout.png" alt="Generic placeholder image" width="70px" height="70px">
                                     <h6 class="mt-4 mb-1 font-weight-bold text-green" >Registration Products Pick-up<br> <small class="text-green">Total No. of Products pick-up</small></h6>
                                 </div>
                                 <div class="ml-auto">
@@ -62,11 +62,11 @@
                             <b-skeleton width="70%"></b-skeleton>
                         </b-card>
                     </template>
-                    <div v-else class="card shadow1">
+                    <div v-else class="card shadow1" style="background-color: #ded8c7;">
                         <div class="card-body">
                             <div class="d-flex align-items-center flex-row flex-wrap">
                                 <div class="row column-row ml-1 ">
-                                    <img class="mr-3  r-3" src="/assets/img/equil-green.png" alt="Generic placeholder image" width="70px" height="70px">
+                                    <img class="mr-3  r-3" src="/assets/img/checkout.png" alt="Generic placeholder image" width="70px" height="70px">
                                     <h6 class="mt-4 mb-1 font-weight-bold text-green" >Upgrade Products Pick-up<br> <small class="text-green">Total No. of Products pick-up</small></h6>
                                 </div>
                                 <div class="ml-auto">
@@ -89,11 +89,11 @@
                             <b-skeleton width="70%"></b-skeleton>
                         </b-card>
                     </template>
-                    <div v-else class="card shadow1">
+                    <div v-else class="card shadow1" style="background-color: #ded8c7;">
                         <div class="card-body" >
                             <div class="d-flex align-items-center flex-row flex-wrap">
                                 <div class="row column-row ml-1 ">
-                                    <img class="mr-3  r-3" src="/assets/img/loyalty-green.png" alt="Generic placeholder image" width="70px" height="70px">
+                                    <img class="mr-3  r-3" src="/assets/img/checkout.png" alt="Generic placeholder image" width="70px" height="70px">
                                     <h6 class="mt-4 mb-1 font-weight-bold text-green">Repurchase Products Pick-up<br> <small class="text-green">Total No. of Products pick-up</small></h6>
                                 </div>
                                 <div class="ml-auto">
@@ -119,14 +119,14 @@
                                 </div>
                                 <div class="ml-auto">
                                     <div class="d-flex flex-row mt-4 mb-4 ml-4">
-                                        <div class="border-right" style="padding-right:20px">
+                                        <div  style="padding-right:20px">
                                             <h6 class="mt-0 mb-1 font-weight-bold text-white" >Products Sold QTY</h6>
                                             <div class="mt-1 text-dark-heading text-white float-right" >{{ totalProductSold?.toLocaleString('en-US') }}</div>
                                         </div>
-                                        <div style="padding-left:20px">
+                                        <!----<div style="padding-left:20px">
                                             <h6 class="mt-0 mb-1 font-weight-bold text-white" >Total Products PV</h6>
                                             <div class="mt-1 text-dark-heading text-white float-left">{{ totalProductPV?.toLocaleString('en-US') }} PV</div>
-                                        </div>
+                                        </div>-->
                                     </div>
                                 </div>
                             </div>
@@ -144,7 +144,7 @@
                             <b-skeleton width="70%"></b-skeleton>
                         </b-card>
                     </template>
-                    <div v-else class="counter-box p-40 text-white shadow1 r-5 flex-wrap" style="background-color: #ffff">
+                    <div v-else class="counter-box p-40 text-white shadow1 r-5 flex-wrap" style="background-color: #ded8c7">
                         <div class="float-right">
                             <img src="/assets/img/accounts.png">
                         </div>
@@ -178,7 +178,7 @@
                 </template>
                 <template v-else>
                     <div class="col-md-6 ">
-                        <div class="card shadow1">
+                        <div class="card shadow1" style="background-color: #ded8c7">
                             <div class="card-body" >
                                 <div class="d-flex align-items-center flex-row flex-wrap">
                                     <div class="row column-row ml-1 ">
@@ -202,7 +202,7 @@
                         </div>
                     </div>
                     <div class="col-md-6">
-                        <div class="card shadow1">
+                        <div class="card shadow1" style="background-color: #ded8c7">
                             <div class="card-body" >
                                 <div class="d-flex align-items-center flex-row flex-wrap">
                                     <div class="row column-row ml-1 ">
@@ -238,7 +238,7 @@
                 </template>
                 <template v-else>
                     <div class="col-md-6 ">
-                        <div class="card shadow1">
+                        <div class="card shadow1" style="background-color: #ded8c7">
                             <div class="card-body" >
                                 <div class="d-flex align-items-center flex-row flex-wrap">
                                     <div class="row column-row ml-1 ">
@@ -262,7 +262,7 @@
                         </div>
                     </div>
                     <div class="col-md-6">
-                        <div class="card shadow1">
+                        <div class="card shadow1" style="background-color: #ded8c7">
                             <div class="card-body" >
                                 <div class="d-flex align-items-center flex-row flex-wrap">
                                     <div class="row column-row ml-1 ">
@@ -303,13 +303,13 @@
             </div>
             <div class="d-flex row row-eq-height my-3">
                 <div class="col-md-6 rounded mb-3">
-                    <div class="card shadow1">
-                        <div class="card-header" style="background-color: #2E671A;">
+                    <div class="card shadow1" style="background-color: #ded8c7">
+                        <div class="card-header" style="background-color: #ded8c7;">
                             <div class="row justify-content-end">
                                 <div class="col">
                                     <ul class="nav nav-tabs card-header-tabs nav-material" >
                                         <li class="nav-item">
-                                            <a class="nav-link text-white font-weight-bold" id="w1-tab1" data-toggle="tab">Front Page Notification</a>
+                                            <a class="nav-link text-green font-weight-bold" id="w1-tab1" data-toggle="tab">Front Page Notification</a>
                                         </li>	
                                     </ul>
                                 </div>
@@ -359,13 +359,13 @@
                 </div>
                 
                 <div class="col-md-6 rounded">
-                    <div class="card shadow1">
-                        <div class="card-header" style="background-color: #2E671A;">
+                    <div class="card shadow1" style="background-color: #ded8c7">
+                        <div class="card-header" style="background-color: #ded8c7">
                             <div class="row justify-content-end">
                                 <div class="col">
                                     <ul class="nav nav-tabs card-header-tabs nav-material">
                                         <li class="nav-item">
-                                            <a class="nav-link text-white font-weight-bold" id="w1-tab1" data-toggle="tab" >Send General Message</a>
+                                            <a class="nav-link text-green font-weight-bold" id="w1-tab1" data-toggle="tab" >Send General Message</a>
                                         </li>
                                     </ul>
                                 </div>

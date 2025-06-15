@@ -1,8 +1,8 @@
 <template>
     <div class="row mt-4">
         <div class="col-md-12">
-            <div class="card shadow-lg mb-3" style="background-color: transparent">
-                <div class="card-body ">
+            <div class="card shadow-lg mb-3" style="background-color:#ded8c7">
+                <div class="card-body " style="background-color:#ded8c7">
                     <div class="d-flex justify-content-left mb-2">
                         <input
                             class="form-control mr-2" 

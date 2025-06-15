@@ -1,7 +1,7 @@
 <template>
     <div class="row mt-4" style="padding-top: 50px">
         <div class="col-md-12">
-            <div class="card shadow-lg mb-3" style="background-color: transparent">
+            <div class="card shadow1 mb-3" style="background-color:#ded8c7">
                 <div class="card-body ">
                     <div class="d-flex justify-content-left mb-2">
                         <input 
@@ -9,7 +9,7 @@
                             class="form-control mr-2" 
                             type="text" 
                             placeholder="Search..." 
-                            style="width: 250px; background-color: transparent; border: 2px solid #2E671A !important;"/>
+                            style="width: 250px; background-color:#ded8c7; border: 2px solid #2E671A !important;"/>
                         <button class="btn text-white" style="background-Color:#2E671A" >
                             <i class="icon-search"></i>
                         </button>

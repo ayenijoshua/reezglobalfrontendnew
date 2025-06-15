@@ -108,10 +108,10 @@ export default {
         }
     },
 
-    async fetchPackageDifference({commit},newPackageId){
+    async fetchPackageDifference({commit},data){
         try {
             commit('loading',null,{root:true})
-            const res = await api.packageDifference(newPackageId)
+            const res = await api.packageDifference(data.packageId,data.isUpgradePickup)
             if(res && res.status==200){
                 //toastr.success(res.data.message)
                 //commit('stockist',res.data.data)

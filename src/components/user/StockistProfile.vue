@@ -1,5 +1,5 @@
 <template>
-    <div class="col-md-12">
+    <div class="col-md-12" style="background-color:#ded8c7">
         <div class="">
             <div class="row column-row">
                 <div class="mt-4 ml-auto" style="padding-right:40px">
@@ -18,11 +18,11 @@
                         <span  id="d1" style="font-size:10px">State</span>
                         <h6 class="font-weight-bold " id="d1">{{ stockist.store_state }}</h6>
                         <span  id="d1" style="font-size:10px">Stockist Package</span>
-                        <h6 class="font-weight-bold " id="d1">{{stockist.name}}</h6>
+                        <h6 class="font-weight-bold " id="d1">{{stockist.package_name}}</h6>
                         <span  id="d1" style="font-size:10px">Contact</span>
                         <h6 class="font-weight-bold " id="d1">{{ stockist.store_phone }}</h6>
                         <span  id="d1" style="font-size:10px">Signee</span>
-                        <h6 class="font-weight-bold" id="d1">{{ stockist.referrer }}</h6>
+                        <h6 class="font-weight-bold" id="d1">{{ stockist.username }}</h6>
                     </div>
                     <div class="mr-4 ml-auto">
                         <img  src="/assets/img/shop-local.png"  width="auto" height="100px">
