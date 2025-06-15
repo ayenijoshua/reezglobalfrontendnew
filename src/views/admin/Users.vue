@@ -3,8 +3,8 @@
         <div class="animated">
             <div class="row mb-5">
                 <div class="col-md-12">
-                    <div class="card shadow1 mb-3" style="">
-                        <div class="card-header" style="background-color: #ded8c7">
+                    <div class="card shadow1 mb-3" style="background-color: #ded8c7;">
+                        <div class="card-header" style="background-color: #ded8c7;">
                             <div class="row justify-content-end">
                                 <div class="col">
                                     <ul class="nav nav-tabs card-header-tabs nav-material">
@@ -65,12 +65,12 @@
                                         </tr>
                                         <template v-else>
                                             <tr v-if="users.length == 0">
-                                                <td colspan="8"> 
+                                                <td class="text-center" colspan="8"> 
                                                     <template v-if="usersLoading">
                                                         <span>..loading</span>
                                                     </template>
                                                     <template v-else>
-                                                        <span v-if="usersType=='all'">There are no users</span>
+                                                        <span  v-if="usersType=='all'" class="text-center">There are no users</span>
                                                         <span v-else>There are no {{ usersType }} users</span>
                                                     </template>
                                                 </td>
@@ -83,16 +83,17 @@
                                                     <td>{{ user.email }}</td>
                                                     <td>{{ user.username }}</td>
                                                     <td>{{ user.package_name }}</td>
-                                                    <td>{{ user.created_at }}</td>
+                                                    <td>{{ (new Date(user.created_at)).toLocaleDateString() }}</td>
                                                     <td>
                                                         <div class="dropdown">
                                                             <button class="btn btn-sm btn-success dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                                 <i class="caret"></i>
                                                             </button>
-                                                            <div class="dropdown-menu"  style="background-color: #ded8c7">
+                                                            <div class="dropdown-menu" style="background-color: #ded8c7">
                                                                 <a v-if="usersType !== 'inactive'" @click="setUser(user)" v-b-modal.user-dashboard class="dropdown-item text-green" ><i class="icon-barometer2"></i>&nbsp;&nbsp; Dashboard</a>
                                                                 <a v-if="usersType !== 'inactive'" @click="setUser(user)" v-b-modal.user-profile class="dropdown-item text-green" >
-                                                                    <i class="icon-drivers-license-o"></i>&nbsp;&nbsp; Profile</a>
+                                                                    <i class="icon-drivers-license-o"></i>&nbsp;&nbsp; Profile
+                                                                </a>
                                                                 <a v-if="usersType !== 'inactive'" @click="setUser(user)" v-b-modal.user-genealogy class="dropdown-item text-green" ><i class="icon-sitemap"></i>&nbsp;&nbsp;Geneology</a>
                                                                 <a v-if="usersType !== 'inactive'" @click="setUser(user)" v-b-modal.user-wallet class="dropdown-item text-green" ><i class="icon-account_balance_wallet"></i>&nbsp;&nbsp;Wallet</a>
                                                                 <a v-if="usersType !== 'inactive'" @click="setUser(user)" v-b-modal.user-order-history class="dropdown-item text-green" ><i class="icon-shopping-cart"></i>&nbsp;&nbsp;Repurchase History</a>
@@ -143,7 +144,7 @@
                 <div v-if="userIsActive">
                     <Profile :user="user"/>
                 </div>
-                <div v-else class="alert alert-info">
+                <div v-else class="alert alert-info text-center">
                     <span v-if="userDataLoading">User data loading</span>
                     <span v-else>This user is Inactive</span>
                 </div>
@@ -161,7 +162,7 @@
                 <div v-if="userIsActive">
                     <Genealogy :user="user"/>
                 </div>
-                <div v-else class="alert alert-info">
+                <div v-else class="alert alert-info text-center">
                     <span v-if="userDataLoading">User data loading</span>
                     <span v-else>This user is Inactive</span>
                 </div>
@@ -180,7 +181,7 @@
                 <div v-if="userIsActive">
                     <EditBankDetails :user="user"/>
                 </div>
-                <div v-else class="alert alert-info">
+                <div v-else class="alert alert-info text-center">
                     <span v-if="userDataLoading">User data loading</span>
                     <span v-else>This user is Inactive</span>
                 </div>
@@ -198,7 +199,7 @@
                 <div v-if="userIsActive">
                     <EditPassword :user="user"/>
                 </div>
-                <div v-else class="alert alert-info">
+                <div v-else class="alert alert-info text-center">
                     <span v-if="userDataLoading">User data loading</span>
                     <span v-else>This user is Inactive</span>
                 </div>
@@ -216,7 +217,7 @@
                 <div v-if="userIsActive">
                     <Toggle2fa :user="user"/>
                 </div>
-                <div v-else class="alert alert-info">
+                <div v-else class="alert alert-info text-center">
                     <span v-if="userDataLoading">User data loading</span>
                     <span v-else>This user is Inactive</span>
                 </div>
@@ -244,7 +245,7 @@
                 <div v-if="userIsActive">
                     <Wallet :user="user"/>
                 </div>
-                <div v-else class="alert alert-info">
+                <div v-else class="alert alert-info text-center">
                     <span v-if="userDataLoading">User data loading</span>
                     <span v-else>This user is Inactive</span>
                 </div>
@@ -262,7 +263,7 @@
                 <div v-if="userIsActive">
                     <Dashboard :user="user"/>
                 </div>
-                <div v-else class="alert alert-info">
+                <div v-else class="alert alert-info text-center">
                     <span v-if="userDataLoading">User data loading</span>
                     <span v-else>This user is Inactive</span>
                 </div>
@@ -280,7 +281,7 @@
                 <div v-if="userIsActive">
                     <UserOrderHistory :user="user"/>
                 </div>
-                <div v-else class="alert alert-info">
+                <div v-else class="alert alert-info text-center">
                     <span v-if="userDataLoading">User data loading</span>
                     <span v-else>This user is Inactive</span>
                 </div>
@@ -299,7 +300,7 @@
                 <div v-if="userIsActive">
                     <StockistProfile :user="user"/>
                 </div>
-                <div v-else class="alert alert-info">
+                <div v-else class="alert alert-info text-center">
                     <span v-if="userDataLoading">User data loading</span>
                     <span v-else>This user is Inactive</span>
                 </div>
@@ -318,7 +319,7 @@
                 <div v-if="userIsActive">
                     <StockistRecord :user="user"/>
                 </div>
-                <div v-else class="alert alert-info">
+                <div v-else class="alert alert-info text-center">
                     <span v-if="userDataLoading">User data loading</span>
                     <span v-else>This user is Inactive</span>
                 </div>
@@ -337,7 +338,7 @@
                 <div v-if="userIsActive">
                     <StockistProcessedOrders :user="user"/>
                 </div>
-                <div v-else class="alert alert-info">
+                <div v-else class="alert alert-info text-center">
                     <span v-if="userDataLoading">User data loading</span>
                     <span v-else>This user is Inactive</span>
                 </div>
@@ -357,6 +358,7 @@
                     <form @submit.prevent="bankTransfer">
                         <div class="form-row mb-3 d-flex justify-content-center">
                             <div class="col-md-8">
+                                <div class="text-center mt-3 mb-3"><img src="/assets/img/wallet4a.png" class="bg-transparent" style="max-width:80px;"><br><span class="font-weight-bold">Proceed with Payment</span>	</div>
                                 <div class="input-group mb-2" >
                                     <div class="input-group-prepend">
                                         <div class="input-group-text"><i class="icon icon-money float-left s-20 text-white"></i></div>
@@ -365,7 +367,7 @@
                                 </div>
                                 <div class="input-group mb-2" >
                                     <div class="input-group-prepend">
-                                        <div class="input-group-text"><i class="icon icon-money float-left s-20 text-white"></i></div>
+                                        <div class="input-group-text"><i class="icon icon-edit float-left s-20 text-white"></i></div>
                                     </div>
                                     <textarea required v-model="bankTransferForm.reason" class="form-control r-1 light s-12" placeholder="Enter narration" style="background-color:transparent; border: 2px solid #2E671A;"></textarea> 
                                 </div>
@@ -377,7 +379,7 @@
                         </div>
                     </form>
                 </div>
-                <div v-else class="alert alert-info">
+                <div v-else class="alert alert-info text-center">
                     <span v-if="userDataLoading">User data loading</span>
                     <span v-else>This user is Inactive</span>
                 </div>
@@ -587,7 +589,7 @@
         }
     },
     methods: {
-        ...mapActions("userStore", ["getUsers",'searchUsers','getUser']),
+        ...mapActions("userStore", ["getUsers",'searchUsers','getUser','getProfileDetails']),
         ...mapActions("paymentStore", ["makePayment"]),
 
         setUser(user) {

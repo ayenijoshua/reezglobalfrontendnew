@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="">
-		  <div class="row my-3">
+          <div class="row my-3">
                 <div class="col-lg-12 pb-4">
                     <b-card v-if="walletBalanceLoading && loading">
                         <b-skeleton width="85%"></b-skeleton>
@@ -17,7 +17,7 @@
                     </div>
                 </div>
             </div>
-			<div class="row my-3">
+            <div class="row my-3">
                 <div class="col-lg-12 pb-4">
                     <b-card v-if="walletBalanceLoading && loading">
                         <b-skeleton width="85%"></b-skeleton>
@@ -33,8 +33,8 @@
                     </div>
                 </div>
             </div>
-			
-			<div class="row my-3">
+            
+            <div class="row my-3">
                 <div class="col-lg-12 pb-4">
                     <b-card v-if="walletBalanceLoading && loading">
                         <b-skeleton width="85%"></b-skeleton>
@@ -50,9 +50,9 @@
                     </div>
                 </div>
             </div>
-			
-			
-			
+            
+            
+            
             <div class="row ">		
                 <div class="col-md-12">
                     <div class="">

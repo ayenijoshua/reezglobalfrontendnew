@@ -3,8 +3,8 @@
         <div class="animated">				
             <div class="row my-3">
                 <div class="col-md-12">
-                    <div class="card shadow1" style="background-color:#ded8c7 ;">
-                        <div class="card-header" style="background-color:#ded8c7 ;">
+                    <div class="card shadow1" style="background-color: #ded8c7">
+                        <div class="card-header" style="background-color: #ded8c7">
                             <h6 class="text-green"><strong class="font-weight-bold">OFFICIAL REFERRAL BONUSES PER PACKAGE</strong></h6>
                         </div>
                         <div class="card-body" style="overflow-x:auto; background-color:#ded8c7 ;">
@@ -94,10 +94,10 @@
 
             <div class="row">
                 <div class="col-md-6">
-                    <div class="card shadow1" style="background-color:#ded8c7">
+                    <div class="card shadow1" style="background-color: #ded8c7">
                         <div class="card-body" style="overflow-x:auto;">
                         <form @submit.prevent="updateMatchBonusPV">
-                            <div class="card no-b  no-r" style="background-color:#ded8c7">
+                            <div class="card no-b  no-r" style="background-color: #ded8c7">
                                 <div class="card-body no-gutters">
                                     <div class="text-center mb-3"><img  src="/assets/img/cash-withdrawal.png" width="80px"  height="80px">
                                     <h5 class="s-36 font-weight-bold mt-2 text-green"> {{ settings.matching_bonus_total_pv?.toLocaleString('en-US') }}</h5>

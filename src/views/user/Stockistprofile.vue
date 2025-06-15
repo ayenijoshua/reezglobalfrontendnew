@@ -7,8 +7,8 @@
                         <div class="">
                             <div class="">
                                 <div class="">
-									 <div class="card shadow1" style="background-color: #ded8c7">
-										 <div class="card-body" style="background-color: #ded8c7">
+                                     <div class="card shadow1" style="background-color: #ded8c7">
+                                         <div class="card-body" style="background-color: #ded8c7">
                                             <template v-if="stockistLoading">
                                                 <b-card>
                                                     <b-skeleton width="85%"></b-skeleton>
@@ -158,8 +158,8 @@
                                             </div>
                                             <select name="package_id" v-model="upgradeForm.package_id" @change="getPackageDifference" class="form-control r-0 light s-12 shadow" style="background-color: transparent">
                                                 <option value="" style="background-color: #ded8c7">Select Package</option>
-                                                <template v-for="packag,i in stockistPackages.filter((ele) => ele.id > stockist.package_id)">
-                                                    <option :value="packag.id" :key="i" style="background-color: #ded8c7">{{ packag.name }} - ₦{{ packag.registration_value.toLocaleString('en-US') }}</option>
+                                                <template :key="i" v-for="packag,i in stockistPackages.filter((ele) => ele.id > stockist.package_id)">
+                                                    <option :value="packag.id"  style="background-color: #ded8c7">{{ packag.name }} - ₦{{ packag.registration_value.toLocaleString('en-US') }}</option>
                                                 </template>														   
                                             </select>
                                         </div>

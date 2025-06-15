@@ -10,8 +10,8 @@
                                     <div class="row my-3">
                                         <!-- bar charts group -->
                                         <div class="col-md-12">
-                                            <div class="card">
-                                                <div class="card-header bg-white">
+                                            <div class="card bg-transparent shadow1" style="background-color:#ded8c7">
+                                                <div class="card-header " style="background-color:#ded8c7" >
                                                     <h4 class="green-text"><strong class="font-weight-bold"><i class="icon icon-sitemap mr-2" ></i>Network Structure</strong></h4>
                                                     <small>View tree structure of your direct downlines</small>
                                                 </div>

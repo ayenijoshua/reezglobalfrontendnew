@@ -3,46 +3,46 @@
         <div class="">
             <div class="row mb-5">
                 <div class="col-md-4">
-                    <div class="card" style="background-color: #2E671A">
-                        <div class="card-body" >
+                    <div class="card shadow1" style="background-color:#ded8c7" >
+                        <div class="card-body" style="background-color:#ded8c7">
                             <div class="d-flex align-items-center">
                                 <div class="mr-3">
                                     <img class="mr-3  r-3" src="/assets/img/membership.png"
                                         alt="Generic placeholder image" width="70px" height="70px">
                                 </div>
                                 <div class="ml-auto">
-                                    <h6 class="mt-0 mb-1 font-weight-bold text-white">Registration Package</h6>
-                                    <div class="mt-1 text-dark-heading text-white float-right" >{{ regPackage.name }} </div>
+                                    <h6 class="mt-0 mb-1 font-weight-bold text-green">Registration Package</h6>
+                                    <div class="mt-1 text-dark-heading text-green float-right" >{{ regPackage.name }} </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <div class="card" style="background-color: #2E671A" >
-                        <div class="card-body" >
+                    <div class="card shadow1" style="background-color:#ded8c7">
+                        <div class="card-body" style="background-color:#ded8c7" >
                             <div class="d-flex align-items-center">
                                 <div class="mr-3">
                                     <img class="mr-3  r-3" src="/assets/img/hand-shake.png" alt="Generic placeholder image" width="70px" height="70px">
                                 </div>
                                 <div class="ml-auto">
-                                    <h6 class="mt-0 mb-1 font-weight-bold text-white" >Award Bonus</h6>
-                                    <div class="mt-1 text-dark-heading text-white float-right" >₦  {{ userBonusStats.award_bonus?.toLocaleString('en-US') }}</div>
+                                    <h6 class="mt-0 mb-1 font-weight-bold text-green" >Award Bonus</h6>
+                                    <div class="mt-1 text-dark-heading text-green float-right" >₦  {{ userBonusStats.award_bonus?.toLocaleString('en-US') }}</div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <div class="card" style="background-color: #2E671A">
-                        <div class="card-body" >
+                    <div class="card shadow1" style="background-color:#ded8c7" >
+                        <div class="card-body" style="background-color:#ded8c7">
                             <div class="d-flex align-items-center">
                                 <div class="mr-3">
                                     <img class="mr-3  r-3" src="/assets/img/hand-shake.png" alt="Generic placeholder image" width="70px" height="70px">
                                 </div>
                                 <div class="ml-auto">
-                                    <h6 class="mt-0 mb-1 font-weight-bold text-white" >Referral Bonus</h6>
-                                    <div class="mt-1 text-dark-heading text-white float-right" >₦  {{ (referralBonus + placementBonus)?.toLocaleString('en-US') }}</div>
+                                    <h6 class="mt-0 mb-1 font-weight-bold text-green" >Referral Bonus</h6>
+                                    <div class="mt-1 text-dark-heading text-green float-right" >₦  {{ (referralBonus + placementBonus)?.toLocaleString('en-US') }}</div>
                                 </div>
                             </div>
                         </div>
@@ -51,44 +51,42 @@
             </div>	
             <!--States-->
             <div class="row my-5">
-                <div class="col-lg-3">
-                    <div class="counter-box p-40 white shadow2 r-5">
-                        <div class="float-right">
-                            <img src="/assets/img/equil.png" alt="Generic placeholder image" width="60px" height="60px">
-                        </div>
-                        <div class="mt-1 text-dark-heading text-green" >{{ userBonusStats.unilevel_bonus?.toLocaleString('en-US') }}</div>
-                        <h6 class="counter-title font-weight-bold" style="color:#2E671A">Unilevel (₦) </h6><br>
-                        <span class="badge text-white bg-green"><i class="icon icon-check"></i>&nbsp;&nbsp;Eligible</span>
-                    </div>
-                </div>
-                <div class="col-lg-3">
-                    <div class="counter-box p-40 white shadow2 r-5">
+                <div class="col-lg-4" style="background-color:#ded8c7">
+                    <div class="counter-box p-40 shadow1 r-5" style="background-color:#ded8c7">
                         <div class="float-right">
                             <img src="/assets/img/bonus.png" alt="Generic placeholder image" width="60px" height="60px">
                         </div>
-                        <div class="mt-1 text-dark-heading text-green" >{{ userBonusStats.matching_bonus?.toLocaleString('en-US') }}</div>
-                        <h6 class="counter-title font-weight-bold" style="color:#2E671A">Matching Bonus (₦)</h6><br>
-                        <span class="badge text-white bg-green"><i class="icon icon-check"></i>&nbsp;&nbsp;Eligible</span>
+                        <div class="mt-1 text-dark-heading text-green" >{{ userBonusStats.unilevel_bonus?.toLocaleString('en-US') }}</div>
+                        <h6 class="counter-title font-weight-bold" style="color:#2E671A">Unilevel (₦) </h6><br>
                     </div>
                 </div>
-                <div class="col-lg-3">
-                    <div class="counter-box p-40 white shadow2 r-5">
+                <div class="col-lg-4">
+                    <div class="counter-box p-40  shadow1 r-5" style="background-color:#ded8c7">
+                        <div class="float-right">
+                            <img src="/assets/img/equil.png" alt="Generic placeholder image" width="60px" height="60px">
+                        </div>
+                        <div class="mt-1 text-dark-heading text-green" >{{ userBonusStats.matching_bonus?.toLocaleString('en-US') }}</div>
+                        <h6 class="counter-title font-weight-bold" style="color:#2E671A">Matching  (₦)</h6><br>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="counter-box p-40  shadow1 r-5" style="background-color:#ded8c7">
                         <div class="float-right">
                             <img  src="/assets/img/bars.png" alt="Generic placeholder image" width="60px" height="60px">
                         </div>
                         <div class="mt-1 text-dark-heading text-green" >{{ userBonusStats.upgrade_bonus?.toLocaleString('en-US') }}</div>
-                        <h6 class="counter-title font-weight-bold" style="color:#2E671A">Upgrade Bonus (₦) </h6><br>
-                        <span class="badge text-white bg-green"><i class="icon icon-check"></i>&nbsp;&nbsp;Eligible</span>
+                        <h6 class="counter-title font-weight-bold" style="color:#2E671A">Upgrade (₦) </h6><br>
                     </div>
                 </div>
-                <div class="col-lg-3">
-                    <div class="counter-box p-40  text-white shadow2 r-5" style="background-color: #2E671A">
+            </div>
+            <div class="row my-5">
+                <div class="col-lg-12">
+                    <div class="counter-box p-40 text-white shadow2 r-5" style="background-color: #2E671A">
                         <div class="float-right">
-                            <img  src="/assets/img/salary_white.png" alt="Generic placeholder image" width="60px" height="60px">
+                            <img  src="/assets/img/salary_white.png">
                         </div>
-                        <div class="mt-1 text-dark-heading text-white" >{{ globalProfit?.toLocaleString('en-US') }}</div>
                         <h6 class="counter-title font-weight-bold">Global Profit (₦)</h6><br>
-                        <span class="badge text-white bg-green"><i class="icon icon-check"></i>&nbsp;&nbsp;Eligible</span>
+                        <div class="text-dark-heading font-weight-bold text-white" >₦<span class="s-36">{{ globalProfit?.toLocaleString('en-US') }}</span></div>
                     </div>
                 </div>
             </div>
@@ -106,8 +104,8 @@
             </div>
             <div class="d-flex row row-eq-height my-3">
                 <div class="col-md-4">
-                    <div class="card">
-                        <div class="card-body ">
+                    <div class="card shadow1" style="background-color:#ded8c7">
+                        <div class="card-body" style="background-color:#ded8c7">
                             <div class="float-up text-center">
                                 <img  src="/assets/img/pv1.png">
                             </div>
@@ -117,19 +115,19 @@
                     </div>
                 </div>
                 <div class="col-md-8">
-                    <div class="card">
-                        <div class="card-header white">
+                    <div class="card shadow1" style="background-color:#ded8c7">
+                        <div class="card-header" style="background-color:#ded8c7">
                             <div class="row justify-content-end">
                                 <div class="col">
-                                    <ul class="nav nav-tabs card-header-tabs nav-material">
+                                    <ul class="nav nav-tabs card-header-tabs nav-material" style="background-color:#ded8c7">
                                         <li class="nav-item">
-                                            <a class="nav-link active show" id="w1-tab1" data-toggle="tab" href="#v-pills-w1-tab1">Incentives</a>
+                                            <a class="nav-link active show " id="w1-tab1" data-toggle="tab" href="#v-pills-w1-tab1">Incentives</a>
                                         </li>
                                     </ul>
                                 </div>
                             </div>
                         </div>
-                        <div class="card-body no-p">
+                        <div class="card-body no-p" style="background-color:#ded8c7">
                             <div class="tab-content">
                                 <div class="tab-pane show active" id="v-pills-w1-tab1" role="tabpanel" aria-labelledby="v-pills-w1-tab1">
                                     <div class="row p-3">
@@ -182,8 +180,8 @@
             
             <div class="row">
                 <div class="col-md-12">
-                    <div class="card mb-3">
-                        <div class="card-header white text-green">CLAIMED INCENTIVES</div>
+                    <div class="card mb-3" style="background-color:#ded8c7">
+                        <div class="card-header  text-green" style="background-color:#ded8c7">CLAIMED INCENTIVES</div>
                         <div class="card-body ">
                             <div class="table-responsive">
                                 <table id="example2" class="table table-bordered table-hover data-tables" data-options='{ "paging": false; "searching":false}'>
@@ -209,7 +207,7 @@
                                         </tr>
                                         <template v-else>
                                             <tr v-if="claims.length == 0">
-                                                <td colspan="4">There are no claimed incentives</td>
+                                                <td class="text-center" colspan="4">There are no claimed incentives</td>
                                             </tr>
                                             <tr v-else v-for="claim,i in claims" :key="i">
                                                 <th scope="row">{{ ++i }}</th>

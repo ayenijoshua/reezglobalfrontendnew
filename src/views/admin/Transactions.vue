@@ -33,7 +33,7 @@
                                                 <div class="float-right">
                                                     <img  src="/assets/img/cash-withdrawal.png" width="70px" height="70px">
                                                 </div>
-                                                <small class="mt-0 ml-2"><span style="color:#ffff!important;">Total Withdrawals</span></small>
+                                                <small class="mt-0 ml-2"><span style="color:#2E671A!important;">Total Withdrawals</span></small>
                                                 <p class="text-dark-heading font-weight-bold " style="color:#ffff!important;">₦<span style="color:#ffff!important;font-size:32px">{{ totalWithdrawals?.toLocaleString('en-US') }}</span></p>
                                             </div>
                                         </div>
@@ -45,7 +45,7 @@
                                     <div class="row my-3">
                                         <!-- bar charts group -->
                                         <div class="col-md-12">
-                                            <div class="card shadow1">
+                                            <div class="card shadow1" style="background-color: #ded8c7">
                                                 <div class="card-header" style="background-color: #ded8c7" >
                                                     <h5 class="text-green"><strong class="font-weight-bold">Withdrawal Details</strong></h5>
                                                 </div>
@@ -94,7 +94,7 @@
                                                                         <td>₦{{ withdraw.amount?.toLocaleString('en-US') }}</td>
                                                                         <td>₦{{ withdraw.fee?.toLocaleString('en-US') }}</td>
                                                                         <td>{{ withdraw.status }}</td>
-                                                                        <td>{{ withdraw.created_at }}</td>
+                                                                        <td>{{(new Date(withdraw.created_at)).toDateString()}} {{(new Date(withdraw.created_at)).toLocaleTimeString()}}</td>
                                                                     </tr>
                                                                 </template>
                                                             </template>
@@ -156,17 +156,17 @@
                                     <div class="row my-3">
                                         <!-- bar charts group -->
                                         <div class="col-md-12">
-                                            <div class="card shadow1">
-                                                <div class="card-header" style="background-color: #ded8c7">
+                                            <div class="card shadow1" style="background-color:#ded8c7">
+                                                <div class="card-header" style="background-color:#ded8c7">
                                                     <h6 class="text-green"><strong class="font-weight-bold">Registration Details</strong></h6>
                                                 </div>
                                                 <div class="card-body" style="overflow-x:auto; background-color: #ded8c7;">
                                                     <div class=" mb-3" style="float:right">
-                                                        <form class="form-inline my-2 my-lg-0" @submit.prevent=" searchRegs()">
-                                                            <input required v-model="regSearchParam" class="form-control mr-sm-2" type="search" placeholder="" aria-label="Search" style="background-color: #ded8c7; border: 2px solid #2E671A;" >
+                                                       <!-- <form class="form-inline my-2 my-lg-0" @submit.prevent=" searchRegs()">
+                                                            <input required class="form-control mr-sm-2" type="search" placeholder="" aria-label="Search" style="background-color: #ded8c7; border: 2px solid #2E671A;" >
                                                             <span v-if="loading" class="btn btn-success my-2 my-sm-0">...</span>
                                                             <button v-else class="btn btn-success my-2 my-sm-0" type="submit">Search</button>
-                                                        </form>
+                                                       </form>-->
                                                     </div>
                                                     <table id="example2" class="table table-bordered table-hover data-tables"
                                                         data-options='{ "paging": false; "searching":false}'>
@@ -175,14 +175,14 @@
                                                                 <th>S/N</th>
                                                                 <th>Full Name</th>
                                                                 <th>Username</th>
-                                                                <th>Package</th>
+                                                                <th>Registered Package</th>
                                                                 <th>Amount</th>
                                                                 <th>Registration Date</th>
                                                                 <th>Upgrade History</th>
                                                             </tr>
                                                         </thead>
                                                         <tbody>
-                                                            <tr v-if="loading && paidUsersLoading">
+                                                            <tr v-if="paidUsersLoading">
                                                                 <td colspan="6">
                                                                     <b-skeleton-table
                                                                         :rows="3"
@@ -206,7 +206,7 @@
                                                                         <td>{{ user.username }}</td>
                                                                         <td>{{ user.name }}</td>
                                                                         <td>₦{{ user.amount?.toLocaleString('en-US') }}</td>
-                                                                        <td>{{ user.created_at }}</td>
+                                                                        <td>{{(new Date(user.created_at)).toDateString() }} {{(new Date(user.created_at)).toLocaleTimeString() }}</td>
                                                                         <td>
                                                                             <button @click="setUser(user)" v-b-modal.user-upgrade-history class="badge badge-success" style="padding: 10px 10px;">View</button>
                                                                         </td>
@@ -230,17 +230,17 @@
                                     <div class="row my-3">
                                         <!-- bar charts group -->
                                         <div class="col-md-12">
-                                            <div class="card shadow1">
-                                                <div class="card-header" style="background-color: #ded8c7">
+                                            <div class="card shadow1" style="background-color:#ded8c7">
+                                                <div class="card-header" style="background-color:#ded8c7">
                                                     <h6 class="text-green"><strong class="font-weight-bold">Registration Upgrade</strong></h6>
                                                 </div>
                                                 <div class="card-body" style="overflow-x:auto;background-color: #ded8c7;">
                                                     <div class=" mb-3" style="float:right">
-                                                        <form class="form-inline my-2 my-lg-0" @submit.prevent=" searchRegs()">
-                                                            <input required v-model="regSearchParam" class="form-control mr-sm-2" type="search" placeholder="" aria-label="Search" style="background-color: #ded8c7; border: 2px solid #2E671A;" >
+                                                        <!--<form class="form-inline my-2 my-lg-0" @submit.prevent=" searchRegs()">
+                                                            <input required  class="form-control mr-sm-2" type="search" placeholder="" aria-label="Search" style="background-color: transparent; border: 2px solid #2E671A;" >
                                                             <span v-if="loading" class="btn btn-success my-2 my-sm-0">...</span>
                                                             <button v-else class="btn btn-success my-2 my-sm-0" type="submit">Search</button>
-                                                        </form>
+                                                        </form>-->
                                                     </div>
                                                     <table id="example2" class="table table-bordered table-hover data-tables"
                                                         data-options='{ "paging": false; "searching":false}'>
@@ -249,14 +249,13 @@
                                                                 <th>S/N</th>
                                                                 <th>Full Name</th>
                                                                 <th>Username</th>
-                                                                <th>Previous Package</th>
+                                                                <th>Previous Packages</th>
                                                                 <th>New Package</th>
-                                                                <th>Amount</th>
                                                                 <th>Registration Upgrade Date</th>
                                                             </tr>
                                                         </thead>
                                                         <tbody>
-                                                            <tr v-if="loading && upgradedUsersLoading">
+                                                            <tr v-if="upgradedUsersLoading==true">
                                                                 <td colspan="7">
                                                                     <b-skeleton-table
                                                                         :rows="3"
@@ -278,19 +277,16 @@
                                                                         <td>{{ (paidUsersPerPage * (paidUsersCurrentPage - 1)) +( ++i) }}</td>
                                                                         <td>{{ user.first_name }} {{ user.last_name }}</td>
                                                                         <td>{{ user.username }}</td>
-                                                                        <td>{{ user.package_name }}</td>
-                                                                        <td>{{ user.package_name }}</td>
-                                                                        <td>₦{{ user.amount?.toLocaleString('en-US') }}</td>
-                                                                        <td>{{ user.created_at }}</td>
+                                                                        <td>{{ user.previous_packages?.toString() }}</td>
+                                                                        <td>{{ user.package }}</td>
+                                                                        <td>{{ (new Date(user.created_at)).toDateString() }} {{ (new Date(user.created_at)).toLocaleTimeString() }}</td>
                                                                     </tr>
                                                                 </template>
-                                                                
                                                             </template>
                                                         </tbody>
                                                     </table>
                                                     <br>
                                                     <BasePaginator v-if="paidUserAction" :action="paidUserAction" :current_page="paidUsersCurrentPage" :last_page="paidUsersLastPage" :total_pages="paidUsersTotalPages" :per_page="paidUsersPerPage"></BasePaginator>
-                                                    
                                                 </div>
                                             </div>
                                         </div>
@@ -310,7 +306,7 @@
                                                 </div>
                                                 <small class="mt-0 ml-2"><span style="color:#ffffff!important;">Total Product Repurchase</span></small>
                                                 <p class="text-dark-heading font-weight-bold " style="color:#ffffff!important;">
-                                                    <span v-if="sumTotalPricesLoading ==true" style="color:#ffffff!important;font-size:20px">...loading...</span>
+                                                    <span v-if="sumTotalPricesLoading ==true" style="color:#ffffff!important;font-size:20px">...loading</span>
                                                     <span v-else style="color:#ffffff!important;font-size:32px">₦ {{ sumTotalPrices.toLocaleString('en-US') }}</span>
                                                 </p>
                                             </div>
@@ -323,7 +319,7 @@
                                 <div class="col-md-12">
                                     <div class="card shadow1 mb-3" style="background-color: transparent">
                                         <div class="card-body ">
-                                            <div class="d-flex justify-content-left mb-2">
+                                            <!--<div class="d-flex justify-content-left mb-2">
                                                 <input 
                                                     
                                                     class="form-control mr-2" 
@@ -333,7 +329,7 @@
                                                 <button class="btn text-white" style="background-Color:#2E671A" >
                                                     <i class="icon-search"></i>
                                                 </button>
-                                            </div>
+                                            </div>-->
                                             <div class="table-responsive">
                                                 <table id="example2" class="table table-bordered table-hover data-tables" >
                                                     <thead >
@@ -357,7 +353,7 @@
                                                         <template v-else>
                                                             <tr v-if="monthlyRepurchases.length == 0">
                                                                 <td colspan="4">
-                                                                    <div class="alert alert-info">There are no repurchases</div>
+                                                                    <div class="alert alert-info text-center">There are no repurchases</div>
                                                                 </td>
                                                             </tr>
                                                             <tr v-for="val,i in monthlyRepurchases" :key="i">
@@ -494,7 +490,7 @@
                                                         <template v-else>
                                                             <tr v-if="stockists.length == 0">
                                                                 <td>
-                                                                    <div class="alert alert info">There are no stockists</div>
+                                                                    <div class="alert alert info text-center">There are no stockists</div>
                                                                 </td>
                                                             </tr>
                                                             <tr v-for="stock,i in stockists" :key="i">
@@ -507,7 +503,7 @@
                                                                 <td>{{ stock.store_state }}</td>
                                                                 <td>{{stock.store_phone}}</td>
                                                                 <td>{{stock.stockist_status}}</td>
-                                                                <td>{{stock.reg_date}}</td>
+                                                                <td>{{(new Date(stock.reg_date).toDateString())}} {{(new Date(stock.reg_date).toLocaleTimeString())}}</td>
                                                                 <!-- <td>₦{{ stock.total_purchases.toLocaleString('en-US') }}</td>
                                                                 <td>₦{{ stock.total_sales.toLocaleString('en-US') }}</td> -->
                                                                 <td>
@@ -515,12 +511,12 @@
                                                                         <button class="btn btn-sm btn-success dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                                             <i class="caret"></i>
                                                                         </button>
-                                                                        <div class="dropdown-menu"  style="background-color: #ecf0f1">
-                                                                            <a @click="setStockist(stock)" v-b-modal.stockist-pop class="dropdown-item text-green" ><i class="icon-barometer2"></i>&nbsp;&nbsp; View POP</a>
+                                                                        <div class="dropdown-menu"  style="background-color: #ded8c7">
+                                                                            <a @click="setStockist(stock)" v-b-modal.stockist-pop class="dropdown-item text-green" ><i class="icon-eye"></i>&nbsp;&nbsp; View POP</a>
 
                                                                             <template v-if="stock.stockist_status == 'pending'">
                                                                                 <a @click="setStockist(stock)" v-b-modal.approve-stockist class="dropdown-item text-green">
-                                                                                    <i class="icon-drivers-license-o"></i>&nbsp;&nbsp; Approve
+                                                                                    <i class="icon-arrow-up."></i>&nbsp;&nbsp; Approve
                                                                                 </a>
                                                                                 <a @click="setStockist(stock)" v-b-modal.disapprove-stockist class="dropdown-item text-red">
                                                                                     <i class="icon-drivers-license-o"></i>&nbsp;&nbsp; Disapprove
@@ -528,7 +524,7 @@
                                                                             </template>
                                                                             
                                                                             <a @click="setStockist(stock)" v-b-modal.stockist-upgrade-history class="dropdown-item text-green"><i class="icon-sitemap"></i>&nbsp;&nbsp;Upgrade History</a>
-                                                                            <a @click="fetchSalesStats(stock.user_uuid)" v-b-modal.stockist-sales-stats class="dropdown-item text-green"><i class="icon-sitemap"></i>&nbsp;&nbsp;Sales Stats</a>
+                                                                            <a @click="fetchSalesStats(stock.user_uuid)" v-b-modal.stockist-sales-stats class="dropdown-item text-green"><i class="icon-shopping-cart"></i>&nbsp;&nbsp;Sales Stats</a>
                                                                         </div>
                                                                     </div>
                                                                 </td>
@@ -593,7 +589,7 @@
                                                         <template v-else>
                                                             <tr v-if="stockistUpgrades.length == 0">
                                                                 <td colspan="11">
-                                                                    <div class="alert alert info">There are no pending stockists Upgrades</div>
+                                                                    <div class="alert alert info text-center">There are no pending stockists Upgrades</div>
                                                                 </td>
                                                             </tr>
                                                             <tr v-for="stock,i in stockistUpgrades" :key="i">
@@ -606,7 +602,7 @@
                                                                 <td>{{ stock.store_state }}</td>
                                                                 <td>{{stock.store_phone}}</td>
                                                                 <td>{{stock.payment_status}}</td>
-                                                                <td>{{stock.payment_date}}</td>
+                                                                <td>{{(new Date(stock.payment_date)).toDateString()}} {{(new Date(stock.payment_date)).toLocaleTimeString()}}</td>
                                                                 <!-- <td>₦{{ stock.total_purchases.toLocaleString('en-US') }}</td>
                                                                 <td>₦{{ stock.total_sales.toLocaleString('en-US') }}</td> -->
                                                                 <td>
@@ -614,7 +610,7 @@
                                                                         <button class="btn btn-sm btn-success dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                                             <i class="caret"></i>
                                                                         </button>
-                                                                        <div class="dropdown-menu"  style="background-color: #ecf0f1">
+                                                                        <div class="dropdown-menu"  style="background-color: #ded8c7">
                                                                             <a @click="setStockist(stock)" v-b-modal.stockist-pop class="dropdown-item text-green" ><i class="icon-barometer2"></i>&nbsp;&nbsp; View POP</a>
 
                                                                             <template v-if="stock.payment_status == 'processing'">
@@ -671,8 +667,8 @@
                                                                         <th class="font-weight-bold" scope="col">USERNAME</th>
                                                                         <th class="font-weight-bold" scope="col">STOCKIST NAME</th>
                                                                         <th class="font-weight-bold" scope="col">PACKAGE</th>
-                                                                        <th class="font-weight-bold" scope="col">PAYMENT TYPE</th>
-                                                                        <th class="font-weight-bold" scope="col">PAYMENT</th>
+                                                                        <th class="font-weight-bold" scope="col">PICKUP TYPE</th>
+                                                                        <th class="font-weight-bold" scope="col">ORDERS</th>
                                                                         <th class="font-weight-bold" scope="col">DATE & TIME</th>
                                                                         <th class="font-weight-bold" scope="col">ACTION</th>
                                                                         <th class="font-weight-bold" scope="col">STATUS</th>
@@ -680,17 +676,17 @@
                                                                 </thead>
                                                                 <tbody>
                                                                     <tr v-if="stockistsOrdersLoading==true">
-                                                                        <td colspan="11">
+                                                                        <td colspan="9">
                                                                             <b-skeleton-table
                                                                                 :rows="3"
-                                                                                :columns="8"
+                                                                                :columns="9"
                                                                                 :table-props="{ bordered: true, striped: true }"
                                                                             ></b-skeleton-table>
                                                                         </td>
                                                                     </tr>
                                                                     <template v-else>
                                                                         <tr v-if="stockistsOrders.length==0">
-                                                                            <td colspan="9">
+                                                                            <td colspan="8">
                                                                                 <div class="alert alert-info">There are no stockist orders</div>
                                                                             </td>
                                                                         </tr>
@@ -701,19 +697,19 @@
                                                                             <td>{{order.stockist_package}}</td>
                                                                             <td>{{order.pickup_type}}</td>
                                                                             <td>
-                                                                                <a class="btn-fab btn-fab-sm btn-success text-white" href="#" data-toggle="modal" data-target="#viewproductModal">
+                                                                                <a href="#" v-b-modal.view-products @click="fetchDetails(order.purchase_id)" class="btn-fab btn-fab-sm btn-success text-white">
                                                                                     <i class="icon-eye"></i>
                                                                                 </a>
                                                                             </td>
-                                                                            <td>{{order.created_at}}</td>
+                                                                            <td>{{(new Date(order.created_at)).toDateString()}} {{(new Date(order.created_at)).toLocaleTimeString()}}</td>
                                                                             <td>
-                                                                                <div class="dropdown"> 
+                                                                                <div v-if="order.status=='processing'" class="dropdown"> 
                                                                                     <button class="btn btn-sm btn-success  dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                                                     <i class="caret"></i>
                                                                                     </button>
-                                                                                    <div class="dropdown-menu " aria-labelledby="dropdownMenuButton" style="position:fixed; background-color: #ecf0f1">
-                                                                                        <a v-b-modal.approve-stockist-purchase @click="setOrder(order)" class="dropdown-item text-green" href="#"  ><i class="icon-check-circle"></i>&nbsp;&nbsp; Approve</a>
-                                                                                        <a v-b-modal.disapprove-stockist-purchase @click="setOrder(order)" class="dropdown-item text-green" href="#" ><i class="icon-times-circle"></i>&nbsp;&nbsp; Decline</a>	
+                                                                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="position:fixed; background-color: #ded8c7">
+                                                                                        <a v-b-modal.approve-stockist-purchase @click="setOrder(order)" class="dropdown-item text-green" href="#"><i class="icon-check-circle"></i>&nbsp;&nbsp; Approve</a>
+                                                                                        <a v-b-modal.disapprove-stockist-purchase @click="setOrder(order)" class="dropdown-item text-green" href="#"><i class="icon-times-circle"></i>&nbsp;&nbsp; Decline</a>	
                                                                                     </div>
                                                                                 </div>													
                                                                             </td>
@@ -763,8 +759,12 @@
                 <div role="dialog" aria-hidden="true" >
                     <div class="modal-dialog modal-dialog-centered" role="document" style="background: transparent!important;">
                         <div class="row">
-                            <div class="col-md-12">
+                            <div class="col-md-12 text-center">
                                 <img :src="imageURL(stockist.payment_receipt)" alt="Proof Of Payment"  style="height:500px; width: 500px">
+                                 <br>
+                                <a :href="imageURL(stockist.payment_receipt)" download="  " class="btn btn-success mt-3" >
+                                    <i class="icon icon-download"></i> Download Image
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -784,7 +784,7 @@
                 <div v-if="user">
                     <UserPackagePayment :user="user"/>
                 </div>
-                <div v-else class="alert alert-info">
+                <div v-else class="alert alert-info text-center">
                     <span>This user is Inactive</span>
                 </div>
             </template>
@@ -803,7 +803,8 @@
             </template>
         </Modal>
 
-        <Modal modal-id="stockist-sales-stats" modal-title="Stockist Sales Stats" modal-size="md">
+        <!--The original-->
+          <!--<Modal modal-id="stockist-sales-stats" modal-title="Stockist Sales Stats" modal-size="md">
             <template v-if="salesStatsLoading==true || stockistSalesStats==null">
                 <b-skeleton-table
                     :rows="3"
@@ -819,6 +820,39 @@
                     <div class="col-md-12">
                         <p>Total Sales - {{ stockistSalesStats.total_sales }}</p>
                     </div>
+                </div>
+            </template>
+        </Modal>-->
+
+        <!--Newly added in a tabular form-->
+        <Modal modal-id="stockist-sales-stats" modal-title="Stockist Sales Stats" modal-size="md">
+            <template v-if="salesStatsLoading==true || stockistSalesStats==null">
+                <b-skeleton-table
+                    :rows="3"
+                    :columns="8"
+                    :table-props="{ bordered: true, striped: true }"
+                ></b-skeleton-table>
+            </template>
+            <template v-else>
+                <div class="table-responsive">
+                    <table class="table table-hover table-striped">
+                        <thead class="thead-light">
+                            <tr>
+                                <th>Metric</th>
+                                <th>Value</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Total Purchases</td>
+                                <td>₦{{ Number(stockistSalesStats.total_purchases ?? 0).toLocaleString('en-NG', { minimumFractionDigits: 2 }) }}</td>
+                            </tr>
+                            <tr>
+                                <td>Total Sales</td>
+                                <td>₦{{ Number(stockistSalesStats.total_sales ?? 0).toLocaleString('en-NG', { minimumFractionDigits: 2 }) }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </template>
         </Modal>
@@ -875,10 +909,10 @@
             </template>
             <template v-else>
                 <div class="row">
-                    <div class="col-md-12">
-                        <p class="bg-danger text-white">Are you sure to approve purchase?</p>
+                    <div class="col-md-12 text-center">
+                        <p class="text-red font-weight-bold s-18">"Are you sure you want to approve this purchase?"</p>
                         <button v-if="updatingRegistration==true" class="btn btn-danger">...</button>
-                        <button v-else class="btn btn-primary" @click="approveStockistPurchase(order.purchase_id)">Approve</button>
+                        <button v-else class="btn btn-primary" @click="approveStockistPurchase(order.purchase_id)"><i class="icon icon-check"></i>Approve</button>
                     </div>
                 </div>
             </template>
@@ -894,10 +928,10 @@
             </template>
             <template v-else>
                 <div class="row">
-                    <div class="col-md-12">
-                        <p class="bg-danger">Are you sure to disapprove purchase?</p>
+                    <div class="col-md-12 text-center">
+                        <p class="text-red font-weight-bold s-18">"Are you sure to disapprove this purchase?"</p>
                         <button v-if="updatingRegistration==true" class="btn btn-danger">...</button>
-                        <button v-else class="btn btn-primary" @click="disapproveStockistPurchase(order.purchase_id)">Decline</button>
+                        <button v-else class="btn btn-danger" @click="disapproveStockistPurchase(order.purchase_id)"><i class="icon icon-times"></i>Decline</button>
                     </div>
                 </div>
             </template>
@@ -946,26 +980,42 @@
                 </div>
             </template>
         </Modal>
+
+        <Modal modal-id="view-products" modal-title="View Products" modal-size="lg">
+            <template v-if="orderDetailsLoading==true">
+                <b-skeleton-table
+                    :rows="3"
+                    :columns="8"
+                    :table-props="{ bordered: true, striped: true }"
+                ></b-skeleton-table>
+            </template>
+            <template v-else>
+                <div class="row">
+                    <div class="col-md-12">
+                        <table class="table table-hover">
+                            <tr>
+                                <th>S/N</th>
+                                <th>Product</th>
+                                <th>Image</th>
+                                <th>Quantity</th>
+                            </tr>
+                            <tr v-for="orde,i in orderDetails.products" :key="i">
+                                <td>{{ ++i }}</td>
+                                <td>{{ orde.name }}</td>
+                                <td> <img :src="imageURL(orde.image)" height="100" width="100"/></td>
+                                <td>{{ orde.product_qty }}</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </template>
+        </Modal>
     </div>
 </template>
 
 <style scoped>
 
-::v-deep(.pagination .page-link) {
-  background-color: #ded8c7 !important;
-  color: #2E671A !important;
-  border: 1px solid #ded8c7 !important;
-  font-weight: 600;
-  box-shadow: none;
-}
-
-::v-deep(.pagination .page-item.active .page-link) {
-  background-color: #2E671A !important;
-  color: #fff !important;
-  border: 1px solid #2E671A !important;
-}
-
-    /* Dropdown Menu Styling */
+ /* Dropdown Menu Styling */
     .dropdown-menu {
         position: absolute !important; /* Make sure the dropdown is positioned absolutely */
         top: auto; /* Allow it to adjust position */
@@ -1022,7 +1072,6 @@
     .dropdown-menu .dropdown-item {
         transition: background-color 0.3s ease, color 0.3s ease;
     }
-	
 
 
 
@@ -1045,13 +1094,13 @@
   height: 20px;
   border: 2px solid #2E671A;
   border-radius: 4px;
-  background-color: #ecf0f1;
+  background-color: #ded8c7;
   cursor: pointer;
 }
 
 /* Checkbox checked state */
 .custom-checkbox:checked {
-  background-color: #ecf0f1;
+  background-color: #ded8c7;
   border-color: #2E671A;
 }
 
@@ -1099,7 +1148,7 @@ font-weight: 500;
 .container .pagination li a:hover,
 .container .pagination li.active a {
 background: #2E671A;
-color: #ecf0f1;
+color: #ded8c7;
 
 }
 
@@ -1158,7 +1207,9 @@ import StockistPackagePayment from '@/components/admin/StockistPackagePayment.vu
             updatingRegistration:false,
             order:null,
             upgradesLoading:false,
-            approvingUpgrade:false
+            approvingUpgrade:false,
+            orderDetailsLoading:false,
+            orderDetails:[]
         }
     },
 
@@ -1203,7 +1254,7 @@ import StockistPackagePayment from '@/components/admin/StockistPackagePayment.vu
 
         if(this.upgradedUsers.length==0){
             this.upgradedUsersLoading = true
-            //this.getUpgradedUsers().then(()=>this.upgradedUsersLoading = false)
+            this.getUpgradedUsers().then(()=>this.upgradedUsersLoading = false)
         }
 
         this.sumTotalPricesLoading = true
@@ -1230,8 +1281,8 @@ import StockistPackagePayment from '@/components/admin/StockistPackagePayment.vu
         }
 
         if(this.stockistUpgrades.length == 0){
-            this.upgradLoading = true
-            this.fetchUpgrades().then(()=>this.upgradLoading = false)
+            this.upgradesLoading = true
+            this.fetchUpgrades().then(()=>this.upgradesLoading = false)
         }
         
     },
@@ -1240,11 +1291,11 @@ import StockistPackagePayment from '@/components/admin/StockistPackagePayment.vu
         ...mapActions('withdrawalStore',['all','getTotal','searchWithdrawals']),
         ...mapActions('userStore',['getPaidUsers','getTotalPaidUsers',
         'getSumPaidUsers','searchPaidUsers','getUpgradedUsers']),
-        ...mapActions('productPurchaseStore',['getSumTotalPrices','getMonthlyRepurchases',"approvePurchase","disapprovePurchase"]),
+        ...mapActions('productPurchaseStore',['getSumTotalPrices','getMonthlyRepurchases',"approvePurchase","disapprovePurchase","fetchOrderDetails"]),
         ...mapActions('stockistStore',['getStockists','getStockistsStats','getStockistsOrders',
         'getSalesStats','approveStockist','disapproveStockist','fetchUpgrades','approveUpgrade','disapproveUpgrade'
         ]),
-        //...mapActions("PaymentStore",["getStockistPackagePayment"]),
+        ...mapActions('packageStore',['getPackage']),
 
         searchWithdraws(){
             this.searchWithdrawals({page:1,query:this.searchParam})
@@ -1305,6 +1356,32 @@ import StockistPackagePayment from '@/components/admin/StockistPackagePayment.vu
             this.approvingUpgrade = true
             this.approveUpgrade(id).then(()=>{this.approvingUpgrade = false; this.fetchUpgrades()})
         },
+
+        fetchDetails(purchaseId){
+            this.orderDetailsLoading = true
+            this.fetchOrderDetails(purchaseId).then((res)=>{
+                if(res && res.status==200){
+                    console.log('details',[res.data.data])
+                    this.orderDetails = res.data.data
+                }
+                this.orderDetailsLoading = false
+            })
+        },
+
+        transformPrevPackages(packages){
+            let packs = packages.split(',');
+            this.pac = null;
+            packs.map((ele)=>{
+             
+                return this.getPackage(ele).then((res)=> {
+                    this.pac = res.data.data.name
+                //console.log(res)
+                return this.pac
+                })
+                //console.log(this.pac)
+            
+            })
+        }
 
     }
  }

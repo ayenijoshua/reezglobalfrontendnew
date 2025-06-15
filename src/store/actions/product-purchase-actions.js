@@ -293,4 +293,20 @@ export default {
             LogError(commit,error,'loaded')
         }
     },
+
+    async fetchOrderDetails({commit},purchaseId){
+        try {
+            commit('loading',null,{root:true})
+            const res = await api.orderDetails(purchaseId)
+            if(res && res.status==200){
+                //return res.data.data
+            }else{
+                toastr.warning(res.data.message)
+            }
+            commit('loaded',null,{root:true})
+            return res
+        } catch (error) {
+            LogError(commit,error,'loaded')
+        }
+    }
 }

@@ -17,45 +17,45 @@
             </header>
             <div class="container-fluid animatedParent animateOnce my-3">
                 <div class="animated">
-                    <div v-if="!userHasProfile" class="card-body">
-                        <div class="alert alert-info">User has not submitted profile details</div>
+                    <div v-if="!userHasProfile" class="card-body" style="background-color:#ded8c7">
+                        <div class="alert alert-info text-center">User has not submitted profile details</div>
                     </div>
                     <div v-else class="tab-content" id="v-pills-tabContent">
                         <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
                             <div class="row">
                                 <div class="col-md-3">
                                     <div class=" my-3" >
-                                        <div class="card" >
-                                            <div class="card-header bg-white">
+                                        <div class="card shadow1" style="background-color:#ded8c7" >
+                                            <div class="card-header" style="background-color:#ded8c7">
                                                 <h6 class="green-text"><strong class="font-weight-bold">Profile Details</strong></h6>
                                             </div>
                                             <div class="card-body text-center ">
                                                 <div class="profile-pic-wrapper">
-                                                <div class="pic-holder">
-                                                    <!-- uploaded pic shown here -->
-                                                    <img id="profilePic" class="pic user_avatar" :style="{'width': '150px'}" :src="imageURL">
+                                                    <div class="pic-holder">
+                                                        <!-- uploaded pic shown here -->
+                                                        <img id="profilePic" class="pic user_avatar" :style="{'width': '150px'}" :src="imageURL">
 
-                                                    <!-- <Input class="uploadProfileInput" type="file" name="profile_pic" id="newProfilePhoto" accept="image/*" style="opacity: 0;" />
-                                                    <label for="newProfilePhoto" class="upload-file-block">
-                                                    <div class="text-center">
-                                                        <div class="mb-2">
-                                                        <i class="fa fa-camera fa-2x"></i>
+                                                        <!-- <Input class="uploadProfileInput" type="file" name="profile_pic" id="newProfilePhoto" accept="image/*" style="opacity: 0;" />
+                                                        <label for="newProfilePhoto" class="upload-file-block">
+                                                        <div class="text-center">
+                                                            <div class="mb-2">
+                                                            <i class="fa fa-camera fa-2x"></i>
+                                                            </div>
+                                                            <div class="text-uppercase">
+                                                            Update <br /> Profile Photo
+                                                            </div>
                                                         </div>
-                                                        <div class="text-uppercase">
-                                                        Update <br /> Profile Photo
-                                                        </div>
+                                                        </label> -->
                                                     </div>
-                                                    </label> -->
                                                 </div>
-                                                </div>
-                                                <div class="">
+                                                <div class="mt-4">
                                                     <ul class="list-group list-group-flush">
-                                                        <li class="list-group-item "><i class="icon icon-vcard float-left s-20 green-text border-right" ></i> <span class="float-right s-12 font-weight-medium green-text">{{ regPackage.vip }} - {{ regPackage.name }}</span></li>
-                                                        <li class="list-group-item "><i class="icon icon-person float-left s-20 green-text border-right" ></i> <span class="float-right s-12 font-weight-medium green-text">{{ form.first_name }} {{ form.last_name }}</span></li>
-                                                        <li class="list-group-item"><i class="icon icon-phone2 float-left s-20 green-text border-right"></i> <span class="float-right s-12 font-weight-medium green-text">{{ form.phone }}</span></li>
-                                                        <li class="list-group-item"><i class="icon icon-mail-envelope-closed4 float-left s-20 green-text border-right"></i> <span class="float-right s-12 font-weight-medium green-text">{{ form.email }}</span></li>
-                                                        <li class="list-group-item"><i class="icon icon-account_box float-left s-20 green-text border-right"></i>  <span class="float-right s-12 font-weight-medium green-text">{{ user.username }}</span></li>
-                                                        <li class="list-group-item"><i class="icon icon-home float-left s-20 green-text border-right"></i> <span class="float-right s-12 font-weight-medium green-text text-right" style="width:130px">{{ form.address }}</span></li>
+                                                        <li class="list-group-item "><i class="icon icon-vcard float-left s-20 green-text border-right" ></i> <span class="float-right s-12 font-weight-bold green-text"> {{ regPackage.name }}</span></li>
+                                                        <li class="list-group-item "><i class="icon icon-person float-left s-20 green-text border-right" ></i> <span class="float-right s-12 font-weight-bold green-text">{{ form.first_name }} {{ form.last_name }}</span></li>
+                                                        <li class="list-group-item"><i class="icon icon-phone2 float-left s-20 green-text border-right"></i> <span class="float-right s-12 font-weight-bold green-text">{{ form.phone }}</span></li>
+                                                        <li class="list-group-item"><i class="icon icon-mail-envelope-closed4 float-left s-20 green-text border-right"></i> <span class="float-right s-12 font-weight-bold green-text">{{ form.email }}</span></li>
+                                                        <li class="list-group-item"><i class="icon icon-account_box float-left s-20 green-text border-right"></i>  <span class="float-right s-12 font-weight-bold green-text">{{ user.username }}</span></li>
+                                                        <li class="list-group-item"><i class="icon icon-home float-left s-20 green-text border-right"></i> <span class="float-right s-12 font-weight-bold green-text text-right" style="width:130px">{{ form.address }}</span></li>
                                                     </ul>
                                                 </div>
                                             </div>
@@ -67,31 +67,31 @@
                                     <div class="row my-3">
                                         <!-- bar charts group -->
                                         <div class="col-md-12">
-                                            <div class="card">
-                                                <div class="card-header bg-white">
+                                            <div class="card shadow1" style="background-color:#ded8c7">
+                                                <div class="card-header" style="background-color:#ded8c7">
                                                     <h6 class="green-text"><strong class="font-weight-bold">Edit Profile</strong></h6>
                                                 </div>
                                                 <div class="card-body">
                                                     <form id="profile-form">
-                                                        <div class="card no-b no-r">
-                                                            <div class="card-body">
+                                                        <div class="card no-b no-r" style="background-color:#ded8c7">
+                                                            <div class="card-body" style="background-color:#ded8c7">
                                                                 <div class="form-row">
                                                                     <div class="col-md-12">
                                                                         <div class="form-row mb-2">
                                                                             <div class="form-group col-6 m-0">
                                                                                 <div class="input-group mb-2 mr-sm-2 mb-3">
                                                                                     <div class="input-group-prepend">
-                                                                                        <div class="input-group-text"><i class="icon icon-person float-left s-20 green-text " ></i></div>
+                                                                                        <div class="input-group-text"><i class="icon icon-person float-left s-20 text-white " ></i></div>
                                                                                     </div>
-                                                                                    <input name="first_name" :value="form.first_name" type="text" class="form-control r-0 light s-12" placeholder="First Name">
+                                                                                    <input name="first_name" :value="form.first_name" type="text" class="form-control r-0 light s-12 shadow 1 b-1"  placeholder="First Name" style="background-color:#ded8c7" >
                                                                                 </div>
                                                                             </div>
                                                                             <div class="form-group col-6 m-0">
                                                                                 <div class="input-group mb-2 mr-sm-2 mb-3">
                                                                                     <div class="input-group-prepend">
-                                                                                        <div class="input-group-text"><i class="icon icon-person float-left s-20 green-text " ></i></div>
+                                                                                        <div class="input-group-text"><i class="icon icon-person float-left s-20 text-white " ></i></div>
                                                                                     </div>
-                                                                                    <input name="last_name" :value="form.last_name" type="text" class="form-control r-0 light s-12" placeholder="Last Name">
+                                                                                    <input name="last_name" :value="form.last_name" type="text" class="form-control r-0 light s-12 shadow1 b-1" placeholder="Last Name" style="background-color:#ded8c7">
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -100,19 +100,19 @@
                                                                             <div class="form-group col-6 m-0">
                                                                                 <div class="input-group mb-2 mr-sm-2">
                                                                                     <div class="input-group-prepend">
-                                                                                        <div class="input-group-text"><i class="icon icon-phone float-left s-20 green-text " ></i></div>
+                                                                                        <div class="input-group-text"><i class="icon icon-phone float-left s-20 text-white " ></i></div>
                                                                                     </div>
-                                                                                    <input name="phone" :value="form.phone" type="text" class="form-control r-0 light s-12"
-                                                                                        placeholder="Phone Number">
+                                                                                    <input name="phone" :value="form.phone" type="text" class="form-control r-0 light s-12 b-1 shadow1"
+                                                                                        placeholder="Phone Number" style="background-color:#ded8c7">
                                                                                 </div>
                                                                             </div>
                                                                             <div class="form-group col-6 m-0">
                                                                                 <div class="input-group mb-2 mr-sm-2">
                                                                                     <div class="input-group-prepend">
-                                                                                        <div class="input-group-text"><i class="icon icon-mail-envelope-closed4 float-left s-20 green-text"></i></div>
+                                                                                        <div class="input-group-text"><i class="icon icon-mail-envelope-closed4 float-left s-20 text-white"></i></div>
                                                                                     </div>
-                                                                                    <input type="text" name="email" readonly :value="form.email" class="form-control r-0 light s-12"
-                                                                                        placeholder="Email Address">
+                                                                                    <input type="text" name="email" readonly :value="form.email" class="form-control r-0 light s-12 shadow1 b-1"
+                                                                                        placeholder="Email Address" style="background-color:#ded8c7">
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -122,12 +122,12 @@
                                                                                 <div class="form-group m-0">
                                                                                     <div class="input-group  mr-sm-2 mb-3">
                                                                                         <div class="input-group-prepend">
-                                                                                            <div class="input-group-text"><i class="icon icon-person float-left s-20 green-text " ></i></div>
+                                                                                            <div class="input-group-text"><i class="icon icon-person float-left s-20 shadow1 text-white " ></i></div>
                                                                                         </div>
-                                                                                        <select name="gender" class="form-control r-0 light s-12">
-                                                                                            <option value="" :selected="!profile?.gender">Select gender</option>
-                                                                                            <option value="male" :selected="profile?.gender=='male'">Male</option>
-                                                                                            <option value="female" :selected="profile?.gender=='female'">Female</option>
+                                                                                        <select name="gender" class="form-control r-0 light s-12 shadow1 b-1" style="background-color:#ded8c7">
+                                                                                            <option value="" :selected="!profile?.gender" style="background-color:#ded8c7">Select gender</option>
+                                                                                            <option value="male" :selected="profile?.gender=='male'" style="background-color:#ded8c7">Male</option>
+                                                                                            <option value="female" :selected="profile?.gender=='female'" style="background-color:#ded8c7">Female</option>
                                                                                         </select>
                                                                                     </div>
                                                                                 </div>
@@ -146,8 +146,8 @@
                                                                             </div> -->
                                                                         </div>
                                                                         <div class="form-group m-0">
-                                                                            <textarea name="address" :value="profile?.address" rows="5" type="text" class="form-control r-0 light s-12" id="address"
-                                                                            placeholder="Residential Address"></textarea>
+                                                                            <textarea name="address" :value="profile?.address" rows="5" type="text" class="form-control r-0 light s-12 shadow1 b-1" id="address"
+                                                                            placeholder="Residential Address" style="background-color:#ded8c7"></textarea>
                                                                         </div>	
                                                                     </div>
                                                                 </div>
@@ -162,20 +162,20 @@
                                 </div>
                                 <div class="col-md-3">
                                     <div class=" my-3" >
-                                        <div class="card" style="background-color:#2E671A;" >
-                                            <div class="card-header">
-                                                <h6 class="text-white"><strong class="font-weight-bold">Upline Details</strong></h6>
+                                        <div class="card shadow1" style="background-color:#ded8c7">
+                                            <div class="card-header" style="background-color:#ded8c7">
+                                                <h6 class="text-green"><strong class="font-weight-bold">Upline Details</strong></h6>
                                             </div>
-                                            <div class="card-body text-center">
+                                            <div class="card-body text-center" style="background-color:#ded8c7">
                                                 <div class="avatar avatar-xl mb-3 ">
                                                     <img class="user_avatar" :src="uplineImageURL" alt="User Image">
                                                 </div>
                                                 <div class="">
                                                     <ul class="list-group list-group-flush" >
-                                                        <li class="list-group-item"  style="background-color:#2E671A;"><i class="icon icon-vcard float-left s-20 text-white border-right" ></i> <span class="float-right s-22 font-weight-medium text-white">{{ uplineDetails.package }}</span></li>
-                                                        <li class="list-group-item "  style="background-color:#2E671A;"><i class="icon icon-person float-left s-20 text-white border-right" ></i> <span class="float-right s-22 font-weight-medium text-white ">{{ uplineDetails.first_name }} {{ uplineDetails.last_name }}</span></li>
-                                                        <li class="list-group-item"  style="background-color:#2E671A;"><i class="icon icon-mail-envelope-closed4 text-white float-left s-20  border-right"></i> <span class="float-right s-12 font-weight-medium text-white">{{ uplineDetails.email }}</span></li>
-                                                        <li class="list-group-item"  style="background-color:#2E671A;"><i class="icon icon-account_box float-left s-20 text-white border-right"></i>  <span class="float-right s-12 font-weight-medium text-white">{{ uplineDetails.username }}</span></li>
+                                                        <li class="list-group-item"  ><i class="icon icon-vcard float-left s-20 text-white border-right" ></i> <span class="float-right s-22 font-weight-bold text-green">{{ uplineDetails.package }}</span></li>
+                                                        <li class="list-group-item "  ><i class="icon icon-person float-left s-20 text-white border-right" ></i> <span class="float-right s-22 font-weight-bold text-green ">{{ uplineDetails.first_name }} {{ uplineDetails.last_name }}</span></li>
+                                                        <li class="list-group-item"  ><i class="icon icon-mail-envelope-closed4 text-white float-left s-20  border-right"></i> <span class="float-right s-12 font-weight-bold text-green">{{ uplineDetails.email }}</span></li>
+                                                        <li class="list-group-item"  ><i class="icon icon-account_box float-left s-20 text-white border-right"></i>  <span class="float-right s-12 font-weight-bold text-green">{{ uplineDetails.username }}</span></li>
                                                     </ul>
                                                 </div>
                                             </div>
@@ -187,14 +187,14 @@
                         <div class="tab-pane fade" id="v-pills-payments" role="tabpanel" aria-labelledby="v-pills-payments-tab">
                             <div class="row">
                                 <div class="col-md-12">
-                                    <div class="card no-b">
-                                        <div class="card-header bg-white text-green">
+                                    <div class="card no-b shadow1" style="background-color:#ded8c7">
+                                        <div class="card-header  text-green" style="background-color:#ded8c7">
                                             <h4 class="card-title green-text"><strong class="font-weight-bold">Bank Account Details</strong></h4>
                                         </div>
                                         <div class="collapse show" id="invoiceCard">
-                                            <div class="card-body p-0">
-                                                <div class="card no-b  no-r">
-                                                    <div class="card-body">
+                                            <div class="card-body p-0" style="background-color:#ded8c7">
+                                                <div class="card no-b  no-r" style="background-color:#ded8c7">
+                                                    <div class="card-body" style="background-color:#ded8c7">
                                                         <div class="form-row">
                                                             <div class="col-md-4">
                                                                 <div class="card mr-3 " style="background-color: #2E671A" >
@@ -213,7 +213,7 @@
                                                                                 <img class="user_avatar" :src="imageURL" alt="User Image">
                                                                             </div>
                                                                             <div>
-                                                                                <span class="text-white" id="d1" style="font-size:10px" >Account Name</span>
+                                                                                <span class="text-white" id="d1" style="font-size:10px;" >Account Name</span>
                                                                                 <h6 class="font-weight-bold text-white" id="d1">{{ bank.bank_account_name }}</h6>
                                                                                 <span class="text-white" id="d1" style="font-size:10px" >Account Number</span>
                                                                                 <h6 class="font-weight-bold text-white" id="d1">{{ bank.bank_account_number }}</h6>
@@ -235,29 +235,29 @@
                                                                     <div class="form-group m-0">
                                                                         <div class="input-group mb-2 mr-sm-2 mb-3">
                                                                             <div class="input-group-prepend">
-                                                                                <div class="input-group-text"><i class="icon icon-account_balance float-left s-20 green-text " ></i></div>
+                                                                                <div class="input-group-text"><i class="icon icon-account_balance float-left s-20 text-white " ></i></div>
                                                                             </div>
-                                                                            <input v-model="bank.bank_name" type="text" class="form-control r-0 light s-12"
-                                                                                placeholder="Bank Name">
+                                                                            <input v-model="bank.bank_name" type="text" class="form-control r-0 light s-12 shadow1 b-1"
+                                                                                placeholder="Bank Name" style="background-color:#ded8c7" >
                                                                         </div>
                                                                     </div>
                                                                     <div class="form-row">
                                                                         <div class="form-group col-6 m-0">
                                                                             <div class="input-group mb-2 mr-sm-2 mb-3">
                                                                                 <div class="input-group-prepend">
-                                                                                    <div class="input-group-text"><i class="icon icon-person float-left s-20 green-text " ></i></div>
+                                                                                    <div class="input-group-text"><i class="icon icon-person float-left s-20 text-white " ></i></div>
                                                                                 </div>
-                                                                                <input v-model="bank.bank_account_name" type="text" class="form-control r-0 light s-12"
-                                                                                    placeholder="Account Name">
+                                                                                <input v-model="bank.bank_account_name" type="text" class="form-control r-0 light s-12 shadow1"
+                                                                                    placeholder="Account Name" style="background-color:#ded8c7" >
                                                                             </div>
                                                                         </div>
                                                                         <div class="form-group col-6 m-0">
                                                                             <div class="input-group mb-2 mr-sm-2 mb-3">
                                                                                 <div class="input-group-prepend">
-                                                                                    <div class="input-group-text"><i class="icon icon-address-card-o float-left s-20 green-text " ></i></div>
+                                                                                    <div class="input-group-text"><i class="icon icon-address-card-o float-left s-20 text-white " ></i></div>
                                                                                 </div>
-                                                                                <input v-model="bank.bank_account_number" type="text" class="form-control r-0 light s-12"
-                                                                                    placeholder="Account Number">
+                                                                                <input v-model="bank.bank_account_number" type="text" class="form-control r-0 light s-12 shadow1"
+                                                                                    placeholder="Account Number" style="background-color:#ded8c7" >
                                                                             </div>
                                                                         </div>
                                                                     </div>

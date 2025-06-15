@@ -3,7 +3,7 @@
         <div class="animated">
             <div class="row my-3">
                 <div class="col-md-12">
-                    <div class="card shadow1">
+                    <div class="card shadow1" style="background-color:#ded8c7;">
                         <div class="card-header" style="background-color:#ded8c7;">
                             <h6 class="text-green"><strong class="font-weight-bold">OFFICIAL RANKS</strong></h6>
                         </div>

@@ -202,7 +202,7 @@
                                                     <div class="avatar avatar-xl mb-3">
                                                         <img class="user_avatar" :src="uplineImageURL" alt="User Image">
                                                     </div>
-                                                    <div class="">
+                                                    <div class="mt-3">
                                                         <ul class="list-group list-group-flush" >
                                                             <li class="list-group-item border-bottom" style="background-color:#1b4f72;" ><i class="icon icon-vcard float-left s-20 text-white border-right" ></i> <span class="float-right s-12 font-weight-bold text-green">{{ uplineDetails.package }}</span></li>
                                                             <li class="list-group-item border-bottom" style="background-color:#1b4f72;" ><i class="icon icon-person float-left s-20 text-white border-right" ></i> <span class="float-right s-22 font-weight-bold text-green ">{{ uplineDetails.first_name }} {{ uplineDetails.last_name }}</span></li>
@@ -304,8 +304,8 @@
                             </div>
                         </div>
                         <div class="tab-pane fade" id="v-pills-payments" role="tabpanel" aria-labelledby="v-pills-payments-tab">
-						
-						    <div class="row mb-4">
+                        
+                            <div class="row mb-4">
                                 <div class="col-md-12">
                                     <div class="card  shadow" style="background-color: transparent">
                                         <div class="collapse show" id="invoiceCard">
@@ -322,12 +322,12 @@
                                                                             <span class="border-right mr-2" style="border-right: 1px solid #2E671A !important;"></span>
                                                                         </div> 
                                                                         <div class="mt-3 mr-2 ml-auto" >
-                                                                            <img src="/assets/img/personal-banking3.png" class="bg-transparent" style="max-width:100px;">	 
+                                                                            <img src="/assets/img/personal-banking3.png" class="bg-transparent" style="max-width:70px;">	 
                                                                         </div>
                                                                     </div>
                                                                     <div class="card-body" >
-                                                                        <div class="d-flex align-items-center">
-                                                                            <div class="avatar avatar-xl mr-4 ">
+                                                                        <div class="text-center">
+                                                                            <div class="avatar avatar-xl ">
                                                                                 <img class="user_avatar" :src="imageURL" alt="User Image">
                                                                             </div>
                                                                             <div>
