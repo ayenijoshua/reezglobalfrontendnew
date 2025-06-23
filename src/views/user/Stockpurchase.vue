@@ -18,8 +18,8 @@
                                     </div>
                                     
                                     <select required v-model="selectedOrderType" @change="getPickupAmount" class="form-control r-0 light s-12" style="background-color: transparent; border: 2px solid #1b4f72;">
-                                        <template :key="i" v-for="orderType,i in orderTypes">
-                                            <option :value="orderType" >{{orderType == '' ? 'Select' : orderType.replace('_'," ")}}</option>
+                                        <template v-for="orderType,i in orderTypes">
+                                            <option :key="i" :value="orderType" >{{orderType == '' ? 'Select' : orderType.replace('_'," ")}}</option>
                                         </template>														   
                                     </select>
                                 </div>

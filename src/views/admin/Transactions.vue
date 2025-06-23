@@ -412,7 +412,7 @@
                                                 </div>
                                                 <div class="ml-auto">
                                                     <h6 class="mt-0 mb-1 font-weight-bold">Total Stockist Purchase</h6>
-                                                    <div class="mt-1 text-dark-heading font-weight-bold float-right" style="color: #353935;" >₦ {{ stockistsStats.stockist_purchases_sum }} </div>
+                                                    <div class="mt-1 text-dark-heading font-weight-bold float-right" style="color: #353935;" >₦ {{ stockistsStats.stockist_purchases_sum.toLocaleString('en-US') }} </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -1313,7 +1313,7 @@ import StockistPackagePayment from '@/components/admin/StockistPackagePayment.vu
             this.stockist = stockist
         },
 
-        fetchSalesStats(uuid){
+        fetchSalesStats(uuid){                                                        
             this.salesStatsLoading = true
             this.getSalesStats(uuid).then(res=>{this.stockistSalesStats = res.data.data; this.salesStatsLoading=false;})
         },
@@ -1324,7 +1324,7 @@ import StockistPackagePayment from '@/components/admin/StockistPackagePayment.vu
 
         approveRegistration(id){
             this.updatingRegistration = true
-            this.approveStockist(id).then(()=>this.updatingRegistration = false)
+            this.approveStockist(id).then(()=>{this.updatingRegistration = false; this.getStockistsStats()})
         },
 
         disapproveRegistration(id){

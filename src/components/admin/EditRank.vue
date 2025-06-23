@@ -94,8 +94,8 @@ import { mapActions, mapGetters, mapState } from 'vuex'
         this.form.points = this.rank.points
         this.form.is_global_profit_eligible = this.rank.is_global_profit_eligible
         this.form.description = this.rank.description
-        this.form.package_id = this.rank.package
-        alert(this.form.package_id)
+        this.form.package_id = this.rank.package_id
+        //alert(this.form.package_id)
 
         this.all();
     },

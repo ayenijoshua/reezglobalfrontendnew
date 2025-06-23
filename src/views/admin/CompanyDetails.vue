@@ -61,9 +61,9 @@
                                             </div>
                                         </div>
                                         <select v-model="bankForm.bank_name" id="bank-select"  class="form-control r-1 light s-5" style="background-color:transparent; ; border: 2px solid #2E671A;">
-                                            <option  :value="null"  style="background-color: #ded8c7">Select Bank</option>
-                                            <template v-for="bank,i in bankList" :key="i">
-                                                <option :value="bank.bank"  style="background-color: #ded8c7">{{ bank.bank }}</option>
+                                            <option :value="null"  style="background-color: #ded8c7">Select Bank</option>
+                                            <template v-for="bank,i in bankList" >
+                                                <option :value="bank.bank"  style="background-color: #ded8c7" :key="i">{{ bank.bank }}</option>
                                             </template>                 
                                         </select>	
                                     </div>  

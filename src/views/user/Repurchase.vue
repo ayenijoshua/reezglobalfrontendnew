@@ -14,8 +14,8 @@
                                 <div class="input-group-text" style="background-color: #2E671A; border: 2px solid #2E671A;"><i class="icon icon-shopping-cart float-left s-20 text-white" ></i></div>
                             </div>
                                 <select required v-model="selectedOrderType" @change="getPickupAmount" class="form-control r-0 light s-12" style="background-color: #ded8c7; border: 2px solid  #2E671A;">
-                                    <template :key="i" v-for="orderType,i in orderTypes">
-                                        <option :value="orderType" >{{orderType == '' ? 'Select' : orderType.replace('_'," ")}}</option>
+                                    <template v-for="orderType,i in orderTypes">
+                                        <option :value="orderType" :key="i">{{orderType == '' ? 'Select' : orderType.replace('_'," ")}}</option>
                                     </template>														   
                                 </select>
                         </div>
@@ -233,8 +233,8 @@
                                                     </td>
                                                 </tr>
                                             </template>
-                                            <template :key="i" v-else v-for="stockist,i in stockists">
-                                                <tr>
+                                            <template v-else v-for="stockist,i in stockists">
+                                                <tr :key="i">
                                                     <td>{{ (stockistsPerPage * (stockistsCurrentPage - 1)) + ( ++i) }}</td>
                                                     <td>{{ stockist.store_name }}</td>
                                                     <td>{{ stockist.store_address }}</td>
@@ -347,8 +347,8 @@
                                                     </td>
                                                 </tr>
                                             </template>
-                                            <template :key="i" v-else v-for="purchase,i in userPurchases">
-                                                <tr >
+                                            <template v-else v-for="purchase,i in userPurchases">
+                                                <tr :key="i">
                                                     <td>{{ (userPurchasesPerPage * (userPurchasesCurrentPage - 1)) + ( ++i) }}</td>
                                                     <td>{{ purchase.pickup_type }}</td>
                                                     <td>{{ purchase.store_name??'N/A' }}</td>
@@ -779,7 +779,7 @@ export default {
         }
 
        this.userPurchase({uuid:this.authUser.uuid,reqData:data}).then(()=>{
-         this.getUserPurchases(this.authUser.uuid)
+         this.getUserPurchases({type:this.authUser.uuid,page:1})
        })
 
     },

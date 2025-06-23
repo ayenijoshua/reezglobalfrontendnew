@@ -158,8 +158,8 @@
                                             </div>
                                             <select name="package_id" v-model="upgradeForm.package_id" @change="getPackageDifference" class="form-control r-0 light s-12 shadow" style="background-color: transparent">
                                                 <option value="" style="background-color: #ded8c7">Select Package</option>
-                                                <template :key="i" v-for="packag,i in stockistPackages.filter((ele) => ele.id > stockist.package_id)">
-                                                    <option :value="packag.id"  style="background-color: #ded8c7">{{ packag.name }} - ₦{{ packag.registration_value.toLocaleString('en-US') }}</option>
+                                                <template v-for="packag,i in stockistPackages.filter((ele) => ele.id > stockist.package_id)">
+                                                    <option :key="i" :value="packag.id"  style="background-color: #ded8c7">{{ packag.name }} - ₦{{ packag.registration_value.toLocaleString('en-US') }}</option>
                                                 </template>														   
                                             </select>
                                         </div>
@@ -337,7 +337,8 @@ export default{
         },
 
         getPackageDifference(){
-            this.fetchPackageDifference(this.upgradeForm.package_id).then((res)=>{
+            //alert(this.upgradeForm.package_id)
+            this.fetchPackageDifference({packageId:this.upgradeForm.package_id,isUpgradePickup:false}).then((res)=>{
                 console.log('pac-diff',res.data.data)
                 this.upgradeData = res.data.data
             })
