@@ -402,15 +402,30 @@ export default{
                     this.orders = res.data.data.products
                     this.member = res.data.data.user
 
-                    this.totalPoints = this.orders.reduce((prev,curr)=>{
-                        return prev.points + curr.points
-                    })
+                    // this.totalPoints = this.orders.reduce((prev,curr)=>{
+                    //     return prev.points + curr.points
+                    // })
 
-                    this.totalPrice = this.orders.reduce((prev,curr)=>{
-                        return prev.price + curr.price
-                    })
+                    // this.totalPrice = this.orders.reduce((prev,curr)=>{
+                    //     return prev.price + curr.price
+                    // })
 
+                    // this.purchaseId = this.orders[0].product_purchase_id
+
+                    var initTotal = 0
+                    for(var i=0; i<this.orders.length; i++){
+                        initTotal = initTotal + this.orders[i].price
+                    }
+
+                    var initPoints= 0
+                    for(var i=0; i<this.orders.length; i++){
+                        initPoints = initPoints + this.orders[i].points
+                    }
+
+                    this.totalPrice = initTotal;
                     this.purchaseId = this.orders[0].product_purchase_id
+                    this.totalPoints = initPoints;
+
                 }
                 this.orderLoading = false
                 
