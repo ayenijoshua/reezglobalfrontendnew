@@ -339,7 +339,7 @@ export default{
     created(){
         
 
-        if(this.stockist.id == undefined){
+        //if(this.stockist.id == undefined){
             if(this.authUser.uuid == undefined){
                 this.getUser().then((res)=>{
                     this.stockistLoading = true
@@ -350,7 +350,7 @@ export default{
                         this.single(this.stockist.package_id).then(()=>this.packageLoading=false)
                     })
                     
-                    if(this.stockistPrevMonthSale == null){
+                    if(this.stockistPrevMonthSales == null){
                         this.prevMonthSaleLoading = true
                         this.fetchStockPrevMonthSales(res.data.uuid).then(()=>this.prevMonthSaleLoading = false)
                     }
@@ -364,12 +364,12 @@ export default{
                     this.single(this.stockist.package_id).then(()=>this.packageLoading = false)
                 })
 
-                if(this.stockistPrevMonthSale == null){
+                if(this.stockistPrevMonthSales == null){
                     this.prevMonthSaleLoading = true
                     this.fetchStockPrevMonthSales(this.authUser.uuid).then(()=>this.prevMonthSaleLoading = false)
                 }
             }
-        }
+        //}
         
         if(this.products.length == 0){
             this.prodLoading = true

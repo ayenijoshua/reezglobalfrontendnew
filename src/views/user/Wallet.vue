@@ -20,15 +20,14 @@
                     <div class="tab-content" id="v-pills-tabContent">
                         <div class="tab-pane fade show active" id="v-pills-wallet-summary" role="tabpanel" aria-labelledby="v-pills-wallet-summary-tab">
                         
-                        
                              <div class="row my-3">
                                 <div class="col-lg-12 pb-4">
-                                    <b-card v-if="walletBalanceLoading && loading">
+                                    <!-- <b-card v-if="walletBalanceLoading && loading">
                                         <b-skeleton width="85%"></b-skeleton>
                                         <b-skeleton width="55%"></b-skeleton>
                                         <b-skeleton width="70%"></b-skeleton>
-                                    </b-card>
-                                    <div v-else class="counter-box p-40 text-white shadow1 r-5" style="background-color: #2E671A">
+                                    </b-card> -->
+                                    <div  class="counter-box p-40 text-white shadow1 r-5" style="background-color: #2E671A">
                                         <div class="float-right">
                                             <img  src="/assets/img/wallet2.png">
                                         </div>
@@ -38,12 +37,12 @@
                                 </div>
                                 
                                 <div class="col-lg-12 pb-4">
-                                    <b-card v-if="walletBalanceLoading && loading">
+                                    <!-- <b-card v-if="true">
                                         <b-skeleton width="85%"></b-skeleton>
                                         <b-skeleton width="55%"></b-skeleton>
                                         <b-skeleton width="70%"></b-skeleton>
-                                    </b-card>
-                                    <div v-else class="counter-box p-40 text-white shadow1 r-5" style="background-color: #2E671A">
+                                    </b-card> -->
+                                    <div  class="counter-box p-40 text-white shadow1 r-5" style="background-color: #2E671A">
                                         <div class="float-right">
                                             <img  src="/assets/img/wallet2.png">
                                         </div>
@@ -53,12 +52,12 @@
                                 </div>
                                 
                                 <div class="col-lg-12 pb-4">
-                                    <b-card v-if="walletBalanceLoading && loading">
+                                    <!-- <b-card v-if="walletBalanceLoading && loading">
                                         <b-skeleton width="85%"></b-skeleton>
                                         <b-skeleton width="55%"></b-skeleton>
                                         <b-skeleton width="70%"></b-skeleton>
-                                    </b-card>
-                                    <div v-else class="counter-box p-40 text-white shadow1 r-5" style="background-color: #2E671A">
+                                    </b-card> -->
+                                    <div class="counter-box p-40 text-white shadow1 r-5" style="background-color: #2E671A">
                                         <div class="float-right">
                                             <img  src="/assets/img/wallet2.png">
                                         </div>
@@ -137,6 +136,7 @@
                                         </div>
                                     </div>
                                     <br>
+                                    <!--Withdrawal amount--
                                     <div class="card shadow1" style="background-color: transparent">
                                         <b-card v-if="settingsLoading">
                                             <b-skeleton width="85%"></b-skeleton>
@@ -161,9 +161,37 @@
                                             </div>                                            
                                         </div>
                                     </div>
+                                    -->
+
+                                    <div class="card shadow1" style="background-color: transparent">
+                                        <b-card v-if="settingsLoading">
+                                            <b-skeleton width="85%"></b-skeleton>
+                                            <b-skeleton width="55%"></b-skeleton>
+                                            <b-skeleton width="70%"></b-skeleton>
+                                            <b-skeleton width="85%"></b-skeleton>
+                                            <b-skeleton width="55%"></b-skeleton>
+                                        </b-card>
+                                        <div v-else class="collapse show text-center" id="invoiceCard">
+                                            <div class="card-body  text-center">
+                                                <img  src="/assets/img/wallet4.png"  width="auto" height="200px">
+                                                <div class="text-center"> <h5 class="font-weight-bold">Withdrawal (Bank Transfer) </h5></div>
+                                                <form @submit.prevent="bankTransfer()">
+                                                    <div class="form-row">
+                                                        <div class="col-md-12 mb-3">
+                                                            <input type="number" required v-model="bankTransferForm.amount" class="form-control" :min="settings.minimum_withdrawal > 0 ? settings.minimum_withdrawal : 1" :max="settings.maximum_withdrawal" placeholder="withdrawal amount" style="background-color: transparent; border: 2px solid #1b4f72;">
+                                                        </div>
+                                                        <div class="col-md-12 mb-3">
+                                                            <textarea required v-model="bankTransferForm.reason" class="form-control" placeholder="Withdrawal description" style="background-color: transparent; border: 2px solid #1b4f72;"></textarea>
+                                                        </div>
+                                                    </div>
+                                                    <span v-if="makingPayment==true" class="btn btn-success">...</span>
+                                                    <button v-else class="btn btn-success" type="submit"><i class="icon-account_balance_wallet mr-2"></i>Submit</button>
+                                                </form>
+                                            </div>                                            
+                                        </div>
+                                    </div>
                                 </div>
                                                                 
-                                
                                 <div class="col-md-8">
                                     <div class="card shadow" style="background-color: transparent" >
                                         <div class="collapse show" id="invoiceCard">
@@ -277,7 +305,13 @@ import { mapActions,mapState,mapGetters } from 'vuex';
                     withdrawal_amount:0
                 },
                 submittingAmt:false,
-                settingsLoading:false
+                settingsLoading:false,
+                bankTransferForm:{
+                    amount:null,
+                    reason:null
+                },
+                makingPayment:false,
+                walletBalanceLoading : false
             }
         },
 
@@ -338,6 +372,7 @@ import { mapActions,mapState,mapGetters } from 'vuex';
                 ...mapActions('withdrawalStore',['getUserTotal','getUserHistory','initiate','getUserPendingWithdrawals']),
                 ...mapActions('settingStore',['all']),
                 ...mapActions('userStore',['updateWithdrawalAmount']),
+                ...mapActions("paymentStore", ["makePayment"]),
 
             getBonuses(uuid){
                 
@@ -371,6 +406,12 @@ import { mapActions,mapState,mapGetters } from 'vuex';
             submitWithdrawalAmount(){
                 this.submittingAmt = true
                 this.updateWithdrawalAmount(this.withdrawalForm).then(()=>{this.submittingAmt=false; this.getUser();})
+            },
+
+            bankTransfer(){
+                
+                this.makingPayment = true
+                this.makePayment({uuid:this.authUser.uuid, data:this.bankTransferForm}).then(()=>this.makingPayment=false)
             }
         }
     }

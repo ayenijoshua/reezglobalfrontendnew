@@ -11,7 +11,7 @@
                             <div class="input-group-prepend">
                                 <div class="input-group-text"><i class="icon icon-account_balance float-left s-20 text-white " ></i></div>
                             </div>
-                            <select id="bank-select" v-model="form.bank_name" required class="form-control r-0 light s-12 shadow1" style="background-color:#ded8c7">
+                            <select id="bank-select" v-model="form.bank_name" required @change="setBankCode()" class="form-control r-0 light s-12 shadow1" style="background-color:#ded8c7">
                                 <option :value="null" style="background-color:#ded8c7">Select Bank</option>
                                 <option v-for="bank,i in banks" :value="bank.bank" :key="i" :selected="profile.bank_name == bank.bank" style="background-color:#ded8c7">{{ bank.bank }}</option>														   
                             </select>
@@ -150,11 +150,11 @@ export default{
         ...mapActions('paymentStore',['verifyBankDetails','fetchBanks']),
 
         profileUpdate(){
-            let verifyData = {bank_name:this.form.bank_name,account_number:this.form.bank_account_number}
+            let verifyData = {bank_name:this.form.bank_name,account_number:this.form.bank_account_number,bank_code:this.form.bank_code}
             this.verifyBankDetails(verifyData).then(verRes=>{
                 if(verRes.status==200){
                     this.form.bank_code = verRes.data.data.bank_code
-                    this.form.bank_account_name = verRes.data.data.accountName
+                    this.form.bank_account_name = verRes.data.data.account_name
                     this.updateBankDetails({uuid:this.user.uuid,data:this.form}).then(res=>{
                         if(res.status == 200){
                             this.getProfileDetails(this.user.uuid)
@@ -166,6 +166,13 @@ export default{
 
         setEditable(){
             this.setBankEditable({uuid:this.user.uuid,data:{bank_editable:!this.bank_editable}})
+        },
+
+        setBankCode(){
+            let bank = this.banks.find(ele=>ele.bank==this.form.bank_name);
+            if(bank != -1){
+                this.form.bank_code = bank.code
+            }
         }
     }
     

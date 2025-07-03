@@ -101,7 +101,6 @@
                                 </div>
                             </template>
                             
-                            
                             <hr>
                             <div v-if="member !== null" class="d-flex align-items-center mt-4">
                                 <div>
