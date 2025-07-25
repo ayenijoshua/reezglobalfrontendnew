@@ -61,7 +61,9 @@
                                             </div>  
                                             <div class="mb-2 mt-4" :key="i">
                                                 <h6 class="font-weight-bold text-green s-14" style="margin: 0em; padding: 0em;">{{ order.name }} <br>
-                                                    <small class="font-weight-bold"> {{order.points}}PV | Qty:{{ order.product_qty }}</small>
+                                                      <small class="font-weight-bold">
+                                                            unit price ₦{{ getUnitPrice(order).toLocaleString('en-US') }} | Qty: {{ order.product_qty }}
+                                                       </small>
                                                 </h6>
                                                 <h6>
                                                     <small :class="['font-weight-bold', order.in_stock ? 'text-info' : 'text-danger']">Instock : {{order.in_stock}}</small>  
@@ -70,18 +72,14 @@
 
                                             </div>	
                                             <div class="mb-2 mt-4 ml-auto mr-2" :key="i">
-                                                <span class="font-weight-bold float-right text-green">₦{{ order.price.toLocaleString('en-US') }}</span>
+                                                <!--<span class="font-weight-bold float-right text-green">₦{{ order.price.toLocaleString('en-US') }}</span>-->
+                                                <!--replace with the code below-->
+                                                 <span class="font-weight-bold float-right text-green">₦{{ (order.price * order.product_qty).toLocaleString('en-US') }}</span>
                                             </div>
                                         </template>
                                     </div>
 
                                     <div class="row column-row " style="border-bottom: 1px solid #2E671A !important;">
-                                        <div class="mb-2 mt-2 ml-3">
-                                            <h6 class="font-weight-bold text-green s-12" style="margin: 0em; padding: 0em;">Total Point Value </h6>											
-                                        </div>	
-                                        <div class="mb-2 mt-2 ml-auto mr-3">
-                                            <h6 class="font-weight-bold text-green s-12" style="margin: 0em; padding: 0em;">{{ totalPoints?.toFixed(2) }} PV</h6>											
-                                        </div>
                                     </div> 	
                                     <div class="row column-row" style="background-Color:#2E671A !important;">
                                         <div class="mb-2 mt-2 ml-3">
@@ -348,7 +346,7 @@ export default{
             processedOrdersLoading:false,
             orderCode:null,
             totalPoints:0,
-            totalPrice:0,
+            //totalPrice:0, for total price to be calculated properly
             member:null,
             purchaseId:null,
             //vendorProcessedOrders:[]
@@ -356,19 +354,31 @@ export default{
         }
     },
 
-    computed:{
-        ...mapState({
-            loading:state=>state.loading,
-            submitting:state=>state.submitting,
-        }),
 
-        imageURL(){
-            return process.env.VUE_APP_IMAGE_PATH
+        computed: {
+            ...mapState({
+                loading: state => state.loading,
+                submitting: state => state.submitting,
+            }),
+
+            imageURL() {
+                return process.env.VUE_APP_IMAGE_PATH;
+            },
+
+               totalAmount() {
+                return this.orders.reduce((sum, item) => {
+                    const qty = item.product_qty || 1;
+                    const unitPrice = this.getUnitPrice(item);
+                    return sum + (unitPrice * qty);
+                }, 0);
+            },
+
+
+            ...mapGetters('authStore', ['authUser']),
+            ...mapGetters('productPurchaseStore', ['vendorProcessedOrders']),
         },
 
-        ...mapGetters('authStore',['authUser']),
-        ...mapGetters('productPurchaseStore',['vendorProcessedOrders']),
-    },
+
 
     created(){
 
@@ -395,51 +405,80 @@ export default{
         ...mapActions('authStore',['getUser']),
         ...mapActions('productPurchaseStore',['getOrders','getVendorProcessedOrders','vendorApprovePurchase']),
 
-        getUserOrders(){
+       // added code
+        getUnitPrice(item) {
+        if (!item || !item.price) return 0;
+        const qty = item.product_qty || 1;
+        const unitPrice = item.unit_price || item.unitPrice; // support both field styles
+        if (unitPrice) return unitPrice;
+
+        // Fallback: calculate from price
+        return qty > 0 ? (item.price / qty) : item.price;
+        },
+
+
+
+        /*getUserOrders(){
             this.orderLoading = true
             this.getOrders(this.orderCode).then((res)=>{
                 if(res && res.status==200){
                     this.orders = res.data.data.products
                     this.member = res.data.data.user
 
-                    // this.totalPoints = this.orders.reduce((prev,curr)=>{
-                    //     return prev.points + curr.points
-                    // })
+                    this.totalPoints = this.orders.reduce((prev,curr)=>{
+                        return prev.points + curr.points
+                    })
 
-                    // this.totalPrice = this.orders.reduce((prev,curr)=>{
-                    //     return prev.price + curr.price
-                    // })
-
-                    // this.purchaseId = this.orders[0].product_purchase_id
-
-                    var initTotal = 0
-                    for(var i=0; i<this.orders.length; i++){
-                        initTotal = initTotal + this.orders[i].price
+                    if(this.orders.length == 1){
+                        this.totalPrice = this.orders[0].price
+                    }else{
+                        this.totalPrice = this.orders.reduce((prev,curr)=>{
+                            return prev.price??0 + curr.price??0 
+                        })
                     }
 
-                    var initPoints= 0
-                    for(var i=0; i<this.orders.length; i++){
-                        initPoints = initPoints + this.orders[i].points
-                    }
-
-                    this.totalPrice = initTotal;
                     this.purchaseId = this.orders[0].product_purchase_id
-                    this.totalPoints = initPoints;
-
                 }
                 this.orderLoading = false
                 
             })
+        },*/
+
+        // replaced with the code below for proper quantity price display on stockist order processing page
+
+         getUserOrders(){
+            this.orderLoading = true;
+            this.getOrders(this.orderCode).then((res) => {
+                if (res && res.status == 200) {
+                this.orders = res.data.data.products;
+                this.member = res.data.data.user;
+
+                this.totalPoints = this.orders.reduce((sum, item) => {
+                    return sum + (item.points || 0);
+                }, 0);
+
+                this.totalPrice = this.orders.reduce((sum, item) => {
+                const qty = item.product_qty || 1;
+                const unitPrice = this.getUnitPrice(item);
+                return sum + (unitPrice * qty);
+                }, 0);
+
+                this.purchaseId = this.orders[0].product_purchase_id;
+                }
+                this.orderLoading = false;
+            });
         },
 
-        approvePurchase(purchaseId){
+
+
+        /*approvePurchase(purchaseId){
             
             if(this.orders.length==0){
                 notification.warning("You cannot proceed without a valid order code")
                 return
             }
 
-            let check = this.orders.filter((order)=>order.in_stock==false || order.stock_qty==0)
+            let check = this.orders.filter((order)=>order.in_stock==false || order.stock_qty==0 || order.qualify==false)
 
             //console.log('check',check)
 
@@ -452,7 +491,51 @@ export default{
             this.vendorApprovePurchase(purchaseId).then(()=>{
                 this.approvingOrder = false
             })
-        }
+        },*/
+
+        //code added for table population after clicking the approve botton
+        approvePurchase(purchaseId){
+            if(this.orders.length==0){
+                notification.warning("You cannot proceed without a valid order code")
+                return
+            }
+
+            let check = this.orders.filter(order => order.in_stock == false || order.stock_qty == 0 || order.qualify == false)
+
+            if(check.length > 0){
+                notification.warning("You don't have enough stock to process this order")
+                return
+            }
+
+            this.approvingOrder = true
+            this.vendorApprovePurchase(purchaseId).then(() => {
+                this.approvingOrder = false
+
+                // ✅ Show success message (optional)
+                notification.success("Order approved successfully")
+
+                // ✅ Refresh vendor processed orders
+                const uuid = this.authUser?.uuid
+                if (uuid) {
+                    this.processedOrdersLoading = true
+                    this.getVendorProcessedOrders(uuid).then(() => {
+                        this.processedOrdersLoading = false
+                    })
+                }
+
+                // ✅ Clear previous order data (optional)
+                this.orders = []
+                this.orderCode = null
+                this.member = null 
+                //this.totalPrice = 0 removed for total price to calculate manually.
+                this.purchaseId = null
+            })
+        },
+
+
+        imageURI(img){
+            return img ? process.env.VUE_APP_IMAGE_PATH+'/'+img : '/assets/img/demo/products/product3.png';
+        },
     }
 
 }

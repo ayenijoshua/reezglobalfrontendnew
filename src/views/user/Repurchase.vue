@@ -13,11 +13,11 @@
                             <div class="input-group-prepend">
                                 <div class="input-group-text" style="background-color: #2E671A; border: 2px solid #2E671A;"><i class="icon icon-shopping-cart float-left s-20 text-white" ></i></div>
                             </div>
-                                <select required v-model="selectedOrderType" @change="getPickupAmount" class="form-control r-0 light s-12" style="background-color: #ded8c7; border: 2px solid  #2E671A;">
-                                    <template v-for="orderType,i in orderTypes">
-                                        <option :value="orderType" :key="i">{{orderType == '' ? 'Select' : orderType.replace('_'," ")}}</option>
-                                    </template>														   
-                                </select>
+								<select required v-model="selectedOrderType" @change="getPickupAmount" class="form-control r-0 light s-12" style="background-color: #ded8c7; border: 2px solid #1b4f72;">
+									<template v-for="(orderType, i) in filteredOrderTypes">
+										<option :value="orderType" :key="i">{{ orderType === '' ? 'Select' : orderType.replace('_', ' ') }}</option>
+									</template>														   
+								</select>
                         </div>
                     </div>        
                 </div>
@@ -386,8 +386,12 @@
                         <p class="text-center font-weight-bold">Please, Ensure you complete your transaction within 2 minutes.</p>
                         <VueCountdown :time="((gatewayTimeout))">
                             <template slot-scope="props">
-                                <div style="width: 200px !important; padding-right:20px; padding-left:20px; padding-top:20px; padding-bottom:20px;" id="minutes" class="align-items-center flex-column d-flex justify-content-center">{{ props.minutes }}&nbsp;&nbsp;MINUTES</div>
-                                <div style="width: 200px !important; padding-right:20px; padding-left:20px; padding-top:20px; padding-bottom:20px;" id="seconds" class="align-items-center flex-column d-flex justify-content-center">{{ props.seconds }}&nbsp;&nbsp;SECONDS</div>
+                                <div class="countdown-wrapper d-flex flex-wrap justify-content-center" style="padding-bottom:20px; padding-top:20px;">
+                                    <div style="width: 200px !important; padding-right:20px; padding-left:20px; " id="minutes" class="align-items-center flex-column d-flex justify-content-center">{{ props.minutes }}&nbsp;&nbsp;MINUTES</div>
+                                </div>
+                                 <div class="countdown-wrapper d-flex flex-wrap justify-content-center" style="padding-bottom:20px; padding-top:20px;">
+                                    <div style="width: 200px !important; padding-right:20px; padding-left:20px; " id="seconds" class="align-items-center flex-column d-flex justify-content-center">{{ props.seconds }}&nbsp;&nbsp;SECONDS</div>
+                                </div>
                             </template>
                         </VueCountdown>
                     </div>
@@ -395,7 +399,7 @@
             </div>
             <div class="row">
                 <div class="col-md-10 offset-md-1 mt-5">
-                    <iframe id='ifr' frameborder="0" :src="payLink" scrolling="no" width="400" height="500"></iframe>
+                    <iframe class="responsive-iframe-wrapper" id='ifr' frameborder="0" :src="payLink" scrolling="no" width="400" height="500"></iframe>
                 </div>
             </div>
         </modal>
@@ -456,6 +460,50 @@
 </template>
 
 <style scoped>
+/* Desktop: Keep layout intact */
+.countdown-wrapper {
+  gap: 15px;
+}
+
+/* Mobile: Make countdown stack */
+@media screen and (max-width: 768px) {
+  .countdown-wrapper {
+    flex-direction: column !important;
+    align-items: center !important;
+  }
+
+  .countdown-wrapper > div {
+    width: 90% !important;
+    margin-bottom: 10px;
+    font-size: 18px;
+  }
+}
+
+/* Default wrapper */
+.responsive-iframe-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 400px;
+  height: 500px;
+  margin: 0 auto;
+}
+
+/* Default iframe */
+.responsive-iframe-wrapper iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+/* Responsive mobile override */
+@media screen and (max-width: 768px) {
+  .responsive-iframe-wrapper {
+    max-width: 100%;
+    height: 600px; /* You can increase this if content is being cut off */
+    padding: 0 10px;
+  }
+}
+
 .btn-custom {
     background-color: #ffffff !important; /* White background */
     color: #2E671A !important; /* Text and icon color */
@@ -669,9 +717,23 @@ export default {
     'userPurchasesCurrentPage','userPurchasesLastPage','userPurchasesPerPage','userPurchasesTotalPages']),
     ...mapGetters('bonusStore',['walletBalance']),
     ...mapGetters('stockistStore',['stockists','stockistsAction','stockistsCurrentPage','stockistsLastPage','stockistsPerPage','stockistsTotalPages']),
-    ...mapGetters('packageStore',['regPackage'])
+    ...mapGetters('packageStore',['regPackage']),
+
    
+      // 👇 INSERT THIS HERE 👇
+        filteredOrderTypes() {
+            const hasPickedRegistration = this.userPurchases.some(
+            p => p.pickup_type === 'registration_pickup'
+            );
+            if (!hasPickedRegistration) {
+            return ['', 'registration_pickup'];
+            }
+            return ['', 'upgrade_pickup', 'repurchase_pickup'];
+        }
+
   },
+
+
 
   created() {
     
@@ -744,7 +806,7 @@ export default {
         }
     },
 
-    submitOrder(){
+    /*submitOrder(){
         if(this.cartProducts.length==0){
             notification.warning("There are no selected products")
             return
@@ -779,10 +841,56 @@ export default {
         }
 
        this.userPurchase({uuid:this.authUser.uuid,reqData:data}).then(()=>{
-         this.getUserPurchases({type:this.authUser.uuid,page:1})
+         this.getUserPurchases(this.authUser.uuid)
        })
 
-    },
+    },*/
+
+    // replaced with this code;
+    async submitOrder() {
+        if (this.cartProducts.length === 0) {
+            notification.warning("There are no selected products");
+            return;
+        }
+
+        if (!this.selectedOrderType) {
+            notification.warning("Order type not selected");
+            return;
+        }
+
+        if (!this.authUser.uuid) {
+            const res = await this.getUser();
+            this.authUser.uuid = res.data.uuid;
+        }
+
+        if (this.selectedOrderType === 'registration_pickup' && this.cartTotalPrice > this.regPackage.pickup_amount) {
+            notification.warning("Total selected product price is higher than pickup amount");
+            return;
+        }
+
+        if (this.selectedOrderType === 'upgrade_pickup' && this.cartTotalPrice > this.pickupAmount) {
+            notification.warning("Total selected product price is higher than pickup amount");
+            return;
+        }
+
+        const data = {
+            products: this.cartProducts,
+            total_price: this.cartTotalPrice,
+            total_quantity: this.cartTotalQty,
+            pickup_type: this.selectedOrderType,
+            total_points: this.cartTotalPoints
+        };
+
+        this.userPurchase({ uuid: this.authUser.uuid, reqData: data }).then(() => {
+            // ✅ Correct usage of Vuex action
+            this.getUserPurchases({ type: this.authUser.uuid, page: 1 }).then(() => {
+            this.cancelOrder(); // clear the cart
+            this.selectedOrderType = '';
+            notification.success("Purchase submitted successfully!");
+            });
+        });
+        },
+
 
     cancelOrder(){
         this.cartProducts = [];
@@ -810,7 +918,7 @@ export default {
         }
     },
 
-    myFunction() {
+        myFunction() {
     if (!this.orderCode) {
         notification.warning("Order code is empty or not loaded");
         return;
@@ -825,8 +933,6 @@ export default {
         notification.error("Failed to copy order code. Try manually.");
         });
     },
-
-
 
     ...mapActions("productPurchaseStore",["userPurchase","getUserPurchases","fetchOrderCode","fetchOrderDetails"]),
     ...mapActions("settingStore", ["getSetting", "all"]),
@@ -921,9 +1027,17 @@ export default {
         this.payWithWallet(data).then(()=>{this.payingWithWallet = false; this.walletBalanceLoading=true; this.getWalletBalance(this.authUser.uuid).then(()=>this.walletBalanceLoading = false); this.getUserPurchases({type:this.authUser.uuid,page:1})})
     },
 
-    searchStockist(){
-        this.searching = true
-        this.searchStockists(this.search).then(()=>this.searching=false)
+    searchStockist() {
+    this.searching = true;
+
+    // Always send an object with key "search", unless your backend expects otherwise
+    this.searchStockists({ search: this.search.search })
+        .then(() => {
+        this.searching = false;
+        })
+        .catch(() => {
+        this.searching = false;
+        });
     },
 
     imageURL(img){

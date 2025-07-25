@@ -90,5 +90,10 @@ export default{
 
     userBonusStats(state,data){
         state.userBonusStats = data
+    },
+	
+	// ✅ Add this right before the closing }
+    SET_ALL_BONUSES(state, bonuses) {
+        state.allBonuses = bonuses;
     }
 }

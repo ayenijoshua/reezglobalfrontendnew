@@ -134,7 +134,7 @@
                                         <div class="ml-auto mr-2">
                                             <button @click="cancelOrder" class="btn btn-sm btn-danger  mt-2" ><i class="icon-cancel mr-2"></i> Cancel Selection</button>
 
-                                            <button v-if="submittingOrder==true" @click="stockistPurchase"  type="submit" class="btn btn-sm btn-success mr-3 "><i class="icon-shopping-cart mr-2"></i>...</button>
+                                            <button v-if="submittingOrder==true" @click="stockistPurchase"  type="submit" class="btn btn-sm btn-success mr-3 mt-2 "><i class="icon-shopping-cart mr-2"></i>...</button>
                                             <button v-else @click="stockistPurchase"  type="submit" class="btn btn-sm btn-success ml-3 mt-2 "><i class="icon-shopping-cart mr-2"></i>Submit Order</button>
                                         </div>    
                                     </div>

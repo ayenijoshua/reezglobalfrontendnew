@@ -12,7 +12,7 @@
                                 <a class="nav-link" id="v-pills-Withdrawal-History-tab" data-toggle="pill" href="#v-pills-Withdrawal-History" role="tab" aria-controls="v-pills-Withdrawal-History" aria-selected="false"><i class="icon icon-credit-card"></i>Registration History</a>
                             </li>
                             <li class="font-weight-bold green-text">
-                                <a class="nav-link" id="v-pills-repurchase-History-tab" data-toggle="pill" href="#v-pills-repurchase-History" role="tab" aria-controls="v-pills-repurchase-History" aria-selected="false"><i class="icon icon-shopping-cart"></i>Product Repurchase History</a>
+                                <a class="nav-link" id="v-pills-repurchase-History-tab" data-toggle="pill" href="#v-pills-repurchase-History" role="tab" aria-controls="v-pills-repurchase-History" aria-selected="false"><i class="icon icon-shopping-cart"></i>Product Sales History</a>
                             </li>
                             <li class="font-weight-bold green-text">
                                 <a class="nav-link" id="v-pills-stockist-History-tab" data-toggle="pill" href="#v-pills-stockist-History" role="tab" aria-controls="v-pills-stockist-History" aria-selected="false"><i class="icon icon-account_box"></i>Stockist History</a>
@@ -304,7 +304,7 @@
                                                 <div class="float-right">
                                                     <img src="/assets/img/registration.png"  width="70px" height="70px">
                                                 </div>
-                                                <small class="mt-0 ml-2"><span style="color:#ffffff!important;">Total Product Repurchase</span></small>
+                                                <small class="mt-0 ml-2"><span style="color:#ffffff!important;">Total Product Sales</span></small>
                                                 <p class="text-dark-heading font-weight-bold " style="color:#ffffff!important;">
                                                     <span v-if="sumTotalPricesLoading ==true" style="color:#ffffff!important;font-size:20px">...loading</span>
                                                     <span v-else style="color:#ffffff!important;font-size:32px">₦ {{ sumTotalPrices.toLocaleString('en-US') }}</span>
@@ -516,10 +516,10 @@
 
                                                                             <template v-if="stock.stockist_status == 'pending'">
                                                                                 <a @click="setStockist(stock)" v-b-modal.approve-stockist class="dropdown-item text-green">
-                                                                                    <i class="icon-arrow-up."></i>&nbsp;&nbsp; Approve
+                                                                                    <i class="icon-check-circle"></i>&nbsp;&nbsp; Approve
                                                                                 </a>
                                                                                 <a @click="setStockist(stock)" v-b-modal.disapprove-stockist class="dropdown-item text-red">
-                                                                                    <i class="icon-drivers-license-o"></i>&nbsp;&nbsp; Disapprove
+                                                                                    <i class="icon-times-circle"></i>&nbsp;&nbsp; Disapprove
                                                                                 </a>
                                                                             </template>
                                                                             
@@ -615,10 +615,10 @@
 
                                                                             <template v-if="stock.payment_status == 'processing'">
                                                                                 <a @click="setStockist(stock)" v-b-modal.approve-upgrade class="dropdown-item text-green">
-                                                                                    <i class="icon-drivers-license-o"></i>&nbsp;&nbsp; Approve Upgrade
+                                                                                    <i class="icon-check-circle"></i>&nbsp;&nbsp; Approve Upgrade
                                                                                 </a>
                                                                                 <a @click="setStockist(stock)" v-b-modal.disapprove-upgrade class="dropdown-item text-red">
-                                                                                    <i class="icon-drivers-license-o"></i>&nbsp;&nbsp; Disapprove Upgrade
+                                                                                    <i class="icon-times-circle"></i>&nbsp;&nbsp; Disapprove Upgrade
                                                                                 </a>
                                                                             </template>
                                                                             <a @click="setStockist(stock)" v-b-modal.stockist-upgrade-history class="dropdown-item text-green"><i class="icon-sitemap"></i>&nbsp;&nbsp;Upgrade History</a>
@@ -756,18 +756,25 @@
                 ></b-skeleton-table>
             </template>
             <template v-else>
-                <div role="dialog" aria-hidden="true" >
-                    <div class="modal-dialog modal-dialog-centered" role="document" style="background: transparent!important;">
-                        <div class="row">
-                            <div class="col-md-12 text-center">
-                                <img :src="imageURL(stockist.payment_receipt)" alt="Proof Of Payment"  style="height:500px; width: 500px">
-                                 <br>
-                                <a :href="imageURL(stockist.payment_receipt)" download="  " class="btn btn-success mt-3" >
-                                    <i class="icon icon-download"></i> Download Image
-                                </a>
-                            </div>
-                        </div>
-                    </div>
+                <div class="text-center p-3">
+                <!-- Display Image -->
+                <img
+                    :src="imageURL(stockist.payment_receipt)"
+                    alt="Proof Of Payment"
+                    class="img-fluid"
+                    style="max-height: 500px;"
+                />
+                <br>
+                <!-- Working Download Button -->
+                <a
+                    :href="imageURL(stockist.payment_receipt)"
+                    :download="'stockist-pop-' + (stockist?.id || 'receipt') + '.jpg'"
+                    target="_blank"
+                    class="btn btn-success mt-3 d-inline-block"
+                    style="z-index: 9999; position: relative;"
+                >
+                    <i class="icon icon-download"></i> Download Image
+                </a>
                 </div>
             </template>
         </Modal>
@@ -836,7 +843,7 @@
             <template v-else>
                 <div class="table-responsive">
                     <table class="table table-hover table-striped">
-                        <thead class="thead-light">
+                        <thead class="thead">
                             <tr>
                                 <th>Metric</th>
                                 <th>Value</th>
@@ -867,12 +874,11 @@
             </template>
             <template v-else>
                 <div class="row">
-                    <div class="col-md-6">
-                        <img :src="imageURL(stockist.payment_receipt)" width="200px" height="200px">
-                    </div>
-                    <div class="col-md-6">
-                        <button v-if="updatingRegistration==true" class="btn btn-danger">...</button>
-                        <button v-else class="btn btn-primary" @click="approveRegistration(stockist.payment_id)">Approve</button>
+                    <div class="col-md-12 text-center">
+                        <img :src="imageURL(stockist.payment_receipt)" width="200px" height="200px" class="mt-4">
+                        <br>
+                        <button v-if="updatingRegistration==true" class="btn btn-primary">...</button>
+                        <button v-else class="btn btn-primary" @click="approveRegistration(stockist.payment_id)"><i class="icon-check-circle"></i>&nbsp;&nbsp;Approve this Stockist Payment</button>
                     </div>
                 </div>
             </template>
@@ -888,12 +894,11 @@
             </template>
             <template v-else>
                 <div class="row">
-                    <div class="col-md-6">
-                        <img :src="imageURL(stockist.payment_receipt)" width="200px" height="100px">
-                    </div>
-                    <div class="col-md-6">
+                     <div class="col-md-12 text-center">
+                        <img :src="imageURL(stockist.payment_receipt)" width="200px" height="100px" class="mt-4">
+                        <br>
                         <button v-if="updatingRegistration==true" class="btn btn-danger">...</button>
-                        <button v-else class="btn btn-danger" @click="disapproveRegistration(stockist.payment_id)">Disapprove</button>
+                        <button v-else class="btn btn-danger" @click="disapproveRegistration(stockist.payment_id)"><i class="icon-times-circle"></i>&nbsp;&nbsp;Disapprove this Stockist Payment</button>
                     </div>
                 </div>
             </template>
@@ -911,8 +916,8 @@
                 <div class="row">
                     <div class="col-md-12 text-center">
                         <p class="text-red font-weight-bold s-18">"Are you sure you want to approve this purchase?"</p>
-                        <button v-if="updatingRegistration==true" class="btn btn-danger">...</button>
-                        <button v-else class="btn btn-primary" @click="approveStockistPurchase(order.purchase_id)"><i class="icon icon-check"></i>Approve</button>
+                        <button v-if="updatingRegistration==true" class="btn btn-primary">...</button>
+                        <button v-else class="btn btn-primary" @click="approveStockistPurchase(order.purchase_id)"><i class="icon-check-circle"></i>&nbsp;&nbsp;Approve</button>
                     </div>
                 </div>
             </template>
@@ -931,7 +936,7 @@
                     <div class="col-md-12 text-center">
                         <p class="text-red font-weight-bold s-18">"Are you sure to disapprove this purchase?"</p>
                         <button v-if="updatingRegistration==true" class="btn btn-danger">...</button>
-                        <button v-else class="btn btn-danger" @click="disapproveStockistPurchase(order.purchase_id)"><i class="icon icon-times"></i>Decline</button>
+                        <button v-else class="btn btn-danger" @click="disapproveStockistPurchase(order.purchase_id)"><i class="icon-times-circle"></i>&nbsp;&nbsp;Decline</button>
                     </div>
                 </div>
             </template>
@@ -947,13 +952,12 @@
             </template>
             <template v-else>
                 <div class="row">
-                    <div class="col-md-6">
+                   <div class="col-md-12 text-center">
                         <img :src="imageURL(stockist.payment_receipt)" width="200px" height="100px">
-                    </div>
-                    <div class="col-md-6">
-                        <p class="bg-info">Are you sure to disapprove Upgrade?</p>
+                        <br>
+                        <h4>Are you sure you want to disapprove this Upgrade?</h4>
                         <button v-if="approvingUpgrade==true" class="btn btn-danger">...</button>
-                        <button v-else class="btn btn-danger" @click="disapproveStockistUpgrade(stockist.payment_id)">Disapprove</button>
+                        <button v-else class="btn btn-danger" @click="disapproveStockistUpgrade(stockist.payment_id)"><i class="icon-times-circle"></i>&nbsp;&nbsp;Disapprove</button>
                     </div>
                 </div>
             </template>
@@ -969,13 +973,12 @@
             </template>
             <template v-else>
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-12 text-center">
                         <img :src="imageURL(stockist.payment_receipt)" width="200px" height="100px">
-                    </div>
-                    <div class="col-md-6">
-                        <p class="bg-info">Are you sure to Approve Upgrade?</p>
+                        <br>
+                        <h4>Are you sure you want to Approve this Upgrade?</h4>
                         <button v-if="approvingUpgrade==true" class="btn btn-primary">...</button>
-                        <button v-else class="btn btn-primary" @click="approveStockistUpgrade(stockist.payment_id)">Approve</button>
+                        <button v-else class="btn btn-primary" @click="approveStockistUpgrade(stockist.payment_id)"><i class="icon-check-circle"></i>&nbsp;&nbsp;Approve</button>
                     </div>
                 </div>
             </template>
@@ -1313,7 +1316,7 @@ import StockistPackagePayment from '@/components/admin/StockistPackagePayment.vu
             this.stockist = stockist
         },
 
-        fetchSalesStats(uuid){                                                        
+        fetchSalesStats(uuid){
             this.salesStatsLoading = true
             this.getSalesStats(uuid).then(res=>{this.stockistSalesStats = res.data.data; this.salesStatsLoading=false;})
         },
@@ -1322,25 +1325,58 @@ import StockistPackagePayment from '@/components/admin/StockistPackagePayment.vu
             return image ? process.env.VUE_APP_IMAGE_PATH+'/'+image : '/assets/img/mock-image.jpeg'
         },
 
+        /*approveRegistration(id){
+            this.updatingRegistration = true
+            this.approveStockist(id).then(()=>this.updatingRegistration = false)
+        },*/
+
+        // replace with below code
         approveRegistration(id){
             this.updatingRegistration = true
-            this.approveStockist(id).then(()=>{this.updatingRegistration = false; this.getStockistsStats()})
+            this.approveStockist(id).then(() => {
+                this.getStockists({ page: 1, type: null }) // ✅ Refresh stockist list
+                this.updatingRegistration = false
+            })
         },
+
 
         disapproveRegistration(id){
             this.updatingRegistration = true
             this.disapproveStockist(id).then(()=>this.updatingRegistration = false)
         },
 
-        approveStockistPurchase(id){
+        /*approveStockistPurchase(id){
             this.approvePurchase(id).then(()=>{
                 //alert();
                 this.getStockistsOrders()
             })
+        },*/
+
+        // replaced with the code below
+
+        approveStockistPurchase(id){
+            this.approvePurchase(id).then(() => {
+                // Find the specific order in stockistsOrders and update its status
+                const index = this.stockistsOrders.findIndex(order => order.purchase_id === id);
+                if (index !== -1) {
+                    this.$set(this.stockistsOrders[index], 'status', 'approved'); // reactive update
+                }
+            });
         },
 
-        disapproveStockistPurchase(id){
+
+        /*disapproveStockistPurchase(id){
             this.disapprovePurchase(id).then(()=>this.getStockistsOrders())
+        },*/
+
+        //replaced with the code below
+        disapproveStockistPurchase(id){
+            this.disapprovePurchase(id).then(()=>{
+                const index = this.stockistsOrders.findIndex(order => order.purchase_id === id);
+                if (index !== -1) {
+                    this.$set(this.stockistsOrders[index], 'status', 'declined'); // reactive update
+                }
+            });
         },
 
         setOrder(order){

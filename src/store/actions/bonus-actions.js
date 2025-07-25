@@ -317,7 +317,15 @@ export default {
     },
 
 
-
+    // ✅ ADD HERE
+    async fetchAllBonuses({ commit }, uuid) {
+        try {
+            const response = await api.getUserBonuses(uuid);
+            commit('SET_ALL_BONUSES', response.data.bonuses);
+        } catch (error) {
+            console.error('Failed to fetch bonuses:', error);
+        }
+    }
 
 
     

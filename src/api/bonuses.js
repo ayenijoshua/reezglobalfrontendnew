@@ -77,7 +77,12 @@ export default {
 
     userBonusStats(uuid){
         return http().get(`${endPoints.bonuses}/${uuid}/bonus-stats`);
+    },
+
+    getUserBonuses(uuid) {
+       return http().get(`/wallet/${uuid}/bonuses`);
     }
+
 
     
 }

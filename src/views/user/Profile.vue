@@ -417,8 +417,12 @@
                         <p class="text-center font-weight-bold">Please, Ensure you complete your transaction within 2 minutes.</p>
                         <VueCountdown :time="((gatewayTimeout))">
                             <template slot-scope="props">
-                                <div style="width: 200px !important; padding-right:20px; padding-left:20px; padding-top:20px; padding-bottom:20px;" id="minutes" class="align-items-center flex-column d-flex justify-content-center">{{ props.minutes }}&nbsp;&nbsp;MINUTES</div>
-                                <div style="width: 200px !important; padding-right:20px; padding-left:20px; padding-top:20px; padding-bottom:20px;" id="seconds" class="align-items-center flex-column d-flex justify-content-center">{{ props.seconds }}&nbsp;&nbsp;SECONDS</div>
+                                <div class="countdown-wrapper d-flex flex-wrap justify-content-center" style="padding-bottom:20px; padding-top:20px;">
+                                    <div style="width: 200px !important; padding-right:20px; padding-left:20px; " id="minutes" class="align-items-center flex-column d-flex justify-content-center">{{ props.minutes }}&nbsp;&nbsp;MINUTES</div>
+                                </div>
+                                 <div class="countdown-wrapper d-flex flex-wrap justify-content-center" style="padding-bottom:20px; padding-top:20px;">
+                                    <div style="width: 200px !important; padding-right:20px; padding-left:20px; " id="seconds" class="align-items-center flex-column d-flex justify-content-center">{{ props.seconds }}&nbsp;&nbsp;SECONDS</div>
+                                </div>
                             </template>
                         </VueCountdown>
                     </div>
@@ -426,7 +430,7 @@
             </div>
             <div class="row">
                 <div class="col-md-10 offset-md-1 mt-5">
-                    <iframe id='ifr' frameborder="0" :src="payLink" scrolling="no" width="400" height="500"></iframe>
+                    <iframe class="responsive-iframe-wrapper" id='ifr' frameborder="0" :src="payLink" scrolling="no" width="400" height="500"></iframe>
                 </div>
             </div>
         </modal>
@@ -434,6 +438,50 @@
 </template>
 
 <style scoped>
+/* Desktop: Keep layout intact */
+.countdown-wrapper {
+  gap: 15px;
+}
+
+/* Mobile: Make countdown stack */
+@media screen and (max-width: 768px) {
+  .countdown-wrapper {
+    flex-direction: column !important;
+    align-items: center !important;
+  }
+
+  .countdown-wrapper > div {
+    width: 90% !important;
+    margin-bottom: 10px;
+    font-size: 18px;
+  }
+}
+
+/* Default wrapper */
+.responsive-iframe-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 400px;
+  height: 500px;
+  margin: 0 auto;
+}
+
+/* Default iframe */
+.responsive-iframe-wrapper iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+/* Responsive mobile override */
+@media screen and (max-width: 768px) {
+  .responsive-iframe-wrapper {
+    max-width: 100%;
+    height: 600px; /* You can increase this if content is being cut off */
+    padding: 0 10px;
+  }
+}
+
 .nav-material>li>a::after {
     content: "";
     background: #f6f6f2;

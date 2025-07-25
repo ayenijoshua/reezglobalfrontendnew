@@ -91,5 +91,9 @@ export default{
 
     userBonusStats(state){
         return state.userBonusStats
+    },
+	
+	allBonuses(state) {
+    return state.allBonuses;
     }
 }
