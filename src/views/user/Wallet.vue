@@ -283,6 +283,7 @@
                                                                         </td>
                                                                     </tr>
 
+                                                                   
                                                                     <template v-else>
                                                                         <template v-if="userPendingWithdrawals.length > 0">
                                                                             <tr v-for="withdraw,i in userPendingWithdrawals" :key="i">
@@ -290,12 +291,13 @@
                                                                                 <td>₦{{ withdraw.amount?.toLocaleString('en-US') }}</td>
                                                                                 <td>₦{{ withdraw.fee?.toLocaleString('en-US') }}</td>
                                                                                 <td>{{ withdraw.txn_status }}</td>
+                                                                                <td>{{ withdraw.type }}</td>
                                                                                 <td>{{ withdraw.created_at }}</td>
                                                                             </tr>
                                                                         </template>
                                                                         <template>
                                                                             <tr v-if="userWithdrawals.length == 0 && userPendingWithdrawals.length == 0">
-                                                                                <td colspan="5">There are no withdrawals</td>
+                                                                                <td class="text-center" colspan="5">There are no withdrawals</td>
                                                                             </tr>
                                                                             <template v-else>
                                                                                 <tr v-for="withdraw,i in userWithdrawals" :key="i">
@@ -303,6 +305,7 @@
                                                                                     <td>₦{{ withdraw.amount?.toLocaleString('en-US') }}</td>
                                                                                     <td>₦{{ withdraw.fee?.toLocaleString('en-US') }}</td>
                                                                                     <td>{{ withdraw.status }}</td>
+                                                                                    <td>{{ withdraw.type }}</td>
                                                                                     <td>{{ withdraw.created_at }}</td>
                                                                                 </tr>
                                                                             </template>
@@ -431,27 +434,6 @@ import { mapActions,mapState,mapGetters } from 'vuex';
 
                 totalPages() {
                     return Math.ceil(this.bonuses.length / this.bonusesPerPage);
-                },
-				
-				visiblePages() {
-                const total = this.totalPages;
-                const current = this.currentPage;
-                const maxButtons = 5;
-
-                let start = Math.max(current - Math.floor(maxButtons / 2), 1);
-                let end = start + maxButtons - 1;
-
-                if (end > total) {
-                    end = total;
-                    start = Math.max(end - maxButtons + 1, 1);
-                }
-
-                const pages = [];
-                for (let i = start; i <= end; i++) {
-                    pages.push(i);
-                }
-
-                return pages;
                 }
         },
 
