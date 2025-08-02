@@ -184,7 +184,7 @@
                             <img  src="/assets/img/wallet2.png">
                         </div>
                         <h6 class="mt-0text-white" >Total Wallet Earned</h6>
-                        <div class="text-dark-heading font-weight-bold text-white" >₦<span class="s-36">{{ totalBonus?.toLocaleString('en-US') }}</span></div>
+                        <div class="text-dark-heading font-weight-bold text-white" >₦<span class="s-36">{{ totalWalletEarned.toLocaleString('en-US') }}</span></div>
                     </div>
                 </div>
             </div>
@@ -252,10 +252,10 @@
                                                 <div class="col-md-6">
                                                     <div class="card-body pt-0 mt-5">
                                                         <!-- <h6 class="mt-0 green-text" >Cash Equivalent</h6>
-                                                        <div class="text-dark-heading font-weight-bold green-text" >₦<span class="s-36">{{ currentIncentive.worth?.toLocaleString('en-US') }}</span></div> -->
+                                                        <div class="text-dark-heading font-weight-bold green-text" >₦<span class="s-36">{{ currentIncentive.worth?.toLocaleString('en-US') }}</span></div> 
                                                         <div class="text-dark-heading font-weight-bold green-text">
                                                             <img class="img-fluid" :src="'/img/badges/'+currentRankBadge" :style="{width:'30%', height:'30%'}" />
-                                                        </div>
+                                                        </div>-->
                                                         <hr>
                                                         <h6 class="mt-0 green-text" >Cumulated Point Value (CPV)</h6>
                                                         <div class="text-dark-heading font-weight-bold green-text"><span class="s-36">{{ currentIncentive.points?.toLocaleString('en-US') }}PV</span></div>
@@ -633,8 +633,8 @@ export default{
 
         referrerLink(){
             return this.inviteForm.referrer 
-            ? 'https://reezglobal-vue.pages.dev/register'+'?ref='+this.inviteForm.referrer +'&placer='+this.authUser.username
-            : 'https://reezglobal-vue.pages.dev/register'+'?ref='+this.authUser.username
+            ? 'https://app.reezglobal.com/register'+'?ref='+this.inviteForm.referrer +'&placer='+this.authUser.username
+            : 'https://app.reezglobal.com/register'+'?ref='+this.authUser.username
         },
         
         ...mapGetters('bonusStore',['welcomeBonus',
@@ -649,6 +649,20 @@ export default{
         ...mapGetters('productStore',['products']),
         ...mapGetters('productClaimStore',['userProductClaims']),
         ...mapGetters('rankStore',['currentRankBadge']),
+		
+		// ✅ Your custom computed property goes below all spread helpers:
+		totalWalletEarned() {
+			const matching = Number(this.userBonusStats?.matching_bonus || 0);
+			const repurchase = Number(this.userBonusStats?.repurchase_bonus || 0);
+			const upgrade = Number(this.userBonusStats?.upgrade_bonus || 0);
+			const unilevel = Number(this.userBonusStats?.unilevel_bonus || 0);
+			const signee = Number(this.userBonusStats?.stockist_ref_bonus || 0);
+			const global = Number(this.globalProfit || 0);
+			const referral = Number(this.referralBonus || 0);
+			const placement = Number(this.placementBonus || 0);
+
+			return matching + repurchase + upgrade + unilevel + signee + global + referral + placement;
+		}
     },
 
     created(){

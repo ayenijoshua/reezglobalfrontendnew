@@ -12,8 +12,8 @@
                         <div class="float-right">
                             <img  src="/assets/img/stockist.png" width="auto" height="100px">
                         </div>
-                        <h6 class="mt-0text-white" >Stockist Package</h6>
-                        <div class="text-dark-heading font-weight-bold text-white" >₦<span class="s-36">{{ stats.package }}</span></div>
+                        <h6 class="mt-0text-white">Stockist Package</h6>
+                        <div class="text-dark-heading font-weight-bold text-white">₦<span class="s-36">{{ stats.package }}</span></div>
                     </div>
                 </div>
             </div>
@@ -212,7 +212,7 @@
                                                     <!-- <td>{{ claim.worth?.toLocaleString('en-US')}}</td> -->
                                                     <td>₦{{ stock.cost_price }}</td>
                                                     <td>{{ stock.quantity }}</td>
-                                                    <td><span :class="['badge', stock.in_stock ? 'badge-success' : 'badge-danger']" style="padding: 10px 10px;">{{ stock.in_stock }}</span></td>
+                                                    <td><span :class="['badge', stock.in_stock ? 'badge-success' : 'badge-danger']" style="padding: 10px 10px;">{{ stock.in_stock==1 ? 'Instock':'Not-instock' }}</span></td>
                                                 </tr>
                                             </template>
                                         </template>

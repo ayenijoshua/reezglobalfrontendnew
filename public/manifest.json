@@ -1,0 +1,21 @@
+{
+  "name": "ReezGlobal",
+  "short_name": "ReezGlobal",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#ded8c7",
+  "theme_color": "#2e671a",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "/img/icons/reez-icon192.png",
+      "sizes": "192x196",
+      "type": "image/png"
+    },
+    {
+      "src": "/img/icons//img/icons/reez-icon512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

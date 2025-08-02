@@ -19,15 +19,20 @@
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <div class="card shadow1" style="background-color:#ded8c7">
-                        <div class="card-body" style="background-color:#ded8c7" >
+                    <div class="card shadow1" style="background-color:#ded8c7" >
+                        <div class="card-body" style="background-color:#ded8c7">
                             <div class="d-flex align-items-center">
                                 <div class="mr-3">
                                     <img class="mr-3  r-3" src="/assets/img/hand-shake.png" alt="Generic placeholder image" width="70px" height="70px">
                                 </div>
-                                <div class="ml-auto">
+                                <!---<div class="ml-auto">
                                     <h6 class="mt-0 mb-1 font-weight-bold text-green" >Award Bonus</h6>
                                     <div class="mt-1 text-dark-heading text-green float-right" >₦  {{ userBonusStats.award_bonus?.toLocaleString('en-US') }}</div>
+                                </div>-->
+
+                                <div class="ml-auto">
+                                    <h6 class="mt-0 mb-1 font-weight-bold text-green" >Repurchase Bonus</h6>
+                                    <div class="mt-1 text-dark-heading text-green float-right" >₦ {{ userBonusStats.repurchase_bonus?.toLocaleString('en-US') }}</div>
                                 </div>
                             </div>
                         </div>
@@ -98,7 +103,7 @@
                             <img  src="/assets/img/companywallet.png">
                         </div>
                         <h6 class="mt-0text-white" >Total Wallet Earned</h6>
-                        <div class="text-dark-heading font-weight-bold text-white" >₦<span class="s-36">{{ walletBalance?.toLocaleString('en-US') }}</span></div>
+                       <div class="text-dark-heading font-weight-bold text-white"><span class="s-36">₦{{ (totalWalletEarned || 0).toLocaleString('en-US') }}</span></div>
                     </div>
                 </div>
             </div>
@@ -152,10 +157,10 @@
                                                 <div class="col-md-6">
                                                     <div class="card-body pt-0 mt-5">
                                                         <!-- <h6 class="mt-0 green-text" >Cash Equivalent</h6>
-                                                        <div class="text-dark-heading font-weight-bold green-text" >₦<span class="s-36">{{ currentIncentive.worth?.toLocaleString('en-US') }}</span></div> -->
+                                                        <div class="text-dark-heading font-weight-bold green-text" >₦<span class="s-36">{{ currentIncentive.worth?.toLocaleString('en-US') }}</span></div> 
                                                         <div class="text-dark-heading font-weight-bold green-text">
                                                             <img class="img-fluid" :src="'/img/badges/'+currentRankBadge" :style="{width:'30%', height:'30%'}" />
-                                                        </div>
+                                                        </div>-->
                                                         <hr>
                                                         <h6 class="mt-0 green-text" >Cumulated Point Value (CPV)</h6>
                                                         <div class="text-dark-heading font-weight-bold green-text"><span class="s-36">{{ currentIncentive.points?.toLocaleString('en-US') }}PV</span></div>
@@ -274,7 +279,20 @@ export default{
         ...mapGetters('incentiveClaimStore',['claims','currentIncentive']),
         ...mapGetters('productStore',['products']),
         ...mapGetters('productClaimStore',['userProductClaims']),
-        ...mapGetters('rankStore',['currentRankBadge'])
+        ...mapGetters('rankStore',['currentRankBadge']),
+
+            // ✅ ADD THIS COMPUTED PROPERTY
+            totalWalletEarned() {
+                const stats = this.userBonusStats || {};
+                return (
+                    Number(this.referralBonus || 0) +
+                    Number(stats.matching_bonus || 0) +
+                    Number(stats.unilevel_bonus || 0) +
+                    Number(stats.upgrade_bonus || 0) +
+                    Number(stats.award_bonus || 0) +
+                    Number(stats.repurchase_bonus || 0)
+                );
+            }
     },
 
     created(){

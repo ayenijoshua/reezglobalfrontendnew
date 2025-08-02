@@ -85,8 +85,9 @@
                                                                 <td colspan="4" class="text-center">There are no downlines</td>
                                                             </tr>
                                                             <template v-else>
-                                                                <tr v-for="user,i in downlines" :key="i">
-                                                                    <th scope="row">{{ ++i }}</th>
+                                                                <!---<tr v-for="user,i in downlines" :key="i">--->
+																<tr v-for="(user, i) in paginatedDownlines" :key="i"> 
+                                                                    <!--<th scope="row">{{ ++i }}</th>-->
                                                                     <td>{{ user.name }}</td>
                                                                     <td>{{ user.username }}</td>
                                                                     <td>{{ user.package }}</td>
@@ -96,6 +97,27 @@
                                                         </template>
                                                     </tbody>
                                                     </table>
+													<div class="container" v-if="pageCount > 1">
+                                                            <ul class="pagination">
+                                                                <li>
+                                                                <a href="#" @click.prevent="prevPage">Prev</a>
+                                                                </li>
+
+                                                                <li
+                                                                v-for="page in pageCount"
+                                                                :key="page"
+                                                                :class="{ active: page === currentPage }"
+                                                                >
+                                                                <a href="#" @click.prevent="goToPage(page)">
+                                                                    {{ page }}
+                                                                </a>
+                                                                </li>
+
+                                                                <li>
+                                                                <a href="#" @click.prevent="nextPage">Next</a>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -111,6 +133,42 @@
     </div>
 </template>
 
+<style scoped>
+ .container {
+
+display: flex;
+align-items: center;
+justify-content: center;
+}
+.container .pagination {
+position: relative;
+height: 50px;
+background: rgba(255, 255, 255, 0.05);
+box-shadow: 5px 5px 30px rgba(0, 0, 0, 0.3);
+display: flex;
+align-items: center;
+justify-content: center;
+backdrop-filter: blur(3px);
+border-radius: 2px;
+}
+.container .pagination li {
+list-style-type: none;
+display: inline-block;
+}
+.container .pagination li a {
+position: relative;
+padding: 10px 15px;
+text-decoration: none;
+color: #2E671A;
+font-weight: 500;
+}
+.container .pagination li a:hover,
+.container .pagination li.active a {
+background: #2E671A;
+color: #ecf0f1;
+
+}
+</style>
 
 <script>
 import { mapActions, mapGetters, mapState } from 'vuex';
@@ -118,21 +176,32 @@ import { mapActions, mapGetters, mapState } from 'vuex';
     export default{
         name:'user-downlines',
 
-        data(){
+        data() {
             return {
-                downlinesLoading:false,
-                directDownlinesLoading:false
-            }
+                downlinesLoading: false,
+                directDownlinesLoading: false,
+                currentPage: 1,
+                pageSize: 5, // can be 10, 25, 50 etc.
+            };
         },
 
-        computed:{
+
+        computed: {
             ...mapState({
-                loading:state=>state.loading
+            loading: state => state.loading
             }),
+            ...mapGetters('userStore', ['downlines', 'directDownlines']),
+            ...mapGetters('authStore', ['authUser']),
 
-            ...mapGetters('userStore',['downlines','directDownlines']),
-            ...mapGetters('authStore',['authUser']),
+            paginatedDownlines() {
+            const start = (this.currentPage - 1) * this.pageSize;
+            return this.downlines.slice(start, start + this.pageSize);
+            },
+            pageCount() {
+            return Math.ceil(this.downlines.length / this.pageSize);
+            },
         },
+
 
         created(){
             if(this.directDownlines.length == 0 || this.downlines.length==0){
@@ -152,14 +221,26 @@ import { mapActions, mapGetters, mapState } from 'vuex';
             }
         },
 
-        methods:{
-            ...mapActions('userStore',['getDownlines','getDirectDownlines']),
-            ...mapActions('authStore',['getUser']),
+        methods: {
+            ...mapActions('userStore', ['getDownlines', 'getDirectDownlines']),
+            ...mapActions('authStore', ['getUser']),
 
-            imageURL(image){
-                let img = image
-               return img ? process.env.VUE_APP_IMAGE_PATH+'/'+img : "/assets/img/mock-image.jpeg"
+            imageURL(image) {
+                let img = image;
+                return img ? process.env.VUE_APP_IMAGE_PATH + '/' + img : "/assets/img/mock-image.jpeg";
             },
+
+            goToPage(page) {
+                if (page < 1 || page > this.pageCount) return;
+                this.currentPage = page;
+            },
+            prevPage() {
+                if (this.currentPage > 1) this.currentPage--;
+            },
+            nextPage() {
+                if (this.currentPage < this.pageCount) this.currentPage++;
+            }
         }
+
     }
 </script>

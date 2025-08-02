@@ -134,7 +134,7 @@
                                         <div class="ml-auto mr-2">
                                             <button @click="cancelOrder" class="btn btn-sm btn-danger  mt-2" ><i class="icon-cancel mr-2"></i> Cancel Selection</button>
 
-                                            <button v-if="submittingOrder==true" @click="stockistPurchase"  type="submit" class="btn btn-sm btn-success mr-3 "><i class="icon-shopping-cart mr-2"></i>...</button>
+                                            <button v-if="submittingOrder==true" @click="stockistPurchase"  type="submit" class="btn btn-sm btn-success mr-3 mt-2 "><i class="icon-shopping-cart mr-2"></i>...</button>
                                             <button v-else @click="stockistPurchase"  type="submit" class="btn btn-sm btn-success ml-3 mt-2 "><i class="icon-shopping-cart mr-2"></i>Submit Order</button>
                                         </div>    
                                     </div>
@@ -339,7 +339,7 @@ export default{
     created(){
         
 
-        if(this.stockist.id == undefined){
+        //if(this.stockist.id == undefined){
             if(this.authUser.uuid == undefined){
                 this.getUser().then((res)=>{
                     this.stockistLoading = true
@@ -350,7 +350,7 @@ export default{
                         this.single(this.stockist.package_id).then(()=>this.packageLoading=false)
                     })
                     
-                    if(this.stockistPrevMonthSale == null){
+                    if(this.stockistPrevMonthSales == null){
                         this.prevMonthSaleLoading = true
                         this.fetchStockPrevMonthSales(res.data.uuid).then(()=>this.prevMonthSaleLoading = false)
                     }
@@ -364,12 +364,12 @@ export default{
                     this.single(this.stockist.package_id).then(()=>this.packageLoading = false)
                 })
 
-                if(this.stockistPrevMonthSale == null){
+                if(this.stockistPrevMonthSales == null){
                     this.prevMonthSaleLoading = true
                     this.fetchStockPrevMonthSales(this.authUser.uuid).then(()=>this.prevMonthSaleLoading = false)
                 }
             }
-        }
+        //}
         
         if(this.products.length == 0){
             this.prodLoading = true

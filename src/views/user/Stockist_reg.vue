@@ -107,9 +107,44 @@
                                                                         <div class="input-group-text" style="background-color: #2E671A; border: 2px solid #2E671A;"><i class="icon-room float-left s-20 text-white" ></i></div>
                                                                     </div>
                                                                     <select name="store_state" v-model="form.store_state" class="form-control r-0 light s-12 shadow" style="background-color: transparent">
-                                                                        <option style="background-color: #ded8c7">Select state</option>
-                                                                        <option value="lagos" style="background-color: #ded8c7">Lagos</option>
-                                                                        <option value="oyo" style="background-color: #ded8c7">Oyo</option>														   
+                                                                            <option style="background-color: #ded8c7">Select state</option>
+                                                                            <option value="abia" style="background-color: #ded8c7">Abia</option>
+                                                                            <option value="adamawa" style="background-color: #ded8c7">Adamawa</option>
+                                                                            <option value="akwa ibom" style="background-color: #ded8c7">Akwa Ibom</option>
+                                                                            <option value="anambra" style="background-color: #ded8c7">Anambra</option>
+                                                                            <option value="bauchi" style="background-color: #ded8c7">Bauchi</option>
+                                                                            <option value="bayelsa" style="background-color: #ded8c7">Bayelsa</option>
+                                                                            <option value="benue" style="background-color: #ded8c7">Benue</option>
+                                                                            <option value="borno" style="background-color: #ded8c7">Borno</option>
+                                                                            <option value="cross river" style="background-color: #ded8c7">Cross River</option>
+                                                                            <option value="delta" style="background-color: #ded8c7">Delta</option>
+                                                                            <option value="ebonyi" style="background-color: #ded8c7">Ebonyi</option>
+                                                                            <option value="edo" style="background-color: #ded8c7">Edo</option>
+                                                                            <option value="ekiti" style="background-color: #ded8c7">Ekiti</option>
+                                                                            <option value="enugu" style="background-color: #ded8c7">Enugu</option>
+                                                                            <option value="gombe" style="background-color: #ded8c7">Gombe</option>
+                                                                            <option value="imo" style="background-color: #ded8c7">Imo</option>
+                                                                            <option value="jigawa" style="background-color: #ded8c7">Jigawa</option>
+                                                                            <option value="kaduna" style="background-color: #ded8c7">Kaduna</option>
+                                                                            <option value="kano" style="background-color: #ded8c7">Kano</option>
+                                                                            <option value="katsina" style="background-color: #ded8c7">Katsina</option>
+                                                                            <option value="kebbi" style="background-color: #ded8c7">Kebbi</option>
+                                                                            <option value="kogi" style="background-color: #ded8c7">Kogi</option>
+                                                                            <option value="kwara" style="background-color: #ded8c7">Kwara</option>
+                                                                            <option value="lagos" style="background-color: #ded8c7">Lagos</option>
+                                                                            <option value="nasarawa" style="background-color: #ded8c7">Nasarawa</option>
+                                                                            <option value="niger" style="background-color: #ded8c7">Niger</option>
+                                                                            <option value="ogun" style="background-color: #ded8c7">Ogun</option>
+                                                                            <option value="ondo" style="background-color: #ded8c7">Ondo</option>
+                                                                            <option value="osun" style="background-color: #ded8c7">Osun</option>
+                                                                            <option value="oyo" style="background-color: #ded8c7">Oyo</option>
+                                                                            <option value="plateau" style="background-color: #ded8c7">Plateau</option>
+                                                                            <option value="rivers" style="background-color: #ded8c7">Rivers</option>
+                                                                            <option value="sokoto" style="background-color: #ded8c7">Sokoto</option>
+                                                                            <option value="taraba" style="background-color: #ded8c7">Taraba</option>
+                                                                            <option value="yobe" style="background-color: #ded8c7">Yobe</option>
+                                                                            <option value="zamfara" style="background-color: #ded8c7">Zamfara</option>
+                                                                            <option value="Abuja" style="background-color: #ded8c7">FCT (Abuja)</option>																		
                                                                     </select>
                                                                 </div>
                                                             </div>

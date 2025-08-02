@@ -1,19 +1,29 @@
-import Vue from 'vue'
-import App from './App.vue'
-import './registerServiceWorker'
-import router from './router'
-import store from './store'
-//import 'bootstrap/dist/css/bootstrap.css'
-import 'bootstrap-vue/dist/bootstrap-vue.css'
+import Vue from 'vue';
+import App from './App.vue';
+import './registerServiceWorker';
+import router from './router';
+import store from './store';
+import 'bootstrap-vue/dist/bootstrap-vue.css';
 import { BootstrapVue } from 'bootstrap-vue';
 
-Vue.config.productionTip = false
+Vue.config.productionTip = false;
 
-Vue.use(BootstrapVue)
-Vue.use(store)
+Vue.use(BootstrapVue);
+Vue.use(store);
 
-export default new Vue({
+new Vue({
   router,
   store,
   render: h => h(App)
-}).$mount('#app')
+}).$mount('#app');
+
+// ✅ Production-safe loader hide logic
+window.addEventListener('load', () => {
+  const loader = document.getElementById('loader');
+  if (loader) {
+    loader.style.opacity = '0';
+    setTimeout(() => {
+      loader.style.display = 'none';
+    }, 500);
+  }
+});

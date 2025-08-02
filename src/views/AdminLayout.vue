@@ -42,7 +42,7 @@
                     </li>
                     <li :class="['treeview', 'shadow', activeMenu()=='admin-users' ? 'active' : '']" @click="setMenu('admin-users')">
                         <router-link :to="{name:'admin-users'}" :style="{'text-decoration': 'none'}" >
-                            <i class="icon icon-people green-text s-18"></i><span class="green-text">Memebers</span> 
+                            <i class="icon icon-people green-text s-18"></i><span class="green-text">Members</span> 
                         </router-link>
                     </li>
                     <li :class="['treeview', 'shadow', activeMenu()=='admin-wallet' ? 'active' : '']" @click="setMenu('admin-wallet')">
