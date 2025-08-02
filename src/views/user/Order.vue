@@ -59,29 +59,24 @@
                                             <div class="mt-2 ml-3" style="padding-right:15px" :key="i">
                                             <img src="/assets/img/demo/products/product3.png" width="80px" height="80px">
                                             </div>  
-                                            <div class="mb-2 mt-4" :key="i">
+                                            <div class="mb-2 mt-4" >
                                                 <h6 class="font-weight-bold text-green s-14" style="margin: 0em; padding: 0em;">{{ order.name }} <br>
-                                                    <small class="font-weight-bold"> {{order.points}}PV | Qty:{{ order.product_qty }}</small>
+                                                    <small class="font-weight-bold"> unit price ₦{{(order.worth)}} | Qty:{{ order.product_qty }}</small>
                                                 </h6>
                                                 <h6>
                                                     <small :class="['font-weight-bold', order.in_stock ? 'text-info' : 'text-danger']">Instock : {{order.in_stock}}</small>  
                                                     <small :class="['font-weight-bold', order.stock_qty>0 ? 'text-info' : 'text-danger']"> | Stock Qty : {{ order.stock_qty }}</small>
+                                                    <small :class="['font-weight-bold', order.qualify == true ? 'text-info' : 'text-danger']"> | Qualify : {{ order.qualify }}</small>
                                                 </h6>	
 
-                                            </div>	
-                                            <div class="mb-2 mt-4 ml-auto mr-2" :key="i">
+                                            </div>		
+                                            <div class="mb-2 mt-4 ml-auto mr-2" >
                                                 <span class="font-weight-bold float-right text-green">₦{{ order.price.toLocaleString('en-US') }}</span>
                                             </div>
                                         </template>
                                     </div>
 
                                     <div class="row column-row " style="border-bottom: 1px solid #2E671A !important;">
-                                        <div class="mb-2 mt-2 ml-3">
-                                            <h6 class="font-weight-bold text-green s-12" style="margin: 0em; padding: 0em;">Total Point Value </h6>											
-                                        </div>	
-                                        <div class="mb-2 mt-2 ml-auto mr-3">
-                                            <h6 class="font-weight-bold text-green s-12" style="margin: 0em; padding: 0em;">{{ totalPoints }} PV</h6>											
-                                        </div>
                                     </div> 	
                                     <div class="row column-row" style="background-Color:#2E671A !important;">
                                         <div class="mb-2 mt-2 ml-3">
@@ -401,30 +396,25 @@ export default{
                     this.orders = res.data.data.products
                     this.member = res.data.data.user
 
-                    // this.totalPoints = this.orders.reduce((prev,curr)=>{
-                    //     return prev.points + curr.points
-                    // })
+                    this.totalPoints = this.orders.reduce((prev,curr)=>{
+                        return prev.points + curr.points
+                    })
 
-                    // this.totalPrice = this.orders.reduce((prev,curr)=>{
-                    //     return prev.price + curr.price
-                    // })
-
-                    // this.purchaseId = this.orders[0].product_purchase_id
+                    // if(this.orders.length == 1){
+                    //     this.totalPrice = this.orders[0].price
+                    // }else{
+                    //     this.totalPrice = this.orders.reduce((prev,curr)=>{
+                    //         return prev.price??0 + curr.price??0 
+                    //     })
+                    // }
 
                     var initTotal = 0
                     for(var i=0; i<this.orders.length; i++){
                         initTotal = initTotal + this.orders[i].price
                     }
 
-                    var initPoints= 0
-                    for(var i=0; i<this.orders.length; i++){
-                        initPoints = initPoints + this.orders[i].points
-                    }
-
                     this.totalPrice = initTotal;
                     this.purchaseId = this.orders[0].product_purchase_id
-                    this.totalPoints = initPoints;
-
                 }
                 this.orderLoading = false
                 
@@ -438,7 +428,7 @@ export default{
                 return
             }
 
-            let check = this.orders.filter((order)=>order.in_stock==false || order.stock_qty==0)
+            let check = this.orders.filter((order)=>order.in_stock==false || order.stock_qty==0 || order.qualify==false)
 
             //console.log('check',check)
 
@@ -451,7 +441,11 @@ export default{
             this.vendorApprovePurchase(purchaseId).then(()=>{
                 this.approvingOrder = false
             })
-        }
+        },
+
+        imageURI(img){
+            return img ? process.env.VUE_APP_IMAGE_PATH+'/'+img : '/assets/img/demo/products/product3.png';
+        },
     }
 
 }

@@ -17,6 +17,7 @@ export default{
             globalProfit:null,
             profitPools:[],
             globalProfits:[],
+			allBonuses: [], // ✅ Add this line here
             walletBalance:null,
             totalEquilibrumBonus:null,
             totalLoyaltyBonus:null,

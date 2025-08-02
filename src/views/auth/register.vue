@@ -216,7 +216,7 @@
                             </div>
                             <div class="row">
                                 <div class="col p-static">
-                                    <h1 class="font-weight-bold green-text" data-title-border>Terms and Conditions</h1>
+                                    <h3 class="font-weight-bold green-text" data-title-border>Terms and Conditions</h3>
                                 </div>
                             </div>
                         </div>
@@ -270,10 +270,17 @@
                     <div class="footer-copyright">					
                     </div>
                     <div class="col-auto text-center">
-                        <p class="text-center">© Copyright 2024. Reezglobal All Rights Reserved.</p>							
+                        <p class="text-center">© Copyright 2025. Reezglobal All Rights Reserved.</p>							
                     </div>
-                    <div class="col-auto mr-2 text-center">
-                        <button type="button" class="btn btn-lg btn-success px-4" @click="closeModal()" data-dismiss="modal">Click to accepted the Terms and Conditions</button>
+                    <div class="col-12 text-center my-3">
+                        <button 
+                            type="button" 
+                            class="btn btn-success btn-block btn-lg px-4"
+                            @click="closeModal()" 
+                            data-dismiss="modal"
+                        >
+                            Accept Terms and Conditions
+                        </button>
                     </div>
                 </footer>
 		    </div>

@@ -45,8 +45,44 @@
                                                                             <div class="input-group-text" style="background-color: #2E671A; border: 2px solid #2E671A;"><i class="icon-room float-left s-20 text-white" ></i></div>
                                                                         </div>
                                                                         <select v-model="form.store_state" class="form-control r-0 light s-12 shadow" style="background-color: #ded8c7">
-                                                                            <option style="background-color: #ded8c7" >Lagos</option>
-                                                                            <option style="background-color: #ded8c7" >Oyo</option>														   
+                                                                            <option value="">Select state</option>
+                                                                            <option value="abia">Abia</option>
+                                                                            <option value="adamawa">Adamawa</option>
+                                                                            <option value="akwa ibom">Akwa Ibom</option>
+                                                                            <option value="anambra">Anambra</option>
+                                                                            <option value="bauchi">Bauchi</option>
+                                                                            <option value="bayelsa">Bayelsa</option>
+                                                                            <option value="benue">Benue</option>
+                                                                            <option value="borno">Borno</option>
+                                                                            <option value="cross river">Cross River</option>
+                                                                            <option value="delta">Delta</option>
+                                                                            <option value="ebonyi">Ebonyi</option>
+                                                                            <option value="edo">Edo</option>
+                                                                            <option value="ekiti">Ekiti</option>
+                                                                            <option value="enugu">Enugu</option>
+                                                                            <option value="gombe">Gombe</option>
+                                                                            <option value="imo">Imo</option>
+                                                                            <option value="jigawa">Jigawa</option>
+                                                                            <option value="kaduna">Kaduna</option>
+                                                                            <option value="kano">Kano</option>
+                                                                            <option value="katsina">Katsina</option>
+                                                                            <option value="kebbi">Kebbi</option>
+                                                                            <option value="kogi">Kogi</option>
+                                                                            <option value="kwara">Kwara</option>
+                                                                            <option value="lagos">Lagos</option>
+                                                                            <option value="nasarawa">Nasarawa</option>
+                                                                            <option value="niger">Niger</option>
+                                                                            <option value="ogun">Ogun</option>
+                                                                            <option value="ondo">Ondo</option>
+                                                                            <option value="osun">Osun</option>
+                                                                            <option value="oyo">Oyo</option>
+                                                                            <option value="plateau">Plateau</option>
+                                                                            <option value="rivers">Rivers</option>
+                                                                            <option value="sokoto">Sokoto</option>
+                                                                            <option value="taraba">Taraba</option>
+                                                                            <option value="yobe">Yobe</option>
+                                                                            <option value="zamfara">Zamfara</option>
+                                                                            <option value="fct">FCT (Abuja)</option>														   
                                                                         </select>
                                                                     </div>
                                                                 </div>
@@ -294,7 +330,7 @@ export default{
         ...mapGetters("bankStore",["banks"])
     },
 
-    created(){
+    /*created(){
         
        if(this.stockist.id == undefined){
             if(this.authUser.uuid == undefined){
@@ -322,7 +358,28 @@ export default{
             this.banksLoading = true
             this.getBanks().then(()=>this.banksLoading=false)
         }
-    },
+    },*/
+
+    // replace with the code below to make page load faster
+    created() {
+    if (this.authUser.uuid) {
+        this.loadStockistData(this.authUser.uuid)
+    } else {
+        this.getUser().then(res => {
+            this.loadStockistData(res.data.uuid)
+        })
+    }
+
+    if (this.stockistPackages.length === 0) {
+        this.getPackages()
+    }
+
+    if (this.banks.length === 0) {
+        this.banksLoading = true
+        this.getBanks().then(() => this.banksLoading = false)
+    }
+},
+
 
     methods:{
 
@@ -337,7 +394,6 @@ export default{
         },
 
         getPackageDifference(){
-            //alert(this.upgradeForm.package_id)
             this.fetchPackageDifference({packageId:this.upgradeForm.package_id,isUpgradePickup:false}).then((res)=>{
                 console.log('pac-diff',res.data.data)
                 this.upgradeData = res.data.data
@@ -363,10 +419,28 @@ export default{
             form.append("stockist_package_id",this.upgradeForm.package_id)
 
             this.upgrade({id:this.stockist.id,data:form}).then(()=>this.upgrading = false)
+        },
+
+        // new code add to make page load faster
+        loadStockistData(uuid) {
+            this.stockistLoading = true
+            this.fetchStockistByUuid(uuid).then(() => {
+                this.stockistLoading = false
+                this.form = Object.assign({}, this.stockist)
+            }).catch(() => {
+                this.stockistLoading = false
+            })
         }
         
-    }
+    },
 
+    watch: {
+        'authUser.uuid'(newVal) {
+            if (newVal && !this.stockist.id) {
+                this.loadStockistData(newVal)
+            }
+        }
+    }
 
 
 }

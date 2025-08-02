@@ -227,6 +227,62 @@
                     </div>
                 </template>  
             </div>
+			
+			<div class="row mb-5">
+                <template v-if="bonusStatsLoading==true">
+                    <b-card class="col-md-12">
+                        <b-skeleton width="85%"></b-skeleton>
+                        <b-skeleton width="55%"></b-skeleton>
+                        <b-skeleton width="70%"></b-skeleton>
+                    </b-card>
+                </template>
+                <template v-else>
+                    <div class="col-md-6 ">
+                        <div class="card shadow1" style="background-color: #ded8c7">
+                            <div class="card-body" >
+                                <div class="d-flex align-items-center flex-row flex-wrap">
+                                    <div class="row column-row ml-1 ">
+                                        <img class="mr-3  r-3" src="/assets/img/profit_pool.png" alt="Generic placeholder image" width="70px" height="70px">
+                                        <h6 class="mt-4 mb-1 font-weight-bold text-green" >Upgrade Bonus<br> <small class="text-green"></small></h6>	
+                                    </div>
+                                    <div class="ml-auto">
+                                        <div class="d-flex flex-row mt-4 mb-4 ml-4">
+                                            <!---<div class="border-right" style="padding-right:20px; border-right: 1px solid #2E671A !important;">
+                                                <p><span class="badge text-white bg-green mr-1"><i class="icon icon-check" ></i>&nbsp;&nbsp;Eligible</span></p>
+                                                <div class="mt-1 text-dark-heading text-green float-right" >{{ countProfitPoolBonus?.toLocaleString('en-US') }}</div>
+                                            </div>-->
+                                            <div style="padding-left:20px">
+                                                <p class="font-weight-bold text-green">Total Earned</p>
+                                                <div class="mt-1 text-dark-heading text-green float-left"  >₦{{ bonusStats.upgrade_bonus_sum?.toLocaleString('en-US') }}</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card shadow1" style="background-color: #ded8c7">
+                            <div class="card-body" >
+                                <div class="d-flex align-items-center flex-row flex-wrap">
+                                    <div class="row column-row ml-1 ">
+                                        <img class="mr-3  r-3" src="/assets/img/global_sharing.png" alt="Generic placeholder image" width="70px" height="70px">
+                                        <h6 class="mt-4 mb-1 font-weight-bold text-green" >Referral bonus</h6>
+                                    </div>
+                                    <div class="ml-auto">
+                                        <div class="d-flex flex-row mt-4 mb-4 ml-4">
+                                            <div  style="padding-left:20px">
+                                                <p class="font-weight-bold text-green">Total Earned</p>
+                                                <div class="mt-1 text-dark-heading text-green float-left"  >₦{{ bonusStats.referral_bonus_sum?.toLocaleString('en-US') }}</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+            </div>	
 
             <div class="row mb-5">
                 <template v-if="bonusStatsLoading==true">

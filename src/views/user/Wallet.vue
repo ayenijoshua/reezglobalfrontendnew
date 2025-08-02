@@ -66,6 +66,97 @@
                                     </div>
                                 </div>
                             </div> 
+							
+							
+						   <div class="row">
+                                <div class="col-md-12">
+                                    <div class="row my-3">
+                                        <!-- bar charts group -->
+                                        <div class="col-md-12">
+                                            <div class="card shadow" style="background-color: transparent">
+                                                    <div class="card-body" style="overflow-x:auto;">
+                                                    <table class="table table-striped">
+                                                        <thead>
+                                                        <tr>
+                                                            <th class="font-weight-bold" scope="col">No.</th>
+                                                            <th class="font-weight-bold" scope="col">Bonus Type</th>
+                                                            <th class="font-weight-bold" scope="col">Amount</th>
+                                                            <th class="font-weight-bold" scope="col">Date</th>
+                                                            <th class="font-weight-bold" scope="col">Time</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        <tr v-if="loadingBonuses">
+                                                            <td colspan="5" class="text-center">
+                                                            <b-skeleton-table
+                                                                :rows="3"
+                                                                :columns="5"
+                                                                :table-props="{ bordered: true, striped: true }"
+                                                            ></b-skeleton-table>
+                                                            </td>
+                                                        </tr>
+
+                                                        <tr v-else-if="bonuses.length === 0">
+                                                            <td colspan="5" class="text-center font-weight-bold">
+                                                            You have earned no bonus
+                                                            </td>
+                                                        </tr>
+
+                                                        <tr v-else v-for="(bonus, i) in paginatedBonuses" :key="i">
+                                                            <td>{{ (currentPage - 1) * bonusesPerPage + i + 1 }}</td>
+                                                            <td>{{ bonus.type }}</td>
+                                                            <td>₦{{ (bonus.amount || bonus.value || bonus.bonus_value || 0).toLocaleString('en-US') }}</td>
+                                                            <td>{{ formatDate(bonus.created_at) }}</td>
+                                                            <td>{{ formatTime(bonus.created_at) }}</td>
+
+                                                        </tr>
+
+                                                        </tbody>
+                                                    </table>
+                                                        <!---<div class="text-center mt-3">
+                                                            <p v-if="totalPages > 0">Page {{ currentPage }} of {{ totalPages }}</p>
+                                                            <button class="btn btn-sm btn-outline-success" @click="prevPage" :disabled="currentPage === 1">Prev</button>
+                                                            <button
+                                                                v-for="page in totalPages"
+                                                                :key="page"
+                                                                @click="goToPage(page)"
+                                                                class="btn btn-sm"
+                                                                :disabled="totalPages === 0"
+                                                                :class="{ 'btn-primary': page === currentPage, 'btn-outline-success': page !== currentPage }"
+                                                            >
+                                                                {{ page }}
+                                                            </button>
+                                                            <button class="btn btn-sm btn-outline-success" @click="nextPage" :disabled="currentPage === totalPages">Next</button>
+                                                        </div>-->
+														<div class="text-center mt-3">
+                                                            <p v-if="totalPages > 0">Page {{ currentPage }} of {{ totalPages }}</p>
+
+                                                            <button class="btn btn-sm btn-outline-success" @click="prevPage" :disabled="currentPage === 1">Prev</button>
+
+                                                            <button
+                                                                v-for="page in visiblePages"
+                                                                :key="page"
+                                                                @click="goToPage(page)"
+                                                                class="btn btn-sm"
+                                                                :class="{ 'btn-primary': page === currentPage, 'btn-outline-success': page !== currentPage }"
+                                                            >
+                                                                {{ page }}
+                                                            </button>
+
+                                                            <button class="btn btn-sm btn-outline-success" @click="nextPage" :disabled="currentPage === totalPages">Next</button>
+                                                            </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- /bar charts group -->
+                                    </div>
+                                </div>
+                            </div>
+							
+							
+							
+							
                                                           
                             <div class="row">
                                 <div class="col-md-12">
@@ -220,6 +311,7 @@
                                                                         </td>
                                                                     </tr>
 
+                                                                   
                                                                     <template v-else>
                                                                         <template v-if="userPendingWithdrawals.length > 0">
                                                                             <tr v-for="withdraw,i in userPendingWithdrawals" :key="i">
@@ -227,12 +319,13 @@
                                                                                 <td>₦{{ withdraw.amount?.toLocaleString('en-US') }}</td>
                                                                                 <td>₦{{ withdraw.fee?.toLocaleString('en-US') }}</td>
                                                                                 <td>{{ withdraw.txn_status }}</td>
+                                                                                <td>{{ withdraw.type }}</td>
                                                                                 <td>{{ withdraw.created_at }}</td>
                                                                             </tr>
                                                                         </template>
                                                                         <template>
                                                                             <tr v-if="userWithdrawals.length == 0 && userPendingWithdrawals.length == 0">
-                                                                                <td colspan="5">There are no withdrawals</td>
+                                                                                <td class="text-center" colspan="5">There are no withdrawals</td>
                                                                             </tr>
                                                                             <template v-else>
                                                                                 <tr v-for="withdraw,i in userWithdrawals" :key="i">
@@ -240,6 +333,7 @@
                                                                                     <td>₦{{ withdraw.amount?.toLocaleString('en-US') }}</td>
                                                                                     <td>₦{{ withdraw.fee?.toLocaleString('en-US') }}</td>
                                                                                     <td>{{ withdraw.status }}</td>
+                                                                                    <td>{{ withdraw.type }}</td>
                                                                                     <td>{{ withdraw.created_at }}</td>
                                                                                 </tr>
                                                                             </template>
@@ -288,16 +382,47 @@ li > a:hover .icon {
 .nav-material.nav-material-white>li .nav-link.active {
     border-color: #2E671A;
 }
+
+/* Highlight the active page number */
+.btn.btn-primary {
+    background-color: #2E671A;
+    border-color: #2E671A;
+    color: white;
+}
+
+/* Optional: Adjust hover effect */
+.btn.btn-primary:hover {
+    background-color: #245a17;
+    border-color: #245a17;
+}
+
+/* Optional: styling for non-active (outline) buttons */
+.btn.btn-outline-success {
+    color: #2E671A;
+    border-color: #2E671A;
+}
+
+.btn.btn-outline-success:hover {
+    background-color: #2E671A;
+    color: white;
+}
 </style>
 
 <script>
     import { notification } from '@/util/notification';
 import { mapActions,mapState,mapGetters } from 'vuex';
+//import axios from 'axios';
     export default{
         name:"user-wallet",
 
         data(){
             return{
+                loadingBonuses: false,
+                loadingGlobalProfits: false,
+                loadingWithdrawals: false,
+                bonuses: [], // ✅ to hold bonuses from the API
+                currentPage: 1,               // ✅ added for pagination
+                bonusesPerPage: 10,          // ✅ added for pagination
                 form:{
                     amount:''
                 },
@@ -317,7 +442,7 @@ import { mapActions,mapState,mapGetters } from 'vuex';
 
         computed:{
             ...mapState({
-                loading:state=>state.loading,
+                /*loading:state=>state.loading,*/
                 submitting:state=>state.submitting
             }),
 
@@ -329,9 +454,24 @@ import { mapActions,mapState,mapGetters } from 'vuex';
             ...mapGetters('authStore',['authUser']),
             ...mapGetters('withdrawalStore',['userWithdrawals','userTotalWithdrawals','userPendingWithdrawals']),
             ...mapGetters('settingStore',['settings']),
+
+                // ✅ Add these two new computed properties
+                paginatedBonuses() {
+                    const sorted = [...this.bonuses].sort((a, b) => {
+                        return new Date(b.created_at) - new Date(a.created_at);
+                    });
+                    const start = (this.currentPage - 1) * this.bonusesPerPage;
+                    const end = start + this.bonusesPerPage;
+                    return sorted.slice(start, end);
+                },
+
+
+                totalPages() {
+                    return Math.ceil(this.bonuses.length / this.bonusesPerPage);
+                }
         },
 
-        created(){
+        /* created(){
             if(Object.entries(this.authUser).length == 0){
                 this.getUser().then(res=>{
                     this.getBonuses(res.data.uuid)
@@ -341,6 +481,11 @@ import { mapActions,mapState,mapGetters } from 'vuex';
                 })
             }else{
                 this.getBonuses(this.authUser.uuid)
+                // ✅ Delay ensures authUser is loaded before fetching bonuses
+                setTimeout(() => {
+                    this.fetchBonuses()
+                }, 500)
+
                 if(!this.userTotalWithdrawals){
                     this.getUserTotal(this.authUser.uuid)
                 }
@@ -358,61 +503,149 @@ import { mapActions,mapState,mapGetters } from 'vuex';
             }
 
             this.withdrawalForm.withdrawal_amount = this.authUser.withdrawal_amount
-        },
+        },*/
 
-        methods:{
-            ...mapActions('bonusStore',['getWelcomeBonus',
-                'getEquilibrumBonus','getLoyaltyBonus','getReferralBonus',
-                'getProfitPool','getProfitPools','getGlobalProfit',
-                'getGlobalProfits','getPlacementBonus',
-                'getTotalBonus','getWalletBalance']),
+        created() {
+    if (Object.entries(this.authUser).length === 0) {
+        this.getUser().then(res => {
+            this.getBonuses(res.data.uuid)
+            this.getUserTotal(res.data.uuid)
+            this.getUserHistory(res.data.uuid)
+            this.getUserPendingWithdrawals(res.data.uuid)
 
-                ...mapActions('authStore',['getUser']),
+            // ✅ Run mock only after authUser is fetched
+            setTimeout(() => {
+                this.fetchBonuses()
+            }, 500)
+        })
+    } else {
+        this.getBonuses(this.authUser.uuid)
 
-                ...mapActions('withdrawalStore',['getUserTotal','getUserHistory','initiate','getUserPendingWithdrawals']),
-                ...mapActions('settingStore',['all']),
-                ...mapActions('userStore',['updateWithdrawalAmount']),
-                ...mapActions("paymentStore", ["makePayment"]),
+        // ✅ Delay ensures bonuses load after authUser is ready
+        setTimeout(() => {
+            this.fetchBonuses()
+        }, 500)
 
-            getBonuses(uuid){
-                
-                if(!this.totalBonus){
-                    this.getTotalBonus(uuid)
-                }
-                
-                if(!this.walletBalance){
-                    this.getWalletBalance(uuid)
-                }
+        if (!this.userTotalWithdrawals) {
+            this.getUserTotal(this.authUser.uuid)
+        }
+        if (this.userWithdrawals.length === 0) {
+            this.getUserHistory(this.authUser.uuid)
+        }
+        if (this.userPendingWithdrawals.length === 0) {
+            this.getUserPendingWithdrawals(this.authUser.uuid)
+        }
+    }
+
+    if (this.settings.id == undefined) {
+        this.settingsLoading = true
+        this.all().then(() => (this.settingsLoading = false))
+    }
+
+    this.withdrawalForm.withdrawal_amount = this.authUser.withdrawal_amount
+},
+
+
+        methods: {
+            ...mapActions('bonusStore', [
+                'getWelcomeBonus', 'getEquilibrumBonus', 'getLoyaltyBonus', 'getReferralBonus',
+                'getProfitPool', 'getProfitPools', 'getGlobalProfit', 'getGlobalProfits',
+                'getPlacementBonus', 'getTotalBonus', 'getWalletBalance'
+            ]),
+            ...mapActions('authStore', ['getUser']),
+            ...mapActions('withdrawalStore', ['getUserTotal', 'getUserHistory', 'initiate', 'getUserPendingWithdrawals']),
+            ...mapActions('settingStore', ['all']),
+            ...mapActions('userStore', ['updateWithdrawalAmount']),
+
+            getBonuses(uuid) {
+                if (!this.totalBonus) this.getTotalBonus(uuid)
+                if (!this.walletBalance) this.getWalletBalance(uuid)
             },
 
-            processWithdrawal()
-            {
-                if(!this.isNumeric(this.form.amount)){
+            // newly added
+            async fetchBonuses() {
+               this.loadingBonuses = true;
+                try {
+                    await this.$store.dispatch('bonusStore/fetchAllBonuses', this.authUser.uuid)
+                    this.bonuses = this.$store.state.bonusStore.allBonuses || []
+                    console.log('LIVE bonuses:', this.bonuses)
+                } catch (error) {
+                    console.error('Error fetching bonuses:', error)
+                    this.bonuses = []
+                }
+               this.loadingBonuses = false;
+            },
+
+
+            processWithdrawal() {
+                if (!this.isNumeric(this.form.amount)) {
                     notification.warning('withdrawal amount is invalid')
                     return
                 }
-                let data = {uuid:this.authUser.uuid,data:this.form}
-                this.initiate(data).then(res=>{
-                    if(res.status == 200){
+                const data = { uuid: this.authUser.uuid, data: this.form }
+                this.initiate(data).then(res => {
+                    if (res.status == 200) {
                         this.getUserPendingWithdrawals(this.authUser.uuid)
                     }
                 })
             },
 
-            isNumeric(n){
+            isNumeric(n) {
                 return !isNaN(parseFloat(n)) && isFinite(n)
             },
 
-            submitWithdrawalAmount(){
+            submitWithdrawalAmount() {
                 this.submittingAmt = true
-                this.updateWithdrawalAmount(this.withdrawalForm).then(()=>{this.submittingAmt=false; this.getUser();})
+                this.updateWithdrawalAmount(this.withdrawalForm).then(() => {
+                    this.submittingAmt = false
+                    this.getUser()
+                })
             },
 
-            bankTransfer(){
-                
-                this.makingPayment = true
-                this.makePayment({uuid:this.authUser.uuid, data:this.bankTransferForm}).then(()=>this.makingPayment=false)
+              // ✅ Add these for pagination
+                nextPage() {
+                    if (this.currentPage < this.totalPages) {
+                        this.currentPage++;
+                        this.scrollToTableTop();
+                    }
+                },
+
+                prevPage() {
+                    if (this.currentPage > 1) {
+                        this.currentPage--;
+                        this.scrollToTableTop();
+                    }
+                },
+
+                goToPage(page) {
+                    this.currentPage = page;
+                    this.scrollToTableTop();
+                },
+
+                formatDate(datetime) {
+                    if (!datetime) return 'N/A';
+                    const date = new Date(datetime);
+                    return isNaN(date) ? 'N/A' : date.toLocaleDateString('en-GB');
+                },
+
+                formatTime(datetime) {
+                    if (!datetime) return 'N/A';
+                    const date = new Date(datetime);
+                    return isNaN(date) ? 'N/A' : date.toLocaleTimeString();
+                },
+
+
+
+                scrollToTableTop() {
+                this.$nextTick(() => {
+                    const table = this.$el.querySelector('.table.table-striped');
+                    if (table) {
+                        table.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                });
             }
+            
         }
+
     }
 </script>
