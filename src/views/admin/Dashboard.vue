@@ -100,7 +100,7 @@
                                     <div class="d-flex flex-row mt-4 mb-4 ml-4">
                                         <div style="padding-right:20px">
                                             <p class="font-weight-bold green-text"><i class="icon icon-cart-plus" ></i>&nbsp;&nbsp;QTY</p>
-                                            <div class="mt-1 text-dark-heading text-green float-right font-weight-bold" >{{ pickupStats.purchase_count?.toLocaleString('en-US') }}</div>
+                                            <div class="mt-1 text-dark-heading text-green float-right font-weight-bold" >{{ pickupStats.repurchase_count?.toLocaleString('en-US') }}</div>
                                         </div>
                                     </div>
                                 </div>
