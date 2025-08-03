@@ -11,12 +11,6 @@ Vue.config.productionTip = false;
 Vue.use(BootstrapVue);
 Vue.use(store);
 
-new Vue({
-  router,
-  store,
-  render: h => h(App)
-}).$mount('#app');
-
 // ✅ Production-safe loader hide logic
 window.addEventListener('load', () => {
   const loader = document.getElementById('loader');
@@ -27,3 +21,9 @@ window.addEventListener('load', () => {
     }, 500);
   }
 });
+
+export default new Vue({
+  router,
+  store,
+  render: h => h(App)
+}).$mount('#app');
