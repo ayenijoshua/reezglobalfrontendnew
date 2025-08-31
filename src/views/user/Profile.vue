@@ -760,6 +760,7 @@ li > a:hover .icon {
                                         notification.success("Payment Verified successfully")
                                         that.$bvModal.hide('pay')
                                         this.paySubmitting = false
+                                        this.regPackage.name = this.upgradeData.new_package.name
                                     }else{
                                         notification.info("Unable to verify payment")
                                         that.$bvModal.hide('pay')
@@ -795,7 +796,7 @@ li > a:hover .icon {
                     is_upgrade:1,
                     meta_data:this.upgradeForm.package_id
                 }
-                this.payWithWallet(data).then(()=>this.payingWithWallet = false)
+                this.payWithWallet(data).then((res)=>{this.payingWithWallet = false; res.status==200 ? this.regPackage.name = this.upgradeData.new_package.name : null});
             }
         },
 
