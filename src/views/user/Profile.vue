@@ -271,7 +271,7 @@
                             </div>
                             
                             <div class="row mt-5 mb-5">
-                                <div class="col-md-6">
+                                <div class="col-md-4">
                                     <div class="card  mb-3 shadow1" style="background-color: transparent">                       
                                         <div class="d-flex flex-wrap justify-content-center">
                                             <div class="text-center mt-5 mb-5" style="padding-bottom:10px; padding-top: 20px">
@@ -283,7 +283,7 @@
                                         </div>	   
                                     </div>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-4">
                                     <b-card v-if="walletBalanceLoading==true || walletBalance == null" >
                                         <b-skeleton width="85%"></b-skeleton>
                                         <b-skeleton width="55%"></b-skeleton>
@@ -300,7 +300,53 @@
                                             </div>    
                                         </div>    
                                     </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <form id="pop-form">
+                                        <div class="form-group col-12 m-0">
+                                            <div class="form-group m-0">
+                                                <div class="dropbox" style="background-color: transparent; border: 2px solid #2E671A;">
+                                                    <input v-b-popover.hover.top="'Drag your payment receipt here or click to browse'" type="file" id="pop-img" title="Payment receipt" name="pop" @change="popFilesChange($event.target.files);" class="form-control form-control-line input-file" style="background-color: transparent; border: 2px solid #2E671A;">
+                                                    <p id="pop-preview">
+                                                        Make payment to one of the banks are listed below<br>
+                                                        Drag your receipt here or click to browse<br>
+                                                        <span style="font-size: 10px;">Image size should not exceed 500kB</span>
+                                                    </p>
+                                                </div>
+                                                <span v-if="uploadSubmitting==true" class="btn btn-sm btn-success mb-3 mt-2 btn-lg">...</span>
+                                                <span v-else-if="loading" class=""></span>
+                                                <a v-else @click="uploadPayment()" class="btn btn-sm btn-success mb-3 mt-2 btn-lg text-center"><i class="icon icon-credit-card"></i>Upload Payment receipt</a>
+                                            </div>
+                                        </div>
+                                    </form>
                                 </div>              
+                            </div>
+
+                            <div class="row">
+                                <b-card v-if="banksLoading" class="col-md-12" >
+                                    <b-skeleton width="85%"></b-skeleton>
+                                    <b-skeleton width="55%"></b-skeleton>
+                                    <b-skeleton width="70%"></b-skeleton>
+                                </b-card>
+                                <template v-else>
+                                    <div v-for="bank,i in compBanks" class="col-md-4" :key="i">
+                                        <div class="card shadow rounded" style="background-color: #ded8c7">
+                                            <div class="card-body">
+                                                <div class="d-flex justify-content-center">
+                                                    <div class="text-center">  <img src="/assets/img/bankinghall2a.png" width="auto" height="150px"></div>
+                                                        <div class="card-body text-center">
+                                                            <span  id="d1" class="text-green" style="font-size:10px">Bank Name</span>
+                                                            <h5 class="font-weight-bold text-green"> {{ bank.bank_name }}</h5>
+                                                            <span  id="d1" class="text-green" style="font-size:10px">Account Name</span>
+                                                            <h5 class="font-weight-bold text-green" id="d1">{{ bank.bank_account_name }}</h5>
+                                                            <span  id="d1" class="text-green" style="font-size:10px">Account Number</span>
+                                                            <h5 class="font-weight-bold text-green" id="d1">{{ bank.bank_account_number }}</h5>
+                                                        </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </template>
                             </div>
                         </div>
                         <div class="tab-pane fade" id="v-pills-payments" role="tabpanel" aria-labelledby="v-pills-payments-tab">
@@ -610,7 +656,9 @@ li > a:hover .icon {
                 payLink:null,
                 walletBalanceLoading:false,
                 payingWithWallet:false,
-                payAmount:0
+                payAmount:0,
+                banksLoading:false,
+                uploadSubmitting:false
             }
         },
 
@@ -624,6 +672,7 @@ li > a:hover .icon {
             ...mapGetters('userStore',['profile','uplineDetails']),
             ...mapGetters('packageStore',['regPackage','regPackages']),
             ...mapGetters('bonusStore',['walletBalance']),
+            ...mapGetters("bankStore",{compBanks:"banks"}),
 
             imageURL(){
                 let img = this.profile?.photo_path
@@ -643,6 +692,7 @@ li > a:hover .icon {
             ...mapActions('paymentStore',['verifyBankDetails','fetchBanks','verify','initiatePayment']),
             ...mapActions('bonusStore',['getWalletBalance']),
             ...mapActions("withdrawalStore",["payWithWallet"]),
+            ...mapActions("bankStore",["getBanks"]),
 
             profileUpdate(){
                 let ele = document.getElementById('profile-form')
@@ -732,7 +782,8 @@ li > a:hover .icon {
                     description:"Package Upgrade",
                     txn_source:"package_payment",
                     is_upgrade:1,
-                    meta_data:this.upgradeForm.package_id
+                    meta_data:this.upgradeForm.package_id,
+                    payment_type:"payment_gateway"
                     //stockist_id:this.stockist.id,
                     //total_price:this.cartTotalPrice,
                     //total_quantity:this.cartTotalQty,
@@ -797,7 +848,60 @@ li > a:hover .icon {
                     meta_data:this.upgradeForm.package_id
                 }
                 this.payWithWallet(data).then((res)=>{this.payingWithWallet = false; res.status==200 ? this.regPackage.name = this.upgradeData.new_package.name : null});
-            }
+            },
+
+            popFilesChange(files){
+                const file = files[0]
+                const prev = document.getElementById('pop-preview')
+                if(file){
+                    const fileReader = new FileReader()
+                    fileReader.readAsDataURL(file)
+                    fileReader.addEventListener("load",function(){
+                        prev.innerHTML = '<img style="width: 100px !important; height:100px !important;" src="'+this.result+'"/>'
+                    })
+                }
+            },
+
+            uploadPayment(){
+                if(this.upgradeData.package_difference == undefined){
+                    notification.warning("Select a package for upgrade")
+                    return
+                }
+                this.uploadSubmitting = true
+                let ele = document.getElementById('pop-form')
+                var form = new FormData(ele)
+                form.append('amount',this.upgradeData.package_difference)
+                form.append('payment_type','pop')
+                form.append('description',`Package Upgrade from ${this.upgradeData.current_package.name} to ${this.upgradeData.new_package.name}`)
+                form.append('txn_source','package_payment')
+                form.append('is_upgrade',1),
+                form.append('meta_data',this.upgradeForm.package_id)
+
+                if(this.checkFile() == false){
+                    notification.warning('Image size should not exceed 500kB')
+                    this.uploadSubmitting = false
+                    return
+                }
+
+                this.initiatePayment(form).then(res=>{
+                    console.log(res)
+                    //var result = res
+                    if(res && res.status == 200){
+                        notification.success("Payment reciept uploaded successfuly")
+                        this.uploadSubmitting = false
+                    }
+                    this.uploadSubmitting = false
+                })
+            },
+
+            checkFile(){
+                let ele = document.getElementById('pop-img');
+                if(ele.files.length == 0){
+                    return false
+                }
+                let fileSize = ele.files[0].size/1000
+                return fileSize > 500 ? false : true
+            },
         },
 
        created(){
@@ -850,6 +954,11 @@ li > a:hover .icon {
             })
 
             this.all()
+
+            if (this.compBanks.length === 0) {
+                this.banksLoading = true
+                this.getBanks().then(() => this.banksLoading = false)
+            }
             
         },
 

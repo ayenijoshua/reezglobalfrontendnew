@@ -247,7 +247,7 @@
                     </div>
                     
                     <div class="row mb-5">
-                        <div class="col-md-12">
+                        <div class="col-md-6">
                             <div class="d-flex flex-wrap justify-content-center mt-2">
                                 <div class="text-center mt-5">
                                     <img  src="/assets/img/pay_options.png" width="300px">
@@ -258,7 +258,55 @@
                                 </div>
                             </div>	
                         </div>
-                    </div>	     
+                        <div class="col-md-6">
+                            <form id="pop-form">
+                                <div class="form-group col-12 m-0">
+                                    <div class="form-group m-0">
+                                        <div class="dropbox" style="background-color: transparent; border: 2px solid #2E671A;">
+                                            <input v-b-popover.hover.top="'Drag your payment receipt here or click to browse'" type="file" id="pop-img" title="Payment receipt" name="pop" @change="filesChange($event.target.files);" class="form-control form-control-line input-file" style="background-color: transparent; border: 2px solid #2E671A;">
+                                            <p id="pop-preview">
+                                                Make payment to one of the banks are listed below<br>
+                                                Drag your receipt here or click to browse<br>
+                                                <span style="font-size: 10px;">Image size should not exceed 500kB</span>
+                                            </p>
+                                        </div>
+                                        <span v-if="uploadSubmitting==true" class="btn btn-sm btn-success mb-3 mt-2 btn-lg">...</span>
+                                        <span v-else-if="loading" class=""></span>
+                                        <a v-else @click="uploadPayment()" class="btn btn-sm btn-success mb-3 mt-2 btn-lg text-center"><i class="icon icon-credit-card"></i>Upload Payment Receipt</a>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>	
+                    
+                    <br>
+                    <div class="row">
+                        <b-card v-if="banksLoading" class="col-md-12" >
+                            <b-skeleton width="85%"></b-skeleton>
+                            <b-skeleton width="55%"></b-skeleton>
+                            <b-skeleton width="70%"></b-skeleton>
+                        </b-card>
+                        <template v-else>
+                            <div v-for="bank,i in compBanks" class="col-md-4" :key="i">
+                                <div class="card shadow rounded" style="background-color: #ded8c7">
+                                    <div class="card-body">
+                                        <div class="d-flex justify-content-center">
+                                            <div class="text-center">  <img src="/assets/img/bankinghall2a.png" width="auto" height="150px"></div>
+                                                <div class="card-body text-center">
+                                                    <span  id="d1" class="text-green" style="font-size:10px">Bank Name</span>
+                                                    <h5 class="font-weight-bold text-green"> {{ bank.bank_name }}</h5>
+                                                    <span  id="d1" class="text-green" style="font-size:10px">Account Name</span>
+                                                    <h5 class="font-weight-bold text-green" id="d1">{{ bank.bank_account_name }}</h5>
+                                                    <span  id="d1" class="text-green" style="font-size:10px">Account Number</span>
+                                                    <h5 class="font-weight-bold text-green" id="d1">{{ bank.bank_account_number }}</h5>
+                                                </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </template>
+                    </div>
+                <br>
                 </div>	
             </div>
         </div>
@@ -383,7 +431,7 @@
 		padding: 0 10px;
 	  }
 	}
-</styled>
+</style>
 
 <style>	
 
@@ -465,6 +513,7 @@
     import modal from '@/components/Modal.vue'
     import vm from '../main'
     import VueCountdown from '@chenfengyuan/vue-countdown';
+    import { notification } from '@/util/notification';
     export default{
         name:"user-welcome",
 
@@ -489,7 +538,9 @@
 
                 banks:[],
                 bankCode:null,
-                bankName:null
+                bankName:null,
+                uploadSubmitting:false,
+                banksLoading:false,
             }
         },
 
@@ -501,6 +552,7 @@
 
             ...mapGetters('authStore',['authUser']),
             ...mapGetters('userStore',['profile']),
+            ...mapGetters("bankStore",{compBanks:"banks"}),
 
             getTime(){
                 let userTime = new Date(this.authUser.created_at).getTime()
@@ -523,6 +575,10 @@
                     //     }
                     // })
 
+                    if(res.data.is_deactivated == 0){
+                        vm.$router.push({name:'user-dashboard'})
+                    }
+
                     this.getProfileDetails(res.data.uuid).then(reslt=>{
                         this.form.bank_account_name = reslt.data.data?.bank_account_name
                         this.form.bank_account_number = reslt.data.data?.bank_account_number
@@ -542,6 +598,11 @@
                 }
             })
 
+            if (this.compBanks.length === 0) {
+                this.banksLoading = true
+                this.getBanks().then(() => this.banksLoading = false)
+            }
+
         },
 
         // watch:{
@@ -560,6 +621,7 @@
             ...mapActions('userStore',['getProfileDetails','updateBankDetails','getUserPaymentStatus']),
             ...mapActions('paymentStore',['initiate','verify','verifyBankDetails','fetchBanks']),
             ...mapActions('packageStore',['getPackage']),
+            ...mapActions("bankStore",["getBanks"]),
             
 
             updateBank(){
@@ -597,7 +659,7 @@
 
             makePayment(){
                 this.paySubmitting = true
-                let data = {amount:this.amount}
+                let data = {amount:this.amount,payment_type:"payment_gateway"}
                 this.initiateFund(data)
             },
 
@@ -606,7 +668,7 @@
                 this.initiate(data).then(res=>{
                     console.log(res)
                     var result = res
-                    if(res.status == 200){
+                    if(res && res.status == 200){
                         //if(that.productService.name == 'paystack'){
                             that.payLink = res.data.data.data.authorization_url
                             that.$bvModal.show('pay')
@@ -620,7 +682,7 @@
                             // })
                             setTimeout(() => {
                                 that.verify({reference:result.data.data.data.reference}).then(resp=>{
-                                    if(resp.status == 200 && (resp.data.success == true || resp.data.success == 'true')){
+                                    if(resp && resp.status == 200 && (resp.data.success == true || resp.data.success == 'true')){
                                         vm.$router.push({name:'user-dashboard'})
                                     }else{
                                         that.$bvModal.hide('pay')
@@ -639,7 +701,52 @@
                 // if(bank.code != undefined){
                 //     return bank.code
                 // }
-            }
+            },
+
+            filesChange(files){
+                const file = files[0]
+                const prev = document.getElementById('pop-preview')
+                if(file){
+                    const fileReader = new FileReader()
+                    fileReader.readAsDataURL(file)
+                    fileReader.addEventListener("load",function(){
+                        prev.innerHTML = '<img style="width: 100px !important; height:100px !important;" src="'+this.result+'"/>'
+                    })
+                }
+            },
+
+            uploadPayment(){
+                this.uploadSubmitting = true
+                let ele = document.getElementById('pop-form')
+                var form = new FormData(ele)
+                form.append('amount',this.amount)
+                form.append('payment_type','pop')
+
+                if(this.checkFileZize() == false){
+                    notification.warning('Image size should not exceed 500kB')
+                    this.uploadSubmitting = false
+                    return
+                }
+
+                this.initiate(form).then(res=>{
+                    console.log(res)
+                    //var result = res
+                    if(res && res.status == 200){
+                        notification.success("Payment reciept uploaded successfuly")
+                        this.uploadSubmitting = false
+                    }
+                    this.uploadSubmitting = false
+                })
+            },
+
+            checkFileZize(){
+                let ele = document.getElementById('pop-img');
+                if(ele.files.length == 0){
+                    return false
+                }
+                let fileSize = ele.files[0].size/1000
+                return fileSize > 500 ? false : true
+            },
         }
 
     }

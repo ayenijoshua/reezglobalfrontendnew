@@ -38,5 +38,25 @@ export default {
 
     bankTransfer(uuid,data){
         return http().post(`${endpoints.payments}/${uuid}/bank-transfer`,data)
+    },
+
+    approvePackagePaymentReceipt(id){
+        return http().patch(`${endpoints.payments}/package-payments/${id}/approve`)
+    },
+
+    disapprovePackagePaymentReceipt(id){
+        return http().patch(`${endpoints.payments}/package-payments/${id}/disapprove`)
+    },
+
+    viewPackagePaymentReceipt(id){
+        return http().patch(`${endpoints.payments}/package-payments/${id}`)
+    },
+
+    pendingPackagePaymentApprovals(count){
+        return http().get(`${endpoints.payments}/pending-package-payment-approvals?count=${count}`) 
+    },
+
+    packagePaymentHistory(count){
+        return http().get(`${endpoints.payments}/package-payment-history?count=${count}`) 
     }
 }

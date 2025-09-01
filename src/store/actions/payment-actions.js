@@ -158,5 +158,102 @@ export default{
         } catch (error) {
             LogError(commit,error,'submitted')
         }
-    }
+    },
+
+    async approvePackagePayment({commit},id){
+        try {
+            commit('submitting',null,{root:true})
+            
+            const res = await api.approvePackagePaymentReceipt(id)
+            if(res.status==200){
+                notification.success(res.data.message)
+            }else{
+                notification.error(res.data.message)
+            }
+            commit('submitted',null,{root:true})
+            return res
+        } catch (error) {
+            LogError(commit,error,'submitted')
+        }
+    },
+
+    async disapprovePackagePayment({commit},id){
+        try {
+            commit('submitting',null,{root:true})
+            
+            const res = await api.disapprovePackagePaymentReceipt(id)
+            if(res.status==200){
+                notification.success(res.data.message)
+            }else{
+                notification.error(res.data.message)
+            }
+            commit('submitted',null,{root:true})
+            return res
+        } catch (error) {
+            LogError(commit,error,'submitted')
+        }
+    },
+
+    async viewPackagePayment({commit},id){
+        try {
+            commit('submitting',null,{root:true})
+            
+            const res = await api.viewPackagePaymentReceipt(id)
+            if(res.status==200){
+                notification.success(res.data.message)
+            }else{
+                notification.error(res.data.message)
+            }
+            commit('submitted',null,{root:true})
+            return res
+        } catch (error) {
+            LogError(commit,error,'submitted')
+        }
+    },
+
+    async getPendingPackagePaymentApprovals({commit},count=false){
+        try {
+            commit('submitting',null,{root:true})
+            
+            const res = await api.pendingPackagePaymentApprovals(count)
+            if(res.status==200){
+                notification.success(res.data.message)
+                if(count == true){
+                    commit('pendingPackagePaymentApprovalsCount',res.data.data)
+                }else{
+                    commit('pendingPackagePaymentApprovals',res.data.data.data)
+                }
+                
+            }else{
+                notification.error(res.data.message)
+            }
+            commit('submitted',null,{root:true})
+            return res
+        } catch (error) {
+            LogError(commit,error,'submitted')
+        }
+    },
+
+    async getPackagePaymentHistory({commit},count=false){
+        try {
+            commit('submitting',null,{root:true})
+            
+            const res = await api.packagePaymentHistory(count)
+            if(res.status==200){
+                notification.success(res.data.message)
+                if(count==true){
+                    commit('packagePaymentHistoryCount',res.data.data)
+                }else{
+                    commit('packagePaymentHistory',res.data.data.data)
+                }
+                
+            }else{
+                notification.error(res.data.message)
+            }
+            commit('submitted',null,{root:true})
+            return res
+        } catch (error) {
+            LogError(commit,error,'submitted')
+        }
+    },
 }

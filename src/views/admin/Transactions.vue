@@ -12,6 +12,9 @@
                                 <a class="nav-link" id="v-pills-Withdrawal-History-tab" data-toggle="pill" href="#v-pills-Withdrawal-History" role="tab" aria-controls="v-pills-Withdrawal-History" aria-selected="false"><i class="icon icon-credit-card"></i>Registration History</a>
                             </li>
                             <li class="font-weight-bold green-text">
+                                <a class="nav-link" id="v-pills-payment-approvals-tab" data-toggle="pill" href="#v-pills-payment-approvals" role="tab" aria-controls="v-pills-payment-approvals" aria-selected="false"><i class="icon icon-account_box"></i>Pending Payment Upload Approvals <span class="btn btn-danger badge badge-danger">{{ pendingPackagePaymentApprovalsCount }}</span></a>
+                            </li>
+                            <li class="font-weight-bold green-text">
                                 <a class="nav-link" id="v-pills-repurchase-History-tab" data-toggle="pill" href="#v-pills-repurchase-History" role="tab" aria-controls="v-pills-repurchase-History" aria-selected="false"><i class="icon icon-shopping-cart"></i>Product Sales History</a>
                             </li>
                             <li class="font-weight-bold green-text">
@@ -251,22 +254,22 @@
                                                                 <th>Username</th>
                                                                 <th>Previous Packages</th>
                                                                 <th>New Package</th>
-                                                                <th>Registration Upgrade Date</th>
+                                                                <!--<th>Registration Upgrade Date</th>-->
                                                             </tr>
                                                         </thead>
                                                         <tbody>
                                                             <tr v-if="upgradedUsersLoading==true">
-                                                                <td colspan="7">
+                                                                <td colspan="5">
                                                                     <b-skeleton-table
                                                                         :rows="3"
-                                                                        :columns="7"
+                                                                        :columns="5"
                                                                         :table-props="{ bordered: true, striped: true }"
                                                                     ></b-skeleton-table>
                                                                 </td>
                                                             </tr>
                                                             <template v-else>
                                                                 <tr v-if="upgradedUsers.length == 0">
-                                                                    <td colspan="7">
+                                                                    <td colspan="5">
                                                                         <div class="alert alert-info text-center">
                                                                             There are no user registration upgrades
                                                                         </div>
@@ -279,7 +282,6 @@
                                                                         <td>{{ user.username }}</td>
                                                                         <td>{{ user.previous_packages?.toString() }}</td>
                                                                         <td>{{ user.package }}</td>
-                                                                        <td>{{ (new Date(user.created_at)).toDateString() }} {{ (new Date(user.created_at)).toLocaleTimeString() }}</td>
                                                                     </tr>
                                                                 </template>
                                                             </template>
@@ -295,6 +297,192 @@
                                 </div>
                             </div>
                         </div>
+
+                        <div class="tab-pane fade" id="v-pills-payment-approvals" role="tabpanel" aria-labelledby="v-pills-payment-approvals-tab">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="row my-3">
+                                        <div class="col-lg-6">
+                                            <div class="counter-box p-40 text-white shadow1 r-5 flex-wrap" style="background-color: #2E671A">
+                                                <div class="float-right">
+                                                    <img src="/assets/img/registration.png" width="70px" height="70px">
+                                                </div>
+                                                <small class="mt-0 ml-2"><span style="color:#ffff!important;">Pending Approvals</span></small>
+                                                <p class="text-dark-heading font-weight-bold " style="color:#ffff!important;"><span style="color:#ffff!important;font-size:32px">{{ pendingPackagePaymentApprovalsCount }}</span></p>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="counter-box p-40 text-white shadow1 r-5 flex-wrap" style="background-color: #2E671A">
+                                                <div class="float-right">
+                                                    <img src="/assets/img/registration.png"  width="70px" height="70px">
+                                                </div>
+                                                <small class="mt-0 ml-2"><span style="color:#ffff!important;">Total Processed Payment Uploads</span></small>
+                                                <p class="text-dark-heading font-weight-bold " style="color:#ffff!important;"><span style="color:#ffff!important;font-size:32px">{{ packagePaymentHistoryCount }}</span></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="row my-3">
+                                        <!-- bar charts group -->
+                                        <div class="col-md-12">
+                                            <div class="card shadow1">
+                                                <div class="card-header" style="background-color: #2E671A">
+                                                    <h6 class="text-white"><strong class="font-weight-bold">Pending Payment Approvals</strong></h6>
+                                                </div>
+                                                <div class="card-body" style="overflow-x:auto; background-color: #ecf0f1;">
+                                                    
+                                                    <table id="example2" class="table table-bordered table-hover data-tables"
+                                                        data-options='{ "paging": false; "searching":false}'>
+                                                        <thead>
+                                                            <tr>
+                                                                <th>S/N</th>
+                                                                <th>Full Name</th>
+                                                                <th>Username</th>
+                                                                <th>Registered Package</th>
+                                                                <th>Amount</th>
+                                                                <th>Status</th>
+                                                                <th>Description</th>
+                                                                <th>Payment Date</th>
+                                                                <th>Actions</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr v-if="pendingPackagePaymentLoading">
+                                                                <td colspan="9">
+                                                                    <b-skeleton-table
+                                                                        :rows="3"
+                                                                        :columns="9"
+                                                                        :table-props="{ bordered: true, striped: true }"
+                                                                    ></b-skeleton-table>
+                                                                </td>
+                                                            </tr>
+                                                            <template v-else>
+                                                                <tr v-if="pendingPackagePaymentApprovals.length == 0">
+                                                                    <td colspan="9">
+                                                                        <div class="alert alert-info text-center">
+                                                                            There are pending payment approvals
+                                                                        </div>
+                                                                    </td>
+                                                                </tr>
+                                                                <template v-else>
+                                                                    <tr v-for="payment,i in pendingPackagePaymentApprovals" :key="i">
+                                                                        <td>{{  ( ++i) }}</td>
+                                                                        <td>{{ payment.first_name }} {{ payment.last_name }}</td>
+                                                                        <td>{{ payment.username }}</td>
+                                                                        <td>{{ payment.name }}</td>
+                                                                        <td>₦{{ payment.amount?.toLocaleString('en-US') }}</td>
+                                                                        <td>{{ payment.status }}</td>
+                                                                        <td>{{ payment.narration }}</td>
+                                                                        <td>{{(new Date(payment.created_at)).toDateString() }} {{(new Date(payment.created_at)).toLocaleTimeString() }}</td>
+                                                                        <td>
+                                                                            <div class="dropdown">
+                                                                                <button class="btn btn-sm btn-success dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                                    <i class="caret"></i>
+                                                                                </button>
+                                                                                <div class="dropdown-menu" style="background-color: #ecf0f1">
+                                                                                    <a @click="setPackagePayment(payment)" v-b-modal.confirm-payment-approval class="dropdown-item text-green" ><i class="icon-barometer2"></i>&nbsp;&nbsp; Approve</a>
+                                                                                    <a @click="setPackagePayment(payment)" v-b-modal.confirm-payment-decline class="dropdown-item text-green" ><i class="icon-drivers-license-o"></i>&nbsp;&nbsp; Decline
+                                                                                    </a>
+                                                                                </div>
+                                                                            </div>
+                                                                        </td>
+                                                                    </tr>
+                                                                </template>
+                                                            </template>
+                                                        </tbody>
+                                                    </table>
+                                                    <br>
+                                                    <!--<BasePaginator v-if="paidUserAction" :action="paidUserAction" :current_page="paidUsersCurrentPage" :last_page="paidUsersLastPage" :total_pages="paidUsersTotalPages" :per_page="paidUsersPerPage"></BasePaginator>-->
+                                                </div> 
+                                            </div>
+                                        </div>
+                                        <!-- /bar charts group -->
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="row my-3">
+                                        <!-- bar charts group -->
+                                        <div class="col-md-12">
+                                            <div class="card shadow1">
+                                                <div class="card-header" style="background-color: #2E671A">
+                                                    <h6 class="text-white"><strong class="font-weight-bold">Payment Upload History</strong></h6>
+                                                </div>
+                                                <div class="card-body" style="overflow-x:auto; background-color: #ecf0f1;">
+                                                    <table id="example2" class="table table-bordered table-hover data-tables"
+                                                        data-options='{ "paging": false; "searching":false}'>
+                                                        <thead>
+                                                            <tr>
+                                                                <th>S/N</th>
+                                                                <th>Full Name</th>
+                                                                <th>Username</th>
+                                                                <th>Registered Package</th>
+                                                                <th>Amount</th>
+                                                                <th>Status</th>
+                                                                <th>Description</th>
+                                                                <th>Payment Date</th>
+                                                                <th>Actions</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr v-if="packagePaymentHistoryLoading">
+                                                                <td colspan="9">
+                                                                    <b-skeleton-table
+                                                                        :rows="3"
+                                                                        :columns="9"
+                                                                        :table-props="{ bordered: true, striped: true }"
+                                                                    ></b-skeleton-table>
+                                                                </td>
+                                                            </tr>
+                                                            <template v-else>
+                                                                <tr v-if="packagePaymentHistory.length == 0">
+                                                                    <td colspan="9">
+                                                                        <div class="alert alert-info text-center">
+                                                                            There are no payment upload history
+                                                                        </div>
+                                                                    </td>
+                                                                </tr>
+                                                                <template v-else>
+                                                                    <tr v-for="payment,i in packagePaymentHistory" :key="i">
+                                                                        <td>{{  ( ++i) }}</td>
+                                                                        <td>{{ payment.first_name }} {{ payment.last_name }}</td>
+                                                                        <td>{{ payment.username }}</td>
+                                                                        <td>{{ payment.name }}</td>
+                                                                        <td>₦{{ payment.amount?.toLocaleString('en-US') }}</td>
+                                                                        <td>{{ payment.status }}</td>
+                                                                        <td>{{ payment.narration }}</td>
+                                                                        <td>{{(new Date(payment.created_at)).toDateString() }} {{(new Date(payment.created_at)).toLocaleTimeString() }}</td>
+                                                                        <td>
+                                                                            <div class="dropdown">
+                                                                                <button class="btn btn-sm btn-success dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                                    <i class="caret"></i>
+                                                                                </button>
+                                                                                <div class="dropdown-menu" style="background-color: #ecf0f1">
+                                                                                    <a @click="setPackagePayment(payment)" v-b-modal.view-payment-receipt class="dropdown-item text-green" ><i class="icon-barometer2"></i>&nbsp;&nbsp; View Receipt</a>
+                                                                                </div>
+                                                                            </div>
+                                                                        </td>
+                                                                    </tr>
+                                                                </template>
+                                                            </template>
+                                                        </tbody>
+                                                    </table>
+                                                    <br>
+                                                    <!--<BasePaginator v-if="paidUserAction" :action="paidUserAction" :current_page="paidUsersCurrentPage" :last_page="paidUsersLastPage" :total_pages="paidUsersTotalPages" :per_page="paidUsersPerPage"></BasePaginator>-->
+                                                </div> 
+                                            </div>
+                                        </div>
+                                        <!-- /bar charts group -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="tab-pane fade" id="v-pills-repurchase-History" role="tabpanel" aria-labelledby="v-pills-repurchase-History-tab">
                             <div class="row">
                                 <div class="col-md-12">
@@ -1013,6 +1201,82 @@
                 </div>
             </template>
         </Modal>
+
+        <Modal modal-id="confirm-payment-approval" modal-title="Confirm Payment Approval" modal-size="lg">
+            <template v-if="packagePayment==null">
+                <b-skeleton-table
+                    :rows="3"
+                    :columns="8"
+                    :table-props="{ bordered: true, striped: true }"
+                ></b-skeleton-table>
+            </template>
+            <template v-else>
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <img :src="imageURL(packagePayment.payment_receipt)" width="500px" height="300px">
+                        <br>
+                        <h5>Package : {{ packagePayment.name }}</h5>
+                        <h5>Amount : ₦{{ packagePayment.amount.toLocaleString('en-US') }}</h5>
+                        <h5>Desription : {{ packagePayment.narration }}</h5>
+                        <h4>Are you sure you want to approve this Payment?</h4>
+                        <button v-if="approvingPayment==true" class="btn btn-success">...</button>
+                        <button v-else class="btn btn-success" @click="approvePayment(packagePayment.id)">Approve</button>
+                    </div>
+                </div>
+            </template>
+        </Modal>
+
+        <Modal modal-id="confirm-payment-decline" modal-title="Confirm Payment Decline" modal-size="lg">
+            <template v-if="packagePayment==null">
+                <b-skeleton-table
+                    :rows="3"
+                    :columns="8"
+                    :table-props="{ bordered: true, striped: true }"
+                ></b-skeleton-table>
+            </template>
+            <template v-else>
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <img :src="imageURL(packagePayment.payment_receipt)" width="500px" height="300px">
+                        <br>
+                        <h5>Package : {{ packagePayment.name }}</h5>
+                        <h5>Amount : ₦{{ packagePayment.amount.toLocaleString('en-US') }}</h5>
+                        <h5>Desription : {{ packagePayment.narration }}</h5>
+                        <h4>Are you sure you want to Disapprove this Payment?</h4>
+                        <button v-if="approvingPayment==true" class="btn btn-danger">...</button>
+                        <button v-else class="btn btn-danger" @click="disapprovePayment(packagePayment.id)">Disapprove</button>
+                    </div>
+                </div>
+            </template>
+        </Modal>
+
+        <Modal modal-id="view-payment-receipt" modal-title="View Payment Receipt" modal-size="lg">
+            <template v-if="packagePayment==null">
+                <b-skeleton-table
+                    :rows="3"
+                    :columns="8"
+                    :table-props="{ bordered: true, striped: true }"
+                ></b-skeleton-table>
+            </template>
+            <template v-else>
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <img :src="imageURL(packagePayment.payment_receipt)" width="500px" height="300px">
+                        <br>
+                        <h5>Package : {{ packagePayment.name }}</h5>
+                        <h5>Amount : ₦{{ packagePayment.amount.toLocaleString('en-US') }}</h5>
+                        <h5>Desription : {{ packagePayment.narration }}</h5>
+                        <h5>Status: <template v-if="packagePayment.status=='approved'">
+                                        <span class="btn btn-success">{{packagePayment.status}}</span>
+                                    </template>
+                                    <template v-else>
+                                        <span class="btn btn-danger">{{packagePayment.status}}</span>
+                                    </template>
+                        </h5>
+                    </div>
+                </div>
+            </template>
+        </Modal>
     </div>
 </template>
 
@@ -1212,7 +1476,11 @@ import StockistPackagePayment from '@/components/admin/StockistPackagePayment.vu
             upgradesLoading:false,
             approvingUpgrade:false,
             orderDetailsLoading:false,
-            orderDetails:[]
+            orderDetails:[],
+            pendingPackagePaymentLoading:false,
+            packagePayment:null,
+            approvingPayment:false,
+            packagePaymentHistoryLoading:false
         }
     },
 
@@ -1233,6 +1501,8 @@ import StockistPackagePayment from '@/components/admin/StockistPackagePayment.vu
             'stockistsOrdersPerPage','stockistsOrdersTotalPages','stockistUpgrades','stockistUpgradesAction','stockistUpgradesState',
             'stockistUpgradesCurrentPage','stockistUpgradesLastPage','stockistUpgradesPerPage','stockistUpgradesTotalPages'
         ]),
+
+        ...mapGetters('paymentStore',['pendingPackagePaymentApprovals','packagePaymentHistory','pendingPackagePaymentApprovalsCount','packagePaymentHistoryCount']),
        
         imageURI(image){
             return image ? process.env.VUE_APP_IMAGE_PATH+'/'+image : '/assets/img/mock-image.jpeg'
@@ -1287,6 +1557,24 @@ import StockistPackagePayment from '@/components/admin/StockistPackagePayment.vu
             this.upgradesLoading = true
             this.fetchUpgrades().then(()=>this.upgradesLoading = false)
         }
+
+        if(this.pendingPackagePaymentApprovals.length == 0){
+            this.pendingPackagePaymentLoading = true
+            this.getPendingPackagePaymentApprovals().then(()=>this.pendingPackagePaymentLoading = false)
+        }
+
+        if(this.packagePaymentHistory.length == 0){
+            this.packagePaymentHistoryLoading = true
+            this.getPackagePaymentHistory().then(()=>this.packagePaymentHistoryLoading = false)
+        }
+
+        if(this.pendingPackagePaymentApprovalsCount == null){
+            this.getPendingPackagePaymentApprovals(true)
+        }
+
+        if(this.packagePaymentHistoryCount == null){
+            this.getPackagePaymentHistory(true)
+        }
         
     },
 
@@ -1299,6 +1587,7 @@ import StockistPackagePayment from '@/components/admin/StockistPackagePayment.vu
         'getSalesStats','approveStockist','disapproveStockist','fetchUpgrades','approveUpgrade','disapproveUpgrade'
         ]),
         ...mapActions('packageStore',['getPackage']),
+        ...mapActions('paymentStore',['getPendingPackagePaymentApprovals','approvePackagePayment','disapprovePackagePayment','getPackagePaymentHistory']),
 
         searchWithdraws(){
             this.searchWithdrawals({page:1,query:this.searchParam})
@@ -1417,6 +1706,22 @@ import StockistPackagePayment from '@/components/admin/StockistPackagePayment.vu
                 //console.log(this.pac)
             
             })
+        },
+
+        setPackagePayment(payment){
+            this.packagePayment = payment
+        },
+
+        approvePayment(){
+            this.approvingPayment = true
+            let that = this
+            this.approvePackagePayment( this.packagePayment.id).then(()=>{this.approvingPayment=false; this.getPendingPackagePaymentApprovals(); this.getPendingPackagePaymentApprovals(true); this.getPackagePaymentHistory(); this.getPackagePaymentHistory(true); that.$bvModal.hide('confirm-payment-approval')})
+        },
+
+        disapprovePayment(){
+            this.approvingPayment = true
+            let that = this
+            this.disapprovePackagePayment( this.packagePayment.id).then(()=>{this.approvingPayment=false; this.getPendingPackagePaymentApprovals(); this.getPendingPackagePaymentApprovals(true); this.getPackagePaymentHistory(); this.getPackagePaymentHistory(true); that.$bvModal.hide('confirm-payment-decline')})
         }
 
     }

@@ -469,6 +469,7 @@ export default{
 
             this.paySubmitting = true
             let data = {amount:this.cartTotalPrice,
+                payment_type:"payment_gateway",
                 description:"Stock purhcase",
                 txn_source:"stockist_product_purchase",
                 is_upgrade:0,

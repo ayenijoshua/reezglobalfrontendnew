@@ -7,7 +7,11 @@ export default{
     namespaced:true,
     state(){
         return{
-            walletBalance:null
+            walletBalance:null,
+            pendingPackagePaymentApprovals:[],
+            pendingPackagePaymentApprovalsCount:null,
+            packagePaymentHistory:[],
+            packagePaymentHistoryCount:null
         }
     },
     actions:{

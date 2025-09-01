@@ -953,6 +953,7 @@ export default {
 
         this.paySubmitting = true
         let data = {amount:this.cartTotalPrice,
+            payment_type:"payment_gateway",
             description:"Member purhcase",
             txn_source:"member_product_purchase",
             is_upgrade:0,
