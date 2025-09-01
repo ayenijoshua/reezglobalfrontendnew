@@ -62,7 +62,7 @@
 
                                         <div class="col-lg-6">
                                             <div class="form-group has-icon green-text shadow1"><i class="icon-sitemap"></i>
-                                                <input required value="Startwins" v-model="form.referrer" v-b-popover.hover.top="'If your upline has exceeded two direct registrations, place him/her in the sponsor field'" title="Upline" type="text" class="form-control form-control-lg no-b"
+                                                <input required value="reezglobal" v-model="form.referrer" v-b-popover.hover.top="'If your upline has exceeded two direct registrations, place him/her in the sponsor field'" title="Upline" type="text" class="form-control form-control-lg no-b"
                                                     placeholder="Placement">
                                             </div>
                                         </div>
