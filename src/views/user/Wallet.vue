@@ -134,8 +134,8 @@
                                                             <button class="btn btn-sm btn-outline-success" @click="prevPage" :disabled="currentPage === 1">Prev</button>
 
                                                             <button
-                                                                v-for="page in visiblePages"
-                                                                :key="page"
+                                                                v-for="page,i in visiblePages"
+                                                                :key="i"
                                                                 @click="goToPage(page)"
                                                                 class="btn btn-sm"
                                                                 :class="{ 'btn-primary': page === currentPage, 'btn-outline-success': page !== currentPage }"
@@ -144,7 +144,7 @@
                                                             </button>
 
                                                             <button class="btn btn-sm btn-outline-success" @click="nextPage" :disabled="currentPage === totalPages">Next</button>
-                                                            </div>
+                                                        </div>
 
                                                 </div>
                                             </div>
@@ -153,11 +153,7 @@
                                     </div>
                                 </div>
                             </div>
-							
-							
-							
-							
-                                                          
+						             
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="row my-3">
@@ -276,7 +272,7 @@
                                                         </div>
                                                     </div>
                                                     <span v-if="makingPayment==true" class="btn btn-success">...</span>
-                                                    <button v-else class="btn btn-success" type="submit"><i class="icon-account_balance_wallet mr-2"></i>Submit</button>
+                                                    <button v-else class="btn btn-success" :disabled="settings.payout_enabled==0" type="submit"><i class="icon-account_balance_wallet mr-2"></i>Submit</button>
                                                 </form>
                                             </div>                                            
                                         </div>
@@ -310,21 +306,8 @@
                                                                             ></b-skeleton-table>
                                                                         </td>
                                                                     </tr>
-
-                                                                   
-                                                                    <template v-else>
-                                                                        <template v-if="userPendingWithdrawals.length > 0">
-                                                                            <tr v-for="withdraw,i in userPendingWithdrawals" :key="i">
-                                                                                <td>{{ ++i }}</td>
-                                                                                <td>₦{{ withdraw.amount?.toLocaleString('en-US') }}</td>
-                                                                                <td>₦{{ withdraw.fee?.toLocaleString('en-US') }}</td>
-                                                                                <td>{{ withdraw.txn_status }}</td>
-                                                                                <td>{{ withdraw.type }}</td>
-                                                                                <td>{{ withdraw.created_at }}</td>
-                                                                            </tr>
-                                                                        </template>
                                                                         <template>
-                                                                            <tr v-if="userWithdrawals.length == 0 && userPendingWithdrawals.length == 0">
+                                                                            <tr v-if="userWithdrawals.length == 0">
                                                                                 <td class="text-center" colspan="5">There are no withdrawals</td>
                                                                             </tr>
                                                                             <template v-else>
@@ -338,7 +321,6 @@
                                                                                 </tr>
                                                                             </template>
                                                                         </template>
-                                                                    </template>
                                                                     <tr><th colspan="5">Total withdrawals (TW)</th><td>₦{{ userTotalWithdrawals?.toLocaleString('en-US') }}</td></tr>
                                                                 </tbody>
                                                             </table>
@@ -436,13 +418,13 @@ import { mapActions,mapState,mapGetters } from 'vuex';
                     reason:null
                 },
                 makingPayment:false,
-                walletBalanceLoading : false
+                walletBalanceLoading : false,
             }
         },
 
         computed:{
             ...mapState({
-                /*loading:state=>state.loading,*/
+                loading:state=>state.loading,
                 submitting:state=>state.submitting
             }),
 
@@ -468,6 +450,27 @@ import { mapActions,mapState,mapGetters } from 'vuex';
 
                 totalPages() {
                     return Math.ceil(this.bonuses.length / this.bonusesPerPage);
+                },
+
+                visiblePages() {
+                    const total = this.totalPages;
+                    const current = this.currentPage;
+                    const maxButtons = 5;
+
+                    let start = Math.max(current - Math.floor(maxButtons / 2), 1);
+                    let end = start + maxButtons - 1;
+
+                    if (end > total) {
+                        end = total;
+                        start = Math.max(end - maxButtons + 1, 1);
+                    }
+
+                    const pages = [];
+                    for (let i = start; i <= end; i++) {
+                        pages.push(i);
+                    }
+
+                    return pages;
                 }
         },
 
@@ -506,44 +509,44 @@ import { mapActions,mapState,mapGetters } from 'vuex';
         },*/
 
         created() {
-    if (Object.entries(this.authUser).length === 0) {
-        this.getUser().then(res => {
-            this.getBonuses(res.data.uuid)
-            this.getUserTotal(res.data.uuid)
-            this.getUserHistory(res.data.uuid)
-            this.getUserPendingWithdrawals(res.data.uuid)
+            if (Object.entries(this.authUser).length === 0) {
+                this.getUser().then(res => {
+                    this.getBonuses(res.data.uuid)
+                    this.getUserTotal(res.data.uuid)
+                    this.getUserHistory(res.data.uuid)
+                    //this.getUserPendingWithdrawals(res.data.uuid)
 
-            // ✅ Run mock only after authUser is fetched
-            setTimeout(() => {
-                this.fetchBonuses()
-            }, 500)
-        })
-    } else {
-        this.getBonuses(this.authUser.uuid)
+                    // ✅ Run mock only after authUser is fetched
+                    setTimeout(() => {
+                        this.fetchBonuses()
+                    }, 500)
+                })
+            } else {
+                this.getBonuses(this.authUser.uuid)
 
-        // ✅ Delay ensures bonuses load after authUser is ready
-        setTimeout(() => {
-            this.fetchBonuses()
-        }, 500)
+                // ✅ Delay ensures bonuses load after authUser is ready
+                setTimeout(() => {
+                    this.fetchBonuses()
+                }, 500)
 
-        if (!this.userTotalWithdrawals) {
-            this.getUserTotal(this.authUser.uuid)
-        }
-        if (this.userWithdrawals.length === 0) {
-            this.getUserHistory(this.authUser.uuid)
-        }
-        if (this.userPendingWithdrawals.length === 0) {
-            this.getUserPendingWithdrawals(this.authUser.uuid)
-        }
-    }
+                if (!this.userTotalWithdrawals) {
+                    this.getUserTotal(this.authUser.uuid)
+                }
+                if (this.userWithdrawals.length === 0) {
+                    this.getUserHistory(this.authUser.uuid)
+                }
+                if (this.userPendingWithdrawals.length === 0) {
+                    //this.getUserPendingWithdrawals(this.authUser.uuid)
+                }
+            }
 
-    if (this.settings.id == undefined) {
-        this.settingsLoading = true
-        this.all().then(() => (this.settingsLoading = false))
-    }
+            if (this.settings.id == undefined) {
+                this.settingsLoading = true
+                this.all().then(() => (this.settingsLoading = false))
+            }
 
-    this.withdrawalForm.withdrawal_amount = this.authUser.withdrawal_amount
-},
+            this.withdrawalForm.withdrawal_amount = this.authUser.withdrawal_amount
+        },
 
 
         methods: {
@@ -556,6 +559,7 @@ import { mapActions,mapState,mapGetters } from 'vuex';
             ...mapActions('withdrawalStore', ['getUserTotal', 'getUserHistory', 'initiate', 'getUserPendingWithdrawals']),
             ...mapActions('settingStore', ['all']),
             ...mapActions('userStore', ['updateWithdrawalAmount']),
+            ...mapActions("paymentStore", ["makePayment"]),
 
             getBonuses(uuid) {
                 if (!this.totalBonus) this.getTotalBonus(uuid)
@@ -634,16 +638,19 @@ import { mapActions,mapState,mapGetters } from 'vuex';
                     return isNaN(date) ? 'N/A' : date.toLocaleTimeString();
                 },
 
-
-
                 scrollToTableTop() {
-                this.$nextTick(() => {
-                    const table = this.$el.querySelector('.table.table-striped');
-                    if (table) {
-                        table.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                    }
-                });
-            }
+                    this.$nextTick(() => {
+                        const table = this.$el.querySelector('.table.table-striped');
+                        if (table) {
+                            table.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        }
+                    });
+                },
+
+                bankTransfer(){
+                    this.makingPayment = true
+                    this.makePayment({uuid:this.authUser.uuid, data:this.bankTransferForm}).then(()=>this.makingPayment=false)
+                }
             
         }
 

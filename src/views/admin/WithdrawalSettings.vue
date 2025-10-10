@@ -161,141 +161,37 @@
                 </div>
             </div>
 
-            <div class="d-flex justify-content-center mt-5 mb-5"> <!-- Centering wrapper added -->
-                <div class="col-md-6 col-sm-12"> 
-                    <div class="card no-b shadow 1" style="background-color: transparent;">
-                        <div class="card-body">
-                            <div class="text-center mb-3"><img src="/assets/img/calendar.png" width="80px"  height="80px">
-                                <p class="text-green s-12 font-weight-bold">Automated Payment is Set Currently on</p>
-                                <h5 class="font-weight-bold text-green">Weekly Automated Payout Settings</h5>
-                            </div>
-                        </div>     
-                    </div>       
-                </div>
-            </div>  
-
-            <div class="d-flex justify-content-center mt-5 mb-5"> <!-- Centering wrapper added -->
-                <div class="col-md-6 col-sm-12"> 
-                    <div class="card no-b shadow 1" style="background-color: transparent;">
-                        <div class="card-body">
-                            <span class="text-center text-green s-12 font-weight-bold">Select Payout Type</span>
-                            <div class="form-group m-0">                       
-                                <div class="input-group mb-2 mr-sm-2 mb-3">
-                                    <div class="input-group-prepend">
-                                        <div class="input-group-text" style="background-color: #2E671A; border: 2px solid #2E671A;"><i class="icon icon-date_range float-left s-20 text-white" ></i></div>
+            <div class="col-md-6">
+                <div class="card shadow1" style="background-color:#ded8c7">
+                    <div class="card-body" style="overflow-x:auto;">
+                    <form @submit.prevent="updatePayoutSetting()">
+                        <div class="card no-b  no-r" style="background-color:#ded8c7">
+                            <div class="card-body no-gutters">
+                                <div class="text-center mb-3"><img  src="/assets/img/cash-withdrawal.png" width="80px"  height="80px">
+                                <h5 class="s-36 font-weight-bold mt-2 text-green">{{ settings.payout_enabled==true?'Enabled':'Disabled'}}</h5>
+                                <h6 class="mt-1 s-8 font-weight-bold">Enable Payout<br><small></small></h6></div>
+                                <div class="form-row mb-3">
+                                    <div class="col-md-12">
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <div class="input-group-text"><i class="icon icon-money-3 float-left s-20 text-white" ></i></div>
+                                            </div>
+                                            <input v-model="payoutSetting.payout_enabled" type="checkbox" :capture="settings.payout_enabled" class="form-control r-0 light s-12"  style="background-color:#ded8c7; border: 1px solid #2E671A">
+                                        </div>
                                     </div>
-                                    <select required v-model="form.withdrawal_type" class="form-control r-0 light s-12" style="background-color: transparent; border: 2px solid #1b4f72;">
-                                        <option value="" style="background-color: #ded8c7">Select withdrawal type</option>
-                                        <option value="weekly" style="background-color: #ded8c7">Weekly Automated Payout</option>
-                                        <option value="monthly" style="background-color: #ded8c7">Monthly Automated Payout</option>														   
-                                    </select>
                                 </div>
-                            </div>
-                        </div>     
-                    </div>       
-                </div>
-            </div> 
-
-            <div  v-if="form.withdrawal_type === 'weekly'"  class="d-flex justify-content-center mt-5 mb-5"> <!-- Centering wrapper added -->
-                <div class="col-md-6 col-sm-12"> 
-                    <div class="card shadow1" style="background-color:#ded8c7">
-                        <div class="card-body" style="overflow-x:auto;">
-                            <div class="card no-b  no-r" style="background-color:#ded8c7">
-                                <div class="card-body no-gutters">
-                                    <div class="text-center mb-3"><img  src="/assets/img/calendar.png" width="80px"  height="80px">
-                                    <h6 class="mt-1 s-8 font-weight-bold">Weekly Automated Payout Settings</h6></div>
-                                    
-                                        <div class="form-row mb-3">
-                                            <div class="col-md-12 mb-2">
-                                                <div class="input-group">
-                                                    <div class="input-group-prepend">
-                                                        <div class="input-group-text"><i class="icon icon-date_range float-left s-20 text-white" ></i></div>
-                                                    </div>
-                                                    <select v-model="form.withdrawal_period" class="form-control r-0 light s-12"  style="background-color:#ded8c7; border: 1px solid #2E671A">                                                       
-                                                        <option value="" style="background-color: #ded8c7">Select Day of the week</option>
-                                                        <option value="1" style="background-color: #ded8c7">Sunday</option>
-                                                        <option value="2" style="background-color: #ded8c7">Monday</option>
-                                                        <option value="3" style="background-color: #ded8c7">Tuesday</option>
-                                                        <option value="4" style="background-color: #ded8c7">Wednesday</option>
-                                                        <option value="5" style="background-color: #ded8c7">Thursday</option>
-                                                        <option value="6" style="background-color: #ded8c7">Friday</option>
-                                                        <option value="7" style="background-color: #ded8c7">Saturday</option>                                
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="form-row ml-1">
-                                            <span v-if="withdrawalTypeSubmitting" class="btn btn-sm btn-success btn-lg">...</span>
-                                            <button v-else type="submit" class="btn btn-sm btn-success btn-lg" @click="updateWithdrawalType"><i class="icon-save mr-2"></i>Update Data</button>
-                                        </div>
-                                </div>	
-                            </div>
+                                <div class="form-row ml-1">
+                                    <span v-if="submitting && payoutSettingSubmitting" class="btn btn-sm btn-success btn-lg">...</span>
+                                    <button v-else type="submit" class="btn btn-sm btn-success btn-lg"><i class="icon-save mr-2"></i>Update Data</button>
+                                </div>
+                            </div>	
                         </div>
-                    </div>       
+                    </form>
+                    </div>
                 </div>
-            </div> 
+            </div>
 
-            <div v-if="form.withdrawal_type === 'monthly'" class="d-flex justify-content-center mt-5 mb-5"> <!-- Centering wrapper added -->
-                <div class="col-md-6 col-sm-12"> 
-                    <div class="card shadow1" style="background-color:#ded8c7">
-                        <div class="card-body" style="overflow-x:auto;">
-                            <div class="card no-b  no-r" style="background-color:#ded8c7">
-                                <div class="card-body no-gutters">
-                                    <div class="text-center mb-3"><img  src="/assets/img/calendar.png" width="80px"  height="80px">
-                                    <h6 class="mt-1 s-8 font-weight-bold">Monthly Automated Payout Settings</h6></div>
-                                    
-                                        <div class="form-row mb-3">
-                                            <div class="col-md-12 mb-2">
-                                                <div class="input-group">
-                                                    <div class="input-group-prepend">
-                                                        <div class="input-group-text"><i class="icon icon-date_range float-left s-20 text-white" ></i></div>
-                                                    </div>
-                                                    <select v-model="form.withdrawal_period" class="form-control r-0 light s-12"  style="background-color:#ecf0f1; border: 1px solid #2E671A">                                                       
-                                                        <option value="" style="background-color: #ded8c7">Select Day of the Month</option>
-                                                        <option value="1" style="background-color: #ded8c7">1st</option>
-                                                        <option value="2" style="background-color: #ded8c7">2nd</option>
-                                                        <option value="3" style="background-color: #ded8c7">3rd</option>
-                                                        <option value="4" style="background-color: #ded8c7">4th</option>
-                                                        <option value="5" style="background-color: #ded8c7">5th</option>
-                                                        <option value="6" style="background-color: #ded8c7">6th</option>
-                                                        <option value="7" style="background-color: #ded8c7">7th</option>
-                                                        <option value="8" style="background-color: #ded8c7">8th</option>
-                                                        <option value="9" style="background-color: #ded8c7">9th</option>
-                                                        <option value="10" style="background-color: #ded8c7">10th</option>
-                                                        <option value="11" style="background-color: #ded8c7">11th</option>
-                                                        <option value="12" style="background-color: #ded8c7">12th</option>
-                                                        <option value="13" style="background-color: #ded8c7">13th</option>
-                                                        <option value="14" style="background-color: #ded8c7">14th</option>
-                                                        <option value="15" style="background-color: #ded8c7">15th</option>
-                                                        <option value="16" style="background-color: #ded8c7">16th</option>
-                                                        <option value="17" style="background-color: #ded8c7">17th</option>
-                                                        <option value="18" style="background-color: #ded8c7">18th</option>
-                                                        <option value="19" style="background-color: #ded8c7">19th</option>
-                                                        <option value="20" style="background-color: #ded8c7">20th</option>
-                                                        <option value="21" style="background-color: #ded8c7">21st</option>
-                                                        <option value="22" style="background-color: #ded8c7">22nd</option>
-                                                        <option value="23" style="background-color: #ded8c7">23rd</option>
-                                                        <option value="24" style="background-color: #ded8c7">24th</option>
-                                                        <option value="25" style="background-color: #ded8c7">25th</option> 
-                                                        <option value="26" style="background-color: #ded8c7">26th</option> 
-                                                        <option value="27" style="background-color: #ded8c7">27th</option>
-                                                        <option value="28" style="background-color: #ded8c7">28th</option>
-                                                        <option value="29" style="background-color: #ded8c7">29th</option>
-                                                        <option value="30" style="background-color: #ded8c7">30th</option>                              
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="form-row ml-1">
-                                            <span v-if="withdrawalPeriodSubmitting" class="btn btn-sm btn-success btn-lg">...</span>
-                                            <button v-else type="submit" class="btn btn-sm btn-success btn-lg" @click="updateWithdrawalType"><i class="icon-save mr-2"></i>Update Data</button>
-                                        </div> 
-                                </div>	
-                            </div>
-                        </div>
-                    </div>       
-                </div>
-            </div> 
+            
         </div>
 
         <Modal modal-id="edit-pv" modal-title="Edit unit PV">
@@ -376,7 +272,11 @@ import { notification } from '@/util/notification';
                 },
 
                 withdrawalTypeSubmitting:false,
-                banks:[]
+                banks:[],
+                payoutSetting:{
+                    payout_enabled:false,
+                },
+                payoutSettingSubmitting:false
             }
         },
 
@@ -493,6 +393,18 @@ import { notification } from '@/util/notification';
             updateWithdrawalType(){
                 this.withdrawalTypeSubmitting = true
                 this.update(this.form).then(()=>this.withdrawalTypeSubmitting = false)
+            },
+
+            updatePayoutSetting(){
+                this.payoutSettingSubmitting = true
+                this.update(this.payoutSetting).then(()=>{
+                    this.withdrawalTypeSubmitting = false
+                    this.all().then(res=>{
+                        if(res.status == 200){
+                            this.payoutSetting.payout_enabled = this.settings.payout_enabled
+                        }
+                    })
+                })
             }
             
         }
