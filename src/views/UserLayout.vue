@@ -460,7 +460,7 @@ export default {
     let activeMenu = pageArr[1] + '-' + pageArr[2];
     this.setMenu(activeMenu);
 
-    document.querySelector('title').innerHTML = 'Startwin | User';
+    document.querySelector('title').innerHTML = 'Reezglobal | User';
 
     this.getUser().then((res) => {
       if (res.status === 200) {

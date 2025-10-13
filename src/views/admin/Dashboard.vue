@@ -183,7 +183,7 @@
                                 <div class="d-flex align-items-center flex-row flex-wrap">
                                     <div class="row column-row ml-1 ">
                                         <img class="mr-3  r-3" src="/assets/img/equil-green.png" alt="Generic placeholder image" width="70px" height="70px">
-                                        <h6 class="mt-4 mb-1 font-weight-bold text-green">Matching Bonus<br> <small class="text-green">Status Counts</small></h6>
+                                        <h6 class="mt-4 mb-1 font-weight-bold text-green">Equilibrum Bonus<br> <small class="text-green">Status Counts</small></h6>
                                     </div>
                                     <div class="ml-auto">
                                         <div class="d-flex flex-row mt-4 mb-4 ml-4">

@@ -111,7 +111,7 @@
                                 <div class="mr-4 ml-auto ">
                                     <div class="avatar avatar-xl mb-3 ">
                                         <img v-if="member.photo_path"  class="user_avatar" :src="imageURL+'/'+member.photo_path" alt="User Image">
-										<img v-else class="user_avatar" src="/assets/img/dummy/default_avatar1.png" alt="User Image">
+										<img v-else class="user_avatar" src="/assets/img/dummy/default_avatar.png" alt="User Image">
 									</div>
                                 </div>
                             </div>
