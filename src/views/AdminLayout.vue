@@ -416,7 +416,7 @@ export default {
         let activeMenu = pageArr[1]+'-'+pageArr[2]
        this.setMenu(activeMenu)
 
-       document.querySelector('title').innerHTML = 'Startwins | Admin'
+       document.querySelector('title').innerHTML = 'Reezglobal | Admin'
        //alert(document.getElementsByTagName('title').text)
     },
 

@@ -314,8 +314,8 @@
             <div class="row">
                 <div class="col-md-12 text-center">
                     <div class="timer flex-wrap d-flex justify-content-center"  style="padding-top: 30px;">
-                        <p class="text-center font-weight-bold">Please, Ensure you complete your transaction within 2 minutes.</p>
-                        <VueCountdown :time="(1000*60*2)">
+                        <p class="text-center font-weight-bold">Please, Ensure you complete your transaction within 7 minutes.</p>
+                        <VueCountdown :time="(1000*60*7)">
                             <template slot-scope="props">
 							    <div class="countdown-wrapper d-flex flex-wrap justify-content-center" style="padding-bottom:20px; padding-top:20px;">
                                     <div style="width: 200px !important; padding-right:20px; padding-left:20px; padding-top:20px; padding-bottom:20px;" id="minutes" class="align-items-center flex-column d-flex justify-content-center">{{ props.minutes }}&nbsp;&nbsp;MINUTES</div>

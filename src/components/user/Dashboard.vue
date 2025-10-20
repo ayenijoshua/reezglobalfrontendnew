@@ -71,7 +71,7 @@
                             <img src="/assets/img/equil.png" alt="Generic placeholder image" width="60px" height="60px">
                         </div>
                         <div class="mt-1 text-dark-heading text-green" >{{ userBonusStats.matching_bonus?.toLocaleString('en-US') }}</div>
-                        <h6 class="counter-title font-weight-bold" style="color:#2E671A">Matching  (₦)</h6><br>
+                        <h6 class="counter-title font-weight-bold" style="color:#2E671A">Equilibrum  (₦)</h6><br>
                     </div>
                 </div>
                 <div class="col-lg-4">
@@ -145,14 +145,14 @@
                                         </template>
                                         <template v-else>
                                             <div v-if="currentIncentive == null" class="col-md-12">
-                                                <div v-if="currentRankBadge !== ''" class="text-dark-heading font-weight-bold green-text">
+                                               <!--<div v-if="currentRankBadge !== ''" class="text-dark-heading font-weight-bold green-text">
                                                     <img class="img-flui" :src="'/img/badges/'+currentRankBadge" style="{width:'20%', height:'auto'}" />
-                                                </div>
+                                                </div>-->
                                                 <p v-else class="alert alert-info text-center">You are yet to qualify for an incentive</p>
                                             </div>
                                             <template v-else>
                                                 <div class="col-md-6" id="yourContainer">
-                                                    <img class="gift" src="/assets/img/phone.png">
+                                                     <img class="gift" :src="imageURL+'/'+currentIncentive.file_path">
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="card-body pt-0 mt-5">

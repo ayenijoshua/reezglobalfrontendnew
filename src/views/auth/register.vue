@@ -166,7 +166,7 @@
                                                 <input v-b-modal.terms required class="form-check-input custom-checkbox"  type="checkbox" value="true" id="cb1" style="margin-top: 0.5rem;" :style="{'accent-color': '#2E671A'}">
                                                 &nbsp;&nbsp;Accept Our 
                                                 <a v-b-modal.terms class="font-weight-bold" target="blank" :style="{'text-decoration':'none'}" >Terms</a> and 
-                                                <a href="https://startwins.com/privacy" class="font-weight-bold green-text" target="blank" :style="{'text-decoration':'none'}">Privacy Policy</a>
+                                                <a href="https://reezglobal.com/privacy" class="font-weight-bold green-text" target="blank" :style="{'text-decoration':'none'}">Privacy Policy</a>
                                             </p>
                                             <span v-if="submitting" class="btn btn-success btn-lg btn-block">...</span>
                                             <input v-else type="submit" class="btn btn-success btn-lg btn-block" value="Register">
@@ -417,7 +417,7 @@ export default {
                 username:null,
                 email: null,
                 password: null,
-                referrer:'Startwins',
+                referrer:'Reezglobal',
                 phone: null,
                 package_id:null,
                 placer:null
@@ -444,7 +444,7 @@ export default {
        this.form.placer = params.get('placer') ? params.get('placer') : null
 
        if(!this.form.referrer){
-            this.form.referrer = 'startwins'
+            this.form.referrer = 'reezglobal'
        }
     },
 

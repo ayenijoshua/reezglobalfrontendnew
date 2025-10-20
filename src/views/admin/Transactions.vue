@@ -332,7 +332,7 @@
                                                 <div class="card-header" style="background-color: #2E671A">
                                                     <h6 class="text-white"><strong class="font-weight-bold">Pending Payment Approvals</strong></h6>
                                                 </div>
-                                                <div class="card-body" style="overflow-x:auto; background-color: #ecf0f1;">
+                                                <div class="card-body" style="overflow-x:auto; background-color: #ded8c7;">
                                                     
                                                     <table id="example2" class="table table-bordered table-hover data-tables"
                                                         data-options='{ "paging": false; "searching":false}'>
@@ -413,7 +413,7 @@
                                                 <div class="card-header" style="background-color: #2E671A">
                                                     <h6 class="text-white"><strong class="font-weight-bold">Payment Upload History</strong></h6>
                                                 </div>
-                                                <div class="card-body" style="overflow-x:auto; background-color: #ecf0f1;">
+                                                <div class="card-body" style="overflow-x:auto; background-color: #ded8c7">
                                                     <table id="example2" class="table table-bordered table-hover data-tables"
                                                         data-options='{ "paging": false; "searching":false}'>
                                                         <thead>
@@ -1064,7 +1064,7 @@
                 <div class="row">
                     <div class="col-md-12 text-center">
                         <img :src="imageURL(stockist.payment_receipt)" width="200px" height="200px" class="mt-4">
-                        <br>
+                        <br><br>
                         <button v-if="updatingRegistration==true" class="btn btn-primary">...</button>
                         <button v-else class="btn btn-primary" @click="approveRegistration(stockist.payment_id)"><i class="icon-check-circle"></i>&nbsp;&nbsp;Approve this Stockist Payment</button>
                     </div>
@@ -1084,7 +1084,7 @@
                 <div class="row">
                      <div class="col-md-12 text-center">
                         <img :src="imageURL(stockist.payment_receipt)" width="200px" height="100px" class="mt-4">
-                        <br>
+                        <br><br>
                         <button v-if="updatingRegistration==true" class="btn btn-danger">...</button>
                         <button v-else class="btn btn-danger" @click="disapproveRegistration(stockist.payment_id)"><i class="icon-times-circle"></i>&nbsp;&nbsp;Disapprove this Stockist Payment</button>
                     </div>
@@ -1142,7 +1142,7 @@
                 <div class="row">
                    <div class="col-md-12 text-center">
                         <img :src="imageURL(stockist.payment_receipt)" width="200px" height="100px">
-                        <br>
+                        <br><br>
                         <h4>Are you sure you want to disapprove this Upgrade?</h4>
                         <button v-if="approvingUpgrade==true" class="btn btn-danger">...</button>
                         <button v-else class="btn btn-danger" @click="disapproveStockistUpgrade(stockist.payment_id)"><i class="icon-times-circle"></i>&nbsp;&nbsp;Disapprove</button>
@@ -1163,7 +1163,7 @@
                 <div class="row">
                     <div class="col-md-12 text-center">
                         <img :src="imageURL(stockist.payment_receipt)" width="200px" height="100px">
-                        <br>
+                        <br><br>
                         <h4>Are you sure you want to Approve this Upgrade?</h4>
                         <button v-if="approvingUpgrade==true" class="btn btn-primary">...</button>
                         <button v-else class="btn btn-primary" @click="approveStockistUpgrade(stockist.payment_id)"><i class="icon-check-circle"></i>&nbsp;&nbsp;Approve</button>
@@ -1215,6 +1215,14 @@
                     <div class="col-md-12 text-center">
                         <img :src="imageURL(packagePayment.payment_receipt)" width="500px" height="300px">
                         <br>
+                       <a 
+                            :href="imageURL(packagePayment.payment_receipt)" 
+                            target="_blank" 
+                            class="btn btn-outline-success mb-3"
+                        >
+                            View Full Image
+                        </a>
+                        <br>
                         <h5>Package : {{ packagePayment.name }}</h5>
                         <h5>Amount : ₦{{ packagePayment.amount.toLocaleString('en-US') }}</h5>
                         <h5>Desription : {{ packagePayment.narration }}</h5>
@@ -1239,6 +1247,14 @@
                     <div class="col-md-12 text-center">
                         <img :src="imageURL(packagePayment.payment_receipt)" width="500px" height="300px">
                         <br>
+                       <a 
+                            :href="imageURL(packagePayment.payment_receipt)" 
+                            target="_blank" 
+                            class="btn btn-outline-success mb-3"
+                        >
+                            View Full Image
+                        </a>
+                        <br>
                         <h5>Package : {{ packagePayment.name }}</h5>
                         <h5>Amount : ₦{{ packagePayment.amount.toLocaleString('en-US') }}</h5>
                         <h5>Desription : {{ packagePayment.narration }}</h5>
@@ -1262,6 +1278,14 @@
                 <div class="row">
                     <div class="col-md-12 text-center">
                         <img :src="imageURL(packagePayment.payment_receipt)" width="500px" height="300px">
+                        <br>
+                        <a 
+                            :href="imageURL(packagePayment.payment_receipt)" 
+                            target="_blank" 
+                            class="btn btn-outline-success mb-3"
+                        >
+                            View Full Image
+                        </a>
                         <br>
                         <h5>Package : {{ packagePayment.name }}</h5>
                         <h5>Amount : ₦{{ packagePayment.amount.toLocaleString('en-US') }}</h5>

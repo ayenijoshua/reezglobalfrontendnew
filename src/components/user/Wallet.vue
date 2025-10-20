@@ -66,6 +66,77 @@
                                     </div>
                                 </div>
                             </div>
+
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="row my-3">
+                                        <!-- bar charts group -->
+                                        <div class="col-md-12">
+                                            <div class="card shadow" style="background-color:#ded8c7">
+                                                    <div class="card-body" style="overflow-x:auto; background-color:#ded8c7">
+                                                    <table class="table table-striped">
+                                                        <thead>
+                                                        <tr>
+                                                            <th class="font-weight-bold" scope="col">No.</th>
+                                                            <th class="font-weight-bold" scope="col">Bonus Type</th>
+                                                            <th class="font-weight-bold" scope="col">Amount</th>
+                                                            <th class="font-weight-bold" scope="col">Date</th>
+                                                            <th class="font-weight-bold" scope="col">Time</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        <tr v-if="loadingBonuses">
+                                                            <td colspan="5" class="text-center">
+                                                            <b-skeleton-table
+                                                                :rows="3"
+                                                                :columns="5"
+                                                                :table-props="{ bordered: true, striped: true }"
+                                                            ></b-skeleton-table>
+                                                            </td>
+                                                        </tr>
+
+                                                        <tr v-else-if="bonuses.length === 0">
+                                                            <td colspan="5" class="text-center font-weight-bold">
+                                                            You have earned no bonus
+                                                            </td>
+                                                        </tr>
+
+                                                        <tr v-else v-for="(bonus, i) in paginatedBonuses" :key="i">
+                                                            <td>{{ (currentPage - 1) * bonusesPerPage + i + 1 }}</td>
+                                                            <td>{{ bonus.type }}</td>
+                                                            <td>₦{{ (bonus.amount || bonus.value || bonus.bonus_value || 0).toLocaleString('en-US') }}</td>
+                                                            <td>{{ formatDate(bonus.created_at) }}</td>
+                                                            <td>{{ formatTime(bonus.created_at) }}</td>
+                                                        </tr>
+
+                                                        </tbody>
+                                                    </table>
+                                                            <div class="text-center mt-3">
+                                                            <p v-if="totalPages > 0">Page {{ currentPage }} of {{ totalPages }}</p>
+
+                                                            <button class="btn btn-sm btn-outline-success" @click="prevPage" :disabled="currentPage === 1">Prev</button>
+
+                                                            <button
+                                                                v-for="page in visiblePages"
+                                                                :key="page"
+                                                                @click="goToPage(page)"
+                                                                class="btn btn-sm"
+                                                                :class="{ 'btn-primary': page === currentPage, 'btn-outline-success': page !== currentPage }"
+                                                            >
+                                                                {{ page }}
+                                                            </button>
+
+                                                            <button class="btn btn-sm btn-outline-success" @click="nextPage" :disabled="currentPage === totalPages">Next</button>
+                                                       </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- /bar charts group -->
+                                    </div>
+                                </div>
+                            </div>
+
                             
                             <div class="row">
                                 <div class="col-md-12">
@@ -215,8 +286,11 @@
                 form:{
                     amount:''
                 },
-                loadingBonusStats:false
-                
+                loadingBonusStats:false,
+                loadingBonuses:false,
+                bonuses:[],
+                currentPage:1,
+                bonusesPerPage: 10,
             }
         },
 
@@ -233,6 +307,41 @@
                 'globalProfits','totalBonus','walletBalance','placementBonus']),
             ...mapGetters('authStore',['authUser']),
             ...mapGetters('withdrawalStore',['userWithdrawals','userTotalWithdrawals']),
+
+            paginatedBonuses() {
+                const sorted = [...this.bonuses].sort((a, b) => {
+                    return new Date(b.created_at) - new Date(a.created_at);
+                });
+                const start = (this.currentPage - 1) * this.bonusesPerPage;
+                const end = start + this.bonusesPerPage;
+                return sorted.slice(start, end);
+            },
+
+
+            totalPages() {
+                return Math.ceil(this.bonuses.length / this.bonusesPerPage);
+            },
+
+            visiblePages() {
+                const total = this.totalPages;
+                const current = this.currentPage;
+                const maxButtons = 5;
+
+                let start = Math.max(current - Math.floor(maxButtons / 2), 1);
+                let end = start + maxButtons - 1;
+
+                if (end > total) {
+                    end = total;
+                    start = Math.max(end - maxButtons + 1, 1);
+                }
+
+                const pages = [];
+                for (let i = start; i <= end; i++) {
+                    pages.push(i);
+                }
+
+                return pages;
+            }
         },
 
         created(){
@@ -247,6 +356,10 @@
                 this.getUserTotal(this.user.uuid)
                 this.getUserHistory(this.user.uuid)
             }
+
+            setTimeout(() => {
+                this.fetchBonuses()
+            }, 500)
         },
 
         methods:{
@@ -277,9 +390,62 @@
 
             processWithdrawal()
             {
-                let data = {uuid:this.authUser.uuid,data:this.form}
+                let data = {uuid:this.user.uuid,data:this.form}
                 this.initiate(data)
-            }
+            },
+
+            async fetchBonuses() {
+               this.loadingBonuses = true;
+                try {
+                    await this.$store.dispatch('bonusStore/fetchAllBonuses', this.user.uuid)
+                    this.bonuses = this.$store.state.bonusStore.allBonuses || []
+                    console.log('LIVE bonuses:', this.bonuses)
+                } catch (error) {
+                    console.error('Error fetching bonuses:', error)
+                    this.bonuses = [] 
+                }
+               this.loadingBonuses = false;
+            },
+
+            nextPage() {
+                    if (this.currentPage < this.totalPages) {
+                        this.currentPage++;
+                        this.scrollToTableTop();
+                    }
+                },
+
+                prevPage() {
+                    if (this.currentPage > 1) {
+                        this.currentPage--;
+                        this.scrollToTableTop();
+                    }
+                },
+
+                goToPage(page) {
+                    this.currentPage = page;
+                    this.scrollToTableTop();
+                },
+
+                formatDate(datetime) {
+                    if (!datetime) return 'N/A';
+                    const date = new Date(datetime);
+                    return isNaN(date) ? 'N/A' : date.toLocaleDateString('en-GB');
+                },
+
+                formatTime(datetime) {
+                    if (!datetime) return 'N/A';
+                    const date = new Date(datetime);
+                    return isNaN(date) ? 'N/A' : date.toLocaleTimeString();
+                },
+
+                scrollToTableTop() {
+                    this.$nextTick(() => {
+                        const table = this.$el.querySelector('.table.table-striped');
+                        if (table) {
+                            table.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        }
+                    });
+                }
         }
     }
 </script>

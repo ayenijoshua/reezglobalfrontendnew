@@ -44,13 +44,13 @@
                                         <td scope="row">{{ ++i }}</td>
                                         <td>#0{{ purchase.id }}</td>
                                         <td>{{ purchase.pickup_type }}</td>
-                                        <td>{{ purchase.store_name }}</td>
+                                        <td>{{ purchase.store_name??'N/A' }}</td>
                                         <!-- <td>{{ claim.worth?.toLocaleString('en-US')}}</td> -->
-                                        <td>{{ purchase.store_address }}</td>
-                                        <td>{{ purchase.store_state }}</td>
-                                        <td>{{ purchase.store_phone }}</td>
+                                        <td>{{ purchase.store_address??'N/A' }}</td>
+                                        <td>{{ purchase.store_state??'N/A' }}</td>
+                                        <td>{{ purchase.store_phone??'N/A' }}</td>
                                         <td>{{ purchase.total_quantity}}</td>
-                                        <td>{{ purchase.total_price }}</td>
+                                        <td>₦{{ purchase.total_price.toLocaleString('en-US') }}</td>
                                         <td><span class="badge badge-success" style="padding: 6px 10px;">{{ purchase.status }}</span></td>
                                         <td>{{ purchase.created_at }}</td>
                                     </tr>
@@ -114,9 +114,11 @@ import { mapActions,mapGetters } from 'vuex';
         },
 
         created(){
+            //console.log(this.user.uuid)
+            //alert(this.user.uuid)
             //if(this.userPurchases.length==0){
                 this.userPurchasesLoading = true
-                this.getUserPurchases(this.user.uuid).then(()=>this.userPurchasesLoading=false)
+                this.getUserPurchases({type:this.user.uuid,page:1}).then(()=>this.userPurchasesLoading=false)
             //}
         },
 
