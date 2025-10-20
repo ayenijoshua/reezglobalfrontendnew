@@ -67,7 +67,7 @@
                                                                 <th>S/N</th>
                                                                 <th>Username</th>
                                                                 <th>Amount</th>
-                                                                <th>Charge</th>
+                                                                <!--<th>Charge</th>-->
                                                                 <th>Status</th>
                                                                 <th>Payout Date</th>
                                                             </tr>
@@ -95,7 +95,7 @@
                                                                         <td>{{ ++i }}</td>
                                                                         <td>{{ withdraw.username }}</td>
                                                                         <td>₦{{ withdraw.amount?.toLocaleString('en-US') }}</td>
-                                                                        <td>₦{{ withdraw.fee?.toLocaleString('en-US') }}</td>
+                                                                        <!--<td>₦{{ withdraw.fee?.toLocaleString('en-US') }}</td>-->
                                                                         <td>{{ withdraw.status }}</td>
                                                                         <td>{{(new Date(withdraw.created_at)).toDateString()}} {{(new Date(withdraw.created_at)).toLocaleTimeString()}}</td>
                                                                     </tr>
