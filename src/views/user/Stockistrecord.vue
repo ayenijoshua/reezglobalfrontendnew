@@ -252,7 +252,7 @@
                                             <th class="font-weight-bold" scope="col">S/N</th>
                                             <th class="font-weight-bold" scope="col">TOTAL PRODUCTS PURCHASED</th>
                                             <th class="font-weight-bold" scope="col">TOTAL PURCHASE PRICE</th>
-                                            <th class="font-weight-bold" scope="col">PAYMENT MODE</th> 
+                                            <!---<th class="font-weight-bold" scope="col">PAYMENT MODE</th>---> 
                                             <th class="font-weight-bold" scope="col">Status</th>     
                                             <th class="font-weight-bold" scope="col">DATE/TIME</th>
                                         </tr>
@@ -276,7 +276,7 @@
                                                     <th scope="row">{{ ++i }}</th>
                                                     <td>{{ purchase.total_quantity }}</td>
                                                     <td>₦{{ purchase.total_price }}</td>
-                                                    <td>{{ purchase.payment_receipt == null ? "Debit Card" : "Manual Upload" }}</td>
+                                                    <!---<td>{{ purchase.payment_receipt == null ? "Debit Card" : "Manual Upload" }}</td>-->
                                                     <td><span :class="['badge ', purchase.status=='processing' ? 'badge-info' : purchase.status=='approved' ? 'badge-success' : 'badge-danger']" style="padding: 10px 10px;">{{ purchase.status }}</span></td>
                                                     <td>{{ purchase.created_at }}</td>
                                                 </tr>

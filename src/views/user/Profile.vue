@@ -460,7 +460,7 @@
             <div class="row">
                 <div class="col-md-12 text-center">
                     <div class="timer flex-wrap d-flex justify-content-center"  style="padding-top: 30px;">
-                        <p class="text-center font-weight-bold">Please, Ensure you complete your transaction within 2 minutes.</p>
+                        <p class="text-center font-weight-bold">Please, Ensure you complete your transaction within 7 minutes.</p>
                         <VueCountdown :time="((gatewayTimeout))">
                             <template slot-scope="props">
                                 <div class="countdown-wrapper d-flex flex-wrap justify-content-center" style="padding-bottom:20px; padding-top:20px;">
@@ -652,7 +652,7 @@ li > a:hover .icon {
                 },
                 upgradeData:{},
                 paySubmitting:false,
-                gatewayTimeout:1000*60*0.5,
+                gatewayTimeout:1000 * 60 * 7,
                 payLink:null,
                 walletBalanceLoading:false,
                 payingWithWallet:false,

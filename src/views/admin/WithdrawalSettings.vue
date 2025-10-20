@@ -173,9 +173,9 @@
                                 <div class="form-row mb-3">
                                     <div class="col-md-12">
                                         <div class="input-group">
-                                            <div class="input-group-prepend">
+                                            <!--<div class="input-group-prepend">
                                                 <div class="input-group-text"><i class="icon icon-money-3 float-left s-20 text-white" ></i></div>
-                                            </div>
+                                            </div>-->
                                             <input v-model="payoutSetting.payout_enabled" type="checkbox" :capture="settings.payout_enabled" class="form-control r-0 light s-12"  style="background-color:#ded8c7; border: 1px solid #2E671A">
                                         </div>
                                     </div>

@@ -43,7 +43,7 @@
                                                 ₦{{ Number(pack.pickup_amount)?.toLocaleString('en-US') }}
                                             </td>
                                             <td>
-                                                {{ pack.matching_bonus_cap }}
+                                                ₦{{ (pack.matching_bonus_cap)?.toLocaleString('en-US') }}
                                             </td>
                                             <td>
                                                 <a @click="setPackage(pack)" v-b-modal.edit-package class="btn btn-sm btn-success text-white caret" href="#"><i class="icon-edit"></i></a>
