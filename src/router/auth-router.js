@@ -8,6 +8,8 @@ import notFound from '@/views/NotFound'
 import Welcome from '@/views/Welcome'
 import twoFactorAuth from '@/views/auth/two-factor-auth'
 import adminTwoFactorAuth from '@/views/auth/admin-two-factor-auth'
+import SuccessfulPayment from '@/views/SuccessfulPayment.vue'
+//import SuccessfulPayment from '@/views/SuccessfulPayment.vue'
 
 export default [
     {
@@ -86,5 +88,12 @@ export default [
         component:notFound,
         isAdmin:false,
         requiresAuth:false,
-    }
+    },
+    {
+        name:'successful-payment',
+        path:'/successful-payment',
+        component:SuccessfulPayment,
+        isAdmin:false,
+        requiresAuth:false,
+    },
 ]
