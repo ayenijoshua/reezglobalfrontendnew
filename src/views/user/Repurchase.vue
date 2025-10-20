@@ -864,12 +864,12 @@ export default {
         }
 
         if (this.selectedOrderType === 'registration_pickup' && this.cartTotalPrice > this.regPackage.pickup_amount) {
-            notification.warning("Total selected product price is higher than pickup amount");
+            //notification.warning("Total selected product price is higher than pickup amount");
             return;
         }
 
         if (this.selectedOrderType === 'upgrade_pickup' && this.cartTotalPrice > this.pickupAmount) {
-            notification.warning("Total selected product price is higher than pickup amount");
+            //notification.warning("Total selected product price is higher than pickup amount");
             return;
         }
 
@@ -952,7 +952,8 @@ export default {
         }
 
         this.paySubmitting = true
-        let data = {amount:this.cartTotalPrice,
+        let data = {
+            amount:this.cartTotalPrice,
             payment_type:"payment_gateway",
             description:"Member purhcase",
             txn_source:"member_product_purchase",
@@ -973,7 +974,7 @@ export default {
         this.initiatePayment(data).then(res=>{
             console.log(res)
             var result = res
-            if(res.status == 200){
+            if(res && res.status == 200){
                 //if(that.productService.name == 'paystack'){
                     that.payLink = res.data.data.data.authorization_url
                     that.$bvModal.show('pay')
