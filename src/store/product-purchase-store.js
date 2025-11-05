@@ -13,7 +13,7 @@ export default{
             stockDetails:[],
             pickupStats:{},
             monthlyRepurchases:[],
-            stockistPrevMonthSale:null,
+            stockistPrevMonthSales:null,
 
             userPurchasesAction:null,
             userPurchasesState:null,
