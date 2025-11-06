@@ -87,7 +87,7 @@
                                         alt="Generic placeholder image" width="80px" height="80px">
                                 </div>
                                 <div class="ml-auto">
-                                    <h6 class="mt-0 mb-1 font-weight-bold" style="color: #2E671A;">Matching Bonus</h6>
+                                    <h6 class="mt-0 mb-1 font-weight-bold" style="color: #2E671A;">Equilibrum Bonus</h6>
                                     <div class="mt-1 text-dark-heading font-weight-bold float-right" style="color: #2E671A;">₦ {{ userBonusStats.matching_bonus??0 }}</div>
                                 </div>
                             </div>

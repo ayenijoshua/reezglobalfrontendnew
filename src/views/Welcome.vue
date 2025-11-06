@@ -558,8 +558,13 @@
                 let userTime = new Date(this.authUser.created_at).getTime()
                 let today = new Date().getTime()
                 //let set7Days = new Date(today + new Date().getDate() + 7).getTime()
-                let diff = today - userTime
-                return  diff
+                
+                let sevenDaysInMs = 7 * 24 * 60 * 60 * 1000 // 7 days in milliseconds
+                let deadline = userTime + sevenDaysInMs
+                let timeRemaining = deadline - today
+                
+                // If time has expired, return 0
+                return timeRemaining > 0 ? timeRemaining : 0
             }
         },
 

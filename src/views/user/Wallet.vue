@@ -104,7 +104,10 @@
 
                                                         <tr v-else v-for="(bonus, i) in paginatedBonuses" :key="i">
                                                             <td>{{ (currentPage - 1) * bonusesPerPage + i + 1 }}</td>
-                                                            <td>{{ bonus.type }}</td>
+                                                            <td>
+                                                                <div v-if="bonus.type == 'matching_bonus'">Equillibrum Bonus</div>
+                                                                <div v-else>{{ bonus.type }}</div>
+                                                            </td>
                                                             <td>₦{{ (bonus.amount || bonus.value || bonus.bonus_value || 0).toLocaleString('en-US') }}</td>
                                                             <td>{{ formatDate(bonus.created_at) }}</td>
                                                             <td>{{ formatTime(bonus.created_at) }}</td>
